@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Mikelee8810/RMP-Finder/data/manifest.schema.json",
+  "title": "RMP Finder dataset manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "datasetVersion",
+    "schemaVersion",
+    "generatedAt",
+    "recordCount",
+    "sha256",
+    "datasetUrl",
+    "minimumAppVersion",
+    "programPolicy"
+  ],
+  "properties": {
+    "datasetVersion": { "type": "integer", "minimum": 1 },
+    "schemaVersion": { "type": "integer", "minimum": 1 },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "recordCount": { "type": "integer", "minimum": 1 },
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "datasetUrl": { "type": "string", "format": "uri" },
+    "minimumAppVersion": { "type": "integer", "minimum": 1 },
+    "sourceRevision": { "type": ["string", "null"] },
+    "programPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["rmpDiscountPercent", "checkedAt", "sourceUrl"],
+      "properties": {
+        "rmpDiscountPercent": { "const": 10 },
+        "checkedAt": { "type": "string", "format": "date" },
+        "sourceUrl": { "type": "string", "format": "uri" }
+      }
+    }
+  }
+}
