@@ -1,0 +1,265 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Mikelee8810/RMP-Finder/data/restaurant.schema.json",
+  "title": "RMP Finder restaurant record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "rmpKey",
+    "officialName",
+    "officialAddress",
+    "borough",
+    "zip",
+    "coordinates",
+    "rmpVerifiedAt",
+    "businessStatus",
+    "hoursStatus"
+  ],
+  "properties": {
+    "rmpKey": {
+      "type": "string",
+      "minLength": 1
+    },
+    "officialName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "currentName": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "aliases": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "officialAddress": {
+      "$ref": "#/$defs/address"
+    },
+    "currentAddress": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/address"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "borough": {
+      "type": "string",
+      "minLength": 1
+    },
+    "zip": {
+      "type": "string",
+      "pattern": "^[0-9]{5}(-[0-9]{4})?$"
+    },
+    "coordinates": {
+      "$ref": "#/$defs/coordinates"
+    },
+    "phone": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "website": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uri"
+    },
+    "menuUrl": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uri"
+    },
+    "imageUrl": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uri"
+    },
+    "businessStatus": {
+      "type": "string",
+      "enum": [
+        "open",
+        "likely_open",
+        "closed",
+        "moved",
+        "rebranded",
+        "conflicting",
+        "unknown"
+      ]
+    },
+    "hoursStatus": {
+      "type": "string",
+      "enum": [
+        "verified",
+        "partial",
+        "conflicting",
+        "unknown"
+      ]
+    },
+    "hours": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/timePeriod"
+        }
+      }
+    },
+    "rmpVerifiedAt": {
+      "type": "string",
+      "format": "date"
+    },
+    "businessCheckedAt": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date"
+    },
+    "conflictFlags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "name_mismatch",
+          "address_mismatch",
+          "moved",
+          "rebranded",
+          "hours_conflict",
+          "status_conflict",
+          "phone_conflict"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "kind",
+          "checkedAt"
+        ],
+        "properties": {
+          "kind": {
+            "type": "string"
+          },
+          "url": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uri"
+          },
+          "checkedAt": {
+            "type": "string",
+            "format": "date"
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "address": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "line1",
+        "city",
+        "state",
+        "zip"
+      ],
+      "properties": {
+        "line1": {
+          "type": "string",
+          "minLength": 1
+        },
+        "line2": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "city": {
+          "type": "string",
+          "minLength": 1
+        },
+        "state": {
+          "type": "string",
+          "const": "NY"
+        },
+        "zip": {
+          "type": "string",
+          "pattern": "^[0-9]{5}(-[0-9]{4})?$"
+        }
+      }
+    },
+    "coordinates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "latitude",
+        "longitude",
+        "source"
+      ],
+      "properties": {
+        "latitude": {
+          "type": "number",
+          "minimum": 40.4,
+          "maximum": 41.2
+        },
+        "longitude": {
+          "type": "number",
+          "minimum": -74.5,
+          "maximum": -73.4
+        },
+        "source": {
+          "type": "string"
+        },
+        "precision": {
+          "type": "string",
+          "enum": [
+            "rooftop",
+            "parcel",
+            "street",
+            "approximate"
+          ]
+        }
+      }
+    },
+    "timePeriod": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "open",
+        "close"
+      ],
+      "properties": {
+        "open": {
+          "type": "string",
+          "pattern": "^[0-2][0-9]:[0-5][0-9]$"
+        },
+        "close": {
+          "type": "string",
+          "pattern": "^[0-2][0-9]:[0-5][0-9]$"
+        }
+      }
+    }
+  }
+}
