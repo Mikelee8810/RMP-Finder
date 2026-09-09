@@ -31,3 +31,12 @@ The incomplete fields are represented as explicit unknown or conflict states. Th
 ## Repository status
 
 The repository is currently the durable project home for the design contract, data contract, and implementation plan. Android source and the validated 241-location export will be added after the dataset and map-coordinate intake is complete.
+
+## Pre-code specification
+
+- [Product requirements](docs/product-requirements.md)
+- [Architecture decisions](docs/architecture-decisions.md)
+- [Design direction](docs/design-direction.md)
+- [Data readiness and build gate](docs/data-readiness.md)
+- [Restaurant record schema](data/restaurant.schema.json)
+- [Dataset manifest schema](data/manifest.schema.json)
