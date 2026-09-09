@@ -87,11 +87,23 @@
       ],
       "format": "uri"
     },
+    "imageAttribution": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": ["sourceUrl", "credit"],
+      "properties": {
+        "sourceUrl": { "type": "string", "format": "uri" },
+        "credit": { "type": "string", "minLength": 1 },
+        "license": { "type": ["string", "null"] }
+      }
+    },
     "businessStatus": {
       "type": "string",
       "enum": [
         "open",
         "likely_open",
+        "temporarily_closed",
+        "likely_closed",
         "closed",
         "moved",
         "rebranded",
@@ -103,6 +115,8 @@
       "type": "string",
       "enum": [
         "verified",
+        "usable",
+        "stale",
         "partial",
         "conflicting",
         "unknown"
@@ -113,11 +127,17 @@
         "object",
         "null"
       ],
-      "additionalProperties": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/timePeriod"
-        }
+      "additionalProperties": false,
+      "required": ["timezone", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"],
+      "properties": {
+        "timezone": { "const": "America/New_York" },
+        "monday": { "$ref": "#/$defs/dayPeriods" },
+        "tuesday": { "$ref": "#/$defs/dayPeriods" },
+        "wednesday": { "$ref": "#/$defs/dayPeriods" },
+        "thursday": { "$ref": "#/$defs/dayPeriods" },
+        "friday": { "$ref": "#/$defs/dayPeriods" },
+        "saturday": { "$ref": "#/$defs/dayPeriods" },
+        "sunday": { "$ref": "#/$defs/dayPeriods" }
       }
     },
     "rmpVerifiedAt": {
@@ -154,11 +174,16 @@
         "additionalProperties": false,
         "required": [
           "kind",
+          "role",
           "checkedAt"
         ],
         "properties": {
           "kind": {
             "type": "string"
+          },
+          "role": {
+            "type": "string",
+            "enum": ["rmp_eligibility", "business_status", "hours", "phone", "website", "address", "coordinates", "image"]
           },
           "url": {
             "type": [
@@ -216,7 +241,11 @@
       "required": [
         "latitude",
         "longitude",
-        "source"
+        "addressRole",
+        "provider",
+        "matchQuality",
+        "precision",
+        "checkedAt"
       ],
       "properties": {
         "latitude": {
@@ -229,19 +258,27 @@
           "minimum": -74.5,
           "maximum": -73.4
         },
-        "source": {
-          "type": "string"
-        },
+        "addressRole": { "type": "string", "enum": ["official_rmp", "current_business"] },
+        "provider": { "type": "string", "minLength": 1 },
+        "matchQuality": { "type": "string", "enum": ["exact", "matched", "approximate", "manual", "unmatched"] },
         "precision": {
           "type": "string",
           "enum": [
             "rooftop",
             "parcel",
             "street",
-            "approximate"
+            "interpolated",
+            "approximate",
+            "unknown"
           ]
-        }
+        },
+        "checkedAt": { "type": "string", "format": "date" },
+        "matchedAddress": { "type": ["string", "null"] }
       }
+    },
+    "dayPeriods": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/timePeriod" }
     },
     "timePeriod": {
       "type": "object",
@@ -253,11 +290,11 @@
       "properties": {
         "open": {
           "type": "string",
-          "pattern": "^[0-2][0-9]:[0-5][0-9]$"
+          "pattern": "^([01][0-9]|2[0-3]):[0-5][0-9]$"
         },
         "close": {
           "type": "string",
-          "pattern": "^[0-2][0-9]:[0-5][0-9]$"
+          "pattern": "^(([01][0-9]|2[0-3]):[0-5][0-9]|24:00)$"
         }
       }
     }
