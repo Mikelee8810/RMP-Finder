@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import org.junit.Assert.assertNotEquals
+import org.junit.Assume.assumeTrue
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -69,6 +70,31 @@ class AppAcceptanceTest {
         composeRule.onNodeWithText("Actions").performScrollTo().assertIsDisplayed()
         composeRule.onAllNodesWithText("Website").assertCountEquals(0)
         composeRule.onAllNodesWithText("Menu").assertCountEquals(0)
+    }
+
+    @Test
+    fun missingImageDoesNotRenderImageAction() {
+        waitForDirectory()
+        composeRule.onNode(hasSetTextAction()).performTextInput("A Daughter and Two Sons")
+        composeRule.waitUntil(5_000) {
+            composeRule.onAllNodesWithText("A Daughter and Two Sons").fetchSemanticsNodes().isNotEmpty()
+        }
+        composeRule.onNodeWithText("1807 Archer Street, Bronx, NY 10460", substring = true).performClick()
+        composeRule.onNodeWithText("Actions").performScrollTo().assertIsDisplayed()
+        composeRule.onAllNodesWithText("Image").assertCountEquals(0)
+    }
+
+    @Test
+    fun configuredMapLoadFailureStillLeavesListAndDetailUsable() {
+        assumeTrue(BuildConfig.MAP_STYLE_URL_OVERRIDE.isNotBlank())
+        waitForDirectory()
+        composeRule.onNodeWithText("Map").performClick()
+        composeRule.waitUntil(15_000) {
+            composeRule.onAllNodesWithText("Map unavailable right now").fetchSemanticsNodes().isNotEmpty()
+        }
+        composeRule.onNodeWithText("The restaurant list still works offline.").assertIsDisplayed()
+        composeRule.onNodeWithText("1807 Archer Street, Bronx, NY 10460", substring = true).performClick()
+        composeRule.onNodeWithText("Official RMP record").assertIsDisplayed()
     }
 
     @Test

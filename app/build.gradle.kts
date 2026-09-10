@@ -19,6 +19,9 @@ val localProperties = Properties().apply {
 val mapTilerKey = providers.gradleProperty("MAPTILER_KEY")
     .orElse(providers.environmentVariable("MAPTILER_KEY"))
     .orElse(localProperties.getProperty("MAPTILER_KEY", ""))
+val mapStyleUrlOverride = providers.gradleProperty("MAP_STYLE_URL_OVERRIDE")
+    .orElse(providers.environmentVariable("MAP_STYLE_URL_OVERRIDE"))
+    .orElse(localProperties.getProperty("MAP_STYLE_URL_OVERRIDE", ""))
 
 android {
     namespace = "com.mike.rmpfinder"
@@ -32,6 +35,7 @@ android {
         versionName = "1.0.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "MAPTILER_KEY", "\"${mapTilerKey.get().replace("\"", "\\\"")}\"")
+        buildConfigField("String", "MAP_STYLE_URL_OVERRIDE", "\"${mapStyleUrlOverride.get().replace("\"", "\\\"")}\"")
     }
 
     buildFeatures {

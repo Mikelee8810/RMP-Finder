@@ -63,6 +63,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -243,6 +244,8 @@ private fun MapScreen(
     onRestaurant: (RmpRestaurant) -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    var mapLoadFailed by remember(mapView) { mutableStateOf(false) }
+
     BottomSheetScaffold(
         modifier = modifier.fillMaxSize(),
         sheetPeekHeight = 190.dp,
@@ -280,7 +283,24 @@ private fun MapScreen(
                     }
                 }
             } else {
-                RmpMap(mapView, state.allRestaurants, state.origin?.latitude, state.origin?.longitude, onMapPoint)
+                RmpMap(
+                    mapView = mapView,
+                    restaurants = state.allRestaurants,
+                    originLat = state.origin?.latitude,
+                    originLon = state.origin?.longitude,
+                    onMapPoint = onMapPoint,
+                    onMapLoadFailed = { mapLoadFailed = true },
+                    onMapLoadSucceeded = { mapLoadFailed = false },
+                )
+                if (mapLoadFailed) {
+                    Surface(Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.surfaceVariant) {
+                        Column(Modifier.padding(24.dp), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
+                            Icon(Icons.Default.Map, null, Modifier.size(44.dp))
+                            Text("Map unavailable right now", style = MaterialTheme.typography.titleMedium)
+                            Text("The restaurant list still works offline.", color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        }
+                    }
+                }
             }
             Row(Modifier.align(Alignment.TopEnd).padding(12.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 Button(onClick = onRequestLocation) { Icon(Icons.Default.LocationOn, null); Text(" My location") }
@@ -296,8 +316,15 @@ private fun RmpMap(
     originLat: Double?,
     originLon: Double?,
     onMapPoint: (Double, Double) -> Unit,
+    onMapLoadFailed: () -> Unit,
+    onMapLoadSucceeded: () -> Unit,
 ) {
     AndroidView(factory = { mapView }, modifier = Modifier.fillMaxSize())
+    DisposableEffect(mapView) {
+        val listener = MapView.OnDidFailLoadingMapListener { onMapLoadFailed() }
+        mapView.addOnDidFailLoadingMapListener(listener)
+        onDispose { mapView.removeOnDidFailLoadingMapListener(listener) }
+    }
     LaunchedEffect(restaurants) {
         if (restaurants.isEmpty()) return@LaunchedEffect
         mapView.getMapAsync { map ->
@@ -308,8 +335,11 @@ private fun RmpMap(
                 }
             }
             val options = GeoJsonOptions().withCluster(true).withClusterRadius(44).withClusterMaxZoom(14)
-            val styleUrl = "https://api.maptiler.com/maps/streets-v4/style.json?key=${BuildConfig.MAPTILER_KEY}"
+            val styleUrl = BuildConfig.MAP_STYLE_URL_OVERRIDE.ifBlank {
+                "https://api.maptiler.com/maps/streets-v4/style.json?key=${BuildConfig.MAPTILER_KEY}"
+            }
             map.setStyle(styleUrl) { style ->
+                onMapLoadSucceeded()
                 style.addSource(GeoJsonSource("rmp-restaurants", FeatureCollection.fromFeatures(features), options))
                 style.addLayer(
                     CircleLayer("rmp-circles", "rmp-restaurants").withProperties(
