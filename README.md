@@ -2,7 +2,7 @@
 
 Personal Android-first finder for Mike's New York Restaurant Meals Program directory.
 
-RMP Finder is built around a curated, versioned static directory rather than OTDA's live locator. Notion remains the enrichment/editing workspace; this repository contains the validated export that the Android app will consume.
+RMP Finder is built around a curated, versioned static directory rather than OTDA's live locator. Notion remains the enrichment/editing workspace; this repository contains the validated export consumed by the Android app.
 
 ## Current direction
 
@@ -31,9 +31,13 @@ The incomplete fields are represented as explicit unknown or conflict states. Th
 
 ## Repository status
 
-The pre-build data gate is complete. The repository contains the validated 241-location export, manifest, source snapshot, geocoding evidence/review, schemas, generation script, verification script, and locked product/data decisions. Android source has not started yet.
+The pre-build data gate and Android v1 acceptance gate are complete. The repository contains the validated 241-location export, manifest, source snapshot, geocoding evidence/review, schemas, generation script, verification script, Android app source, and acceptance tests.
 
 Run `python3 tools/build_data.py` followed by `python3 tools/verify_data.py` to regenerate and verify the static dataset.
+
+## Install
+
+Download the latest installable APK from [GitHub Releases](https://github.com/Mikelee8810/RMP-Finder/releases/latest). See [Android install instructions](docs/install.md) for the exact steps.
 
 ## Pre-code specification
 
@@ -41,5 +45,7 @@ Run `python3 tools/build_data.py` followed by `python3 tools/verify_data.py` to 
 - [Architecture decisions](docs/architecture-decisions.md)
 - [Design direction](docs/design-direction.md)
 - [Data readiness and build gate](docs/data-readiness.md)
+- [Android v1 acceptance evidence](docs/android-v1-acceptance.md)
+- [Android install instructions](docs/install.md)
 - [Restaurant record schema](data/restaurant.schema.json)
 - [Dataset manifest schema](data/manifest.schema.json)
