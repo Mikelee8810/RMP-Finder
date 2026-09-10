@@ -32,6 +32,7 @@ CURRENT={
  50: {'line1':'1663 Linden Boulevard','city':'Brooklyn','zip':'11212'},
  53: {'line1':'522 Fulton Street','city':'Brooklyn','zip':'11201'},
  56: {'line1':'2322 86th Street','city':'Brooklyn','zip':'11214'},
+ 69: {'line1':'1364 Granville Payne Avenue','city':'Brooklyn','zip':'11239'},
  89: {'line1':'1275 Fulton Street','city':'Brooklyn','zip':'11216'},
  92: {'line1':'204-11 Hillside Avenue','city':'Hollis','zip':'11423'},
  97: {'line1':'3540 Nostrand Avenue','city':'Brooklyn','zip':'11229'},
@@ -50,7 +51,44 @@ CURRENT={
  221:{'line1':'226-08A Merrick Boulevard','city':'Laurelton','zip':'11413'},
  234:{'line1':'89 Guyon Avenue','city':'Staten Island','zip':'10306'},
 }
-CURRENT_NAMES={58:'Hajveri Restaurant',73:'Golden Bay Parkway Restaurant',130:'Lady Chow Kitchen',183:"N&M's Pizza Bar",193:'Popeyes',194:'Burger King',196:'Popeyes',221:"Peppa's Jerk Chicken"}
+CURRENT_NAMES={58:'Hajveri Restaurant',73:'Golden Bay Parkway Restaurant',135:'Anba Tonel',152:'El Valle Seafood Restaurant',183:"N&M's Pizza Bar",193:'Popeyes',194:'Burger King',196:'Popeyes',221:"Peppa's Jerk Chicken"}
+
+# Reviewed conflict flags are explicit. Do not infer identity/phone conflicts from
+# unrelated prose such as "rather than guessed" or "hours may differ".
+PHONE_CONFLICTS={1,16,23,44,66,94,108,128,149,153,156,196,223}
+
+# Current-business state is separate from OTDA eligibility. Explicit reviewed states
+# take precedence over older words preserved in historical notes.
+STATUS_OVERRIDES={
+  26:'likely_open',
+  41:'likely_open',
+  130:'conflicting',
+  135:'rebranded',
+  140:'conflicting',
+  160:'likely_open',
+  161:'conflicting',
+  192:'conflicting',
+  230:'conflicting',
+  237:'conflicting',
+}
+BUSINESS_REVIEW_DATE='2026-09-10'
+BUSINESS_STATUS_SOURCES={
+  26:[('Luna Café official site','https://lunacafeny.com')],
+  41:[
+    ('Atomic Wings official location page','https://www.atomicwings.com/locations/brooklyn-ny'),
+    ('Downtown Brooklyn directory','https://www.downtownbrooklyn.com/directory/'),
+  ],
+  130:[
+    ('DoorDash current merchant listing','https://www.doordash.com/en/store/roseli-chinese-restaurant-brooklyn-27525225/'),
+    ('current business directory listing','https://restaurantguru.com/Roseli-%E7%91%B0%E9%BA%97-Chinese-Restaurant-New-York'),
+  ],
+  135:[
+    ('New York Department of State record mirror','https://www.bizprofile.net/ny/brooklyn/anba-tonel-lounge-and'),
+    ('Brooklyn Community Board 14 event listing','https://cb14brooklyn.com/community-event/haitian-heritage-month-and-flag-day-celebration/'),
+  ],
+  160:[('Lady Chow Kitchen official site','https://www.ladychowkitchen.com/')],
+  164:[('McDonald\'s official location page','https://www.mcdonalds.com/us/en-us/location/NY/New-York/1528-Broadway/39147.html')],
+}
 
 # Reviewed coordinate replacements / acceptances. These never rewrite the official address.
 MANUAL_GEO={
@@ -192,24 +230,25 @@ def parse_hours(text):
 
 def flags(note,idx):
     n=(note or '').lower(); f=set()
-    if any(x in n for x in ['address mismatch','address discrepancy','current listing uses','current listings use','current business address','zip conflict','zip 112','otda/static source says','malformed','same address now use','resolve to 2322','two doors','same location; otda']): f.add('address_mismatch')
-    if any(x in n for x in ['renamed','rebrand','now use','rather than','row was labeled','source combined','name retained']): f.add('name_mismatch')
-    if 'rebrand' in n or idx in (58,73,130,183): f.add('rebranded')
-    if 'phone' in n and any(x in n for x in ['conflict','differ','discrep','corrected','had ','older','stale']): f.add('phone_conflict')
+    if any(x in n for x in ['address mismatch','address discrepancy','current business address','zip conflict','zip 112','otda/static source says','malformed','same address now use','resolve to 2322','two doors','same location; otda']): f.add('address_mismatch')
+    if idx in CURRENT_NAMES: f.add('name_mismatch')
+    if 'rebrand' in n or idx in (58,73,135,183): f.add('rebranded')
+    if idx in PHONE_CONFLICTS: f.add('phone_conflict')
     if ('hours' in n and any(x in n for x in ['conflict','disagree','differ','unconfirmed'])): f.add('hours_conflict')
     if 'status' in n and 'conflict' in n or ('official site' in n and 'closed' in n): f.add('status_conflict')
     if idx in CURRENT: f.add('address_mismatch')
-    if idx in CURRENT_NAMES: f.add('name_mismatch')
     return sorted(f)
 
 def business_status(note,hs,idx):
     n=(note or '').lower()
-    if idx in (161,192,230,237): return 'conflicting'
+    if idx in STATUS_OVERRIDES:return STATUS_OVERRIDES[idx]
+    if any(x in n for x in ['conflicting current status','current-status conflict','status conflict','current sources conflict on status']): return 'conflicting'
+    if 'reopening inspection' in n or 'reopened' in n:return 'likely_open'
     if 'temporarily closed' in n:return 'temporarily_closed'
     if 'permanently closed' in n:return 'closed'
     if idx==203 or ('show this location closed' in n):return 'closed'
     if idx==106:return 'moved'
-    if idx in (58,73,130,183):return 'rebranded'
+    if idx in (58,73,135,183):return 'rebranded'
     return 'likely_open' if hs=='Cached' else 'unknown'
 
 def official_for(i,r):
@@ -257,12 +296,14 @@ def main():
           'officialAddress':official_addr,'currentAddress':current_addr,'borough':r['Area'],'zip':official_addr['zip'],
           'coordinates':coord,'phone':r.get('Phone'),'website':r.get('Website'),'menuUrl':None,'imageUrl':None,'imageAttribution':None,
           'businessStatus':bs,'hoursStatus':hstatus,'hours':hours,'rmpVerifiedAt':r['RMP Verified'],
-          'businessCheckedAt':r.get('Hours Verified'),'conflictFlags':fl,
+          'businessCheckedAt':BUSINESS_REVIEW_DATE if i in BUSINESS_STATUS_SOURCES else r.get('Hours Verified'),'conflictFlags':fl,
           'sources':[
             {'kind':'NYS OTDA Restaurant Meals Program','role':'rmp_eligibility','url':r.get('OTDA Source') or OTDA,'checkedAt':r['RMP Verified']},
             {'kind':coord['provider'],'role':'coordinates','url':CENSUS if 'Census' in coord['provider'] else None,'checkedAt':DATE},
           ]
         }
+        for kind,url in BUSINESS_STATUS_SOURCES.get(i,[]):
+            rec['sources'].append({'kind':kind,'role':'business_status','url':url,'checkedAt':BUSINESS_REVIEW_DATE})
         if r.get('Hours Verified'):
             rec['sources'].append({'kind':'reviewed business enrichment snapshot','role':'hours','url':r.get('Website'),'checkedAt':r['Hours Verified']})
         if current_addr:

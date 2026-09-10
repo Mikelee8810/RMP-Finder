@@ -14,8 +14,8 @@ Audited September 9, 2026 from the `RMP Restaurant Snapshot` data source.
 | Missing source hour text | 15 |
 | Source hours needing refresh | 11 |
 | Source hours marked unknown | 12 |
-| Export records with usable structured hours | 173 |
-| Export records excluded from open-now calculation | 68 |
+| Export records with usable structured hours | 176 |
+| Export records excluded from open-now calculation | 65 |
 | Missing websites | 47 |
 
 | Area | Locations |

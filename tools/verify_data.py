@@ -78,6 +78,10 @@ def main():
             "2310 86th Street",
             "2322 86th Street",
         ),
+        "brooklyn|golden krust|1364 pennsylvania avenue|11239": (
+            "1364 Pennsylvania Avenue",
+            "1364 Granville Payne Avenue",
+        ),
         "brooklyn|momo's mediterranean grill|25 101 avenue|11208": (
             "25 101 Avenue",
             "25 101st Avenue",
@@ -118,6 +122,39 @@ def main():
     assert kings_plaza["officialAddress"]["line1"] == "5100 Kings Plaza"
     assert kings_plaza["coordinates"]["matchedAddress"] == "5100 Kings Plaza, Brooklyn, NY 11234"
     assert kings_plaza["coordinates"]["matchQuality"] == "manual"
+
+    atomic = rows_by_key["brooklyn|atomic wings|66 willoughby street|11201"]
+    assert atomic["businessStatus"] == "likely_open"
+    assert atomic["hoursStatus"] == "usable"
+    assert atomic["businessCheckedAt"] == "2026-09-10"
+
+    golden_krust = rows_by_key["brooklyn|golden krust|1364 pennsylvania avenue|11239"]
+    assert "address_mismatch" in golden_krust["conflictFlags"]
+    assert "name_mismatch" not in golden_krust["conflictFlags"]
+
+    roseli = rows_by_key["brooklyn|roseli chinese restaurant|2322 86th street|11214"]
+    assert roseli["currentName"] is None
+    assert roseli["currentAddress"] is None
+    assert roseli["businessStatus"] == "conflicting"
+    assert "status_conflict" in roseli["conflictFlags"]
+    assert "rebranded" not in roseli["conflictFlags"]
+
+    tonel = rows_by_key["brooklyn|tonel to go|1407 flatbush avenue|11210"]
+    assert tonel["currentName"] == "Anba Tonel"
+    assert tonel["businessStatus"] == "rebranded"
+    assert "name_mismatch" in tonel["conflictFlags"]
+    assert "rebranded" in tonel["conflictFlags"]
+    assert "address_mismatch" not in tonel["conflictFlags"]
+
+    lady_chow = rows_by_key["manhattan|lady chow kitchen|171 hester street|10013"]
+    assert lady_chow["businessStatus"] == "likely_open"
+    assert lady_chow["hoursStatus"] == "usable"
+    assert lady_chow["businessCheckedAt"] == "2026-09-10"
+
+    times_square = rows_by_key["manhattan|mcdonald's|1528 broadway|10036"]
+    assert times_square["businessStatus"] == "likely_open"
+    assert times_square["hoursStatus"] == "usable"
+    assert all(times_square["hours"][day] == [{"open": "00:00", "close": "24:00"}] for day in ("monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"))
 
     digest = hashlib.sha256((DATA / "restaurants.json").read_bytes()).hexdigest()
     assert manifest["recordCount"] == EXPECTED_COUNT

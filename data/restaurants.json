@@ -160,9 +160,7 @@
     "hours": null,
     "rmpVerifiedAt": "2026-09-09",
     "businessCheckedAt": "2026-09-09",
-    "conflictFlags": [
-      "name_mismatch"
-    ],
+    "conflictFlags": [],
     "sources": [
       {
         "kind": "NYS OTDA Restaurant Meals Program",
@@ -820,9 +818,7 @@
     "hours": null,
     "rmpVerifiedAt": "2026-09-09",
     "businessCheckedAt": null,
-    "conflictFlags": [
-      "name_mismatch"
-    ],
+    "conflictFlags": [],
     "sources": [
       {
         "kind": "NYS OTDA Restaurant Meals Program",
@@ -1446,7 +1442,6 @@
     "rmpVerifiedAt": "2026-09-09",
     "businessCheckedAt": "2026-09-09",
     "conflictFlags": [
-      "address_mismatch",
       "phone_conflict"
     ],
     "sources": [
@@ -2110,9 +2105,7 @@
     "hours": null,
     "rmpVerifiedAt": "2026-09-09",
     "businessCheckedAt": null,
-    "conflictFlags": [
-      "name_mismatch"
-    ],
+    "conflictFlags": [],
     "sources": [
       {
         "kind": "NYS OTDA Restaurant Meals Program",
@@ -2208,7 +2201,6 @@
     "rmpVerifiedAt": "2026-09-09",
     "businessCheckedAt": "2026-09-09",
     "conflictFlags": [
-      "name_mismatch",
       "phone_conflict"
     ],
     "sources": [
@@ -2485,11 +2477,11 @@
     "menuUrl": null,
     "imageUrl": null,
     "imageAttribution": null,
-    "businessStatus": "unknown",
+    "businessStatus": "likely_open",
     "hoursStatus": "unknown",
     "hours": null,
     "rmpVerifiedAt": "2026-09-09",
-    "businessCheckedAt": null,
+    "businessCheckedAt": "2026-09-10",
     "conflictFlags": [],
     "sources": [
       {
@@ -2503,6 +2495,12 @@
         "role": "coordinates",
         "url": "https://geocoding.geo.census.gov/geocoder/",
         "checkedAt": "2026-09-09"
+      },
+      {
+        "kind": "Luna Café official site",
+        "role": "business_status",
+        "url": "https://lunacafeny.com",
+        "checkedAt": "2026-09-10"
       },
       {
         "kind": "reviewed business enrichment snapshot",
@@ -4014,19 +4012,15 @@
       "matchedAddress": "66 WILLOUGHBY ST, BROOKLYN, NY, 11201"
     },
     "phone": "718-887-0861",
-    "website": "https://www.atomicwings.com/",
+    "website": "https://www.atomicwings.com/locations/brooklyn-ny",
     "menuUrl": null,
     "imageUrl": null,
     "imageAttribution": null,
-    "businessStatus": "temporarily_closed",
-    "hoursStatus": "stale",
+    "businessStatus": "likely_open",
+    "hoursStatus": "usable",
     "hours": {
       "timezone": "America/New_York",
       "monday": [
-        {
-          "open": "00:00",
-          "close": "04:00"
-        },
         {
           "open": "11:00",
           "close": "24:00"
@@ -4034,29 +4028,17 @@
       ],
       "tuesday": [
         {
-          "open": "00:00",
-          "close": "04:00"
-        },
-        {
           "open": "11:00",
           "close": "24:00"
         }
       ],
       "wednesday": [
         {
-          "open": "00:00",
-          "close": "04:00"
-        },
-        {
           "open": "11:00",
           "close": "24:00"
         }
       ],
       "thursday": [
-        {
-          "open": "00:00",
-          "close": "04:00"
-        },
         {
           "open": "11:00",
           "close": "24:00"
@@ -4094,7 +4076,7 @@
       ]
     },
     "rmpVerifiedAt": "2026-09-09",
-    "businessCheckedAt": "2026-09-09",
+    "businessCheckedAt": "2026-09-10",
     "conflictFlags": [],
     "sources": [
       {
@@ -4110,22 +4092,34 @@
         "checkedAt": "2026-09-09"
       },
       {
+        "kind": "Atomic Wings official location page",
+        "role": "business_status",
+        "url": "https://www.atomicwings.com/locations/brooklyn-ny",
+        "checkedAt": "2026-09-10"
+      },
+      {
+        "kind": "Downtown Brooklyn directory",
+        "role": "business_status",
+        "url": "https://www.downtownbrooklyn.com/directory/",
+        "checkedAt": "2026-09-10"
+      },
+      {
         "kind": "reviewed business enrichment snapshot",
         "role": "hours",
-        "url": "https://www.atomicwings.com/",
-        "checkedAt": "2026-09-09"
+        "url": "https://www.atomicwings.com/locations/brooklyn-ny",
+        "checkedAt": "2026-09-10"
       },
       {
         "kind": "reviewed business enrichment snapshot",
         "role": "phone",
-        "url": "https://www.atomicwings.com/",
-        "checkedAt": "2026-09-09"
+        "url": "https://www.atomicwings.com/locations/brooklyn-ny",
+        "checkedAt": "2026-09-10"
       },
       {
         "kind": "reviewed business enrichment snapshot",
         "role": "website",
-        "url": "https://www.atomicwings.com/",
-        "checkedAt": "2026-09-09"
+        "url": "https://www.atomicwings.com/locations/brooklyn-ny",
+        "checkedAt": "2026-09-10"
       }
     ]
   },
@@ -4524,8 +4518,7 @@
     "rmpVerifiedAt": "2026-09-09",
     "businessCheckedAt": "2026-09-09",
     "conflictFlags": [
-      "hours_conflict",
-      "phone_conflict"
+      "hours_conflict"
     ],
     "sources": [
       {
@@ -6783,7 +6776,12 @@
       "state": "NY",
       "zip": "11239"
     },
-    "currentAddress": null,
+    "currentAddress": {
+      "line1": "1364 Granville Payne Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11239"
+    },
     "borough": "Brooklyn",
     "zip": "11239",
     "coordinates": {
@@ -6797,7 +6795,7 @@
       "matchedAddress": "1364 PENNSYLVANIA AVE, BROOKLYN, NY, 11239"
     },
     "phone": "718-277-1003",
-    "website": "https://locations.goldenkrust.com/",
+    "website": "https://locations.goldenkrust.com/ll/US/NY/Brooklyn/1364-Pennsylvania-Ave_",
     "menuUrl": null,
     "imageUrl": null,
     "imageAttribution": null,
@@ -6849,10 +6847,9 @@
       ]
     },
     "rmpVerifiedAt": "2026-09-09",
-    "businessCheckedAt": "2026-09-09",
+    "businessCheckedAt": "2026-09-10",
     "conflictFlags": [
-      "address_mismatch",
-      "name_mismatch"
+      "address_mismatch"
     ],
     "sources": [
       {
@@ -6870,20 +6867,26 @@
       {
         "kind": "reviewed business enrichment snapshot",
         "role": "hours",
-        "url": "https://locations.goldenkrust.com/",
-        "checkedAt": "2026-09-09"
+        "url": "https://locations.goldenkrust.com/ll/US/NY/Brooklyn/1364-Pennsylvania-Ave_",
+        "checkedAt": "2026-09-10"
+      },
+      {
+        "kind": "reviewed business enrichment snapshot",
+        "role": "address",
+        "url": "https://locations.goldenkrust.com/ll/US/NY/Brooklyn/1364-Pennsylvania-Ave_",
+        "checkedAt": "2026-09-10"
       },
       {
         "kind": "reviewed business enrichment snapshot",
         "role": "phone",
-        "url": "https://locations.goldenkrust.com/",
-        "checkedAt": "2026-09-09"
+        "url": "https://locations.goldenkrust.com/ll/US/NY/Brooklyn/1364-Pennsylvania-Ave_",
+        "checkedAt": "2026-09-10"
       },
       {
         "kind": "reviewed business enrichment snapshot",
         "role": "website",
-        "url": "https://locations.goldenkrust.com/",
-        "checkedAt": "2026-09-09"
+        "url": "https://locations.goldenkrust.com/ll/US/NY/Brooklyn/1364-Pennsylvania-Ave_",
+        "checkedAt": "2026-09-10"
       }
     ]
   },
@@ -10867,9 +10870,7 @@
     },
     "rmpVerifiedAt": "2026-09-09",
     "businessCheckedAt": "2026-09-09",
-    "conflictFlags": [
-      "phone_conflict"
-    ],
+    "conflictFlags": [],
     "sources": [
       {
         "kind": "NYS OTDA Restaurant Meals Program",
@@ -13028,7 +13029,7 @@
   {
     "rmpKey": "brooklyn|roseli chinese restaurant|2322 86th street|11214",
     "officialName": "Roseli Chinese Restaurant",
-    "currentName": "Lady Chow Kitchen",
+    "currentName": null,
     "aliases": [],
     "officialAddress": {
       "line1": "2322 86th Street",
@@ -13054,14 +13055,14 @@
     "menuUrl": null,
     "imageUrl": null,
     "imageAttribution": null,
-    "businessStatus": "rebranded",
+    "businessStatus": "conflicting",
     "hoursStatus": "unknown",
     "hours": null,
     "rmpVerifiedAt": "2026-09-09",
-    "businessCheckedAt": null,
+    "businessCheckedAt": "2026-09-10",
     "conflictFlags": [
-      "name_mismatch",
-      "rebranded"
+      "hours_conflict",
+      "status_conflict"
     ],
     "sources": [
       {
@@ -13075,6 +13076,18 @@
         "role": "coordinates",
         "url": "https://geocoding.geo.census.gov/geocoder/",
         "checkedAt": "2026-09-09"
+      },
+      {
+        "kind": "DoorDash current merchant listing",
+        "role": "business_status",
+        "url": "https://www.doordash.com/en/store/roseli-chinese-restaurant-brooklyn-27525225/",
+        "checkedAt": "2026-09-10"
+      },
+      {
+        "kind": "current business directory listing",
+        "role": "business_status",
+        "url": "https://restaurantguru.com/Roseli-%E7%91%B0%E9%BA%97-Chinese-Restaurant-New-York",
+        "checkedAt": "2026-09-10"
       },
       {
         "kind": "reviewed business enrichment snapshot",
@@ -13585,7 +13598,7 @@
   {
     "rmpKey": "brooklyn|tonel to go|1407 flatbush avenue|11210",
     "officialName": "Tonel To Go",
-    "currentName": null,
+    "currentName": "Anba Tonel",
     "aliases": [],
     "officialAddress": {
       "line1": "1407 Flatbush Avenue",
@@ -13611,13 +13624,14 @@
     "menuUrl": null,
     "imageUrl": null,
     "imageAttribution": null,
-    "businessStatus": "unknown",
+    "businessStatus": "rebranded",
     "hoursStatus": "unknown",
     "hours": null,
     "rmpVerifiedAt": "2026-09-09",
-    "businessCheckedAt": null,
+    "businessCheckedAt": "2026-09-10",
     "conflictFlags": [
-      "address_mismatch"
+      "name_mismatch",
+      "rebranded"
     ],
     "sources": [
       {
@@ -13631,6 +13645,18 @@
         "role": "coordinates",
         "url": "https://geocoding.geo.census.gov/geocoder/",
         "checkedAt": "2026-09-09"
+      },
+      {
+        "kind": "New York Department of State record mirror",
+        "role": "business_status",
+        "url": "https://www.bizprofile.net/ny/brooklyn/anba-tonel-lounge-and",
+        "checkedAt": "2026-09-10"
+      },
+      {
+        "kind": "Brooklyn Community Board 14 event listing",
+        "role": "business_status",
+        "url": "https://cb14brooklyn.com/community-event/haitian-heritage-month-and-flag-day-celebration/",
+        "checkedAt": "2026-09-10"
       },
       {
         "kind": "reviewed business enrichment snapshot",
@@ -14089,7 +14115,7 @@
     "menuUrl": null,
     "imageUrl": null,
     "imageAttribution": null,
-    "businessStatus": "unknown",
+    "businessStatus": "conflicting",
     "hoursStatus": "conflicting",
     "hours": null,
     "rmpVerifiedAt": "2026-09-09",
@@ -15292,8 +15318,7 @@
     "rmpVerifiedAt": "2026-09-09",
     "businessCheckedAt": null,
     "conflictFlags": [
-      "address_mismatch",
-      "phone_conflict"
+      "address_mismatch"
     ],
     "sources": [
       {
@@ -15325,7 +15350,7 @@
   {
     "rmpKey": "manhattan|el nuevo valle seafood|231 sherman street|10034",
     "officialName": "El Nuevo Valle Seafood",
-    "currentName": null,
+    "currentName": "El Valle Seafood Restaurant",
     "aliases": [],
     "officialAddress": {
       "line1": "231 Sherman Street",
@@ -15949,9 +15974,7 @@
     },
     "rmpVerifiedAt": "2026-09-09",
     "businessCheckedAt": "2026-09-09",
-    "conflictFlags": [
-      "phone_conflict"
-    ],
+    "conflictFlags": [],
     "sources": [
       {
         "kind": "NYS OTDA Restaurant Meals Program",
@@ -16254,14 +16277,56 @@
     "menuUrl": null,
     "imageUrl": null,
     "imageAttribution": null,
-    "businessStatus": "unknown",
-    "hoursStatus": "stale",
-    "hours": null,
+    "businessStatus": "likely_open",
+    "hoursStatus": "usable",
+    "hours": {
+      "timezone": "America/New_York",
+      "monday": [
+        {
+          "open": "08:30",
+          "close": "21:00"
+        }
+      ],
+      "tuesday": [
+        {
+          "open": "08:30",
+          "close": "21:00"
+        }
+      ],
+      "wednesday": [
+        {
+          "open": "08:30",
+          "close": "21:00"
+        }
+      ],
+      "thursday": [
+        {
+          "open": "08:30",
+          "close": "21:00"
+        }
+      ],
+      "friday": [
+        {
+          "open": "08:30",
+          "close": "21:00"
+        }
+      ],
+      "saturday": [
+        {
+          "open": "08:30",
+          "close": "21:00"
+        }
+      ],
+      "sunday": [
+        {
+          "open": "08:30",
+          "close": "21:00"
+        }
+      ]
+    },
     "rmpVerifiedAt": "2026-09-09",
-    "businessCheckedAt": null,
-    "conflictFlags": [
-      "name_mismatch"
-    ],
+    "businessCheckedAt": "2026-09-10",
+    "conflictFlags": [],
     "sources": [
       {
         "kind": "NYS OTDA Restaurant Meals Program",
@@ -16276,16 +16341,28 @@
         "checkedAt": "2026-09-09"
       },
       {
+        "kind": "Lady Chow Kitchen official site",
+        "role": "business_status",
+        "url": "https://www.ladychowkitchen.com/",
+        "checkedAt": "2026-09-10"
+      },
+      {
+        "kind": "reviewed business enrichment snapshot",
+        "role": "hours",
+        "url": "https://ladychowkitchen.com/",
+        "checkedAt": "2026-09-10"
+      },
+      {
         "kind": "reviewed business enrichment snapshot",
         "role": "phone",
         "url": "https://ladychowkitchen.com/",
-        "checkedAt": "2026-09-09"
+        "checkedAt": "2026-09-10"
       },
       {
         "kind": "reviewed business enrichment snapshot",
         "role": "website",
         "url": "https://ladychowkitchen.com/",
-        "checkedAt": "2026-09-09"
+        "checkedAt": "2026-09-10"
       }
     ]
   },
@@ -16325,7 +16402,6 @@
     "businessCheckedAt": "2026-09-09",
     "conflictFlags": [
       "hours_conflict",
-      "phone_conflict",
       "status_conflict"
     ],
     "sources": [
@@ -16564,14 +16640,56 @@
     "menuUrl": null,
     "imageUrl": null,
     "imageAttribution": null,
-    "businessStatus": "unknown",
-    "hoursStatus": "stale",
-    "hours": null,
+    "businessStatus": "likely_open",
+    "hoursStatus": "usable",
+    "hours": {
+      "timezone": "America/New_York",
+      "monday": [
+        {
+          "open": "00:00",
+          "close": "24:00"
+        }
+      ],
+      "tuesday": [
+        {
+          "open": "00:00",
+          "close": "24:00"
+        }
+      ],
+      "wednesday": [
+        {
+          "open": "00:00",
+          "close": "24:00"
+        }
+      ],
+      "thursday": [
+        {
+          "open": "00:00",
+          "close": "24:00"
+        }
+      ],
+      "friday": [
+        {
+          "open": "00:00",
+          "close": "24:00"
+        }
+      ],
+      "saturday": [
+        {
+          "open": "00:00",
+          "close": "24:00"
+        }
+      ],
+      "sunday": [
+        {
+          "open": "00:00",
+          "close": "24:00"
+        }
+      ]
+    },
     "rmpVerifiedAt": "2026-09-09",
-    "businessCheckedAt": null,
-    "conflictFlags": [
-      "name_mismatch"
-    ],
+    "businessCheckedAt": "2026-09-10",
+    "conflictFlags": [],
     "sources": [
       {
         "kind": "NYS OTDA Restaurant Meals Program",
@@ -16586,16 +16704,28 @@
         "checkedAt": "2026-09-09"
       },
       {
+        "kind": "McDonald's official location page",
+        "role": "business_status",
+        "url": "https://www.mcdonalds.com/us/en-us/location/NY/New-York/1528-Broadway/39147.html",
+        "checkedAt": "2026-09-10"
+      },
+      {
+        "kind": "reviewed business enrichment snapshot",
+        "role": "hours",
+        "url": "https://www.mcdonalds.com/us/en-us/location/NY/New-York/1528-Broadway/39147.html",
+        "checkedAt": "2026-09-10"
+      },
+      {
         "kind": "reviewed business enrichment snapshot",
         "role": "phone",
         "url": "https://www.mcdonalds.com/us/en-us/location/NY/New-York/1528-Broadway/39147.html",
-        "checkedAt": "2026-09-09"
+        "checkedAt": "2026-09-10"
       },
       {
         "kind": "reviewed business enrichment snapshot",
         "role": "website",
         "url": "https://www.mcdonalds.com/us/en-us/location/NY/New-York/1528-Broadway/39147.html",
-        "checkedAt": "2026-09-09"
+        "checkedAt": "2026-09-10"
       }
     ]
   },
@@ -18228,8 +18358,7 @@
     "rmpVerifiedAt": "2026-09-09",
     "businessCheckedAt": "2026-09-09",
     "conflictFlags": [
-      "hours_conflict",
-      "phone_conflict"
+      "hours_conflict"
     ],
     "sources": [
       {
@@ -18586,7 +18715,6 @@
     "businessCheckedAt": "2026-09-09",
     "conflictFlags": [
       "name_mismatch",
-      "phone_conflict",
       "rebranded"
     ],
     "sources": [
@@ -18657,8 +18785,7 @@
     "rmpVerifiedAt": "2026-09-09",
     "businessCheckedAt": "2026-09-09",
     "conflictFlags": [
-      "hours_conflict",
-      "phone_conflict"
+      "hours_conflict"
     ],
     "sources": [
       {
@@ -19532,7 +19659,6 @@
     "conflictFlags": [
       "address_mismatch",
       "hours_conflict",
-      "name_mismatch",
       "status_conflict"
     ],
     "sources": [
@@ -19855,8 +19981,7 @@
     "rmpVerifiedAt": "2026-09-09",
     "businessCheckedAt": "2026-09-09",
     "conflictFlags": [
-      "hours_conflict",
-      "phone_conflict"
+      "hours_conflict"
     ],
     "sources": [
       {
@@ -22946,7 +23071,6 @@
     "rmpVerifiedAt": "2026-09-09",
     "businessCheckedAt": "2026-09-09",
     "conflictFlags": [
-      "name_mismatch",
       "phone_conflict"
     ],
     "sources": [
