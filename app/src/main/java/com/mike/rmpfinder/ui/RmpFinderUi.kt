@@ -4,8 +4,10 @@ package com.mike.rmpfinder.ui
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.graphics.Color as AndroidColor
 import android.net.Uri
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -72,8 +74,12 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -213,6 +219,8 @@ private fun RestaurantCard(restaurant: RmpRestaurant, state: RmpUiState, onClick
     ElevatedCard(onClick = { onClick(restaurant) }, modifier = Modifier.fillMaxWidth()) {
         Column(Modifier.padding(14.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
             Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                RestaurantBrandMark(restaurant = restaurant, size = 52)
+                Spacer(Modifier.size(12.dp))
                 Column(Modifier.weight(1f)) {
                     Text(restaurant.displayName, style = MaterialTheme.typography.titleMedium)
                     if (restaurant.currentName != null && restaurant.currentName != restaurant.officialName) {
@@ -396,6 +404,13 @@ private fun RestaurantDetail(
         LazyColumn(Modifier.fillMaxSize().padding(padding), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
             item {
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(14.dp)) {
+                        RestaurantBrandMark(restaurant = restaurant, size = 76)
+                        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                            Text(restaurant.displayName, style = MaterialTheme.typography.headlineSmall)
+                            Text(restaurantCategory(restaurant), style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        }
+                    }
                     Text(availabilityLabel(restaurant), style = MaterialTheme.typography.headlineSmall, color = MaterialTheme.colorScheme.primary)
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         Badge { Text("RMP verified ${restaurant.rmpVerifiedAt}") }
@@ -441,7 +456,7 @@ private fun RestaurantDetail(
                     Text("Hours: ${hoursStatusLabel(restaurant.hoursStatus)}", color = MaterialTheme.colorScheme.onSurfaceVariant)
                     restaurant.businessCheckedAt?.let { Text("Hours checked: $it", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
                     if (restaurant.hoursStatus !in setOf("verified", "usable")) {
-                        Text("Open now stays unavailable until these hours are confirmed.", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        Text("Open now can’t be confirmed from the available hours.", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                     restaurant.hours?.let { hours ->
                         val labels = listOf("Mon" to hours.monday, "Tue" to hours.tuesday, "Wed" to hours.wednesday, "Thu" to hours.thursday, "Fri" to hours.friday, "Sat" to hours.saturday, "Sun" to hours.sunday)
@@ -466,17 +481,88 @@ private fun RestaurantDetail(
     }
 }
 
-private fun availabilityLabel(restaurant: RmpRestaurant, instant: Instant = Instant.now()): String = when (val label = OpenNow.label(restaurant, instant)) {
-    "Moved — check details" -> "Moved"
-    "Status conflict — check details" -> "Status varies by source"
-    "Hours need review" -> when (restaurant.hoursStatus) {
-        "partial" -> "Hours partially confirmed"
-        "stale" -> "Hours not recently confirmed"
-        "conflicting" -> "Hours vary by source"
-        else -> "Hours unavailable"
+@Composable
+private fun RestaurantBrandMark(restaurant: RmpRestaurant, size: Int) {
+    val context = LocalContext.current
+    val logo = remember(restaurant.rmpKey, restaurant.website) { loadRestaurantLogo(context, restaurant.website) }
+    val shape = RoundedCornerShape((size * 0.24f).dp)
+
+    Surface(
+        modifier = Modifier.size(size.dp).clip(shape),
+        shape = shape,
+        color = MaterialTheme.colorScheme.primaryContainer,
+        contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+    ) {
+        if (logo != null) {
+            Image(
+                bitmap = logo,
+                contentDescription = "${restaurant.displayName} logo",
+                modifier = Modifier.fillMaxSize().padding((size * 0.10f).dp),
+                contentScale = ContentScale.Fit,
+            )
+        } else {
+            RestaurantBrandFallback(restaurant, size)
+        }
     }
-    else -> label
 }
+
+@Composable
+private fun RestaurantBrandFallback(restaurant: RmpRestaurant, size: Int) {
+    val category = restaurantCategory(restaurant)
+    Column(
+        modifier = Modifier.fillMaxSize().padding(horizontal = 4.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
+    ) {
+        Text(
+            text = restaurant.displayName.firstOrNull { it.isLetterOrDigit() }?.uppercase() ?: "R",
+            style = if (size >= 70) MaterialTheme.typography.headlineMedium else MaterialTheme.typography.titleLarge,
+            fontWeight = FontWeight.Bold,
+        )
+        Text(
+            text = category,
+            style = MaterialTheme.typography.labelSmall,
+            maxLines = 1,
+        )
+    }
+}
+
+private fun loadRestaurantLogo(context: Context, website: String?) = runCatching {
+    val domain = website
+        ?.let(Uri::parse)
+        ?.host
+        ?.lowercase()
+        ?.removePrefix("www.")
+        ?.replace(Regex("[^a-z0-9.-]+"), "-")
+        ?.trim('-', '.')
+        ?.takeIf { it.isNotBlank() }
+        ?: return@runCatching null
+
+    context.assets.open("restaurant-logos/$domain.png").use { stream ->
+        BitmapFactory.decodeStream(stream)?.asImageBitmap()
+    }
+}.getOrNull()
+
+private fun restaurantCategory(restaurant: RmpRestaurant): String {
+    val name = "${restaurant.displayName} ${restaurant.officialName}".lowercase()
+    return when {
+        listOf("pizza", "pizzeria").any(name::contains) -> "Pizza"
+        listOf("burger", "mcdonald", "wendy", "white castle").any(name::contains) -> "Burgers"
+        listOf("popeye", "kfc", "chicken", "wing").any(name::contains) -> "Chicken"
+        listOf("dunkin", "coffee", "cafe", "café", "bakery").any(name::contains) -> "Café"
+        listOf("chinese", "wok", "noodle", "dumpling").any(name::contains) -> "Chinese"
+        listOf("jerk", "caribbean", "kairibbean").any(name::contains) -> "Caribbean"
+        listOf("seafood", "fish", "crab").any(name::contains) -> "Seafood"
+        listOf("deli", "sandwich", "subway").any(name::contains) -> "Deli"
+        listOf("shawarma", "mediterranean", "halal").any(name::contains) -> "Mediterranean"
+        listOf("taco", "mexican", "burrito").any(name::contains) -> "Mexican"
+        listOf("juice", "smoothie").any(name::contains) -> "Juice"
+        else -> "Restaurant"
+    }
+}
+
+private fun availabilityLabel(restaurant: RmpRestaurant, instant: Instant = Instant.now()): String =
+    OpenNow.label(restaurant, instant)
 
 private fun businessStatusLabel(status: String): String = when (status) {
     "likely_open" -> "Likely open"
@@ -569,7 +655,7 @@ private fun InfoScreen(state: RmpUiState, onRefresh: () -> Unit, modifier: Modif
                     Text("Generated ${state.metadata[RmpRepository.KEY_GENERATED_AT]?.take(10) ?: "—"}")
                     state.metadata[RmpRepository.KEY_LAST_SUCCESS]?.let { Text("Last successful update: ${it.take(19).replace('T', ' ')}") }
                     state.metadata[RmpRepository.KEY_LAST_CHECK]?.let { Text("Last check: ${it.take(19).replace('T', ' ')}") }
-                    state.metadata[RmpRepository.KEY_LAST_ERROR]?.takeIf { it.isNotBlank() }?.let { Text("Last update issue: $it", color = MaterialTheme.colorScheme.error) }
+                    state.metadata[RmpRepository.KEY_LAST_ERROR]?.takeIf { it.isNotBlank() }?.let { Text("Latest update status: $it", color = MaterialTheme.colorScheme.error) }
                     Button(onClick = onRefresh, enabled = !state.refreshing) {
                         if (state.refreshing) CircularProgressIndicator(Modifier.size(18.dp), strokeWidth = 2.dp) else Icon(Icons.Default.Refresh, null)
                         Text(if (state.refreshing) " Checking…" else " Check for updates")

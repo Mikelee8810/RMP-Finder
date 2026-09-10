@@ -72,7 +72,7 @@ class RmpRepository(
         val oldKeys = dao.restaurantKeys().toSet()
         val validated = DatasetValidator.validate(manifestBytes, datasetBytes, BuildConfig.VERSION_CODE, oldKeys)
         if (validated.missingExistingKeys.isNotEmpty()) {
-            dao.putMetadata(MetadataEntity(KEY_LAST_ERROR, "Update held for review: ${validated.missingExistingKeys.size} existing RMP locations disappeared"))
+            dao.putMetadata(MetadataEntity(KEY_LAST_ERROR, "Update paused: ${validated.missingExistingKeys.size} RMP locations are missing from the new list"))
             return UpdateResult.NeedsReview(validated.missingExistingKeys)
         }
         database.withTransaction {

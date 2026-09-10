@@ -122,7 +122,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             refreshMessage.value = when (val result = repository.checkForUpdates()) {
                 is UpdateResult.Updated -> "Updated to dataset ${result.version} (${result.count} locations)"
                 is UpdateResult.Current -> "Dataset ${result.version} is current"
-                is UpdateResult.NeedsReview -> "Update held: ${result.missingKeys.size} existing RMP locations need review"
+                is UpdateResult.NeedsReview -> "Update paused: ${result.missingKeys.size} RMP locations are missing from the new list"
                 is UpdateResult.Failed -> "Update failed: ${result.message}"
             }
             refreshing.value = false
