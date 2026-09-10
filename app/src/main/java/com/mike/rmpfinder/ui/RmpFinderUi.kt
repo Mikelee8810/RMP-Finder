@@ -86,6 +86,7 @@ import com.mike.rmpfinder.data.RmpRestaurant
 import com.mike.rmpfinder.data.RmpRepository
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
+import java.time.Instant
 import java.time.LocalDate
 import kotlinx.coroutines.delay
 import org.maplibre.android.camera.CameraPosition
@@ -177,7 +178,7 @@ private fun BrowseScreen(
                 FilterChip(selected = state.origin != null, onClick = onRequestLocation, label = { Text("Nearby") }, leadingIcon = { Icon(Icons.Default.LocationOn, null, Modifier.size(18.dp)) })
                 FilterChip(selected = state.filters.openOnly, onClick = viewModel::toggleOpenOnly, label = { Text("Open now") })
                 FilterChip(selected = state.filters.favoritesOnly, onClick = viewModel::toggleFavoritesOnly, label = { Text("Favorites") })
-                FilterChip(selected = state.filters.attentionOnly, onClick = viewModel::toggleAttentionOnly, label = { Text("Needs attention") }, leadingIcon = { Icon(Icons.Default.FilterAlt, null, Modifier.size(18.dp)) })
+                FilterChip(selected = state.filters.attentionOnly, onClick = viewModel::toggleAttentionOnly, label = { Text("Status notes") }, leadingIcon = { Icon(Icons.Default.FilterAlt, null, Modifier.size(18.dp)) })
             }
             Spacer(Modifier.height(8.dp))
             Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -224,13 +225,11 @@ private fun RestaurantCard(restaurant: RmpRestaurant, state: RmpUiState, onClick
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
                 Badge(containerColor = MaterialTheme.colorScheme.primaryContainer, contentColor = MaterialTheme.colorScheme.onPrimaryContainer) { Text("RMP verified") }
                 Badge(containerColor = MaterialTheme.colorScheme.secondaryContainer, contentColor = MaterialTheme.colorScheme.onSurface) { Text("10% off") }
-                Text(OpenNow.label(restaurant, state.now), style = MaterialTheme.typography.labelMedium)
+                Text(availabilityLabel(restaurant, state.now), style = MaterialTheme.typography.labelMedium)
             }
-            Text("Business: ${restaurant.businessStatus.replace('_', ' ')}", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-            if (restaurant.needsAttention) {
-                Surface(shape = RoundedCornerShape(10.dp), color = MaterialTheme.colorScheme.errorContainer) {
-                    Text("⚠ Check details before traveling", modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp), style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onErrorContainer)
-                }
+            Text("Business: ${businessStatusLabel(restaurant.businessStatus)}", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            listingNotes(restaurant).firstOrNull()?.let { note ->
+                Text(note, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
         }
     }
@@ -397,16 +396,19 @@ private fun RestaurantDetail(
         LazyColumn(Modifier.fillMaxSize().padding(padding), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
             item {
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Text(OpenNow.label(restaurant), style = MaterialTheme.typography.headlineSmall, color = MaterialTheme.colorScheme.primary)
+                    Text(availabilityLabel(restaurant), style = MaterialTheme.typography.headlineSmall, color = MaterialTheme.colorScheme.primary)
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         Badge { Text("RMP verified ${restaurant.rmpVerifiedAt}") }
                         Badge(containerColor = MaterialTheme.colorScheme.secondaryContainer, contentColor = MaterialTheme.colorScheme.onSurface) { Text("10% meal discount") }
                     }
-                    if (restaurant.needsAttention) {
-                        Surface(shape = RoundedCornerShape(12.dp), color = MaterialTheme.colorScheme.errorContainer) {
-                            Column(Modifier.padding(12.dp)) {
-                                Text("⚠ Check before you travel", style = MaterialTheme.typography.titleSmall)
-                                if (restaurant.conflictFlags.isNotEmpty()) Text(restaurant.conflictFlags.joinToString { it.replace('_', ' ') }, style = MaterialTheme.typography.bodyMedium)
+                    val notes = listingNotes(restaurant)
+                    if (notes.isNotEmpty()) {
+                        Surface(shape = RoundedCornerShape(12.dp), color = MaterialTheme.colorScheme.secondaryContainer) {
+                            Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                                Text("Listing notes", style = MaterialTheme.typography.titleSmall, color = MaterialTheme.colorScheme.onSecondaryContainer)
+                                notes.forEach { note ->
+                                    Text("• $note", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSecondaryContainer)
+                                }
                             }
                         }
                     }
@@ -428,18 +430,18 @@ private fun RestaurantDetail(
                             Text(address.display())
                             if (address != restaurant.officialAddress) DirectionButtons(context, address, "Current business address")
                         }
-                        Text("Status: ${restaurant.businessStatus.replace('_', ' ')}")
+                        Text("Status: ${businessStatusLabel(restaurant.businessStatus)}")
                         restaurant.businessCheckedAt?.let { Text("Checked: $it", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
                     }
                 }
             }
             item {
                 DetailSection("Hours") {
-                    Text(OpenNow.label(restaurant), style = MaterialTheme.typography.titleMedium)
-                    Text("Hours quality: ${restaurant.hoursStatus.replace('_', ' ')}", color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Text(availabilityLabel(restaurant), style = MaterialTheme.typography.titleMedium)
+                    Text("Hours: ${hoursStatusLabel(restaurant.hoursStatus)}", color = MaterialTheme.colorScheme.onSurfaceVariant)
                     restaurant.businessCheckedAt?.let { Text("Hours checked: $it", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
                     if (restaurant.hoursStatus !in setOf("verified", "usable")) {
-                        Text("These hours are not used for Open now.", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.error)
+                        Text("Open now stays unavailable until these hours are confirmed.", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                     restaurant.hours?.let { hours ->
                         val labels = listOf("Mon" to hours.monday, "Tue" to hours.tuesday, "Wed" to hours.wednesday, "Thu" to hours.thursday, "Fri" to hours.friday, "Sat" to hours.saturday, "Sun" to hours.sunday)
@@ -462,6 +464,73 @@ private fun RestaurantDetail(
             }
         }
     }
+}
+
+private fun availabilityLabel(restaurant: RmpRestaurant, instant: Instant = Instant.now()): String = when (val label = OpenNow.label(restaurant, instant)) {
+    "Moved — check details" -> "Moved"
+    "Status conflict — check details" -> "Status varies by source"
+    "Hours need review" -> when (restaurant.hoursStatus) {
+        "partial" -> "Hours partially confirmed"
+        "stale" -> "Hours not recently confirmed"
+        "conflicting" -> "Hours vary by source"
+        else -> "Hours unavailable"
+    }
+    else -> label
+}
+
+private fun businessStatusLabel(status: String): String = when (status) {
+    "likely_open" -> "Likely open"
+    "temporarily_closed" -> "Temporarily closed"
+    "likely_closed" -> "Likely closed"
+    "rebranded" -> "Operating under a new name"
+    "conflicting" -> "Varies by source"
+    "unknown" -> "Not confirmed"
+    else -> status.replace('_', ' ').replaceFirstChar { it.uppercase() }
+}
+
+private fun hoursStatusLabel(status: String): String = when (status) {
+    "verified" -> "Verified"
+    "usable" -> "Confirmed"
+    "stale" -> "Not recently confirmed"
+    "partial" -> "Partially confirmed"
+    "conflicting" -> "Varies by source"
+    "unknown" -> "Not confirmed"
+    else -> status.replace('_', ' ').replaceFirstChar { it.uppercase() }
+}
+
+private fun listingNotes(restaurant: RmpRestaurant): List<String> {
+    val notes = linkedSetOf<String>()
+
+    when (restaurant.businessStatus) {
+        "temporarily_closed" -> notes += "This business is reported temporarily closed."
+        "likely_closed" -> notes += "Recent business information suggests this location may be closed."
+        "closed" -> notes += "This business is reported closed."
+        "moved" -> notes += restaurant.currentAddress?.let { "The business appears to have moved to ${it.display()}." } ?: "The business appears to have moved."
+        "rebranded" -> notes += restaurant.currentName?.let { "The business now appears to operate as $it." } ?: "The business appears to operate under a new name."
+        "conflicting" -> notes += "Current business status differs across sources."
+        "unknown" -> notes += "Current business status has not been confirmed."
+    }
+
+    restaurant.conflictFlags.forEach { flag ->
+        when (flag) {
+            "name_mismatch" -> notes += restaurant.currentName?.let { "Current business name differs from the RMP listing: $it." } ?: "Current business name differs from the RMP listing."
+            "address_mismatch" -> notes += restaurant.currentAddress?.let { "Current business address differs from the RMP listing: ${it.display()}." } ?: "Current business address differs from the RMP listing."
+            "moved" -> if (restaurant.businessStatus != "moved") notes += "Current sources indicate the business moved."
+            "rebranded" -> if (restaurant.businessStatus != "rebranded") notes += "Current sources indicate the business name changed."
+            "hours_conflict" -> notes += "Published hours differ across sources."
+            "status_conflict" -> if (restaurant.businessStatus != "conflicting") notes += "Business status differs across sources."
+            "phone_conflict" -> notes += "Published phone number differs across sources."
+        }
+    }
+
+    when (restaurant.hoursStatus) {
+        "stale" -> notes += "Hours have not been confirmed recently."
+        "partial" -> notes += "Only part of the weekly hours are confirmed."
+        "conflicting" -> notes += "Published hours differ across sources."
+        "unknown" -> notes += "Current hours have not been confirmed."
+    }
+
+    return notes.toList()
 }
 
 @Composable

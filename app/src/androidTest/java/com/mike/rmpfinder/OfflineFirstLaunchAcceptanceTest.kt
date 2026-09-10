@@ -53,11 +53,12 @@ class OfflineFirstLaunchAcceptanceTest {
         openNowChip.performClick().assertIsSelected()
         openNowChip.performClick()
 
-        composeRule.onNodeWithText("Needs attention").performClick().assertIsSelected()
+        composeRule.onNodeWithText("Status notes").performClick().assertIsSelected()
         composeRule.waitUntil(5_000) {
-            composeRule.onAllNodesWithText("⚠ Check details before traveling").fetchSemanticsNodes().isNotEmpty()
+            composeRule.onAllNodesWithText("241 of 241 RMP locations").fetchSemanticsNodes().isEmpty()
         }
-        composeRule.onNodeWithText("Needs attention").performClick()
+        check(composeRule.onAllNodesWithText("⚠ Check details before traveling").fetchSemanticsNodes().isEmpty())
+        composeRule.onNodeWithText("Status notes").performClick()
 
         search.performTextInput("A Daughter and Two Sons")
         waitForText("A Daughter and Two Sons")
