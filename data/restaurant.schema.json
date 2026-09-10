@@ -251,7 +251,7 @@
         "latitude": {
           "type": "number",
           "minimum": 40.4,
-          "maximum": 41.2
+          "maximum": 41.5
         },
         "longitude": {
           "type": "number",

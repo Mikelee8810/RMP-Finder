@@ -2,7 +2,7 @@
 
 Personal Android-first finder for Mike's New York Restaurant Meals Program directory.
 
-RMP Finder is built around a curated, versioned static directory rather than OTDA's live locator. Notion remains the enrichment/editing workspace; this repository will contain the validated export consumed by the Android app.
+RMP Finder is built around a curated, versioned static directory rather than OTDA's live locator. Notion remains the enrichment/editing workspace; this repository contains the validated export that the Android app will consume.
 
 ## Current direction
 
@@ -22,15 +22,18 @@ RMP Finder is built around a curated, versioned static directory rather than OTD
 - 0 missing addresses or ZIPs
 - 0 missing RMP verification dates
 - 1 missing phone
-- 15 locations without usable hours
-- 23 locations needing status or hours confirmation
+- 15 locations with no source hour text
+- 173 locations with structured hours usable for open-now checks
+- 68 locations explicitly excluded from open-now checks because hours/status are partial, stale, conflicting, or unknown
 - 47 missing websites
 
 The incomplete fields are represented as explicit unknown or conflict states. They do not block the core finder.
 
 ## Repository status
 
-The repository is currently the durable project home for the design contract, data contract, and implementation plan. Android source and the validated 241-location export will be added after the dataset and map-coordinate intake is complete.
+The pre-build data gate is complete. The repository contains the validated 241-location export, manifest, source snapshot, geocoding evidence/review, schemas, generation script, verification script, and locked product/data decisions. Android source has not started yet.
+
+Run `python3 tools/build_data.py` followed by `python3 tools/verify_data.py` to regenerate and verify the static dataset.
 
 ## Pre-code specification
 

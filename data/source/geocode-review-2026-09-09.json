@@ -1,0 +1,4341 @@
+[
+  {
+    "index": 0,
+    "rmpKey": "bronx|a daughter and two sons|1807 archer street|10460",
+    "officialAddress": {
+      "line1": "1807 Archer Street",
+      "city": "Bronx",
+      "state": "NY",
+      "zip": "10460"
+    },
+    "inputAddress": "1807 Archer Street, Bronx, NY 10460",
+    "matchedAddress": "1807 ARCHER ST, BRONX, NY, 10460",
+    "latitude": 40.837583839155,
+    "longitude": -73.867017864531,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 1,
+    "rmpKey": "bronx|bailey seafood & kuchifrito|146 west 231st street|10463",
+    "officialAddress": {
+      "line1": "146 West 231st Street",
+      "city": "Bronx",
+      "state": "NY",
+      "zip": "10463"
+    },
+    "inputAddress": "146 West 231st Street, Bronx, NY 10463",
+    "matchedAddress": "146 W 231ST ST, BRONX, NY, 10463",
+    "latitude": 40.87822170564,
+    "longitude": -73.903121938266,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 2,
+    "rmpKey": "bronx|bites on valentine|239 east 203rd street|10458",
+    "officialAddress": {
+      "line1": "239 East 203rd Street",
+      "city": "Bronx",
+      "state": "NY",
+      "zip": "10458"
+    },
+    "inputAddress": "239 East 203rd Street, Bronx, NY 10458",
+    "matchedAddress": "239 E 203RD ST, BRONX, NY, 10458",
+    "latitude": 40.873662967639,
+    "longitude": -73.88510156527,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 3,
+    "rmpKey": "bronx|bobo's crab shack|2450 grand concourse|10458",
+    "officialAddress": {
+      "line1": "2450 Grand Concourse",
+      "city": "Bronx",
+      "state": "NY",
+      "zip": "10458"
+    },
+    "inputAddress": "2450 Grand Concourse, Bronx, NY 10458",
+    "matchedAddress": "2450 GRAND CONCOURSE, BRONX, NY, 10458",
+    "latitude": 40.861057502212,
+    "longitude": -73.897615238032,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 4,
+    "rmpKey": "bronx|bobo's wing and seafood|25 east bedford park boulevard|10468",
+    "officialAddress": {
+      "line1": "25 East Bedford Park Boulevard",
+      "city": "Bronx",
+      "state": "NY",
+      "zip": "10468"
+    },
+    "inputAddress": "25 East Bedford Park Boulevard, Bronx, NY 10468",
+    "matchedAddress": "25 BEDFORD PARK BLVD, BRONX, NY, 10468",
+    "latitude": 40.873248367385,
+    "longitude": -73.889109109789,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "matched",
+    "precision": "interpolated",
+    "review": "OTDA/source line includes East Bedford Park Boulevard; Census omits the directional word while retaining the same house number and ZIP."
+  },
+  {
+    "index": 5,
+    "rmpKey": "bronx|burger king/popeyes|60 metropolitan oval|10462",
+    "officialAddress": {
+      "line1": "60 Metropolitan Oval",
+      "city": "Bronx",
+      "state": "NY",
+      "zip": "10462"
+    },
+    "inputAddress": "60 Metropolitan Oval, Bronx, NY 10462",
+    "matchedAddress": "60 METROPOLITAN OVAL, BRONX, NY, 10462",
+    "latitude": 40.838763666658,
+    "longitude": -73.859996520084,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 6,
+    "rmpKey": "bronx|burger king|3440 jerome avenue|10467",
+    "officialAddress": {
+      "line1": "3440 Jerome Avenue",
+      "city": "Bronx",
+      "state": "NY",
+      "zip": "10467"
+    },
+    "inputAddress": "3440 Jerome Avenue, Bronx, NY 10467",
+    "matchedAddress": "3440 JEROME AVE, BRONX, NY, 10467",
+    "latitude": 40.881538135558,
+    "longitude": -73.882492782172,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 7,
+    "rmpKey": "bronx|caribe restaurant|1762 crosby avenue|10461",
+    "officialAddress": {
+      "line1": "1762 Crosby Avenue",
+      "city": "Bronx",
+      "state": "NY",
+      "zip": "10461"
+    },
+    "inputAddress": "1762 Crosby Avenue, Bronx, NY 10461",
+    "matchedAddress": "1762 CROSBY AVE, BRONX, NY, 10461",
+    "latitude": 40.846402576019,
+    "longitude": -73.831754684418,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 8,
+    "rmpKey": "bronx|caridad retaurant express|18 east gun hill road|10467",
+    "officialAddress": {
+      "line1": "18 East Gun Hill Road",
+      "city": "Bronx",
+      "state": "NY",
+      "zip": "10467"
+    },
+    "inputAddress": "18 East Gun Hill Road, Bronx, NY 10467",
+    "matchedAddress": "18 E GUN HILL RD, BRONX, NY, 10467",
+    "latitude": 40.88255814797,
+    "longitude": -73.881122611195,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 9,
+    "rmpKey": "bronx|caridad seafood restaurant|410 east tremont street|10457",
+    "officialAddress": {
+      "line1": "410 East Tremont Street",
+      "city": "Bronx",
+      "state": "NY",
+      "zip": "10457"
+    },
+    "inputAddress": "410 East Tremont Street, Bronx, NY 10457",
+    "matchedAddress": "410 E TREMONT AVE, BRONX, NY, 10457",
+    "latitude": 40.847566680044,
+    "longitude": -73.90060884012,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "matched",
+    "precision": "interpolated",
+    "review": "OTDA/source line says East Tremont Street; Census returns East Tremont Avenue at the same house number and ZIP. Official wording retained."
+  },
+  {
+    "index": 10,
+    "rmpKey": "bronx|churrasco del valle restaurant|255 east burnside avenue|10457",
+    "officialAddress": {
+      "line1": "255 East Burnside Avenue",
+      "city": "Bronx",
+      "state": "NY",
+      "zip": "10457"
+    },
+    "inputAddress": "255 East Burnside Avenue, Bronx, NY 10457",
+    "matchedAddress": "255 E BURNSIDE AVE, BRONX, NY, 10457",
+    "latitude": 40.851187909555,
+    "longitude": -73.901847077109,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 11,
+    "rmpKey": "bronx|dallas bbq|2160 bartow avenue|10475",
+    "officialAddress": {
+      "line1": "2160 Bartow Avenue",
+      "city": "Bronx",
+      "state": "NY",
+      "zip": "10475"
+    },
+    "inputAddress": "2160 Bartow Avenue, Bronx, NY 10475",
+    "matchedAddress": "2160 BARTOW AVE, BRONX, NY, 10475",
+    "latitude": 40.869272401274,
+    "longitude": -73.825399397488,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 12,
+    "rmpKey": "bronx|dunkin donuts|2370 grand concourse road|10458",
+    "officialAddress": {
+      "line1": "2370 Grand Concourse Road",
+      "city": "Bronx",
+      "state": "NY",
+      "zip": "10458"
+    },
+    "inputAddress": "2370 Grand Concourse Road, Bronx, NY 10458",
+    "matchedAddress": "2370 GRAND CONCOURSE, BRONX, NY, 10458",
+    "latitude": 40.859178818124,
+    "longitude": -73.898638182674,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "matched",
+    "precision": "interpolated",
+    "review": "OTDA/source line says Grand Concourse Road; Census normalizes the street name to Grand Concourse at the same house number and ZIP."
+  },
+  {
+    "index": 13,
+    "rmpKey": "bronx|dunkin donuts|4 east fordham road|10468",
+    "officialAddress": {
+      "line1": "4 East Fordham Road",
+      "city": "Bronx",
+      "state": "NY",
+      "zip": "10468"
+    },
+    "inputAddress": "4 East Fordham Road, Bronx, NY 10468",
+    "matchedAddress": "4 E FORDHAM RD, BRONX, NY, 10468",
+    "latitude": 40.86264566368,
+    "longitude": -73.900951027283,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 14,
+    "rmpKey": "bronx|dunkin donuts|4722 third avenue|10458",
+    "officialAddress": {
+      "line1": "4722 Third Avenue",
+      "city": "Bronx",
+      "state": "NY",
+      "zip": "10458"
+    },
+    "inputAddress": "4722 Third Avenue, Bronx, NY 10458",
+    "matchedAddress": "4722 3RD AVE, BRONX, NY, 10458",
+    "latitude": 40.860131483299,
+    "longitude": -73.891065760775,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 15,
+    "rmpKey": "bronx|el valle restaurant|3535 jerome avenue|10467",
+    "officialAddress": {
+      "line1": "3535 Jerome Avenue",
+      "city": "Bronx",
+      "state": "NY",
+      "zip": "10467"
+    },
+    "inputAddress": "3535 Jerome Avenue, Bronx, NY 10467",
+    "matchedAddress": "3535 JEROME AVE, BRONX, NY, 10467",
+    "latitude": 40.882075886183,
+    "longitude": -73.882074345934,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 16,
+    "rmpKey": "bronx|flamez cuisine|3728 bronxwood avneue|10469",
+    "officialAddress": {
+      "line1": "3728 Bronxwood Avneue",
+      "city": "Bronx",
+      "state": "NY",
+      "zip": "10469"
+    },
+    "inputAddress": "3728 Bronxwood Avneue, Bronx, NY 10469",
+    "matchedAddress": "3728 BRONXWOOD AVE, BRONX, NY, 10469",
+    "latitude": 40.880463447579,
+    "longitude": -73.85768246223,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "matched",
+    "precision": "interpolated",
+    "review": "OTDA/source line contains the spelling Avneue; Census normalizes it to Avenue at the same house number and ZIP."
+  },
+  {
+    "index": 17,
+    "rmpKey": "bronx|jen's french toast|607 e 169th street|10456",
+    "officialAddress": {
+      "line1": "607 E 169th Street",
+      "city": "Bronx",
+      "state": "NY",
+      "zip": "10456"
+    },
+    "inputAddress": "607 E 169th Street, Bronx, NY 10456",
+    "matchedAddress": "607 E 169TH ST, BRONX, NY, 10456",
+    "latitude": 40.831938556282,
+    "longitude": -73.902352953069,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 18,
+    "rmpKey": "bronx|kentucky fried chicken|1731 webster avenue|10457",
+    "officialAddress": {
+      "line1": "1731 Webster Avenue",
+      "city": "Bronx",
+      "state": "NY",
+      "zip": "10457"
+    },
+    "inputAddress": "1731 Webster Avenue, Bronx, NY 10457",
+    "matchedAddress": "1731 WEBSTER AVE, BRONX, NY, 10457",
+    "latitude": 40.844148175061,
+    "longitude": -73.903017286912,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 19,
+    "rmpKey": "bronx|kentucky fried chicken|1959 bruckner boulevard|10472",
+    "officialAddress": {
+      "line1": "1959 Bruckner Boulevard",
+      "city": "Bronx",
+      "state": "NY",
+      "zip": "10472"
+    },
+    "inputAddress": "1959 Bruckner Boulevard, Bronx, NY 10472",
+    "matchedAddress": "1959 BRUCKNER BLVD, BRONX, NY, 10472",
+    "latitude": 40.826648565493,
+    "longitude": -73.857366461302,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 20,
+    "rmpKey": "bronx|kentucky fried chicken|375 east 149th street|10455",
+    "officialAddress": {
+      "line1": "375 East 149th Street",
+      "city": "Bronx",
+      "state": "NY",
+      "zip": "10455"
+    },
+    "inputAddress": "375 East 149th Street, Bronx, NY 10455",
+    "matchedAddress": "375 E 149TH ST, BRONX, NY, 10455",
+    "latitude": 40.816387124296,
+    "longitude": -73.918621826577,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 21,
+    "rmpKey": "bronx|leche y miel restaurant|5761 broadway|10463",
+    "officialAddress": {
+      "line1": "5761 Broadway",
+      "city": "Bronx",
+      "state": "NY",
+      "zip": "10463"
+    },
+    "inputAddress": "5761 Broadway, Bronx, NY 10463",
+    "matchedAddress": "5761 BROADWAY, BRONX, NY, 10463",
+    "latitude": 40.883597099008,
+    "longitude": -73.90159903853,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 22,
+    "rmpKey": "bronx|lechonera don pancholo|2037 jerome avenue|10453",
+    "officialAddress": {
+      "line1": "2037 Jerome Avenue",
+      "city": "Bronx",
+      "state": "NY",
+      "zip": "10453"
+    },
+    "inputAddress": "2037 Jerome Avenue, Bronx, NY 10453",
+    "matchedAddress": "2037 JEROME AVE, BRONX, NY, 10453",
+    "latitude": 40.853595399551,
+    "longitude": -73.907631153256,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 23,
+    "rmpKey": "bronx|lins home chinese|2461 university avenue|10468",
+    "officialAddress": {
+      "line1": "2461 University Avenue",
+      "city": "Bronx",
+      "state": "NY",
+      "zip": "10468"
+    },
+    "inputAddress": "2461 University Avenue, Bronx, NY 10468",
+    "matchedAddress": "2461 UNIVERSITY AVE, BRONX, NY, 10468",
+    "latitude": 40.864484130862,
+    "longitude": -73.903926525575,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 24,
+    "rmpKey": "bronx|los amigos restaurant|674 east 180th street|10457",
+    "officialAddress": {
+      "line1": "674 East 180th Street",
+      "city": "Bronx",
+      "state": "NY",
+      "zip": "10457"
+    },
+    "inputAddress": "674 East 180th Street, Bronx, NY 10457",
+    "matchedAddress": "674 E 180TH ST, BRONX, NY, 10457",
+    "latitude": 40.848374823368,
+    "longitude": -73.889467926622,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 25,
+    "rmpKey": "bronx|love & soul food|4 east gun hill road|10467",
+    "officialAddress": {
+      "line1": "4 East Gun Hill Road",
+      "city": "Bronx",
+      "state": "NY",
+      "zip": "10467"
+    },
+    "inputAddress": "4 East Gun Hill Road, Bronx, NY 10467",
+    "matchedAddress": "4 E GUN HILL RD, BRONX, NY, 10467",
+    "latitude": 40.882618491769,
+    "longitude": -73.881220949217,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 26,
+    "rmpKey": "bronx|luna café|726 courtlandt avenue|10451",
+    "officialAddress": {
+      "line1": "726 Courtlandt Avenue",
+      "city": "Bronx",
+      "state": "NY",
+      "zip": "10451"
+    },
+    "inputAddress": "726 Courtlandt Avenue, Bronx, NY 10451",
+    "matchedAddress": "726 COURTLANDT AVE, BRONX, NY, 10451",
+    "latitude": 40.820986083406,
+    "longitude": -73.917472059881,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 27,
+    "rmpKey": "bronx|numero uno sabor latino restaurant|4120 white plains road|10466",
+    "officialAddress": {
+      "line1": "4120 White Plains Road",
+      "city": "Bronx",
+      "state": "NY",
+      "zip": "10466"
+    },
+    "inputAddress": "4120 White Plains Road, Bronx, NY 10466",
+    "matchedAddress": "4120 WHITE PLAINS RD, BRONX, NY, 10466",
+    "latitude": 40.89120877022,
+    "longitude": -73.858506037453,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 28,
+    "rmpKey": "bronx|pa' comer|104 e. 165th street|10452",
+    "officialAddress": {
+      "line1": "104 E. 165th Street",
+      "city": "Bronx",
+      "state": "NY",
+      "zip": "10452"
+    },
+    "inputAddress": "104 E. 165th Street, Bronx, NY 10452",
+    "matchedAddress": "104 E 165TH ST, BRONX, NY, 10452",
+    "latitude": 40.83121156158,
+    "longitude": -73.921482668285,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 29,
+    "rmpKey": "bronx|popeye's|631 e tremont avenue|10457",
+    "officialAddress": {
+      "line1": "631 E Tremont Avenue",
+      "city": "Bronx",
+      "state": "NY",
+      "zip": "10457"
+    },
+    "inputAddress": "631 E Tremont Avenue, Bronx, NY 10457",
+    "matchedAddress": "631 E TREMONT AVE, BRONX, NY, 10457",
+    "latitude": 40.84610435757,
+    "longitude": -73.892387864346,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 30,
+    "rmpKey": "bronx|popeye's|815 hutchinson parkway|10465",
+    "officialAddress": {
+      "line1": "815 Hutchinson Parkway",
+      "city": "Bronx",
+      "state": "NY",
+      "zip": "10465"
+    },
+    "inputAddress": "815 Hutchinson Parkway, Bronx, NY 10465",
+    "matchedAddress": "815 HUTCHINSON RIVER PARKWAY SVC RD, BRONX, NY, 10465",
+    "latitude": 40.822769041643,
+    "longitude": -73.836482462489,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "matched",
+    "precision": "interpolated",
+    "review": "OTDA lists 815 Hutchinson Parkway; Census resolves the same property as 815 Hutchinson River Parkway Service Road. Reviewed against the live OTDA entry."
+  },
+  {
+    "index": 31,
+    "rmpKey": "bronx|popeyes|1600 bruckner boulevard|10473",
+    "officialAddress": {
+      "line1": "1600 Bruckner Boulevard",
+      "city": "Bronx",
+      "state": "NY",
+      "zip": "10473"
+    },
+    "inputAddress": "1600 Bruckner Boulevard, Bronx, NY 10473",
+    "matchedAddress": "1600 BRUCKNER BLVD, BRONX, NY, 10473",
+    "latitude": 40.823742006115,
+    "longitude": -73.874949592417,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 32,
+    "rmpKey": "bronx|popeyes|1905 story avenue|10473",
+    "officialAddress": {
+      "line1": "1905 Story Avenue",
+      "city": "Bronx",
+      "state": "NY",
+      "zip": "10473"
+    },
+    "inputAddress": "1905 Story Avenue, Bronx, NY 10473",
+    "matchedAddress": "1905 STORY AVE, BRONX, NY, 10473",
+    "latitude": 40.824143913253,
+    "longitude": -73.85968992643,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 33,
+    "rmpKey": "bronx|popeyes|2176-a white plains road|10462",
+    "officialAddress": {
+      "line1": "2176-A White Plains Road",
+      "city": "Bronx",
+      "state": "NY",
+      "zip": "10462"
+    },
+    "inputAddress": "2176-A White Plains Road, Bronx, NY 10462",
+    "matchedAddress": "2176 WHITE PLAINS RD, BRONX, NY, 10462",
+    "latitude": 40.855801717406,
+    "longitude": -73.867592183303,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "matched",
+    "precision": "interpolated",
+    "review": "OTDA unit suffix A is omitted by Census; street number, street, borough, and ZIP otherwise match."
+  },
+  {
+    "index": 34,
+    "rmpKey": "bronx|popeyes|2751 boston road|10469",
+    "officialAddress": {
+      "line1": "2751 Boston Road",
+      "city": "Bronx",
+      "state": "NY",
+      "zip": "10469"
+    },
+    "inputAddress": "2751 Boston Road, Bronx, NY 10469",
+    "matchedAddress": "2751 BOSTON RD, BRONX, NY, 10469",
+    "latitude": 40.866381107757,
+    "longitude": -73.861341704098,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 35,
+    "rmpKey": "bronx|qdoba mexican eats|1 west fordham road|10468",
+    "officialAddress": {
+      "line1": "1 West Fordham Road",
+      "city": "Bronx",
+      "state": "NY",
+      "zip": "10468"
+    },
+    "inputAddress": "1 West Fordham Road, Bronx, NY 10468",
+    "matchedAddress": "1 W FORDHAM RD, BRONX, NY, 10468",
+    "latitude": 40.862823811943,
+    "longitude": -73.901138028193,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 36,
+    "rmpKey": "bronx|rocbody fitness café|2960 middletown road|10461",
+    "officialAddress": {
+      "line1": "2960 Middletown Road",
+      "city": "Bronx",
+      "state": "NY",
+      "zip": "10461"
+    },
+    "inputAddress": "2960 Middletown Road, Bronx, NY 10461",
+    "matchedAddress": "2960 MIDDLETOWN RD, BRONX, NY, 10461",
+    "latitude": 40.843702986469,
+    "longitude": -73.830994423339,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 37,
+    "rmpKey": "bronx|sante yallah keur aisha restaurant|1460 boston road|10460",
+    "officialAddress": {
+      "line1": "1460 Boston Road",
+      "city": "Bronx",
+      "state": "NY",
+      "zip": "10460"
+    },
+    "inputAddress": "1460 Boston Road, Bronx, NY 10460",
+    "matchedAddress": "1460 BOSTON RD, BRONX, NY, 10460",
+    "latitude": 40.834043786496,
+    "longitude": -73.895125246961,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 38,
+    "rmpKey": "brooklyn|8 bit bites - 113 bistro|113 court street|11201",
+    "officialAddress": {
+      "line1": "113 Court Street",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11201"
+    },
+    "inputAddress": "113 Court Street, Brooklyn, NY 11201",
+    "matchedAddress": "113 COURT ST, BROOKLYN, NY, 11201",
+    "latitude": 40.690556132543,
+    "longitude": -73.991870934029,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 39,
+    "rmpKey": "brooklyn|8 bit bites - 881 bistro|881 lexington avenue|11221",
+    "officialAddress": {
+      "line1": "881 Lexington Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11221"
+    },
+    "inputAddress": "881 Lexington Avenue, Brooklyn, NY 11221",
+    "matchedAddress": "881 LEXINGTON AVE, BROOKLYN, NY, 11221",
+    "latitude": 40.690552268629,
+    "longitude": -73.926451088076,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 40,
+    "rmpKey": "brooklyn|8 bit bites - brain food deli & salad bar|967 bedford avenue|11205",
+    "officialAddress": {
+      "line1": "967 Bedford Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11205"
+    },
+    "inputAddress": "967 Bedford Avenue, Brooklyn, NY 11205",
+    "matchedAddress": "967 BEDFORD AVE, BROOKLYN, NY, 11205",
+    "latitude": 40.691086761904,
+    "longitude": -73.955369449457,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 41,
+    "rmpKey": "brooklyn|atomic wings|66 willoughby street|11201",
+    "officialAddress": {
+      "line1": "66 Willoughby Street",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11201"
+    },
+    "inputAddress": "66 Willoughby Street, Brooklyn, NY 11201",
+    "matchedAddress": "66 WILLOUGHBY ST, BROOKLYN, NY, 11201",
+    "latitude": 40.692133748467,
+    "longitude": -73.986143446861,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 42,
+    "rmpKey": "brooklyn|bamboo seafood|5108 7th avenue|11220",
+    "officialAddress": {
+      "line1": "5108 7th Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11220"
+    },
+    "inputAddress": "5108 7th Avenue, Brooklyn, NY 11220",
+    "matchedAddress": "5108 7TH AVE, BROOKLYN, NY, 11220",
+    "latitude": 40.641838077414,
+    "longitude": -74.006644858194,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 43,
+    "rmpKey": "brooklyn|bojangles|5910 church avenue|11203",
+    "officialAddress": {
+      "line1": "5910 Church Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11203"
+    },
+    "inputAddress": "5910 Church Avenue, Brooklyn, NY 11203",
+    "matchedAddress": "5910 CHURCH AVE, BROOKLYN, NY, 11203",
+    "latitude": 40.652465067753,
+    "longitude": -73.921225200851,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 44,
+    "rmpKey": "brooklyn|brain food deli & smart kitchen|111 court street|11201",
+    "officialAddress": {
+      "line1": "111 Court Street",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11201"
+    },
+    "inputAddress": "111 Court Street, Brooklyn, NY 11201",
+    "matchedAddress": "111 COURT ST, BROOKLYN, NY, 11201",
+    "latitude": 40.690616165523,
+    "longitude": -73.991842168225,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 45,
+    "rmpKey": "brooklyn|bunnan - caton|2123 caton avenue|11226",
+    "officialAddress": {
+      "line1": "2123 Caton Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11226"
+    },
+    "inputAddress": "2123 Caton Avenue, Brooklyn, NY 11226",
+    "matchedAddress": "2123 CATON AVE, BROOKLYN, NY, 11226",
+    "latitude": 40.653008245268,
+    "longitude": -73.958873423821,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 46,
+    "rmpKey": "brooklyn|bunnan - flatbush|1248 flatbush avenue|11226",
+    "officialAddress": {
+      "line1": "1248 Flatbush Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11226"
+    },
+    "inputAddress": "1248 Flatbush Avenue, Brooklyn, NY 11226",
+    "matchedAddress": "1248 FLATBUSH AVE, BROOKLYN, NY, 11226",
+    "latitude": 40.63980233615,
+    "longitude": -73.955037436679,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 47,
+    "rmpKey": "brooklyn|burger king/popeyes|2343 utica avenue|11234",
+    "officialAddress": {
+      "line1": "2343 Utica Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11234"
+    },
+    "inputAddress": "2343 Utica Avenue, Brooklyn, NY 11234",
+    "matchedAddress": "2343 UTICA AVE, BROOKLYN, NY, 11234",
+    "latitude": 40.614427003269,
+    "longitude": -73.926319214936,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 48,
+    "rmpKey": "brooklyn|burger king/popeyes|8516 5th avenue|11209",
+    "officialAddress": {
+      "line1": "8516 5th Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11209"
+    },
+    "inputAddress": "8516 5th Avenue, Brooklyn, NY 11209",
+    "matchedAddress": "8516 5TH AVE, BROOKLYN, NY, 11209",
+    "latitude": 40.622032757556,
+    "longitude": -74.025841413181,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 49,
+    "rmpKey": "brooklyn|burger king|1297 fulton street|11216",
+    "officialAddress": {
+      "line1": "1297 Fulton Street",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11216"
+    },
+    "inputAddress": "1297 Fulton Street, Brooklyn, NY 11216",
+    "matchedAddress": "1297 FULTON ST, BROOKLYN, NY, 11216",
+    "latitude": 40.680432915845,
+    "longitude": -73.949329563229,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 50,
+    "rmpKey": "brooklyn|burger king|1661 linden boulevard|11212",
+    "officialAddress": {
+      "line1": "1661 Linden Boulevard",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11212"
+    },
+    "inputAddress": "1661 Linden Boulevard, Brooklyn, NY 11212",
+    "matchedAddress": "1661 LINDEN BLVD, BROOKLYN, NY, 11212",
+    "latitude": 40.657334023789,
+    "longitude": -73.900119165851,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 51,
+    "rmpKey": "brooklyn|burger king|3301 ft. hamilton parkway|11218",
+    "officialAddress": {
+      "line1": "3301 Ft. Hamilton Parkway",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11218"
+    },
+    "inputAddress": "3301 Ft. Hamilton Parkway, Brooklyn, NY 11218",
+    "matchedAddress": "3301 FORT HAMILTON PKWY, BROOKLYN, NY, 11218",
+    "latitude": 40.647046620658,
+    "longitude": -73.981835768587,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 52,
+    "rmpKey": "brooklyn|burger king|417-21 fulton street|11201",
+    "officialAddress": {
+      "line1": "417-21 Fulton Street",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11201"
+    },
+    "inputAddress": "417-21 Fulton Street, Brooklyn, NY 11201",
+    "matchedAddress": "417 FULTON ST, BROOKLYN, NY, 11201",
+    "latitude": 40.691886093663,
+    "longitude": -73.988260905241,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "matched",
+    "precision": "interpolated",
+    "review": "OTDA lists the 417-21 Fulton Street range; Census resolves 417 Fulton Street within that range."
+  },
+  {
+    "index": 53,
+    "rmpKey": "brooklyn|burger king|524 fulton street|11216",
+    "officialAddress": {
+      "line1": "524 Fulton Street",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11216"
+    },
+    "inputAddress": "524 Fulton Street, Brooklyn, NY 11216",
+    "matchedAddress": "524 FULTON ST, BROOKLYN, NY, 11201",
+    "latitude": 40.68913145702,
+    "longitude": -73.981690480579,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "matched",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match. Matched ZIP 11201 differs from OTDA ZIP 11216; reviewed and OTDA value retained."
+  },
+  {
+    "index": 54,
+    "rmpKey": "brooklyn|burger king|624 south conduit avenue|11208",
+    "officialAddress": {
+      "line1": "624 South Conduit Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11208"
+    },
+    "inputAddress": "624 South Conduit Avenue, Brooklyn, NY 11208",
+    "matchedAddress": "624 S CONDUIT BLVD, BROOKLYN, NY, 11208",
+    "latitude": 40.675835003009,
+    "longitude": -73.86665800613,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "matched",
+    "precision": "interpolated",
+    "review": "OTDA/source line says South Conduit Avenue; Census returns South Conduit Boulevard at the same house number and ZIP. Official wording retained."
+  },
+  {
+    "index": 55,
+    "rmpKey": "brooklyn|burger king|971 flatbush avenue|11226",
+    "officialAddress": {
+      "line1": "971 Flatbush Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11226"
+    },
+    "inputAddress": "971 Flatbush Avenue, Brooklyn, NY 11226",
+    "matchedAddress": "971 FLATBUSH AVE, BROOKLYN, NY, 11226",
+    "latitude": 40.647834663335,
+    "longitude": -73.958083760674,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 56,
+    "rmpKey": "brooklyn|carnation restaurant|2310 86th street|11214",
+    "officialAddress": {
+      "line1": "2310 86th Street",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11214"
+    },
+    "inputAddress": "2310 86th Street, Brooklyn, NY 11214",
+    "matchedAddress": "2310 86TH ST, BROOKLYN, NY, 11214",
+    "latitude": 40.600378196372,
+    "longitude": -73.991382924716,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 57,
+    "rmpKey": "brooklyn|carro café|3472 fulton street|11208",
+    "officialAddress": {
+      "line1": "3472 Fulton Street",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11208"
+    },
+    "inputAddress": "3472 Fulton Street, Brooklyn, NY 11208",
+    "matchedAddress": "3472 FULTON ST, BROOKLYN, NY, 11208",
+    "latitude": 40.68492807803,
+    "longitude": -73.8674992405,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 58,
+    "rmpKey": "brooklyn|chaska chai|3680 nostrand avenue|11229",
+    "officialAddress": {
+      "line1": "3680 Nostrand Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11229"
+    },
+    "inputAddress": "3680 Nostrand Avenue, Brooklyn, NY 11229",
+    "matchedAddress": "3680 NOSTRAND AVE, BROOKLYN, NY, 11229",
+    "latitude": 40.594254265374,
+    "longitude": -73.940772365067,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 59,
+    "rmpKey": "brooklyn|checkers|1801 church avenue|11226",
+    "officialAddress": {
+      "line1": "1801 Church Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11226"
+    },
+    "inputAddress": "1801 Church Avenue, Brooklyn, NY 11226",
+    "matchedAddress": "1801 CHURCH AVE, BROOKLYN, NY, 11226",
+    "latitude": 40.649514057493,
+    "longitude": -73.963042057811,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 60,
+    "rmpKey": "brooklyn|crème of the island restaurant & juice bar|436 rockaway avenue|11212",
+    "officialAddress": {
+      "line1": "436 Rockaway Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11212"
+    },
+    "inputAddress": "436 Rockaway Avenue, Brooklyn, NY 11212",
+    "matchedAddress": "436 ROCKAWAY AVE, BROOKLYN, NY, 11212",
+    "latitude": 40.669330348795,
+    "longitude": -73.910728307569,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 61,
+    "rmpKey": "brooklyn|cuihua kitchen|2004 86th street|11214",
+    "officialAddress": {
+      "line1": "2004 86th Street",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11214"
+    },
+    "inputAddress": "2004 86th Street, Brooklyn, NY 11214",
+    "matchedAddress": "2004 86TH ST, BROOKLYN, NY, 11214",
+    "latitude": 40.604465601878,
+    "longitude": -73.99813818388,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 62,
+    "rmpKey": "brooklyn|dagu rice noodle|8515 18th avenue|11214",
+    "officialAddress": {
+      "line1": "8515 18th Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11214"
+    },
+    "inputAddress": "8515 18th Avenue, Brooklyn, NY 11214",
+    "matchedAddress": "8515 18TH AVE, BROOKLYN, NY, 11214",
+    "latitude": 40.60767079255,
+    "longitude": -74.002029903057,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 63,
+    "rmpKey": "brooklyn|dallas bbq|180 livingston street|11201",
+    "officialAddress": {
+      "line1": "180 Livingston Street",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11201"
+    },
+    "inputAddress": "180 Livingston Street, Brooklyn, NY 11201",
+    "matchedAddress": "180 LIVINGSTON ST, BROOKLYN, NY, 11201",
+    "latitude": 40.68991893325,
+    "longitude": -73.986643081287,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 64,
+    "rmpKey": "brooklyn|dexin yuan zai bing restaurant|712 60th street|11220",
+    "officialAddress": {
+      "line1": "712 60th Street",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11220"
+    },
+    "inputAddress": "712 60th Street, Brooklyn, NY 11220",
+    "matchedAddress": "712 60TH ST, BROOKLYN, NY, 11220",
+    "latitude": 40.636584983202,
+    "longitude": -74.011492305782,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 65,
+    "rmpKey": "brooklyn|dunkin donuts|1052 flushing avenue|11237",
+    "officialAddress": {
+      "line1": "1052 Flushing Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11237"
+    },
+    "inputAddress": "1052 Flushing Avenue, Brooklyn, NY 11237",
+    "matchedAddress": "1052 FLUSHING AVE, BROOKLYN, NY, 11237",
+    "latitude": 40.704450092688,
+    "longitude": -73.929252690573,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 66,
+    "rmpKey": "brooklyn|fix-u-plate|1139 clarkson avenue|11212",
+    "officialAddress": {
+      "line1": "1139 Clarkson Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11212"
+    },
+    "inputAddress": "1139 Clarkson Avenue, Brooklyn, NY 11212",
+    "matchedAddress": "1139 CLARKSON AVE, BROOKLYN, NY, 11212",
+    "latitude": 40.660730123649,
+    "longitude": -73.920823439135,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 67,
+    "rmpKey": "brooklyn|fix-u-plate|1412 rockaway parkway|11236",
+    "officialAddress": {
+      "line1": "1412 Rockaway Parkway",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11236"
+    },
+    "inputAddress": "1412 Rockaway Parkway, Brooklyn, NY 11236",
+    "matchedAddress": "1412 ROCKAWAY PKWY, BROOKLYN, NY, 11236",
+    "latitude": 40.645472956488,
+    "longitude": -73.902789823904,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 68,
+    "rmpKey": "brooklyn|golden \"z\" restaurant|1410 avenue u|11229",
+    "officialAddress": {
+      "line1": "1410 Avenue U",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11229"
+    },
+    "inputAddress": "1410 Avenue U, Brooklyn, NY 11229",
+    "matchedAddress": "1410 AVE U, BROOKLYN, NY, 11229",
+    "latitude": 40.598690445328,
+    "longitude": -73.957167082337,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 69,
+    "rmpKey": "brooklyn|golden krust|1364 pennsylvania avenue|11239",
+    "officialAddress": {
+      "line1": "1364 Pennsylvania Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11239"
+    },
+    "inputAddress": "1364 Pennsylvania Avenue, Brooklyn, NY 11239",
+    "matchedAddress": "1364 PENNSYLVANIA AVE, BROOKLYN, NY, 11239",
+    "latitude": 40.648261437676,
+    "longitude": -73.882315428625,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 70,
+    "rmpKey": "brooklyn|gyro king express|1017 foster avenue|11230",
+    "officialAddress": {
+      "line1": "1017 Foster Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11230"
+    },
+    "inputAddress": "1017 Foster Avenue, Brooklyn, NY 11230",
+    "matchedAddress": "1017 FOSTER AVE, BROOKLYN, NY, 11230",
+    "latitude": 40.632162938775,
+    "longitude": -73.96718970282,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 71,
+    "rmpKey": "brooklyn|halal gyro king|984 coney island avenue|11230",
+    "officialAddress": {
+      "line1": "984 Coney Island Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11230"
+    },
+    "inputAddress": "984 Coney Island Avenue, Brooklyn, NY 11230",
+    "matchedAddress": "984 CONEY ISLAND AVE, BROOKLYN, NY, 11230",
+    "latitude": 40.633539466892,
+    "longitude": -73.967216917277,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 72,
+    "rmpKey": "brooklyn|halal munchies|474 myrtle avenue|11205",
+    "officialAddress": {
+      "line1": "474 Myrtle Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11205"
+    },
+    "inputAddress": "474 Myrtle Avenue, Brooklyn, NY 11205",
+    "matchedAddress": "474 MYRTLE AVE, BROOKLYN, NY, 11205",
+    "latitude": 40.693331100761,
+    "longitude": -73.966337781756,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 73,
+    "rmpKey": "brooklyn|happy cuisine|6712 bay parkway|11204",
+    "officialAddress": {
+      "line1": "6712 Bay Parkway",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11204"
+    },
+    "inputAddress": "6712 Bay Parkway, Brooklyn, NY 11204",
+    "matchedAddress": "6712 BAY PKWY, BROOKLYN, NY, 11204",
+    "latitude": 40.612620242349,
+    "longitude": -73.982821518551,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 74,
+    "rmpKey": "brooklyn|hey rich roasted|6005 fort hamilton parkway|11219",
+    "officialAddress": {
+      "line1": "6005 Fort Hamilton Parkway",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11219"
+    },
+    "inputAddress": "6005 Fort Hamilton Parkway, Brooklyn, NY 11219",
+    "matchedAddress": "6005 FORT HAMILTON PKWY, BROOKLYN, NY, 11219",
+    "latitude": 40.632985403279,
+    "longitude": -74.005594708918,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 75,
+    "rmpKey": "brooklyn|hua yi jia restaurant|5616 7th avenue|11220",
+    "officialAddress": {
+      "line1": "5616 7th Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11220"
+    },
+    "inputAddress": "5616 7th Avenue, Brooklyn, NY 11220",
+    "matchedAddress": "5616 7TH AVE, BROOKLYN, NY, 11220",
+    "latitude": 40.63899886632,
+    "longitude": -74.009596153415,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 76,
+    "rmpKey": "brooklyn|ihop|1019 surf avenue|11224",
+    "officialAddress": {
+      "line1": "1019 Surf Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11224"
+    },
+    "inputAddress": "1019 Surf Avenue, Brooklyn, NY 11224",
+    "matchedAddress": "1019 SURF AVE, BROOKLYN, NY, 11224",
+    "latitude": 40.575518442916,
+    "longitude": -73.978295930064,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 77,
+    "rmpKey": "brooklyn|irestaurant|5922 8th avenue|11220",
+    "officialAddress": {
+      "line1": "5922 8th Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11220"
+    },
+    "inputAddress": "5922 8th Avenue, Brooklyn, NY 11220",
+    "matchedAddress": "5922 8TH AVE, BROOKLYN, NY, 11220",
+    "latitude": 40.635953606308,
+    "longitude": -74.009172875948,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 78,
+    "rmpKey": "brooklyn|jam it bistro|367 columbia street|11231",
+    "officialAddress": {
+      "line1": "367 Columbia Street",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11231"
+    },
+    "inputAddress": "367 Columbia Street, Brooklyn, NY 11231",
+    "matchedAddress": "367 COLUMBIA ST, BROOKLYN, NY, 11231",
+    "latitude": 40.679278641208,
+    "longitude": -74.005379807549,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 79,
+    "rmpKey": "brooklyn|jamaican flavors|1397 rockaway parkway|11236",
+    "officialAddress": {
+      "line1": "1397 Rockaway Parkway",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11236"
+    },
+    "inputAddress": "1397 Rockaway Parkway, Brooklyn, NY 11236",
+    "matchedAddress": "1397 ROCKAWAY PKWY, BROOKLYN, NY, 11236",
+    "latitude": 40.646135895658,
+    "longitude": -73.903329179507,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 80,
+    "rmpKey": "brooklyn|jamaican flavors|194 rockaway ave|11233",
+    "officialAddress": {
+      "line1": "194 Rockaway Ave",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11233"
+    },
+    "inputAddress": "194 Rockaway Ave, Brooklyn, NY 11233",
+    "matchedAddress": "194 ROCKAWAY AVE, BROOKLYN, NY, 11233",
+    "latitude": 40.676540022417,
+    "longitude": -73.910985249685,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 81,
+    "rmpKey": "brooklyn|jamaican flavors|295 utica avenue|11213",
+    "officialAddress": {
+      "line1": "295 Utica Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11213"
+    },
+    "inputAddress": "295 Utica Avenue, Brooklyn, NY 11213",
+    "matchedAddress": "295 UTICA AVE, BROOKLYN, NY, 11213",
+    "latitude": 40.667948069148,
+    "longitude": -73.931126502414,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 82,
+    "rmpKey": "brooklyn|jamaican flavors|358 koscuiszko street|11221",
+    "officialAddress": {
+      "line1": "358 Koscuiszko Street",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11221"
+    },
+    "inputAddress": "358 Koscuiszko Street, Brooklyn, NY 11221",
+    "matchedAddress": "358 KOSCIUSZKO ST, BROOKLYN, NY, 11221",
+    "latitude": 40.691857779502,
+    "longitude": -73.940141960052,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "matched",
+    "precision": "interpolated",
+    "review": "OTDA/source line spells Koscuiszko; Census returns Kosciuszko at the same house number and ZIP."
+  },
+  {
+    "index": 83,
+    "rmpKey": "brooklyn|jamaican flavors|483 nostrand avenue|11216",
+    "officialAddress": {
+      "line1": "483 Nostrand Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11216"
+    },
+    "inputAddress": "483 Nostrand Avenue, Brooklyn, NY 11216",
+    "matchedAddress": "483 NOSTRAND AVE, BROOKLYN, NY, 11216",
+    "latitude": 40.680861985881,
+    "longitude": -73.949588574652,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 84,
+    "rmpKey": "brooklyn|jamaican flavors|4917 church avenue|11203",
+    "officialAddress": {
+      "line1": "4917 Church Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11203"
+    },
+    "inputAddress": "4917 Church Avenue, Brooklyn, NY 11203",
+    "matchedAddress": "4917 CHURCH AVE, BROOKLYN, NY, 11203",
+    "latitude": 40.651753554145,
+    "longitude": -73.931182416181,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 85,
+    "rmpKey": "brooklyn|kairibbean island mix|393 new lots avenue|11207",
+    "officialAddress": {
+      "line1": "393 New Lots Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11207"
+    },
+    "inputAddress": "393 New Lots Avenue, Brooklyn, NY 11207",
+    "matchedAddress": "393 NEW LOTS AVE, BROOKLYN, NY, 11207",
+    "latitude": 40.661953230857,
+    "longitude": -73.892974696391,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 86,
+    "rmpKey": "brooklyn|kitchen 86|2306 86th street|11214",
+    "officialAddress": {
+      "line1": "2306 86th Street",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11214"
+    },
+    "inputAddress": "2306 86th Street, Brooklyn, NY 11214",
+    "matchedAddress": "2306 86TH ST, BROOKLYN, NY, 11214",
+    "latitude": 40.600428593796,
+    "longitude": -73.991465072499,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 87,
+    "rmpKey": "brooklyn|lebron restaurant|1567 pitkin avenue|11212",
+    "officialAddress": {
+      "line1": "1567 Pitkin Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11212"
+    },
+    "inputAddress": "1567 Pitkin Avenue, Brooklyn, NY 11212",
+    "matchedAddress": "1567 PITKIN AVE, BROOKLYN, NY, 11212",
+    "latitude": 40.669013968408,
+    "longitude": -73.915627158912,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 88,
+    "rmpKey": "brooklyn|loma no. 5|454 rockaway avenue|11212",
+    "officialAddress": {
+      "line1": "454 Rockaway Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11212"
+    },
+    "inputAddress": "454 Rockaway Avenue, Brooklyn, NY 11212",
+    "matchedAddress": "454 ROCKAWAY AVE, BROOKLYN, NY, 11212",
+    "latitude": 40.668896640539,
+    "longitude": -73.910616035614,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 89,
+    "rmpKey": "brooklyn|mcdonald's|1275 fulton street|11236",
+    "officialAddress": {
+      "line1": "1275 Fulton Street",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11236"
+    },
+    "inputAddress": "1275 Fulton Street, Brooklyn, NY 11236",
+    "matchedAddress": "1275 FULTON ST, BROOKLYN, NY, 11216",
+    "latitude": 40.680487489008,
+    "longitude": -73.950308804044,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "matched",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match. Matched ZIP 11216 differs from OTDA ZIP 11236; reviewed and OTDA value retained."
+  },
+  {
+    "index": 90,
+    "rmpKey": "brooklyn|mcdonald's|1380 broadway|11221",
+    "officialAddress": {
+      "line1": "1380 Broadway",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11221"
+    },
+    "inputAddress": "1380 Broadway, Brooklyn, NY 11221",
+    "matchedAddress": "1380 BROADWAY, BROOKLYN, NY, 11221",
+    "latitude": 40.689254823741,
+    "longitude": -73.921771600882,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 91,
+    "rmpKey": "brooklyn|mcdonald's|180 parkside avenue|11226",
+    "officialAddress": {
+      "line1": "180 Parkside Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11226"
+    },
+    "inputAddress": "180 Parkside Avenue, Brooklyn, NY 11226",
+    "matchedAddress": "180 PARKSIDE AVE, BROOKLYN, NY, 11226",
+    "latitude": 40.654981770302,
+    "longitude": -73.961455095521,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 92,
+    "rmpKey": "brooklyn|mcdonald's|204-11 hillside avenue|11423",
+    "officialAddress": {
+      "line1": "204-11 Hillside Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11423"
+    },
+    "inputAddress": "204-11 Hillside Avenue, Brooklyn, NY 11423",
+    "matchedAddress": "204-11 HILLSIDE AVE, HOLLIS, NY, 11423",
+    "latitude": 40.720435639753,
+    "longitude": -73.76103308279,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 93,
+    "rmpKey": "brooklyn|mcdonald's|2240 flatbush avenue|11234",
+    "officialAddress": {
+      "line1": "2240 Flatbush Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11234"
+    },
+    "inputAddress": "2240 Flatbush Avenue, Brooklyn, NY 11234",
+    "matchedAddress": "2240 FLATBUSH AVE, BROOKLYN, NY, 11234",
+    "latitude": 40.615027168032,
+    "longitude": -73.928584491535,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 94,
+    "rmpKey": "brooklyn|mcdonald's|2413 86th street|11214",
+    "officialAddress": {
+      "line1": "2413 86th Street",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11214"
+    },
+    "inputAddress": "2413 86th Street, Brooklyn, NY 11214",
+    "matchedAddress": "2413 86TH ST, BROOKLYN, NY, 11214",
+    "latitude": 40.599099456367,
+    "longitude": -73.989022622987,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 95,
+    "rmpKey": "brooklyn|mcdonald's|267 broadway|11211",
+    "officialAddress": {
+      "line1": "267 Broadway",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11211"
+    },
+    "inputAddress": "267 Broadway, Brooklyn, NY 11211",
+    "matchedAddress": "267 BROADWAY, BROOKLYN, NY, 11211",
+    "latitude": 40.708632813669,
+    "longitude": -73.958319199673,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 96,
+    "rmpKey": "brooklyn|mcdonald's|289 9th street|11215",
+    "officialAddress": {
+      "line1": "289 9th Street",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11215"
+    },
+    "inputAddress": "289 9th Street, Brooklyn, NY 11215",
+    "matchedAddress": "289 9TH ST, BROOKLYN, NY, 11215",
+    "latitude": 40.669443967353,
+    "longitude": -73.986721621306,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 97,
+    "rmpKey": "brooklyn|mcdonald's|3540 nostrand avenue|11224",
+    "officialAddress": {
+      "line1": "3540 Nostrand Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11224"
+    },
+    "inputAddress": "3540 Nostrand Avenue, Brooklyn, NY 11224",
+    "matchedAddress": "3540 NOSTRAND AVE, BROOKLYN, NY, 11229",
+    "latitude": 40.597662799609,
+    "longitude": -73.941430714793,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "matched",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match. Matched ZIP 11229 differs from OTDA ZIP 11224; reviewed and OTDA value retained."
+  },
+  {
+    "index": 98,
+    "rmpKey": "brooklyn|mcdonald's|357 hamilton avenue|11231",
+    "officialAddress": {
+      "line1": "357 Hamilton Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11231"
+    },
+    "inputAddress": "357 Hamilton Avenue, Brooklyn, NY 11231",
+    "matchedAddress": "357 HAMILTON AVE, BROOKLYN, NY, 11231",
+    "latitude": 40.673714885774,
+    "longitude": -73.999491098443,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 99,
+    "rmpKey": "brooklyn|mcdonald's|428 knickerbocker avenue|11237",
+    "officialAddress": {
+      "line1": "428 Knickerbocker Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11237"
+    },
+    "inputAddress": "428 Knickerbocker Avenue, Brooklyn, NY 11237",
+    "matchedAddress": "428 KNICKERBOCKER AVE, BROOKLYN, NY, 11237",
+    "latitude": 40.6994485668,
+    "longitude": -73.919598654251,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 100,
+    "rmpKey": "brooklyn|mcdonald's|430 86th street|11209",
+    "officialAddress": {
+      "line1": "430 86th Street",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11209"
+    },
+    "inputAddress": "430 86th Street, Brooklyn, NY 11209",
+    "matchedAddress": "430 86TH ST, BROOKLYN, NY, 11209",
+    "latitude": 40.622338702819,
+    "longitude": -74.027721218395,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 101,
+    "rmpKey": "brooklyn|mcdonald's|652 meeker avenue|11222",
+    "officialAddress": {
+      "line1": "652 Meeker Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11222"
+    },
+    "inputAddress": "652 Meeker Avenue, Brooklyn, NY 11222",
+    "matchedAddress": "652 MEEKER AVE, BROOKLYN, NY, 11222",
+    "latitude": 40.722209721436,
+    "longitude": -73.940496374226,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 102,
+    "rmpKey": "brooklyn|mcdonald's|6620 bay parkway|11204",
+    "officialAddress": {
+      "line1": "6620 Bay Parkway",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11204"
+    },
+    "inputAddress": "6620 Bay Parkway, Brooklyn, NY 11204",
+    "matchedAddress": "6620 BAY PKWY, BROOKLYN, NY, 11204",
+    "latitude": 40.613074891445,
+    "longitude": -73.982390890094,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 103,
+    "rmpKey": "brooklyn|mcdonald's|700 broadway|11206",
+    "officialAddress": {
+      "line1": "700 Broadway",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11206"
+    },
+    "inputAddress": "700 Broadway, Brooklyn, NY 11206",
+    "matchedAddress": "700 Broadway, Brooklyn, NY 11206",
+    "latitude": 40.701362,
+    "longitude": -73.9434979,
+    "provider": "Public Storage geocoder",
+    "matchQuality": "manual",
+    "precision": "approximate",
+    "review": "Census returned no match; exact-address fallback geocoder used."
+  },
+  {
+    "index": 104,
+    "rmpKey": "brooklyn|mcdonald's|7124 3rd avenue|11209",
+    "officialAddress": {
+      "line1": "7124 3rd Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11209"
+    },
+    "inputAddress": "7124 3rd Avenue, Brooklyn, NY 11209",
+    "matchedAddress": "7124 3RD AVE, BROOKLYN, NY, 11209",
+    "latitude": 40.634020688119,
+    "longitude": -74.026831050575,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 105,
+    "rmpKey": "brooklyn|mcdonald's|741 grand street|11211",
+    "officialAddress": {
+      "line1": "741 Grand Street",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11211"
+    },
+    "inputAddress": "741 Grand Street, Brooklyn, NY 11211",
+    "matchedAddress": "741 GRAND ST, BROOKLYN, NY, 11211",
+    "latitude": 40.711756923576,
+    "longitude": -73.943313839943,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 106,
+    "rmpKey": "brooklyn|mcdonald's|8520 20th avenue|11214",
+    "officialAddress": {
+      "line1": "8520 20th Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11214"
+    },
+    "inputAddress": "8520 20th Avenue, Brooklyn, NY 11214",
+    "matchedAddress": "8520 20TH AVE, BROOKLYN, NY, 11214",
+    "latitude": 40.605096512379,
+    "longitude": -73.99784413641,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 107,
+    "rmpKey": "brooklyn|mcdonald's|943 flatbush avenue|11226",
+    "officialAddress": {
+      "line1": "943 Flatbush Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11226"
+    },
+    "inputAddress": "943 Flatbush Avenue, Brooklyn, NY 11226",
+    "matchedAddress": "943 FLATBUSH AVE, BROOKLYN, NY, 11226",
+    "latitude": 40.648652587684,
+    "longitude": -73.958207007716,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 108,
+    "rmpKey": "brooklyn|memphis seoul|569 lincoln place|11238",
+    "officialAddress": {
+      "line1": "569 Lincoln Place",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11238"
+    },
+    "inputAddress": "569 Lincoln Place, Brooklyn, NY 11238",
+    "matchedAddress": "569 LINCOLN PL, BROOKLYN, NY, 11238",
+    "latitude": 40.671627536793,
+    "longitude": -73.957831451345,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 109,
+    "rmpKey": "brooklyn|mi sabor restaurant|609 sutter avenue|11207",
+    "officialAddress": {
+      "line1": "609 Sutter Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11207"
+    },
+    "inputAddress": "609 Sutter Avenue, Brooklyn, NY 11207",
+    "matchedAddress": "609 SUTTER AVE, BROOKLYN, NY, 11207",
+    "latitude": 40.669252336415,
+    "longitude": -73.896425038007,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 110,
+    "rmpKey": "brooklyn|momo's mediterranean grill|25 101 avenue|11208",
+    "officialAddress": {
+      "line1": "25 101 Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11208"
+    },
+    "inputAddress": "25 101 Avenue, Brooklyn, NY 11208",
+    "matchedAddress": "25 101ST AVE, BROOKLYN, NY, 11208",
+    "latitude": 40.679296179512,
+    "longitude": -73.863773498578,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "matched",
+    "precision": "interpolated",
+    "review": "OTDA/source line says 25 101 Avenue; the current restaurant listing and Census both resolve 25 101st Avenue with the same phone and ZIP. Official wording retained separately."
+  },
+  {
+    "index": 111,
+    "rmpKey": "brooklyn|more than fries|1077 rutland road|11212",
+    "officialAddress": {
+      "line1": "1077 Rutland Road",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11212"
+    },
+    "inputAddress": "1077 Rutland Road, Brooklyn, NY 11212",
+    "matchedAddress": "1077 RUTLAND RD, BROOKLYN, NY, 11212",
+    "latitude": 40.664144070925,
+    "longitude": -73.924228971519,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 112,
+    "rmpKey": "brooklyn|new yee li|6619 fort hamilton parkway|11219",
+    "officialAddress": {
+      "line1": "6619 Fort Hamilton Parkway",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11219"
+    },
+    "inputAddress": "6619 Fort Hamilton Parkway, Brooklyn, NY 11219",
+    "matchedAddress": "6619 FORT HAMILTON PKWY, BROOKLYN, NY, 11219",
+    "latitude": 40.629960866351,
+    "longitude": -74.010118445635,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 113,
+    "rmpKey": "brooklyn|ng's kitchen|6012 8th avenue|11220",
+    "officialAddress": {
+      "line1": "6012 8th Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11220"
+    },
+    "inputAddress": "6012 8th Avenue, Brooklyn, NY 11220",
+    "matchedAddress": "6012 8TH AVE, BROOKLYN, NY, 11220",
+    "latitude": 40.635425349962,
+    "longitude": -74.009727486371,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 114,
+    "rmpKey": "brooklyn|nicky's jamaican cuisine|766 east 80th street|11236",
+    "officialAddress": {
+      "line1": "766 East 80th Street",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11236"
+    },
+    "inputAddress": "766 East 80th Street, Brooklyn, NY 11236",
+    "matchedAddress": "766 E 80TH ST, BROOKLYN, NY, 11236",
+    "latitude": 40.63645526771,
+    "longitude": -73.914428685164,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 115,
+    "rmpKey": "brooklyn|ocean eats|865 4th avenue|11232",
+    "officialAddress": {
+      "line1": "865 4th Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11232"
+    },
+    "inputAddress": "865 4th Avenue, Brooklyn, NY 11232",
+    "matchedAddress": "865 4TH AVE, BROOKLYN, NY, 11232",
+    "latitude": 40.656654771284,
+    "longitude": -74.001884970451,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 116,
+    "rmpKey": "brooklyn|peppas jerk chicken|791 prospect place|11216",
+    "officialAddress": {
+      "line1": "791 Prospect Place",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11216"
+    },
+    "inputAddress": "791 Prospect Place, Brooklyn, NY 11216",
+    "matchedAddress": "791 PROSPECT PL, BROOKLYN, NY, 11216",
+    "latitude": 40.674387516244,
+    "longitude": -73.950395849101,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 117,
+    "rmpKey": "brooklyn|popeye's|1052 flushing avenue|11237",
+    "officialAddress": {
+      "line1": "1052 Flushing Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11237"
+    },
+    "inputAddress": "1052 Flushing Avenue, Brooklyn, NY 11237",
+    "matchedAddress": "1052 FLUSHING AVE, BROOKLYN, NY, 11237",
+    "latitude": 40.704450092688,
+    "longitude": -73.929252690573,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 118,
+    "rmpKey": "brooklyn|popeye's|1153 fulton street|11216",
+    "officialAddress": {
+      "line1": "1153 Fulton Street",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11216"
+    },
+    "inputAddress": "1153 Fulton Street, Brooklyn, NY 11216",
+    "matchedAddress": "1153 FULTON ST, BROOKLYN, NY, 11216",
+    "latitude": 40.681157290233,
+    "longitude": -73.955498790452,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 119,
+    "rmpKey": "brooklyn|popeye's|1159 utica avenue|11203",
+    "officialAddress": {
+      "line1": "1159 Utica Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11203"
+    },
+    "inputAddress": "1159 Utica Avenue, Brooklyn, NY 11203",
+    "matchedAddress": "1159 UTICA AVE, BROOKLYN, NY, 11203",
+    "latitude": 40.644380231021,
+    "longitude": -73.929517263868,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 120,
+    "rmpKey": "brooklyn|popeye's|1375 rockaway parkway|11236",
+    "officialAddress": {
+      "line1": "1375 Rockaway Parkway",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11236"
+    },
+    "inputAddress": "1375 Rockaway Parkway, Brooklyn, NY 11236",
+    "matchedAddress": "1375 ROCKAWAY PKWY, BROOKLYN, NY, 11236",
+    "latitude": 40.646422862262,
+    "longitude": -73.903650303189,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 121,
+    "rmpKey": "brooklyn|popeye's|1465 myrtle avenue|11237",
+    "officialAddress": {
+      "line1": "1465 Myrtle Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11237"
+    },
+    "inputAddress": "1465 Myrtle Avenue, Brooklyn, NY 11237",
+    "matchedAddress": "1465 MYRTLE AVE, BROOKLYN, NY, 11237",
+    "latitude": 40.698972224932,
+    "longitude": -73.91730316291,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 122,
+    "rmpKey": "brooklyn|popeye's|2779 86th street|11223",
+    "officialAddress": {
+      "line1": "2779 86th Street",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11223"
+    },
+    "inputAddress": "2779 86th Street, Brooklyn, NY 11223",
+    "matchedAddress": "2779 86TH ST, BROOKLYN, NY, 11223",
+    "latitude": 40.593340394849,
+    "longitude": -73.979529644252,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 123,
+    "rmpKey": "brooklyn|popeye's|3342 fulton street|11208",
+    "officialAddress": {
+      "line1": "3342 Fulton Street",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11208"
+    },
+    "inputAddress": "3342 Fulton Street, Brooklyn, NY 11208",
+    "matchedAddress": "3342 FULTON ST, BROOKLYN, NY, 11208",
+    "latitude": 40.683560113615,
+    "longitude": -73.872276689685,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 124,
+    "rmpKey": "brooklyn|popeye's|3764 nostrand avenue|11235",
+    "officialAddress": {
+      "line1": "3764 Nostrand Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11235"
+    },
+    "inputAddress": "3764 Nostrand Avenue, Brooklyn, NY 11235",
+    "matchedAddress": "3764 NOSTRAND AVE, BROOKLYN, NY, 11235",
+    "latitude": 40.592075432965,
+    "longitude": -73.940352350768,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 125,
+    "rmpKey": "brooklyn|popeye's|5100 kings plaza|11234",
+    "officialAddress": {
+      "line1": "5100 Kings Plaza",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11234"
+    },
+    "inputAddress": "5100 Kings Plaza, Brooklyn, NY 11234",
+    "matchedAddress": "5100 Kings Plaza, Brooklyn, NY 11234",
+    "latitude": 40.6097032,
+    "longitude": -73.9198354,
+    "provider": "Public Storage geocoder",
+    "matchQuality": "manual",
+    "precision": "approximate",
+    "review": "Census incorrectly resolved the OTDA mall address to 5100 Kings Highway; exact Kings Plaza address fallback geocoder used."
+  },
+  {
+    "index": 126,
+    "rmpKey": "brooklyn|popeye's|709 brighton beach avenue|11235",
+    "officialAddress": {
+      "line1": "709 Brighton Beach Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11235"
+    },
+    "inputAddress": "709 Brighton Beach Avenue, Brooklyn, NY 11235",
+    "matchedAddress": "709 BRIGHTON BEACH AVE, BROOKLYN, NY, 11235",
+    "latitude": 40.577871735182,
+    "longitude": -73.960502450048,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 127,
+    "rmpKey": "brooklyn|popeye's|918 manhattan avenue|11222",
+    "officialAddress": {
+      "line1": "918 Manhattan Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11222"
+    },
+    "inputAddress": "918 Manhattan Avenue, Brooklyn, NY 11222",
+    "matchedAddress": "918 MANHATTAN AVE, BROOKLYN, NY, 11222",
+    "latitude": 40.730747536217,
+    "longitude": -73.954273830935,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 128,
+    "rmpKey": "brooklyn|popeyes|624 conduit boulevard|11208",
+    "officialAddress": {
+      "line1": "624 Conduit Boulevard",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11208"
+    },
+    "inputAddress": "624 Conduit Boulevard, Brooklyn, NY 11208",
+    "matchedAddress": "624 S CONDUIT BLVD, BROOKLYN, NY, 11208",
+    "latitude": 40.675835003009,
+    "longitude": -73.86665800613,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "matched",
+    "precision": "interpolated",
+    "review": "OTDA/source line says Conduit Boulevard; Census adds South at the same house number and ZIP. Official wording retained."
+  },
+  {
+    "index": 129,
+    "rmpKey": "brooklyn|rosa's steakhouse|567 wilson avenue|11207",
+    "officialAddress": {
+      "line1": "567 Wilson Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11207"
+    },
+    "inputAddress": "567 Wilson Avenue, Brooklyn, NY 11207",
+    "matchedAddress": "567 WILSON AVE, BROOKLYN, NY, 11207",
+    "latitude": 40.691150984644,
+    "longitude": -73.908809951234,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 130,
+    "rmpKey": "brooklyn|roseli chinese restaurant|2322 86th street|11214",
+    "officialAddress": {
+      "line1": "2322 86th Street",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11214"
+    },
+    "inputAddress": "2322 86th Street, Brooklyn, NY 11214",
+    "matchedAddress": "2322 86TH ST, BROOKLYN, NY, 11214",
+    "latitude": 40.600227004101,
+    "longitude": -73.991136481368,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 131,
+    "rmpKey": "brooklyn|season restaurant|1321 avenue u|11229",
+    "officialAddress": {
+      "line1": "1321 Avenue U",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11229"
+    },
+    "inputAddress": "1321 Avenue U, Brooklyn, NY 11229",
+    "matchedAddress": "1321 AVE U, BROOKLYN, NY, 11229",
+    "latitude": 40.59871342868,
+    "longitude": -73.958036175627,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 132,
+    "rmpKey": "brooklyn|sheep by baraksha|1223 avenue u|11229",
+    "officialAddress": {
+      "line1": "1223 Avenue U",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11229"
+    },
+    "inputAddress": "1223 Avenue U, Brooklyn, NY 11229",
+    "matchedAddress": "1223 AVE U, BROOKLYN, NY, 11229",
+    "latitude": 40.598564722809,
+    "longitude": -73.959341881839,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 133,
+    "rmpKey": "brooklyn|sonic drive in|730 broadway|11206",
+    "officialAddress": {
+      "line1": "730 Broadway",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11206"
+    },
+    "inputAddress": "730 Broadway, Brooklyn, NY 11206",
+    "matchedAddress": "730 BROADWAY, BROOKLYN, NY, 11206",
+    "latitude": 40.70104829051,
+    "longitude": -73.942579338892,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 134,
+    "rmpKey": "brooklyn|sonic drive in|805 pennsylvania avenue|11207",
+    "officialAddress": {
+      "line1": "805 Pennsylvania Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11207"
+    },
+    "inputAddress": "805 Pennsylvania Avenue, Brooklyn, NY 11207",
+    "matchedAddress": "805 PENNSYLVANIA AVE, BROOKLYN, NY, 11207",
+    "latitude": 40.658198869368,
+    "longitude": -73.890251836548,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 135,
+    "rmpKey": "brooklyn|tonel to go|1407 flatbush avenue|11210",
+    "officialAddress": {
+      "line1": "1407 Flatbush Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11210"
+    },
+    "inputAddress": "1407 Flatbush Avenue, Brooklyn, NY 11210",
+    "matchedAddress": "1407 FLATBUSH AVE, BROOKLYN, NY, 11210",
+    "latitude": 40.636412945096,
+    "longitude": -73.951362609485,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 136,
+    "rmpKey": "brooklyn|umi premium sushi & seafood buffet|3839 nostrand avenue|11235",
+    "officialAddress": {
+      "line1": "3839 Nostrand Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11235"
+    },
+    "inputAddress": "3839 Nostrand Avenue, Brooklyn, NY 11235",
+    "matchedAddress": "3839 NOSTRAND AVE, BROOKLYN, NY, 11235",
+    "latitude": 40.590634509953,
+    "longitude": -73.939923413236,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 137,
+    "rmpKey": "brooklyn|uncle ng's recipe|5603 8th avenue|11220",
+    "officialAddress": {
+      "line1": "5603 8th Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11220"
+    },
+    "inputAddress": "5603 8th Avenue, Brooklyn, NY 11220",
+    "matchedAddress": "5603 8TH AVE, BROOKLYN, NY, 11220",
+    "latitude": 40.637664733143,
+    "longitude": -74.007203014705,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 138,
+    "rmpKey": "manhattan|109 pizzeria|1976 3rd avenue|10029",
+    "officialAddress": {
+      "line1": "1976 3rd Avenue",
+      "city": "New York",
+      "state": "NY",
+      "zip": "10029"
+    },
+    "inputAddress": "1976 3rd Avenue, New York, NY 10029",
+    "matchedAddress": "1976 3RD AVE, NEW YORK, NY, 10029",
+    "latitude": 40.793272850529,
+    "longitude": -73.943518268108,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 139,
+    "rmpKey": "manhattan|8 bit bites - 197 bistro|197 7th avenue|10012",
+    "officialAddress": {
+      "line1": "197 7th Avenue",
+      "city": "Manhattan",
+      "state": "NY",
+      "zip": "10012"
+    },
+    "inputAddress": "197 7th Avenue, Manhattan, NY 10012",
+    "matchedAddress": "197 7TH AVE, NEW YORK, NY, 10011",
+    "latitude": 40.743065743723,
+    "longitude": -73.996310719159,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "manual",
+    "precision": "interpolated",
+    "review": "Census matched the exact street address after removing the stale source ZIP; ZIP conflict preserved."
+  },
+  {
+    "index": 140,
+    "rmpKey": "manhattan|8 bit bites - 77 2nd avenue|77 2nd avenue|10003",
+    "officialAddress": {
+      "line1": "77 2nd Avenue",
+      "city": "Manhattan",
+      "state": "NY",
+      "zip": "10003"
+    },
+    "inputAddress": "77 2nd Avenue, Manhattan, NY 10003",
+    "matchedAddress": "77 2ND AVE, NEW YORK, NY, 10003",
+    "latitude": 40.726518231189,
+    "longitude": -73.989273774315,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 141,
+    "rmpKey": "manhattan|andy's restaurant|2262 3rd avenue|10035",
+    "officialAddress": {
+      "line1": "2262 3rd Avenue",
+      "city": "New York",
+      "state": "NY",
+      "zip": "10035"
+    },
+    "inputAddress": "2262 3rd Avenue, New York, NY 10035",
+    "matchedAddress": "2262 3RD AVE, NEW YORK, NY, 10035",
+    "latitude": 40.802478792124,
+    "longitude": -73.936800236069,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 142,
+    "rmpKey": "manhattan|burger king|200 east 125th street|10035",
+    "officialAddress": {
+      "line1": "200 East 125th Street",
+      "city": "Manhattan",
+      "state": "NY",
+      "zip": "10035"
+    },
+    "inputAddress": "200 East 125th Street, Manhattan, NY 10035",
+    "matchedAddress": "200 E 125TH ST, NEW YORK, NY, 10035",
+    "latitude": 40.803618806067,
+    "longitude": -73.935788193437,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 143,
+    "rmpKey": "manhattan|café tabu|227-229 dyckman street|10034",
+    "officialAddress": {
+      "line1": "227-229 Dyckman Street",
+      "city": "New York",
+      "state": "NY",
+      "zip": "10034"
+    },
+    "inputAddress": "227-229 Dyckman Street, New York, NY 10034",
+    "matchedAddress": "229 DYCKMAN ST, NEW YORK, NY, 10034",
+    "latitude": 40.865939157387,
+    "longitude": -73.9276429792,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "matched",
+    "precision": "interpolated",
+    "review": "OTDA lists 227-229 Dyckman Street; Census resolves 229 Dyckman Street within that range."
+  },
+  {
+    "index": 144,
+    "rmpKey": "manhattan|caridad restaurant|3533 broadway|10031",
+    "officialAddress": {
+      "line1": "3533 Broadway",
+      "city": "New York",
+      "state": "NY",
+      "zip": "10031"
+    },
+    "inputAddress": "3533 Broadway, New York, NY 10031",
+    "matchedAddress": "3533 BROADWAY, NEW YORK, NY, 10031",
+    "latitude": 40.826251414409,
+    "longitude": -73.950668267144,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 145,
+    "rmpKey": "manhattan|dallas bbq|241 west 42nd street|10036",
+    "officialAddress": {
+      "line1": "241 West 42nd Street",
+      "city": "New York",
+      "state": "NY",
+      "zip": "10036"
+    },
+    "inputAddress": "241 West 42nd Street, New York, NY 10036",
+    "matchedAddress": "241 W 42ND ST, NEW YORK, NY, 10036",
+    "latitude": 40.756576488846,
+    "longitude": -73.988085392212,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 146,
+    "rmpKey": "manhattan|dallas bbq|261 8th avenue|10011",
+    "officialAddress": {
+      "line1": "261 8th Avenue",
+      "city": "New York",
+      "state": "NY",
+      "zip": "10011"
+    },
+    "inputAddress": "261 8th Avenue, New York, NY 10011",
+    "matchedAddress": "261 8TH AVE, NEW YORK, NY, 10011",
+    "latitude": 40.74537355322,
+    "longitude": -73.998514367004,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 147,
+    "rmpKey": "manhattan|dallas bbq|3956 broadway|10032",
+    "officialAddress": {
+      "line1": "3956 Broadway",
+      "city": "New York",
+      "state": "NY",
+      "zip": "10032"
+    },
+    "inputAddress": "3956 Broadway, New York, NY 10032",
+    "matchedAddress": "3956 BROADWAY, NEW YORK, NY, 10032",
+    "latitude": 40.83936694226,
+    "longitude": -73.940919350608,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 148,
+    "rmpKey": "manhattan|dim sum sam|80 bowery|10013",
+    "officialAddress": {
+      "line1": "80 Bowery",
+      "city": "New York",
+      "state": "NY",
+      "zip": "10013"
+    },
+    "inputAddress": "80 Bowery, New York, NY 10013",
+    "matchedAddress": "80 BOWERY, NEW YORK, NY, 10013",
+    "latitude": 40.716961303177,
+    "longitude": -73.995703737644,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 149,
+    "rmpKey": "manhattan|el capri iii|3379 broadway|10031",
+    "officialAddress": {
+      "line1": "3379 Broadway",
+      "city": "New York",
+      "state": "NY",
+      "zip": "10031"
+    },
+    "inputAddress": "3379 Broadway, New York, NY 10031",
+    "matchedAddress": "3379 BROADWAY, NEW YORK, NY, 10031",
+    "latitude": 40.821308326291,
+    "longitude": -73.954277671931,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 150,
+    "rmpKey": "manhattan|el nuevo capri ii restaurant|1497 saint nicholas avenue|10033",
+    "officialAddress": {
+      "line1": "1497 Saint Nicholas Avenue",
+      "city": "New York",
+      "state": "NY",
+      "zip": "10033"
+    },
+    "inputAddress": "1497 Saint Nicholas Avenue, New York, NY 10033",
+    "matchedAddress": "1497 ST NICHOLAS AVE, NEW YORK, NY, 10033",
+    "latitude": 40.851771655061,
+    "longitude": -73.932026354479,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 151,
+    "rmpKey": "manhattan|el nuevo capri restaurant|1340 saint nicholas avenue|10033",
+    "officialAddress": {
+      "line1": "1340 Saint Nicholas Avenue",
+      "city": "New York",
+      "state": "NY",
+      "zip": "10033"
+    },
+    "inputAddress": "1340 Saint Nicholas Avenue, New York, NY 10033",
+    "matchedAddress": "1340 ST NICHOLAS AVE, NEW YORK, NY, 10033",
+    "latitude": 40.846748885923,
+    "longitude": -73.935521423896,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 152,
+    "rmpKey": "manhattan|el nuevo valle seafood|231 sherman street|10034",
+    "officialAddress": {
+      "line1": "231 Sherman Street",
+      "city": "New York",
+      "state": "NY",
+      "zip": "10034"
+    },
+    "inputAddress": "231 Sherman Street, New York, NY 10034",
+    "matchedAddress": "231 SHERMAN AVE, NEW YORK, NY, 10034",
+    "latitude": 40.865852636333,
+    "longitude": -73.919674351055,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "matched",
+    "precision": "interpolated",
+    "review": "OTDA/source line says Sherman Street; Census returns Sherman Avenue at the same house number and ZIP. Official wording retained."
+  },
+  {
+    "index": 153,
+    "rmpKey": "manhattan|flaco's pizza|3876 broadway|10032",
+    "officialAddress": {
+      "line1": "3876 Broadway",
+      "city": "New York",
+      "state": "NY",
+      "zip": "10032"
+    },
+    "inputAddress": "3876 Broadway, New York, NY 10032",
+    "matchedAddress": "3876 BROADWAY, NEW YORK, NY, 10032",
+    "latitude": 40.837041096831,
+    "longitude": -73.942615475119,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 154,
+    "rmpKey": "manhattan|fok noodles|5 catherine street|10038",
+    "officialAddress": {
+      "line1": "5 Catherine Street",
+      "city": "New York",
+      "state": "NY",
+      "zip": "10038"
+    },
+    "inputAddress": "5 Catherine Street, New York, NY 10038",
+    "matchedAddress": "5 CATHERINE ST, NEW YORK, NY, 10038",
+    "latitude": 40.713702568714,
+    "longitude": -73.997301671373,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 155,
+    "rmpKey": "manhattan|green garden village restaurant|216 grand street|10013",
+    "officialAddress": {
+      "line1": "216 Grand Street",
+      "city": "New York",
+      "state": "NY",
+      "zip": "10013"
+    },
+    "inputAddress": "216 Grand Street, New York, NY 10013",
+    "matchedAddress": "216 GRAND ST, NEW YORK, NY, 10013",
+    "latitude": 40.718944870977,
+    "longitude": -73.996002504393,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 156,
+    "rmpKey": "manhattan|jojo duck|131 walker street|10013",
+    "officialAddress": {
+      "line1": "131 Walker Street",
+      "city": "Manhattan",
+      "state": "NY",
+      "zip": "10013"
+    },
+    "inputAddress": "131 Walker Street, Manhattan, NY 10013",
+    "matchedAddress": "131 WALKER ST, NEW YORK, NY, 10013",
+    "latitude": 40.717248603194,
+    "longitude": -73.99936211935,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 157,
+    "rmpKey": "manhattan|justino's pizzeria|77 pearl street|10004",
+    "officialAddress": {
+      "line1": "77 Pearl Street",
+      "city": "Manhattan",
+      "state": "NY",
+      "zip": "10004"
+    },
+    "inputAddress": "77 Pearl Street, Manhattan, NY 10004",
+    "matchedAddress": "77 PEARL ST, NEW YORK, NY, 10004",
+    "latitude": 40.704398176752,
+    "longitude": -74.009774514959,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 158,
+    "rmpKey": "manhattan|justino's pizzeria|881 10th avenue|10019",
+    "officialAddress": {
+      "line1": "881 10th Avenue",
+      "city": "Manhattan",
+      "state": "NY",
+      "zip": "10019"
+    },
+    "inputAddress": "881 10th Avenue, Manhattan, NY 10019",
+    "matchedAddress": "881 10TH AVE, NEW YORK, NY, 10019",
+    "latitude": 40.769627756176,
+    "longitude": -73.988270807268,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 159,
+    "rmpKey": "manhattan|la barca|3892 broadway|10032",
+    "officialAddress": {
+      "line1": "3892 Broadway",
+      "city": "New York",
+      "state": "NY",
+      "zip": "10032"
+    },
+    "inputAddress": "3892 Broadway, New York, NY 10032",
+    "matchedAddress": "3892 BROADWAY, NEW YORK, NY, 10032",
+    "latitude": 40.837552163337,
+    "longitude": -73.942240670901,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 160,
+    "rmpKey": "manhattan|lady chow kitchen|171 hester street|10013",
+    "officialAddress": {
+      "line1": "171 Hester Street",
+      "city": "New York",
+      "state": "NY",
+      "zip": "10013"
+    },
+    "inputAddress": "171 Hester Street, New York, NY 10013",
+    "matchedAddress": "171 HESTER ST, NEW YORK, NY, 10013",
+    "latitude": 40.717834328795,
+    "longitude": -73.996823523004,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 161,
+    "rmpKey": "manhattan|lava shawarma|57 clinton street|10002",
+    "officialAddress": {
+      "line1": "57 Clinton Street",
+      "city": "New York",
+      "state": "NY",
+      "zip": "10002"
+    },
+    "inputAddress": "57 Clinton Street, New York, NY 10002",
+    "matchedAddress": "57 CLINTON ST, NEW YORK, NY, 10002",
+    "latitude": 40.719571195608,
+    "longitude": -73.984899959382,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 162,
+    "rmpKey": "manhattan|mcdonald's|102 1st avenue|10009",
+    "officialAddress": {
+      "line1": "102 1st Avenue",
+      "city": "New York",
+      "state": "NY",
+      "zip": "10009"
+    },
+    "inputAddress": "102 1st Avenue, New York, NY 10009",
+    "matchedAddress": "102 1ST AVE, NEW YORK, NY, 10009",
+    "latitude": 40.726488016403,
+    "longitude": -73.986030630331,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 163,
+    "rmpKey": "manhattan|mcdonald's|114 delancy street|10002",
+    "officialAddress": {
+      "line1": "114 Delancy Street",
+      "city": "New York",
+      "state": "NY",
+      "zip": "10002"
+    },
+    "inputAddress": "114 Delancy Street, New York, NY 10002",
+    "matchedAddress": "114 DELANCEY ST, NEW YORK, NY, 10002",
+    "latitude": 40.718686070095,
+    "longitude": -73.988214445422,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "matched",
+    "precision": "interpolated",
+    "review": "OTDA/source line spells Delancy; Census returns Delancey at the same house number and ZIP."
+  },
+  {
+    "index": 164,
+    "rmpKey": "manhattan|mcdonald's|1528 broadway|10036",
+    "officialAddress": {
+      "line1": "1528 Broadway",
+      "city": "New York",
+      "state": "NY",
+      "zip": "10036"
+    },
+    "inputAddress": "1528 Broadway, New York, NY 10036",
+    "matchedAddress": "1528 BROADWAY, NEW YORK, NY, 10036",
+    "latitude": 40.757821722921,
+    "longitude": -73.985528295739,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 165,
+    "rmpKey": "manhattan|mcdonald's|160 broadway|10038",
+    "officialAddress": {
+      "line1": "160 Broadway",
+      "city": "New York",
+      "state": "NY",
+      "zip": "10038"
+    },
+    "inputAddress": "160 Broadway, New York, NY 10038",
+    "matchedAddress": "160 BROADWAY, NEW YORK, NY, 10038",
+    "latitude": 40.709529466667,
+    "longitude": -74.010132149091,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 166,
+    "rmpKey": "manhattan|mcdonald's|1651 broadway|10019",
+    "officialAddress": {
+      "line1": "1651 Broadway",
+      "city": "New York",
+      "state": "NY",
+      "zip": "10019"
+    },
+    "inputAddress": "1651 Broadway, New York, NY 10019",
+    "matchedAddress": "1651 BROADWAY, NEW YORK, NY, 10019",
+    "latitude": 40.762139265131,
+    "longitude": -73.983665196928,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 167,
+    "rmpKey": "manhattan|mcdonald's|26 east 23rd street|10010",
+    "officialAddress": {
+      "line1": "26 East 23rd Street",
+      "city": "New York",
+      "state": "NY",
+      "zip": "10010"
+    },
+    "inputAddress": "26 East 23rd Street, New York, NY 10010",
+    "matchedAddress": "26 E 23RD ST, NEW YORK, NY, 10010",
+    "latitude": 40.740765147647,
+    "longitude": -73.987874907704,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 168,
+    "rmpKey": "manhattan|mcdonald's|336 east 23rd street|10010",
+    "officialAddress": {
+      "line1": "336 East 23rd Street",
+      "city": "New York",
+      "state": "NY",
+      "zip": "10010"
+    },
+    "inputAddress": "336 East 23rd Street, New York, NY 10010",
+    "matchedAddress": "336 E 23RD ST, NEW YORK, NY, 10010",
+    "latitude": 40.737442168708,
+    "longitude": -73.980072158801,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 169,
+    "rmpKey": "manhattan|mcdonald's|401 park avenue south|10016",
+    "officialAddress": {
+      "line1": "401 Park Avenue South",
+      "city": "New York",
+      "state": "NY",
+      "zip": "10016"
+    },
+    "inputAddress": "401 Park Avenue South, New York, NY 10016",
+    "matchedAddress": "401 PARK AVE S, NEW YORK, NY, 10016",
+    "latitude": 40.743246938531,
+    "longitude": -73.984050161389,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 170,
+    "rmpKey": "manhattan|mcdonald's|429 7th avenue|10001",
+    "officialAddress": {
+      "line1": "429 7th Avenue",
+      "city": "New York",
+      "state": "NY",
+      "zip": "10001"
+    },
+    "inputAddress": "429 7th Avenue, New York, NY 10001",
+    "matchedAddress": "429 7TH AVE, NEW YORK, NY, 10001",
+    "latitude": 40.750424658389,
+    "longitude": -73.990945918763,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 171,
+    "rmpKey": "manhattan|mcdonald's|480 3rd avenue|10016",
+    "officialAddress": {
+      "line1": "480 3rd Avenue",
+      "city": "New York",
+      "state": "NY",
+      "zip": "10016"
+    },
+    "inputAddress": "480 3rd Avenue, New York, NY 10016",
+    "matchedAddress": "480 3RD AVE, NEW YORK, NY, 10016",
+    "latitude": 40.744843878804,
+    "longitude": -73.978852198669,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 172,
+    "rmpKey": "manhattan|mcdonald's|541 6th avenue|10011",
+    "officialAddress": {
+      "line1": "541 6th Avenue",
+      "city": "New York",
+      "state": "NY",
+      "zip": "10011"
+    },
+    "inputAddress": "541 6th Avenue, New York, NY 10011",
+    "matchedAddress": "541 6TH AVE, NEW YORK, NY, 10011",
+    "latitude": 40.737727668981,
+    "longitude": -73.996656076831,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 173,
+    "rmpKey": "manhattan|mcdonald's|556 7th avenue|10018",
+    "officialAddress": {
+      "line1": "556 7th Avenue",
+      "city": "New York",
+      "state": "NY",
+      "zip": "10018"
+    },
+    "inputAddress": "556 7th Avenue, New York, NY 10018",
+    "matchedAddress": "556 7TH AVE, NEW YORK, NY, 10018",
+    "latitude": 40.754595315112,
+    "longitude": -73.988087424893,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 174,
+    "rmpKey": "manhattan|mcdonald's|661 8th avenue|10036",
+    "officialAddress": {
+      "line1": "661 8th Avenue",
+      "city": "New York",
+      "state": "NY",
+      "zip": "10036"
+    },
+    "inputAddress": "661 8th Avenue, New York, NY 10036",
+    "matchedAddress": "661 8TH AVE, NEW YORK, NY, 10036",
+    "latitude": 40.757464414661,
+    "longitude": -73.989704981279,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 175,
+    "rmpKey": "manhattan|mcdonald's|686 6th avenue|10010",
+    "officialAddress": {
+      "line1": "686 6th Avenue",
+      "city": "New York",
+      "state": "NY",
+      "zip": "10010"
+    },
+    "inputAddress": "686 6th Avenue, New York, NY 10010",
+    "matchedAddress": "686 6TH AVE, NEW YORK, NY, 10010",
+    "latitude": 40.741897875613,
+    "longitude": -73.993447862139,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 176,
+    "rmpKey": "manhattan|mcdonald's|946 8th avenue|10019",
+    "officialAddress": {
+      "line1": "946 8th Avenue",
+      "city": "New York",
+      "state": "NY",
+      "zip": "10019"
+    },
+    "inputAddress": "946 8th Avenue, New York, NY 10019",
+    "matchedAddress": "946 8TH AVE, NEW YORK, NY, 10019",
+    "latitude": 40.765798386949,
+    "longitude": -73.983459930218,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 177,
+    "rmpKey": "manhattan|mcdonald's|966 3rd avenue|10022",
+    "officialAddress": {
+      "line1": "966 3rd Avenue",
+      "city": "New York",
+      "state": "NY",
+      "zip": "10022"
+    },
+    "inputAddress": "966 3rd Avenue, New York, NY 10022",
+    "matchedAddress": "966 3RD AVE, NEW YORK, NY, 10022",
+    "latitude": 40.760778474679,
+    "longitude": -73.967238592994,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 178,
+    "rmpKey": "manhattan|mofongo del valle|3340 broadway|10031",
+    "officialAddress": {
+      "line1": "3340 Broadway",
+      "city": "New York",
+      "state": "NY",
+      "zip": "10031"
+    },
+    "inputAddress": "3340 Broadway, New York, NY 10031",
+    "matchedAddress": "3340 BROADWAY, NEW YORK, NY, 10031",
+    "latitude": 40.820154387641,
+    "longitude": -73.954947799271,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 179,
+    "rmpKey": "manhattan|mott street eatery|98 mott street|10013",
+    "officialAddress": {
+      "line1": "98 Mott Street",
+      "city": "New York",
+      "state": "NY",
+      "zip": "10013"
+    },
+    "inputAddress": "98 Mott Street, New York, NY 10013",
+    "matchedAddress": "98 MOTT ST, NEW YORK, NY, 10013",
+    "latitude": 40.717206850856,
+    "longitude": -73.99743601241,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 180,
+    "rmpKey": "manhattan|nomas restaurant|3855 10th avenue|10034",
+    "officialAddress": {
+      "line1": "3855 10th Avenue",
+      "city": "Manhattan",
+      "state": "NY",
+      "zip": "10034"
+    },
+    "inputAddress": "3855 10th Avenue, Manhattan, NY 10034",
+    "matchedAddress": "3855 10TH AVE, NEW YORK, NY, 10034",
+    "latitude": 40.863861352192,
+    "longitude": -73.919279198774,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 181,
+    "rmpKey": "manhattan|popeye's|101 delancy street|10002",
+    "officialAddress": {
+      "line1": "101 Delancy Street",
+      "city": "New York",
+      "state": "NY",
+      "zip": "10002"
+    },
+    "inputAddress": "101 Delancy Street, New York, NY 10002",
+    "matchedAddress": "101 DELANCEY ST, NEW YORK, NY, 10002",
+    "latitude": 40.718635319501,
+    "longitude": -73.989010276388,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "matched",
+    "precision": "interpolated",
+    "review": "OTDA/source line spells Delancy; Census returns Delancey at the same house number and ZIP."
+  },
+  {
+    "index": 182,
+    "rmpKey": "manhattan|popeye's|1572 3rd avenue|10128",
+    "officialAddress": {
+      "line1": "1572 3rd Avenue",
+      "city": "New York",
+      "state": "NY",
+      "zip": "10128"
+    },
+    "inputAddress": "1572 3rd Avenue, New York, NY 10128",
+    "matchedAddress": "1572 3RD AVE, NEW YORK, NY, 10128",
+    "latitude": 40.780335989296,
+    "longitude": -73.952967791263,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 183,
+    "rmpKey": "manhattan|ray's pizza bar|2048 amsterdam avenue|10032",
+    "officialAddress": {
+      "line1": "2048 Amsterdam Avenue",
+      "city": "Manhattan",
+      "state": "NY",
+      "zip": "10032"
+    },
+    "inputAddress": "2048 Amsterdam Avenue, Manhattan, NY 10032",
+    "matchedAddress": "2048 AMSTERDAM AVE, NEW YORK, NY, 10032",
+    "latitude": 40.83556490422,
+    "longitude": -73.940149144593,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 184,
+    "rmpKey": "manhattan|sanmiwago|90 bowery|10013",
+    "officialAddress": {
+      "line1": "90 Bowery",
+      "city": "New York",
+      "state": "NY",
+      "zip": "10013"
+    },
+    "inputAddress": "90 Bowery, New York, NY 10013",
+    "matchedAddress": "90 BOWERY, NEW YORK, NY, 10013",
+    "latitude": 40.717353197728,
+    "longitude": -73.995471233286,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 185,
+    "rmpKey": "manhattan|sapoara restaurant|2262 1st avenue|10035",
+    "officialAddress": {
+      "line1": "2262 1st Avenue",
+      "city": "Manhattan",
+      "state": "NY",
+      "zip": "10035"
+    },
+    "inputAddress": "2262 1st Avenue, Manhattan, NY 10035",
+    "matchedAddress": "2262 1ST AVE, NEW YORK, NY, 10035",
+    "latitude": 40.796215326905,
+    "longitude": -73.935163750808,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 186,
+    "rmpKey": "manhattan|sun hong wong seafood restaurant|100 bowery|10013",
+    "officialAddress": {
+      "line1": "100 Bowery",
+      "city": "New York",
+      "state": "NY",
+      "zip": "10013"
+    },
+    "inputAddress": "100 Bowery, New York, NY 10013",
+    "matchedAddress": "100 BOWERY, NEW YORK, NY, 10013",
+    "latitude": 40.717688377591,
+    "longitude": -73.995294688166,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 187,
+    "rmpKey": "manhattan|the chubby crab|77 chrystie street|10002",
+    "officialAddress": {
+      "line1": "77 Chrystie Street",
+      "city": "New York",
+      "state": "NY",
+      "zip": "10002"
+    },
+    "inputAddress": "77 Chrystie Street, New York, NY 10002",
+    "matchedAddress": "77 CHRYSTIE ST, NEW YORK, NY, 10002",
+    "latitude": 40.717190941328,
+    "longitude": -73.994391217381,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 188,
+    "rmpKey": "manhattan|tu sabor latino restaurant|3881 broadway|10032",
+    "officialAddress": {
+      "line1": "3881 Broadway",
+      "city": "New York",
+      "state": "NY",
+      "zip": "10032"
+    },
+    "inputAddress": "3881 Broadway, New York, NY 10032",
+    "matchedAddress": "3881 BROADWAY, NEW YORK, NY, 10032",
+    "latitude": 40.837307633301,
+    "longitude": -73.942593919433,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 189,
+    "rmpKey": "manhattan|yummy thai|4959 broadway|10034",
+    "officialAddress": {
+      "line1": "4959 Broadway",
+      "city": "New York",
+      "state": "NY",
+      "zip": "10034"
+    },
+    "inputAddress": "4959 Broadway, New York, NY 10034",
+    "matchedAddress": "4959 BROADWAY, NEW YORK, NY, 10034",
+    "latitude": 40.868009773705,
+    "longitude": -73.920321725999,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 190,
+    "rmpKey": "queens|876 caribbean eatery|15341 rockaway boulevard|11434",
+    "officialAddress": {
+      "line1": "153-41 Rockaway Boulevard",
+      "city": "Jamaica",
+      "state": "NY",
+      "zip": "11434"
+    },
+    "inputAddress": "153-41 Rockaway Boulevard, Jamaica, NY 11434",
+    "matchedAddress": "153-41 ROCKAWAY BLVD, JAMAICA, NY, 11434",
+    "latitude": 40.669710511033,
+    "longitude": -73.7827009466,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 191,
+    "rmpKey": "queens|atomic wings|159-23 hillside avenue|11432",
+    "officialAddress": {
+      "line1": "159-23 Hillside Avenue",
+      "city": "Jamaica",
+      "state": "NY",
+      "zip": "11432"
+    },
+    "inputAddress": "159-23 Hillside Avenue, Jamaica, NY 11432",
+    "matchedAddress": "159-23 HILLSIDE AVE, JAMAICA, NY, 11432",
+    "latitude": 40.707837142345,
+    "longitude": -73.802567598326,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 192,
+    "rmpKey": "queens|blaze 718|109-10 guy r brewer boulevard|11413",
+    "officialAddress": {
+      "line1": "109-10 Guy R Brewer Boulevard",
+      "city": "Jamaica",
+      "state": "NY",
+      "zip": "11413"
+    },
+    "inputAddress": "109-10 Guy R Brewer Boulevard, Jamaica, NY 11433",
+    "matchedAddress": "109-10 GUY R BREWER BLVD, JAMAICA, NY, 11433",
+    "latitude": 40.694748357541,
+    "longitude": -73.790004487684,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "manual",
+    "precision": "interpolated",
+    "review": "Exact street address; Census ZIP conflicts with OTDA ZIP 11413."
+  },
+  {
+    "index": 193,
+    "rmpKey": "queens|burger king/popeye's|16150 cross bay boulevard|11414",
+    "officialAddress": {
+      "line1": "16150 Cross Bay Boulevard",
+      "city": "Howard Beach",
+      "state": "NY",
+      "zip": "11414"
+    },
+    "inputAddress": "161-50 Cross Bay Boulevard, Howard Beach, NY 11414",
+    "matchedAddress": "161-50 CROSS BAY BLVD, HOWARD BEACH, NY, 11414",
+    "latitude": 40.661352393524,
+    "longitude": -73.840534746208,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "manual",
+    "precision": "interpolated",
+    "review": "OTDA omits the Queens hyphen; reviewed against the shared current property."
+  },
+  {
+    "index": 194,
+    "rmpKey": "queens|burger king/popeyes|161 cross bay boulevard|11414",
+    "officialAddress": {
+      "line1": "161 Cross Bay Boulevard",
+      "city": "Howard Beach",
+      "state": "NY",
+      "zip": "11414"
+    },
+    "inputAddress": "161-50 Cross Bay Boulevard, Howard Beach, NY 11414",
+    "matchedAddress": "161-50 CROSS BAY BLVD, HOWARD BEACH, NY, 11414",
+    "latitude": 40.661352393524,
+    "longitude": -73.840534746208,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "manual",
+    "precision": "interpolated",
+    "review": "OTDA address is malformed; reviewed against the shared current property."
+  },
+  {
+    "index": 195,
+    "rmpKey": "queens|burger king/popeyes|164-17 union turnpike|11366",
+    "officialAddress": {
+      "line1": "164-17 Union Turnpike",
+      "city": "Flushing",
+      "state": "NY",
+      "zip": "11366"
+    },
+    "inputAddress": "164-17 Union Turnpike, Flushing, NY 11366",
+    "matchedAddress": "164-17 UNION TPKE, FLUSHING, NY, 11366",
+    "latitude": 40.721842801953,
+    "longitude": -73.803608566221,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 196,
+    "rmpKey": "queens|burger king|6259 fresh pond road|11365",
+    "officialAddress": {
+      "line1": "6259 Fresh Pond Road",
+      "city": "Queens",
+      "state": "NY",
+      "zip": "11365"
+    },
+    "inputAddress": "62-59 Fresh Pond Road, Ridgewood, NY 11385",
+    "matchedAddress": "62-59 FRESH POND RD, RIDGEWOOD, NY, 11385",
+    "latitude": 40.712665301587,
+    "longitude": -73.90049812637,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "manual",
+    "precision": "interpolated",
+    "review": "OTDA line/ZIP conflict reviewed against the same Queens-numbered location."
+  },
+  {
+    "index": 197,
+    "rmpKey": "queens|dhakaya restaurant|3944 21st street|11101",
+    "officialAddress": {
+      "line1": "39-44 21st Street",
+      "city": "Long Island City",
+      "state": "NY",
+      "zip": "11101"
+    },
+    "inputAddress": "39-44 21st Street, Long Island City, NY 11101",
+    "matchedAddress": "39-44 21ST ST, LONG ISLAND CITY, NY, 11101",
+    "latitude": 40.755950038723,
+    "longitude": -73.940643723894,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 198,
+    "rmpKey": "queens|evelia's tamales|96-09 northern boulevard|11368",
+    "officialAddress": {
+      "line1": "96-09 Northern Boulevard",
+      "city": "Corona",
+      "state": "NY",
+      "zip": "11368"
+    },
+    "inputAddress": "96-09 Northern Boulevard, Corona, NY 11368",
+    "matchedAddress": "96-09 NORTHERN BLVD, CORONA, NY, 11368",
+    "latitude": 40.757012180733,
+    "longitude": -73.872093197995,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 199,
+    "rmpKey": "queens|gyro qila|10503 crossbay boulevard|11417",
+    "officialAddress": {
+      "line1": "105-03 Cross Bay Boulevard",
+      "city": "Ozone Park",
+      "state": "NY",
+      "zip": "11417"
+    },
+    "inputAddress": "105-03 Cross Bay Boulevard, Ozone Park, NY 11417",
+    "matchedAddress": "105-03 CROSSBAY BLVD, OZONE PARK, NY, 11417",
+    "latitude": 40.680014470005,
+    "longitude": -73.844361812716,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 200,
+    "rmpKey": "queens|jamaican flavors|134-41 springfield boulevard|11413",
+    "officialAddress": {
+      "line1": "134-41 Springfield Boulevard",
+      "city": "Springfield Garden",
+      "state": "NY",
+      "zip": "11413"
+    },
+    "inputAddress": "134-41 Springfield Boulevard, Springfield Garden, NY 11413",
+    "matchedAddress": "134-41 SPRINGFIELD BLVD, SPRINGFIELD GARDENS, NY, 11413",
+    "latitude": 40.679415210267,
+    "longitude": -73.753670300205,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 201,
+    "rmpKey": "queens|jamaican flavors|162-02 jamaica avenue|11432",
+    "officialAddress": {
+      "line1": "162-02 Jamaica Avenue",
+      "city": "Jamaica",
+      "state": "NY",
+      "zip": "11432"
+    },
+    "inputAddress": "162-02 Jamaica Avenue, Jamaica, NY 11434",
+    "matchedAddress": "162-02 JAMAICA AVE, JAMAICA, NY, 11432",
+    "latitude": 40.704210559496,
+    "longitude": -73.797826260025,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 202,
+    "rmpKey": "queens|jamaican flavors|164-17 jamaica avenue|11432",
+    "officialAddress": {
+      "line1": "164-17D Jamaica Avenue",
+      "city": "Jamaica",
+      "state": "NY",
+      "zip": "11432"
+    },
+    "inputAddress": "164-17D Jamaica Avenue, Jamaica, NY 11432",
+    "matchedAddress": "164-17 JAMAICA AVE, JAMAICA, NY, 11432",
+    "latitude": 40.705266812613,
+    "longitude": -73.795551907784,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "matched",
+    "precision": "interpolated",
+    "review": "OTDA unit suffix D is omitted by Census; street number, street, city, and ZIP otherwise match."
+  },
+  {
+    "index": 203,
+    "rmpKey": "queens|kentucky fried chicken|39-21 103rd street|11368",
+    "officialAddress": {
+      "line1": "39-21 103rd Street",
+      "city": "Corona",
+      "state": "NY",
+      "zip": "11368"
+    },
+    "inputAddress": "39-21 103rd Street, Corona, NY 11368",
+    "matchedAddress": "39-21 103RD ST, CORONA, NY, 11368",
+    "latitude": 40.750492372002,
+    "longitude": -73.862935147975,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 204,
+    "rmpKey": "queens|lao yu yuan dumpling house|42-35 main street|11355",
+    "officialAddress": {
+      "line1": "42-35 Main Street",
+      "city": "Flushing",
+      "state": "NY",
+      "zip": "11355",
+      "line2": "Ste 1M"
+    },
+    "inputAddress": "42-35 Main Street, Ste 1M, Flushing, NY 11355",
+    "matchedAddress": "42-35 MAIN ST, FLUSHING, NY, 11355",
+    "latitude": 40.75437951929,
+    "longitude": -73.827798823617,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 205,
+    "rmpKey": "queens|maspeth diner|6535 grand avenue|11378",
+    "officialAddress": {
+      "line1": "65-35 Grand Avenue",
+      "city": "Maspeth",
+      "state": "NY",
+      "zip": "11378"
+    },
+    "inputAddress": "65-35 Grand Avenue, Maspeth, NY 11378",
+    "matchedAddress": "65-35 GRAND AVE, MASPETH, NY, 11378",
+    "latitude": 40.723693167143,
+    "longitude": -73.89971554474,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 206,
+    "rmpKey": "queens|mcdonald's|106-15 71st street|11375",
+    "officialAddress": {
+      "line1": "106-15 71st Street",
+      "city": "Forest Hills",
+      "state": "NY",
+      "zip": "11375"
+    },
+    "inputAddress": "106-15 71st Avenue, Forest Hills, NY 11375",
+    "matchedAddress": "106-15 71st Ave, Forest Hills, NY 11375",
+    "latitude": 40.719994,
+    "longitude": -73.8451,
+    "provider": "Public Storage geocoder",
+    "matchQuality": "manual",
+    "precision": "approximate",
+    "review": "Census misparsed the hyphenated official street; exact current-business address used for location review."
+  },
+  {
+    "index": 207,
+    "rmpKey": "queens|mcdonald's|159-40 cross bay boulevard|11414",
+    "officialAddress": {
+      "line1": "159-40 Cross Bay Boulevard",
+      "city": "Howard Beach",
+      "state": "NY",
+      "zip": "11414"
+    },
+    "inputAddress": "159-40 Cross Bay Boulevard, Howard Beach, NY 11414",
+    "matchedAddress": "159-40 CROSSBAY BLVD, HOWARD BEACH, NY, 11414",
+    "latitude": 40.658452574966,
+    "longitude": -73.839892803529,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 208,
+    "rmpKey": "queens|mcdonald's|204-11 hillside avenue|11423",
+    "officialAddress": {
+      "line1": "204-11 Hillside Avenue",
+      "city": "Hollis",
+      "state": "NY",
+      "zip": "11423"
+    },
+    "inputAddress": "204-11 Hillside Avenue, Hollis, NY 11423",
+    "matchedAddress": "204-11 HILLSIDE AVE, HOLLIS, NY, 11423",
+    "latitude": 40.720435639753,
+    "longitude": -73.76103308279,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 209,
+    "rmpKey": "queens|mcdonald's|216-07 linden boulevard|11411",
+    "officialAddress": {
+      "line1": "216-07 Linden Boulevard",
+      "city": "Cambria Heights",
+      "state": "NY",
+      "zip": "11411"
+    },
+    "inputAddress": "216-07 Linden Boulevard, Cambria Heights, NY 11411",
+    "matchedAddress": "216-07 LINDEN BLVD, CAMBRIA HEIGHTS, NY, 11411",
+    "latitude": 40.696237128374,
+    "longitude": -73.743449047257,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 210,
+    "rmpKey": "queens|mcdonald's|22-14 31st avenue|11105",
+    "officialAddress": {
+      "line1": "22-14 31st Avenue",
+      "city": "Astoria",
+      "state": "NY",
+      "zip": "11105"
+    },
+    "inputAddress": "22-50 31st Street, Astoria, NY 11105",
+    "matchedAddress": "22-14 31ST AVE, ASTORIA, NY, 11106",
+    "latitude": 40.767170036469,
+    "longitude": -73.929663314984,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "manual",
+    "precision": "interpolated",
+    "review": "Exact OTDA street address; Census ZIP conflicts with OTDA ZIP 11105."
+  },
+  {
+    "index": 211,
+    "rmpKey": "queens|mcdonald's|244-10 merrick boulevard|11422",
+    "officialAddress": {
+      "line1": "244-10 Merrick Boulevard",
+      "city": "Rosedale",
+      "state": "NY",
+      "zip": "11422"
+    },
+    "inputAddress": "244-10 Merrick Boulevard, Rosedale, NY 11422",
+    "matchedAddress": "244-10 MERRICK BLVD, ROSEDALE, NY, 11422",
+    "latitude": 40.674109656851,
+    "longitude": -73.729267380566,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 212,
+    "rmpKey": "queens|mcdonald's|3146 21st street|11106",
+    "officialAddress": {
+      "line1": "31-46 21st Street",
+      "city": "Long Island City",
+      "state": "NY",
+      "zip": "11106"
+    },
+    "inputAddress": "31-46 21st Street, Long Island City, NY 11106",
+    "matchedAddress": "31-46 21ST ST, LONG ISLAND CITY, NY, 11106",
+    "latitude": 40.766146763269,
+    "longitude": -73.930904669375,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 213,
+    "rmpKey": "queens|mcdonald's|3255 31st street|11106",
+    "officialAddress": {
+      "line1": "32-55 31st Street",
+      "city": "Long Island City",
+      "state": "NY",
+      "zip": "11106"
+    },
+    "inputAddress": "32-55 31st Street, Long Island City, NY 11106",
+    "matchedAddress": "32-55 31ST ST, LONG ISLAND CITY, NY, 11106",
+    "latitude": 40.760678241737,
+    "longitude": -73.926340086002,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 214,
+    "rmpKey": "queens|mcdonald's|3802 queens boulevard|11101",
+    "officialAddress": {
+      "line1": "38-02 Queens Boulevard",
+      "city": "Long Island City",
+      "state": "NY",
+      "zip": "11101"
+    },
+    "inputAddress": "38-02 Queens Boulevard, Long Island City, NY 11101",
+    "matchedAddress": "38-02 QUEENS BLVD, LONG ISLAND CITY, NY, 11101",
+    "latitude": 40.743888872983,
+    "longitude": -73.92699833626,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 215,
+    "rmpKey": "queens|mcdonald's|5960 55th road|11378",
+    "officialAddress": {
+      "line1": "59-60 55th Road",
+      "city": "Maspeth",
+      "state": "NY",
+      "zip": "11378"
+    },
+    "inputAddress": "59-60 55th Road, Maspeth, NY 11378",
+    "matchedAddress": "59-60 55TH RD, MASPETH, NY, 11378",
+    "latitude": 40.72661030721,
+    "longitude": -73.907091412869,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 216,
+    "rmpKey": "queens|mcdonald's|72-69 kissena boulevard|11367",
+    "officialAddress": {
+      "line1": "72-69 Kissena Boulevard",
+      "city": "Flushing",
+      "state": "NY",
+      "zip": "11367"
+    },
+    "inputAddress": "72-69 Kissena Boulevard, Flushing, NY 11367",
+    "matchedAddress": "72-69 KISSENA BLVD, FLUSHING, NY, 11367",
+    "latitude": 40.729083289186,
+    "longitude": -73.815127419895,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 217,
+    "rmpKey": "queens|mcdonald's|75-50 101st street|11416",
+    "officialAddress": {
+      "line1": "75-50 101st Street",
+      "city": "Ozone Park",
+      "state": "NY",
+      "zip": "11416"
+    },
+    "inputAddress": "75-50 101st Avenue, Ozone Park, NY 11416",
+    "matchedAddress": "75-50 101ST AVE, OZONE PARK, NY, 11416",
+    "latitude": 40.67968325124,
+    "longitude": -73.861897460484,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "manual",
+    "precision": "interpolated",
+    "review": "OTDA says Street; Census and current business resolve Avenue at the same number."
+  },
+  {
+    "index": 218,
+    "rmpKey": "queens|mcdonald's|88-14 springfield boulevard|11427",
+    "officialAddress": {
+      "line1": "88-14 Springfield Boulevard",
+      "city": "Queens Village",
+      "state": "NY",
+      "zip": "11427"
+    },
+    "inputAddress": "88-14 Springfield Boulevard, Queens Village, NY 11427",
+    "matchedAddress": "88-14 SPRINGFIELD BLVD, QUEENS VILLAGE, NY, 11427",
+    "latitude": 40.729559014872,
+    "longitude": -73.744511449192,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 219,
+    "rmpKey": "queens|nyaminz & jaminz caribbean restaurant|108-10 guy r brewer boulevard|11433",
+    "officialAddress": {
+      "line1": "108-10 Guy R Brewer Boulevard",
+      "city": "Jamaica",
+      "state": "NY",
+      "zip": "11433"
+    },
+    "inputAddress": "108-10 Guy R Brewer Boulevard, Jamaica, NY 11433",
+    "matchedAddress": "108-10 GUY R BREWER BLVD, JAMAICA, NY, 11433",
+    "latitude": 40.696331414458,
+    "longitude": -73.791164491678,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 220,
+    "rmpKey": "queens|on & on 168|40-46 main street|11354",
+    "officialAddress": {
+      "line1": "40-46 Main Street",
+      "city": "Flushing",
+      "state": "NY",
+      "zip": "11354"
+    },
+    "inputAddress": "40-46 Main Street, Flushing, NY 11354",
+    "matchedAddress": "40-46 MAIN ST, FLUSHING, NY, 11354",
+    "latitude": 40.758428047255,
+    "longitude": -73.82966056237,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 221,
+    "rmpKey": "queens|pablo peppa jerk chicken|226-08 merrick boulevard|11413",
+    "officialAddress": {
+      "line1": "226-08 Merrick Boulevard",
+      "city": "Laurelton",
+      "state": "NY",
+      "zip": "11413"
+    },
+    "inputAddress": "226-08A Merrick Boulevard, Laurelton, NY 11413",
+    "matchedAddress": "226-08 MERRICK BLVD, LAURELTON, NY, 11413",
+    "latitude": 40.677195441107,
+    "longitude": -73.743832829957,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "matched",
+    "precision": "interpolated",
+    "review": "Current-business address adds unit suffix A; base street number, street, city, and ZIP match the official OTDA address."
+  },
+  {
+    "index": 222,
+    "rmpKey": "queens|papa john's pizza|4919 30th avenue|11377",
+    "officialAddress": {
+      "line1": "49-19 30th Avenue",
+      "city": "Woodside",
+      "state": "NY",
+      "zip": "11377"
+    },
+    "inputAddress": "49-19 30th Avenue, Woodside, NY 11377",
+    "matchedAddress": "49-19 30TH AVE, WOODSIDE, NY, 11377",
+    "latitude": 40.760346855351,
+    "longitude": -73.907287022806,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 223,
+    "rmpKey": "queens|peter's grill|7511 rockaway|11421",
+    "officialAddress": {
+      "line1": "75-11 Rockaway Boulevard",
+      "city": "Woodhaven",
+      "state": "NY",
+      "zip": "11421"
+    },
+    "inputAddress": "75-11 Rockaway Boulevard, Woodhaven, NY 11421",
+    "matchedAddress": "75-11 ROCKAWAY BLVD, WOODHAVEN, NY, 11421",
+    "latitude": 40.685910999312,
+    "longitude": -73.865055528136,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 224,
+    "rmpKey": "queens|popeye's|1426 cornaga avenue|11691",
+    "officialAddress": {
+      "line1": "14-26 Cornaga Avenue",
+      "city": "Far Rockaway",
+      "state": "NY",
+      "zip": "11691"
+    },
+    "inputAddress": "14-26 Cornaga Avenue, Far Rockaway, NY 11691",
+    "matchedAddress": "14-26 CORNAGA AVE, FAR ROCKAWAY, NY, 11691",
+    "latitude": 40.602791217017,
+    "longitude": -73.749080855077,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 225,
+    "rmpKey": "queens|popeye's|25225 union turnpike|11426",
+    "officialAddress": {
+      "line1": "252-25 Union Turnpike",
+      "city": "Bellerose",
+      "state": "NY",
+      "zip": "11426"
+    },
+    "inputAddress": "252-25 Union Turnpike, Bellerose, NY 11426",
+    "matchedAddress": "252-25 UNION TPKE, BELLEROSE, NY, 11426",
+    "latitude": 40.743743412315,
+    "longitude": -73.718292897651,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 226,
+    "rmpKey": "queens|popeye's|4006 main street|11354",
+    "officialAddress": {
+      "line1": "40-06 Main Street",
+      "city": "Flushing",
+      "state": "NY",
+      "zip": "11354"
+    },
+    "inputAddress": "40-06 Main Street, Flushing, NY 11354",
+    "matchedAddress": "40-06 MAIN ST, FLUSHING, NY, 11354",
+    "latitude": 40.759379772431,
+    "longitude": -73.830128011373,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 227,
+    "rmpKey": "queens|popeye's|8324 woodhaven boulevard|11385",
+    "officialAddress": {
+      "line1": "83-24 Woodhaven Boulevard",
+      "city": "Glendale",
+      "state": "NY",
+      "zip": "11385"
+    },
+    "inputAddress": "83-24 Woodhaven Boulevard, Glendale, NY 11385",
+    "matchedAddress": "83-24 WOODHAVEN BLVD, GLENDALE, NY, 11385",
+    "latitude": 40.702381834273,
+    "longitude": -73.855368881631,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 228,
+    "rmpKey": "queens|sabor café @ queens public library|8911 merrick boulevard|11432",
+    "officialAddress": {
+      "line1": "89-11 Merrick Boulevard",
+      "city": "Jamaica",
+      "state": "NY",
+      "zip": "11432"
+    },
+    "inputAddress": "89-11 Merrick Boulevard, Jamaica, NY 11432",
+    "matchedAddress": "89-11 MERRICK BLVD, JAMAICA, NY, 11432",
+    "latitude": 40.707950564501,
+    "longitude": -73.795276309792,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 229,
+    "rmpKey": "queens|sabor restaurant & bakery|15-20 college point boulevard|11356",
+    "officialAddress": {
+      "line1": "15-20 College Point Boulevard",
+      "city": "College Point",
+      "state": "NY",
+      "zip": "11356"
+    },
+    "inputAddress": "15-20 College Point Boulevard, College Point, NY 11356",
+    "matchedAddress": "15-20 COLLEGE POINT BLVD, COLLEGE POINT, NY, 11356",
+    "latitude": 40.783963475063,
+    "longitude": -73.845894974964,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 230,
+    "rmpKey": "queens|sea and sky feast buffet|133-38 sanford avenue|11355",
+    "officialAddress": {
+      "line1": "133-38 Sanford Avenue",
+      "city": "Flushing",
+      "state": "NY",
+      "zip": "11355"
+    },
+    "inputAddress": "133-38 Sanford Avenue, Flushing, NY 11355",
+    "matchedAddress": "133-38 SANFORD AVE, FLUSHING, NY, 11355",
+    "latitude": 40.756062455774,
+    "longitude": -73.829935268662,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 231,
+    "rmpKey": "queens|tasty & co|9419 63rd drive|11374",
+    "officialAddress": {
+      "line1": "94-19 63rd Drive",
+      "city": "Rego Park",
+      "state": "NY",
+      "zip": "11374"
+    },
+    "inputAddress": "94-19 63rd Drive, Rego Park, NY 11374",
+    "matchedAddress": "94-19 63RD DR, REGO PARK, NY, 11374",
+    "latitude": 40.728831349173,
+    "longitude": -73.863235262225,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 232,
+    "rmpKey": "queens|the artisan crepe|177-07 union turnpike|11366",
+    "officialAddress": {
+      "line1": "177-07 Union Turnpike",
+      "city": "Fresh Meadow",
+      "state": "NY",
+      "zip": "11366"
+    },
+    "inputAddress": "177-07 Union Turnpike, Fresh Meadow, NY 11366",
+    "matchedAddress": "177-07 UNION TPKE, FRESH MEADOWS, NY, 11366",
+    "latitude": 40.726125234991,
+    "longitude": -73.790761321933,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 233,
+    "rmpKey": "staten island|burger king|2363 forest avenue|10303",
+    "officialAddress": {
+      "line1": "2363 Forest Avenue",
+      "city": "Staten Island",
+      "state": "NY",
+      "zip": "10303"
+    },
+    "inputAddress": "2363 Forest Avenue, Staten Island, NY 10303",
+    "matchedAddress": "2363 FOREST AVE, STATEN ISLAND, NY, 10303",
+    "latitude": 40.627848781337,
+    "longitude": -74.169503721676,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 234,
+    "rmpKey": "staten island|justino's pizzeria|89 guyon street|10306",
+    "officialAddress": {
+      "line1": "89 Guyon Street",
+      "city": "Staten Island",
+      "state": "NY",
+      "zip": "10306"
+    },
+    "inputAddress": "89 Guyon Avenue, Staten Island, NY 10306",
+    "matchedAddress": "89 GUYON AVE, STATEN ISLAND, NY, 10306",
+    "latitude": 40.564847601149,
+    "longitude": -74.127869917254,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "manual",
+    "precision": "interpolated",
+    "review": "OTDA key says Street; Census resolves Avenue at the same number."
+  },
+  {
+    "index": 235,
+    "rmpKey": "staten island|kentucky fried chicken|1453 forest avenue|10302",
+    "officialAddress": {
+      "line1": "1453 Forest Avenue",
+      "city": "Staten Island",
+      "state": "NY",
+      "zip": "10302"
+    },
+    "inputAddress": "1453 Forest Avenue, Staten Island, NY 10302",
+    "matchedAddress": "1453 FOREST AVE, STATEN ISLAND, NY, 10302",
+    "latitude": 40.624652597655,
+    "longitude": -74.136677875613,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 236,
+    "rmpKey": "staten island|nago café|416a jersey street|10301",
+    "officialAddress": {
+      "line1": "416A Jersey Street",
+      "city": "Staten Island",
+      "state": "NY",
+      "zip": "10301"
+    },
+    "inputAddress": "416A Jersey Street, Staten Island, NY 10301",
+    "matchedAddress": "416A JERSEY ST, STATEN ISLAND, NY, 10301",
+    "latitude": 40.638135110204,
+    "longitude": -74.087493294529,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 237,
+    "rmpKey": "staten island|popeye's|2506 hylan boulevard|10306",
+    "officialAddress": {
+      "line1": "2506 Hylan Boulevard",
+      "city": "Staten Island",
+      "state": "NY",
+      "zip": "10306"
+    },
+    "inputAddress": "2506 Hylan Boulevard, Staten Island, NY 10306",
+    "matchedAddress": "2506 HYLAN BLVD, STATEN ISLAND, NY, 10306",
+    "latitude": 40.570293450099,
+    "longitude": -74.109844244383,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 238,
+    "rmpKey": "westchester|k & p lounge|911 south street|10566",
+    "officialAddress": {
+      "line1": "911 South Street",
+      "city": "Peekskill",
+      "state": "NY",
+      "zip": "10566"
+    },
+    "inputAddress": "911 South Street, Peekskill, NY 10566",
+    "matchedAddress": "911 South Street, Peekskill, NY 10566",
+    "latitude": 41.2897856,
+    "longitude": -73.9209245,
+    "provider": "Public Storage geocoder",
+    "matchQuality": "manual",
+    "precision": "approximate",
+    "review": "Census returned no match; exact-address fallback geocoder used."
+  },
+  {
+    "index": 239,
+    "rmpKey": "westchester|off the hook of yonkers|47 north broadway|10701",
+    "officialAddress": {
+      "line1": "47 North Broadway",
+      "city": "Yonkers",
+      "state": "NY",
+      "zip": "10701"
+    },
+    "inputAddress": "47 North Broadway, Yonkers, NY 10701",
+    "matchedAddress": "47 N BROADWAY, YONKERS, NY, 10701",
+    "latitude": 40.935637567026,
+    "longitude": -73.898309657143,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  },
+  {
+    "index": 240,
+    "rmpKey": "westchester|unk's fish & chips|31 john street|10701",
+    "officialAddress": {
+      "line1": "31 John Street",
+      "city": "Yonkers",
+      "state": "NY",
+      "zip": "10701"
+    },
+    "inputAddress": "31 John Street, Yonkers, NY 10701",
+    "matchedAddress": "31 JOHN ST, YONKERS, NY, 10701",
+    "latitude": 40.933784741023,
+    "longitude": -73.89543989815,
+    "provider": "U.S. Census Geocoder",
+    "matchQuality": "exact",
+    "precision": "interpolated",
+    "review": "Accepted Census address-range match."
+  }
+]

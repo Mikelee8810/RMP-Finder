@@ -1,0 +1,15 @@
+{
+  "datasetVersion": 1,
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-09T23:17:50-04:00",
+  "recordCount": 241,
+  "sha256": "cff275c4605f242b1f41d3d626334f420edc72dbe6ee82beee8f0fff15e36299",
+  "datasetUrl": "https://raw.githubusercontent.com/Mikelee8810/RMP-Finder/main/data/restaurants.json",
+  "minimumAppVersion": 1,
+  "sourceRevision": null,
+  "programPolicy": {
+    "rmpDiscountPercent": 10,
+    "checkedAt": "2026-09-09",
+    "sourceUrl": "https://otda.ny.gov/policy/gis/2025/25DC012.pdf"
+  }
+}
