@@ -87,6 +87,7 @@ import com.mike.rmpfinder.data.RmpRepository
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 import java.time.LocalDate
+import kotlinx.coroutines.delay
 import org.maplibre.android.camera.CameraPosition
 import org.maplibre.android.geometry.LatLng
 import org.maplibre.android.maps.MapView
@@ -319,11 +320,23 @@ private fun RmpMap(
     onMapLoadFailed: () -> Unit,
     onMapLoadSucceeded: () -> Unit,
 ) {
+    val styleUrl = BuildConfig.MAP_STYLE_URL_OVERRIDE.ifBlank {
+        "https://api.maptiler.com/maps/streets-v4/style.json?key=${BuildConfig.MAPTILER_KEY}"
+    }
+    var mapLoadResolved by remember(mapView, styleUrl) { mutableStateOf(false) }
+
     AndroidView(factory = { mapView }, modifier = Modifier.fillMaxSize())
     DisposableEffect(mapView) {
-        val listener = MapView.OnDidFailLoadingMapListener { onMapLoadFailed() }
+        val listener = MapView.OnDidFailLoadingMapListener {
+            mapLoadResolved = true
+            onMapLoadFailed()
+        }
         mapView.addOnDidFailLoadingMapListener(listener)
         onDispose { mapView.removeOnDidFailLoadingMapListener(listener) }
+    }
+    LaunchedEffect(mapView, styleUrl) {
+        delay(10_000)
+        if (!mapLoadResolved) onMapLoadFailed()
     }
     LaunchedEffect(restaurants) {
         if (restaurants.isEmpty()) return@LaunchedEffect
@@ -335,10 +348,8 @@ private fun RmpMap(
                 }
             }
             val options = GeoJsonOptions().withCluster(true).withClusterRadius(44).withClusterMaxZoom(14)
-            val styleUrl = BuildConfig.MAP_STYLE_URL_OVERRIDE.ifBlank {
-                "https://api.maptiler.com/maps/streets-v4/style.json?key=${BuildConfig.MAPTILER_KEY}"
-            }
             map.setStyle(styleUrl) { style ->
+                mapLoadResolved = true
                 onMapLoadSucceeded()
                 style.addSource(GeoJsonSource("rmp-restaurants", FeatureCollection.fromFeatures(features), options))
                 style.addLayer(
