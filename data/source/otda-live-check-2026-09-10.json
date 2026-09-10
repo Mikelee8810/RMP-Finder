@@ -1,0 +1,30 @@
+{
+  "checkedAt": "2026-09-10",
+  "source": "https://otda.ny.gov/programs/rmp/participating-restaurants/",
+  "purpose": "Document live OTDA selector behavior without changing the stable 241-record RMP membership baseline.",
+  "membershipBaseline": {
+    "file": "data/source/notion-rmp-snapshot-2026-09-09.json",
+    "recordCount": 241,
+    "policy": "Do not infer removals from empty or broken county responses. Preserve official OTDA identity separately from current-business facts."
+  },
+  "attempts": [
+    {
+      "provider": "Firecrawl",
+      "url": "https://otda.ny.gov/programs/rmp/participating-restaurants/?county=4",
+      "fetchMode": "live enhanced/stealth scrape",
+      "httpStatus": 200,
+      "observedHeading": "Select a county",
+      "restaurantRowsReturned": 0,
+      "note": "The page rendered the county selector and no Bronx restaurant rows even though the request contained county=4."
+    },
+    {
+      "provider": "Nimble",
+      "url": "https://otda.ny.gov/programs/rmp/participating-restaurants/?county=4",
+      "fetchMode": "browser-backed extraction with JavaScript wait",
+      "observedContent": "",
+      "restaurantRowsReturned": 0,
+      "note": "A second independent browser-backed extractor returned an empty body for the same Bronx county URL."
+    }
+  ],
+  "conclusion": "The OTDA county selector is not reliable enough on 2026-09-10 to drive deletions or membership changes. Use the verified 241-record snapshot as the baseline and use scraper/search indexes plus restaurant-owned sources for targeted fact refreshes."
+}
