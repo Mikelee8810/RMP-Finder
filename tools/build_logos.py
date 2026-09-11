@@ -39,8 +39,19 @@ OUT = ROOT / "data" / "source" / "website-logo-discovery-2026-09-10.json"
 ASSETS = ROOT / "app" / "src" / "main" / "assets" / "restaurant-logos"
 CHECKED_AT = "2026-09-10"
 MAX_BYTES = 2_000_000
-TIMEOUT = 10
+# Some brand sites are slow to answer before they serve an icon at all.
+TIMEOUT = 20
 SOCIAL_DOMAINS = {"facebook.com", "instagram.com"}
+
+# A site with no icon of its own often serves one belonging to the platform it
+# runs on. That is a WordPress or Facebook mark, not restaurant branding, and it
+# is worse than the built-in fallback because it misidentifies the restaurant.
+PLATFORM_ICON_PATTERNS = (
+    "/wp-includes/",
+    "/wp-admin/images/",
+    "w-logo-blue",
+    "w-logo-gray",
+)
 
 # Quality gate. An icon below these thresholds looks worse in the app than the
 # built-in fallback, so it is rejected rather than bundled.
@@ -128,6 +139,12 @@ def candidate_urls(session: requests.Session, website: str, domain: str) -> tupl
         if not candidates:
             raise
     return base, list(dict.fromkeys(candidates))
+
+
+def is_platform_icon(url: str) -> bool:
+    """True when a URL points at a site platform's own mark rather than a brand's."""
+    lowered = url.lower()
+    return any(pattern in lowered for pattern in PLATFORM_ICON_PATTERNS)
 
 
 def quality_failure(image: Image.Image) -> str | None:
@@ -236,6 +253,9 @@ def main() -> None:
                 try:
                     response = session.get(candidate, timeout=TIMEOUT, allow_redirects=True)
                     response.raise_for_status()
+                    if is_platform_icon(response.url):
+                        rejections.append("platform icon, not restaurant branding")
+                        continue
                     if not response.content or len(response.content) > MAX_BYTES:
                         continue
                     frozen = freeze_image(

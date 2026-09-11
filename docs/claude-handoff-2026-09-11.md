@@ -94,12 +94,32 @@ not match, so a wrong keystore cannot produce an APK that forces an uninstall.
 
 ## Still open
 
-- **Chain logo coverage.** 80 of 241 restaurants are chains with no bundled
-  mark: `mcdonalds.com` (48), `popeyes.com` (28), `kfc.com` (4). They fall back
-  to the initial and category tile. Fixing this needs network, so run
-  **Actions → Refresh restaurant logos**, which commits whatever it captures.
+- **Chain logo coverage.** 36 assets cover 72 of 241 restaurants. The rest fall
+  back to the initial and category tile. A refresh run on 2026-09-11 could not
+  capture the big chains, and the recorded reasons are specific rather than
+  general flakiness:
+
+  | domain | restaurants | failure |
+  | --- | --- | --- |
+  | `mcdonalds.com` | 48 | `ReadTimeout` |
+  | `popeyes.com` | 28 | response was not a decodable image |
+  | `kfc.com` | 4 | `HTTPError` |
+  | `checkers.com` | 1 | `HTTPError` |
+  | `locations.goldenkrust.com` | 1 | response was not a decodable image |
+
+  A further 47 restaurants have no website at all, so there is nothing to fetch
+  for them. The timeout has since been raised to 20 seconds, which may be enough
+  for McDonald's alone; the others look like bot protection or wrong candidate
+  URLs and would need the brand marks supplied by hand.
+
   Name-based brand aliasing was measured and rejected: it would have covered
   exactly one more restaurant.
+
+  Coverage reads lower than the 81 recorded before this session. That is
+  deliberate: nine assets were removed because they were blank tiles, 16px
+  favicons upscaled to 80dp, or, in one case, the WordPress default logo. Those
+  restaurants now show the built-in fallback, which is correct rather than
+  broken or misleading.
 - **Physical install.** 1.1.0 has not been installed on the Pixel. That is the
   only device-dependent step and it was deliberately left until the device is
   back.

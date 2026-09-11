@@ -381,17 +381,14 @@
     "websiteUrl": "https://www.jensfrenchtoast.com/"
   },
   "justinospizzeria.com": {
-    "assetFile": "justinospizzeria.com.png",
+    "assetFile": null,
     "checkedAt": "2026-09-10",
     "credit": "Website icon published by justinospizzeria.com",
-    "format": "png",
-    "height": 80,
+    "failure": "No usable site icon found (platform icon, not restaurant branding)",
     "imageSourceUrl": "https://justinospizzeria.com/wp-includes/images/w-logo-gray-white-bg.png",
     "license": null,
     "resolvedWebsiteUrl": "https://justinospizzeria.com/",
-    "sha256": "9182a828e749087d83d5c5698a7502f8039abea2596f4199e48357669e74c36e",
-    "websiteUrl": "https://justinospizzeria.com/",
-    "width": 80
+    "websiteUrl": "https://justinospizzeria.com/"
   },
   "kandplounge.com": {
     "assetFile": null,

@@ -16,7 +16,7 @@ from PIL import Image
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from build_logos import MIN_SOURCE_DIMENSION, quality_failure  # noqa: E402
+from build_logos import MIN_SOURCE_DIMENSION, is_platform_icon, quality_failure  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / "app" / "src" / "main" / "assets" / "restaurant-logos"
@@ -48,6 +48,13 @@ def main() -> int:
     evidence = json.loads(EVIDENCE.read_text())
     claimed = {entry["assetFile"] for entry in evidence.values() if entry.get("assetFile")}
     present = {path.name for path in ASSETS.iterdir() if path.suffix == ".png"}
+
+    # A platform's own mark misidentifies the restaurant, so it must not ship even
+    # if it clears the size and colour thresholds.
+    for domain, entry in sorted(evidence.items()):
+        source = entry.get("imageSourceUrl")
+        if entry.get("assetFile") and source and is_platform_icon(source):
+            failures.append(f"{entry['assetFile']}: captured from a platform icon ({source})")
 
     for name in sorted(claimed - present):
         failures.append(f"{name}: claimed by the discovery evidence but not bundled")
