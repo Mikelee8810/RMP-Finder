@@ -146,6 +146,21 @@ androidComponents {
 }
 
 dependencies {
+    constraints {
+        // lintVitalRelease fails assembleRelease with
+        // InvalidFragmentVersionForActivityResult because an old
+        // androidx.fragment (1.0.0, pulled in transitively by
+        // play-services-location) is on the classpath, and that FragmentActivity
+        // mishandles ActivityResult permission requests. MainActivity is a
+        // ComponentActivity so it is not itself affected, but the floor is worth
+        // raising rather than suppressing the check. This is a minimum, not a
+        // pin: anything newer already in the graph still wins.
+        implementation("androidx.fragment:fragment") {
+            version { require("1.3.0") }
+            because("ActivityResult APIs need FragmentActivity 1.3.0 or newer")
+        }
+    }
+
     val composeBom = platform("androidx.compose:compose-bom:2026.08.00")
     implementation(composeBom)
     androidTestImplementation(composeBom)
