@@ -1,0 +1,942 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-11",
+  "purpose": "Original bundled marks for RMP records that have no usable website; generated without copying existing restaurant trademarks.",
+  "generator": "OpenAI imagegen built-in tool",
+  "postProcessing": "Sprite crops were trimmed, scaled, and typeset with the dataset display name using Arial Bold; no existing logo asset was modified.",
+  "recordCount": 47,
+  "records": [
+    {
+      "rmpKey": "bronx|a daughter and two sons|1807 archer street|10460",
+      "restaurantName": "A Daughter and Two Sons",
+      "officialName": "A Daughter and Two Sons",
+      "borough": "Bronx",
+      "generatedAssetPath": "app/src/main/assets/custom-restaurant-logos/a-daughter-and-two-sons-c175f6a272d4.png",
+      "generationDate": "2026-09-11",
+      "assetOrigin": "original_generated_mark",
+      "generationMethod": "OpenAI imagegen original icon + deterministic local crop/typesetting",
+      "designBasis": "family meal with three abstract family silhouettes and plate",
+      "spriteSourcePath": "data/source/custom-logo-sprites/2026-09-11/batch-01.png",
+      "spriteCell": {
+        "index": 0,
+        "row": 1,
+        "column": 1
+      },
+      "width": 512,
+      "height": 512,
+      "sha256": "e8f86462bca6d02e81df095e0e979c3e5bd480184282ecbc3be26d2e35253567"
+    },
+    {
+      "rmpKey": "bronx|caribe restaurant|1762 crosby avenue|10461",
+      "restaurantName": "Caribe Restaurant",
+      "officialName": "Caribe Restaurant",
+      "borough": "Bronx",
+      "generatedAssetPath": "app/src/main/assets/custom-restaurant-logos/caribe-restaurant-8c8ceb14184d.png",
+      "generationDate": "2026-09-11",
+      "assetOrigin": "original_generated_mark",
+      "generationMethod": "OpenAI imagegen original icon + deterministic local crop/typesetting",
+      "designBasis": "Caribbean-inspired tropical palm leaf and serving plate",
+      "spriteSourcePath": "data/source/custom-logo-sprites/2026-09-11/batch-01.png",
+      "spriteCell": {
+        "index": 1,
+        "row": 1,
+        "column": 2
+      },
+      "width": 512,
+      "height": 512,
+      "sha256": "9cb40c91ef107622642a0d3200a9dada2b32925fda1b1ccbca20d76527be6f18"
+    },
+    {
+      "rmpKey": "bronx|caridad retaurant express|18 east gun hill road|10467",
+      "restaurantName": "Caridad Retaurant Express",
+      "officialName": "Caridad Retaurant Express",
+      "borough": "Bronx",
+      "generatedAssetPath": "app/src/main/assets/custom-restaurant-logos/caridad-retaurant-express-ff49edbfacbc.png",
+      "generationDate": "2026-09-11",
+      "assetOrigin": "original_generated_mark",
+      "generationMethod": "OpenAI imagegen original icon + deterministic local crop/typesetting",
+      "designBasis": "heart, fork, and speed accent for caring express service",
+      "spriteSourcePath": "data/source/custom-logo-sprites/2026-09-11/batch-01.png",
+      "spriteCell": {
+        "index": 2,
+        "row": 1,
+        "column": 3
+      },
+      "width": 512,
+      "height": 512,
+      "sha256": "8278bac8b72fedcf88ee7ba9991706597a98a2751bcbe43f8e031ec7683fa241"
+    },
+    {
+      "rmpKey": "bronx|caridad seafood restaurant|410 east tremont street|10457",
+      "restaurantName": "Caridad Seafood Restaurant",
+      "officialName": "Caridad Seafood Restaurant",
+      "borough": "Bronx",
+      "generatedAssetPath": "app/src/main/assets/custom-restaurant-logos/caridad-seafood-restaurant-0bc9dfc92c5a.png",
+      "generationDate": "2026-09-11",
+      "assetOrigin": "original_generated_mark",
+      "generationMethod": "OpenAI imagegen original icon + deterministic local crop/typesetting",
+      "designBasis": "fish over a wave for seafood",
+      "spriteSourcePath": "data/source/custom-logo-sprites/2026-09-11/batch-01.png",
+      "spriteCell": {
+        "index": 3,
+        "row": 2,
+        "column": 1
+      },
+      "width": 512,
+      "height": 512,
+      "sha256": "a18fb0e0a9b2338d15f3bcbd34e17e41caea769ffd1fe4c39ce1de60f9103a27"
+    },
+    {
+      "rmpKey": "bronx|churrasco del valle restaurant|255 east burnside avenue|10457",
+      "restaurantName": "Churrasco Del Valle Restaurant",
+      "officialName": "Churrasco Del Valle Restaurant",
+      "borough": "Bronx",
+      "generatedAssetPath": "app/src/main/assets/custom-restaurant-logos/churrasco-del-valle-restaurant-10e14c3619e9.png",
+      "generationDate": "2026-09-11",
+      "assetOrigin": "original_generated_mark",
+      "generationMethod": "OpenAI imagegen original icon + deterministic local crop/typesetting",
+      "designBasis": "grilled steak with valley sun",
+      "spriteSourcePath": "data/source/custom-logo-sprites/2026-09-11/batch-01.png",
+      "spriteCell": {
+        "index": 4,
+        "row": 2,
+        "column": 2
+      },
+      "width": 512,
+      "height": 512,
+      "sha256": "ae5902565d22731bc67f270d85630a323a699259f8d609b367592f99369b230d"
+    },
+    {
+      "rmpKey": "bronx|el valle restaurant|3535 jerome avenue|10467",
+      "restaurantName": "El Valle Restaurant",
+      "officialName": "El Valle Restaurant",
+      "borough": "Bronx",
+      "generatedAssetPath": "app/src/main/assets/custom-restaurant-logos/el-valle-restaurant-d9debd3e9a92.png",
+      "generationDate": "2026-09-11",
+      "assetOrigin": "original_generated_mark",
+      "generationMethod": "OpenAI imagegen original icon + deterministic local crop/typesetting",
+      "designBasis": "valley landscape over a serving bowl",
+      "spriteSourcePath": "data/source/custom-logo-sprites/2026-09-11/batch-01.png",
+      "spriteCell": {
+        "index": 5,
+        "row": 2,
+        "column": 3
+      },
+      "width": 512,
+      "height": 512,
+      "sha256": "5dcdb1169b630c7d99854697ca126789db8513dfc771d15f36a17b778a9617ab"
+    },
+    {
+      "rmpKey": "bronx|flamez cuisine|3728 bronxwood avneue|10469",
+      "restaurantName": "Flamez Cuisine",
+      "officialName": "Flamez Cuisine",
+      "borough": "Bronx",
+      "generatedAssetPath": "app/src/main/assets/custom-restaurant-logos/flamez-cuisine-5b35f3bf6cf5.png",
+      "generationDate": "2026-09-11",
+      "assetOrigin": "original_generated_mark",
+      "generationMethod": "OpenAI imagegen original icon + deterministic local crop/typesetting",
+      "designBasis": "flame wrapping a cloche",
+      "spriteSourcePath": "data/source/custom-logo-sprites/2026-09-11/batch-01.png",
+      "spriteCell": {
+        "index": 6,
+        "row": 3,
+        "column": 1
+      },
+      "width": 512,
+      "height": 512,
+      "sha256": "ff640d753ddad70b8855d6ce9ae9b04f624f602e86c77c8b9d89136021ac939e"
+    },
+    {
+      "rmpKey": "bronx|lechonera don pancholo|2037 jerome avenue|10453",
+      "restaurantName": "Lechonera Don Pancholo",
+      "officialName": "Lechonera Don Pancholo",
+      "borough": "Bronx",
+      "generatedAssetPath": "app/src/main/assets/custom-restaurant-logos/lechonera-don-pancholo-0e649c24b6e6.png",
+      "generationDate": "2026-09-11",
+      "assetOrigin": "original_generated_mark",
+      "generationMethod": "OpenAI imagegen original icon + deterministic local crop/typesetting",
+      "designBasis": "roast platter with warm sun motif",
+      "spriteSourcePath": "data/source/custom-logo-sprites/2026-09-11/batch-01.png",
+      "spriteCell": {
+        "index": 7,
+        "row": 3,
+        "column": 2
+      },
+      "width": 512,
+      "height": 512,
+      "sha256": "417a70e305a5c0ba79ba9fa933f40e1f33cfda7b139295778bc9aa4b4264264f"
+    },
+    {
+      "rmpKey": "bronx|lins home chinese|2461 university avenue|10468",
+      "restaurantName": "Lins Home Chinese",
+      "officialName": "Lins Home Chinese",
+      "borough": "Bronx",
+      "generatedAssetPath": "app/src/main/assets/custom-restaurant-logos/lins-home-chinese-fd218401cc2a.png",
+      "generationDate": "2026-09-11",
+      "assetOrigin": "original_generated_mark",
+      "generationMethod": "OpenAI imagegen original icon + deterministic local crop/typesetting",
+      "designBasis": "wok under a home roof",
+      "spriteSourcePath": "data/source/custom-logo-sprites/2026-09-11/batch-01.png",
+      "spriteCell": {
+        "index": 8,
+        "row": 3,
+        "column": 3
+      },
+      "width": 512,
+      "height": 512,
+      "sha256": "fc6e6f217a62761ba28be5fa51ff7030b7914e4d0c7e4fe0c365c664aaed9677"
+    },
+    {
+      "rmpKey": "bronx|love & soul food|4 east gun hill road|10467",
+      "restaurantName": "Love & Soul Food",
+      "officialName": "Love & Soul Food",
+      "borough": "Bronx",
+      "generatedAssetPath": "app/src/main/assets/custom-restaurant-logos/love-and-soul-food-5f6fb73c45dd.png",
+      "generationDate": "2026-09-11",
+      "assetOrigin": "original_generated_mark",
+      "generationMethod": "OpenAI imagegen original icon + deterministic local crop/typesetting",
+      "designBasis": "heart rising from a warm soul-food bowl",
+      "spriteSourcePath": "data/source/custom-logo-sprites/2026-09-11/batch-02.png",
+      "spriteCell": {
+        "index": 0,
+        "row": 1,
+        "column": 1
+      },
+      "width": 512,
+      "height": 512,
+      "sha256": "7a8fbdc6e9efb7eafbea4435c8d60279ca5d1d52c1ac2fb056cb7f9d025adeb9"
+    },
+    {
+      "rmpKey": "bronx|pa' comer|104 e. 165th street|10452",
+      "restaurantName": "Pa' Comer",
+      "officialName": "Pa' Comer",
+      "borough": "Bronx",
+      "generatedAssetPath": "app/src/main/assets/custom-restaurant-logos/pa-comer-ace6f5b39454.png",
+      "generationDate": "2026-09-11",
+      "assetOrigin": "original_generated_mark",
+      "generationMethod": "OpenAI imagegen original icon + deterministic local crop/typesetting",
+      "designBasis": "welcoming plate with fork and spoon",
+      "spriteSourcePath": "data/source/custom-logo-sprites/2026-09-11/batch-02.png",
+      "spriteCell": {
+        "index": 1,
+        "row": 1,
+        "column": 2
+      },
+      "width": 512,
+      "height": 512,
+      "sha256": "488a60cc2d69e6f42f6bc992a9b2934879d5c1d6526eb8cd003211b77681bc52"
+    },
+    {
+      "rmpKey": "bronx|sante yallah keur aisha restaurant|1460 boston road|10460",
+      "restaurantName": "Sante Yallah Keur Aisha Restaurant",
+      "officialName": "Sante Yallah Keur Aisha Restaurant",
+      "borough": "Bronx",
+      "generatedAssetPath": "app/src/main/assets/custom-restaurant-logos/sante-yallah-keur-aisha-restaurant-56fc9805f62a.png",
+      "generationDate": "2026-09-11",
+      "assetOrigin": "original_generated_mark",
+      "generationMethod": "OpenAI imagegen original icon + deterministic local crop/typesetting",
+      "designBasis": "welcoming home doorway with steaming bowl",
+      "spriteSourcePath": "data/source/custom-logo-sprites/2026-09-11/batch-02.png",
+      "spriteCell": {
+        "index": 2,
+        "row": 1,
+        "column": 3
+      },
+      "width": 512,
+      "height": 512,
+      "sha256": "d2d93153f9c6ab04fa9fda1706652d2549d3a923c34114068b632179fce2721a"
+    },
+    {
+      "rmpKey": "brooklyn|bamboo seafood|5108 7th avenue|11220",
+      "restaurantName": "Bamboo Seafood",
+      "officialName": "Bamboo Seafood",
+      "borough": "Brooklyn",
+      "generatedAssetPath": "app/src/main/assets/custom-restaurant-logos/bamboo-seafood-90361cafb360.png",
+      "generationDate": "2026-09-11",
+      "assetOrigin": "original_generated_mark",
+      "generationMethod": "OpenAI imagegen original icon + deterministic local crop/typesetting",
+      "designBasis": "bamboo stalks framing fish and wave",
+      "spriteSourcePath": "data/source/custom-logo-sprites/2026-09-11/batch-02.png",
+      "spriteCell": {
+        "index": 3,
+        "row": 2,
+        "column": 1
+      },
+      "width": 512,
+      "height": 512,
+      "sha256": "db254629acb82f6763b16f9015881f8a024d2737f9e6abfe8f6e3731827d2a1a"
+    },
+    {
+      "rmpKey": "brooklyn|carnation restaurant|2310 86th street|11214",
+      "restaurantName": "Carnation Restaurant",
+      "officialName": "Carnation Restaurant",
+      "borough": "Brooklyn",
+      "generatedAssetPath": "app/src/main/assets/custom-restaurant-logos/carnation-restaurant-bc22e6e191a9.png",
+      "generationDate": "2026-09-11",
+      "assetOrigin": "original_generated_mark",
+      "generationMethod": "OpenAI imagegen original icon + deterministic local crop/typesetting",
+      "designBasis": "carnation flower integrated with a plate",
+      "spriteSourcePath": "data/source/custom-logo-sprites/2026-09-11/batch-02.png",
+      "spriteCell": {
+        "index": 4,
+        "row": 2,
+        "column": 2
+      },
+      "width": 512,
+      "height": 512,
+      "sha256": "ed358f138334e508b503dc2aa7c982a1eca523859a06322e6ab5102219b891d3"
+    },
+    {
+      "rmpKey": "brooklyn|carro café|3472 fulton street|11208",
+      "restaurantName": "Carro Café",
+      "officialName": "Carro Café",
+      "borough": "Brooklyn",
+      "generatedAssetPath": "app/src/main/assets/custom-restaurant-logos/carro-caf-537c81f44005.png",
+      "generationDate": "2026-09-11",
+      "assetOrigin": "original_generated_mark",
+      "generationMethod": "OpenAI imagegen original icon + deterministic local crop/typesetting",
+      "designBasis": "coffee cup with wheel/road accent",
+      "spriteSourcePath": "data/source/custom-logo-sprites/2026-09-11/batch-02.png",
+      "spriteCell": {
+        "index": 5,
+        "row": 2,
+        "column": 3
+      },
+      "width": 512,
+      "height": 512,
+      "sha256": "8b25b1f3c912abd87810fdadfdbcae0924601475b2b40dfe618f009f0bd13033"
+    },
+    {
+      "rmpKey": "brooklyn|chaska chai|3680 nostrand avenue|11229",
+      "restaurantName": "Hajveri Restaurant",
+      "officialName": "Chaska Chai",
+      "borough": "Brooklyn",
+      "generatedAssetPath": "app/src/main/assets/custom-restaurant-logos/hajveri-restaurant-e5c4273de60f.png",
+      "generationDate": "2026-09-11",
+      "assetOrigin": "original_generated_mark",
+      "generationMethod": "OpenAI imagegen original icon + deterministic local crop/typesetting",
+      "designBasis": "warm pan specialty with steam and chopsticks",
+      "spriteSourcePath": "data/source/custom-logo-sprites/2026-09-11/batch-02.png",
+      "spriteCell": {
+        "index": 7,
+        "row": 3,
+        "column": 2
+      },
+      "width": 512,
+      "height": 512,
+      "sha256": "f91924cf04f7602b97d527f0e93ca2085534f1c6b12cab2222673fa89c9b21a7"
+    },
+    {
+      "rmpKey": "brooklyn|crème of the island restaurant & juice bar|436 rockaway avenue|11212",
+      "restaurantName": "Crème of the Island Restaurant & Juice Bar",
+      "officialName": "Crème of the Island Restaurant & Juice Bar",
+      "borough": "Brooklyn",
+      "generatedAssetPath": "app/src/main/assets/custom-restaurant-logos/cr-me-of-the-island-restaurant-and-juice-bar-8dbd1ab451be.png",
+      "generationDate": "2026-09-11",
+      "assetOrigin": "original_generated_mark",
+      "generationMethod": "OpenAI imagegen original icon + deterministic local crop/typesetting",
+      "designBasis": "island sun, tropical leaf, and fresh juice glass",
+      "spriteSourcePath": "data/source/custom-logo-sprites/2026-09-11/batch-02.png",
+      "spriteCell": {
+        "index": 6,
+        "row": 3,
+        "column": 1
+      },
+      "width": 512,
+      "height": 512,
+      "sha256": "8a86df099fbd604be1cfded6eae6aed1c9bc4db6de468154f886ed2e4687f862"
+    },
+    {
+      "rmpKey": "brooklyn|dexin yuan zai bing restaurant|712 60th street|11220",
+      "restaurantName": "Dexin Yuan Zai Bing Restaurant",
+      "officialName": "Dexin Yuan Zai Bing Restaurant",
+      "borough": "Brooklyn",
+      "generatedAssetPath": "app/src/main/assets/custom-restaurant-logos/dexin-yuan-zai-bing-restaurant-d0a68fdc5666.png",
+      "generationDate": "2026-09-11",
+      "assetOrigin": "original_generated_mark",
+      "generationMethod": "OpenAI imagegen original icon + deterministic local crop/typesetting",
+      "designBasis": "round griddle or pan with steam and chopsticks",
+      "spriteSourcePath": "data/source/custom-logo-sprites/2026-09-11/batch-02.png",
+      "spriteCell": {
+        "index": 8,
+        "row": 3,
+        "column": 3
+      },
+      "width": 512,
+      "height": 512,
+      "sha256": "cff655129e30844f14715eb62520a8cce2f359db849cfd2859f82df61c7b7c29"
+    },
+    {
+      "rmpKey": "brooklyn|golden \"z\" restaurant|1410 avenue u|11229",
+      "restaurantName": "Golden \"Z\" Restaurant",
+      "officialName": "Golden \"Z\" Restaurant",
+      "borough": "Brooklyn",
+      "generatedAssetPath": "app/src/main/assets/custom-restaurant-logos/golden-z-restaurant-81cdccb33474.png",
+      "generationDate": "2026-09-11",
+      "assetOrigin": "original_generated_mark",
+      "generationMethod": "OpenAI imagegen original icon + deterministic local crop/typesetting",
+      "designBasis": "golden sunburst over a cloche",
+      "spriteSourcePath": "data/source/custom-logo-sprites/2026-09-11/batch-03.png",
+      "spriteCell": {
+        "index": 0,
+        "row": 1,
+        "column": 1
+      },
+      "width": 512,
+      "height": 512,
+      "sha256": "7daa7b39d4d8d9b6f358342a0fd499e686bd13e78d968de776b2ee19b7bede34"
+    },
+    {
+      "rmpKey": "brooklyn|halal munchies|474 myrtle avenue|11205",
+      "restaurantName": "Halal Munchies",
+      "officialName": "Halal Munchies",
+      "borough": "Brooklyn",
+      "generatedAssetPath": "app/src/main/assets/custom-restaurant-logos/halal-munchies-c8c803df139b.png",
+      "generationDate": "2026-09-11",
+      "assetOrigin": "original_generated_mark",
+      "generationMethod": "OpenAI imagegen original icon + deterministic local crop/typesetting",
+      "designBasis": "grilled skewer with snack bowl and crescent steam",
+      "spriteSourcePath": "data/source/custom-logo-sprites/2026-09-11/batch-03.png",
+      "spriteCell": {
+        "index": 1,
+        "row": 1,
+        "column": 2
+      },
+      "width": 512,
+      "height": 512,
+      "sha256": "7fae34a2561cc4865f97f3dae89c0008d332bf1f12c201220a08f7739e8f3f8a"
+    },
+    {
+      "rmpKey": "brooklyn|happy cuisine|6712 bay parkway|11204",
+      "restaurantName": "Golden Bay Parkway Restaurant",
+      "officialName": "Happy Cuisine",
+      "borough": "Brooklyn",
+      "generatedAssetPath": "app/src/main/assets/custom-restaurant-logos/golden-bay-parkway-restaurant-c9f99838d64b.png",
+      "generationDate": "2026-09-11",
+      "assetOrigin": "original_generated_mark",
+      "generationMethod": "OpenAI imagegen original icon + deterministic local crop/typesetting",
+      "designBasis": "sun over bay curve and bowl",
+      "spriteSourcePath": "data/source/custom-logo-sprites/2026-09-11/batch-03.png",
+      "spriteCell": {
+        "index": 2,
+        "row": 1,
+        "column": 3
+      },
+      "width": 512,
+      "height": 512,
+      "sha256": "7f87df5aea22c91584ca0b0a9f1b148c0b3d4d8b6e0a82936fa3ec927f458fe2"
+    },
+    {
+      "rmpKey": "brooklyn|hey rich roasted|6005 fort hamilton parkway|11219",
+      "restaurantName": "Hey Rich Roasted",
+      "officialName": "Hey Rich Roasted",
+      "borough": "Brooklyn",
+      "generatedAssetPath": "app/src/main/assets/custom-restaurant-logos/hey-rich-roasted-077e68128819.png",
+      "generationDate": "2026-09-11",
+      "assetOrigin": "original_generated_mark",
+      "generationMethod": "OpenAI imagegen original icon + deterministic local crop/typesetting",
+      "designBasis": "roasting pan with flame and herb sprig",
+      "spriteSourcePath": "data/source/custom-logo-sprites/2026-09-11/batch-03.png",
+      "spriteCell": {
+        "index": 3,
+        "row": 2,
+        "column": 1
+      },
+      "width": 512,
+      "height": 512,
+      "sha256": "d7bf2f758f33b5030e15d590c53d9ceabd49adad5a99c98b56b9a1e12a05c913"
+    },
+    {
+      "rmpKey": "brooklyn|hua yi jia restaurant|5616 7th avenue|11220",
+      "restaurantName": "Hua Yi Jia Restaurant",
+      "officialName": "Hua Yi Jia Restaurant",
+      "borough": "Brooklyn",
+      "generatedAssetPath": "app/src/main/assets/custom-restaurant-logos/hua-yi-jia-restaurant-7b677f11ee7f.png",
+      "generationDate": "2026-09-11",
+      "assetOrigin": "original_generated_mark",
+      "generationMethod": "OpenAI imagegen original icon + deterministic local crop/typesetting",
+      "designBasis": "house roof over bowl and chopsticks",
+      "spriteSourcePath": "data/source/custom-logo-sprites/2026-09-11/batch-03.png",
+      "spriteCell": {
+        "index": 4,
+        "row": 2,
+        "column": 2
+      },
+      "width": 512,
+      "height": 512,
+      "sha256": "495b40cdafdcecb26e8ca10317cb924a4b826d3b330d2b1d634a1e3397807bb7"
+    },
+    {
+      "rmpKey": "brooklyn|kairibbean island mix|393 new lots avenue|11207",
+      "restaurantName": "Kairibbean Island Mix",
+      "officialName": "Kairibbean Island Mix",
+      "borough": "Brooklyn",
+      "generatedAssetPath": "app/src/main/assets/custom-restaurant-logos/kairibbean-island-mix-d40811a59354.png",
+      "generationDate": "2026-09-11",
+      "assetOrigin": "original_generated_mark",
+      "generationMethod": "OpenAI imagegen original icon + deterministic local crop/typesetting",
+      "designBasis": "island sun, palm, wave, and mixed bowl",
+      "spriteSourcePath": "data/source/custom-logo-sprites/2026-09-11/batch-03.png",
+      "spriteCell": {
+        "index": 5,
+        "row": 2,
+        "column": 3
+      },
+      "width": 512,
+      "height": 512,
+      "sha256": "26a72f935b5e9352eb0d9e3ae21cb9a37791133cef0261a525fcc6b8666b0e88"
+    },
+    {
+      "rmpKey": "brooklyn|lebron restaurant|1567 pitkin avenue|11212",
+      "restaurantName": "Lebron Restaurant",
+      "officialName": "Lebron Restaurant",
+      "borough": "Brooklyn",
+      "generatedAssetPath": "app/src/main/assets/custom-restaurant-logos/lebron-restaurant-8d41dc1a58ae.png",
+      "generationDate": "2026-09-11",
+      "assetOrigin": "original_generated_mark",
+      "generationMethod": "OpenAI imagegen original icon + deterministic local crop/typesetting",
+      "designBasis": "polished cloche with celebratory stars",
+      "spriteSourcePath": "data/source/custom-logo-sprites/2026-09-11/batch-03.png",
+      "spriteCell": {
+        "index": 6,
+        "row": 3,
+        "column": 1
+      },
+      "width": 512,
+      "height": 512,
+      "sha256": "42b12eb1f08c20fdd229645e95433b49a3a2d54879b7bd2a083aeeea23997727"
+    },
+    {
+      "rmpKey": "brooklyn|loma no. 5|454 rockaway avenue|11212",
+      "restaurantName": "Loma No. 5",
+      "officialName": "Loma No. 5",
+      "borough": "Brooklyn",
+      "generatedAssetPath": "app/src/main/assets/custom-restaurant-logos/loma-no-5-0366bd66e544.png",
+      "generationDate": "2026-09-11",
+      "assetOrigin": "original_generated_mark",
+      "generationMethod": "OpenAI imagegen original icon + deterministic local crop/typesetting",
+      "designBasis": "hill silhouettes behind a plate and sun",
+      "spriteSourcePath": "data/source/custom-logo-sprites/2026-09-11/batch-03.png",
+      "spriteCell": {
+        "index": 7,
+        "row": 3,
+        "column": 2
+      },
+      "width": 512,
+      "height": 512,
+      "sha256": "636db3bb1719204e886ce6b125c7666647a7a74b4f98ba71fe90c7cebfd83ecb"
+    },
+    {
+      "rmpKey": "brooklyn|mi sabor restaurant|609 sutter avenue|11207",
+      "restaurantName": "Mi Sabor Restaurant",
+      "officialName": "Mi Sabor Restaurant",
+      "borough": "Brooklyn",
+      "generatedAssetPath": "app/src/main/assets/custom-restaurant-logos/mi-sabor-restaurant-061b35af95e3.png",
+      "generationDate": "2026-09-11",
+      "assetOrigin": "original_generated_mark",
+      "generationMethod": "OpenAI imagegen original icon + deterministic local crop/typesetting",
+      "designBasis": "chili pepper curling around a heart-shaped plate",
+      "spriteSourcePath": "data/source/custom-logo-sprites/2026-09-11/batch-03.png",
+      "spriteCell": {
+        "index": 8,
+        "row": 3,
+        "column": 3
+      },
+      "width": 512,
+      "height": 512,
+      "sha256": "da641dd870842c3144793718df0e1cf5dfc9ca4ac488bd3b2156f7915312cd67"
+    },
+    {
+      "rmpKey": "brooklyn|momo's mediterranean grill|25 101 avenue|11208",
+      "restaurantName": "MoMo's Mediterranean Grill",
+      "officialName": "MoMo's Mediterranean Grill",
+      "borough": "Brooklyn",
+      "generatedAssetPath": "app/src/main/assets/custom-restaurant-logos/momo-s-mediterranean-grill-d9697e8ee9cb.png",
+      "generationDate": "2026-09-11",
+      "assetOrigin": "original_generated_mark",
+      "generationMethod": "OpenAI imagegen original icon + deterministic local crop/typesetting",
+      "designBasis": "grill grate with skewer and olive branch",
+      "spriteSourcePath": "data/source/custom-logo-sprites/2026-09-11/batch-04.png",
+      "spriteCell": {
+        "index": 0,
+        "row": 1,
+        "column": 1
+      },
+      "width": 512,
+      "height": 512,
+      "sha256": "7e91db81e287646ed8082793ea59441795322abc7a6ea7d233102cb3d3a35801"
+    },
+    {
+      "rmpKey": "brooklyn|new yee li|6619 fort hamilton parkway|11219",
+      "restaurantName": "New Yee Li",
+      "officialName": "New Yee Li",
+      "borough": "Brooklyn",
+      "generatedAssetPath": "app/src/main/assets/custom-restaurant-logos/new-yee-li-d6e563e01acd.png",
+      "generationDate": "2026-09-11",
+      "assetOrigin": "original_generated_mark",
+      "generationMethod": "OpenAI imagegen original icon + deterministic local crop/typesetting",
+      "designBasis": "steaming bowl with chopsticks and leaf",
+      "spriteSourcePath": "data/source/custom-logo-sprites/2026-09-11/batch-04.png",
+      "spriteCell": {
+        "index": 1,
+        "row": 1,
+        "column": 2
+      },
+      "width": 512,
+      "height": 512,
+      "sha256": "c32364ffb63a2059f6687380e4ec7f5302a8202372fd93748c78c1cb6f3ba6df"
+    },
+    {
+      "rmpKey": "brooklyn|ng's kitchen|6012 8th avenue|11220",
+      "restaurantName": "NG's Kitchen",
+      "officialName": "NG's Kitchen",
+      "borough": "Brooklyn",
+      "generatedAssetPath": "app/src/main/assets/custom-restaurant-logos/ng-s-kitchen-99426179ee36.png",
+      "generationDate": "2026-09-11",
+      "assetOrigin": "original_generated_mark",
+      "generationMethod": "OpenAI imagegen original icon + deterministic local crop/typesetting",
+      "designBasis": "chef hat over wok with steam",
+      "spriteSourcePath": "data/source/custom-logo-sprites/2026-09-11/batch-04.png",
+      "spriteCell": {
+        "index": 2,
+        "row": 1,
+        "column": 3
+      },
+      "width": 512,
+      "height": 512,
+      "sha256": "e06f6685a3154e314157d2b57941b999bfe4919436113b521782ec7e1834b854"
+    },
+    {
+      "rmpKey": "brooklyn|nicky's jamaican cuisine|766 east 80th street|11236",
+      "restaurantName": "Nicky's Jamaican Cuisine",
+      "officialName": "Nicky's Jamaican Cuisine",
+      "borough": "Brooklyn",
+      "generatedAssetPath": "app/src/main/assets/custom-restaurant-logos/nicky-s-jamaican-cuisine-28fe70a621bf.png",
+      "generationDate": "2026-09-11",
+      "assetOrigin": "original_generated_mark",
+      "generationMethod": "OpenAI imagegen original icon + deterministic local crop/typesetting",
+      "designBasis": "tropical pepper, sunshine, and serving bowl",
+      "spriteSourcePath": "data/source/custom-logo-sprites/2026-09-11/batch-04.png",
+      "spriteCell": {
+        "index": 3,
+        "row": 2,
+        "column": 1
+      },
+      "width": 512,
+      "height": 512,
+      "sha256": "b9c987f399acba929a0126517b51a69dfb77b1f773c403e2b986b15b87732efb"
+    },
+    {
+      "rmpKey": "brooklyn|rosa's steakhouse|567 wilson avenue|11207",
+      "restaurantName": "Rosa's Steakhouse",
+      "officialName": "Rosa's Steakhouse",
+      "borough": "Brooklyn",
+      "generatedAssetPath": "app/src/main/assets/custom-restaurant-logos/rosa-s-steakhouse-798827baa27c.png",
+      "generationDate": "2026-09-11",
+      "assetOrigin": "original_generated_mark",
+      "generationMethod": "OpenAI imagegen original icon + deterministic local crop/typesetting",
+      "designBasis": "rose integrated with grilled steak",
+      "spriteSourcePath": "data/source/custom-logo-sprites/2026-09-11/batch-04.png",
+      "spriteCell": {
+        "index": 4,
+        "row": 2,
+        "column": 2
+      },
+      "width": 512,
+      "height": 512,
+      "sha256": "d9b0453db3a993338410d589106e678f3b161f4c7cf6fba7279b62bddb404ec2"
+    },
+    {
+      "rmpKey": "brooklyn|roseli chinese restaurant|2322 86th street|11214",
+      "restaurantName": "Roseli Chinese Restaurant",
+      "officialName": "Roseli Chinese Restaurant",
+      "borough": "Brooklyn",
+      "generatedAssetPath": "app/src/main/assets/custom-restaurant-logos/roseli-chinese-restaurant-64589e44d855.png",
+      "generationDate": "2026-09-11",
+      "assetOrigin": "original_generated_mark",
+      "generationMethod": "OpenAI imagegen original icon + deterministic local crop/typesetting",
+      "designBasis": "rose blossom beside wok and chopsticks",
+      "spriteSourcePath": "data/source/custom-logo-sprites/2026-09-11/batch-04.png",
+      "spriteCell": {
+        "index": 5,
+        "row": 2,
+        "column": 3
+      },
+      "width": 512,
+      "height": 512,
+      "sha256": "8a9bddd1d11cea79e729fbdabdd2128e8f8a6bbb0100155126dfdaacf06bc720"
+    },
+    {
+      "rmpKey": "brooklyn|season restaurant|1321 avenue u|11229",
+      "restaurantName": "Season Restaurant",
+      "officialName": "Season Restaurant",
+      "borough": "Brooklyn",
+      "generatedAssetPath": "app/src/main/assets/custom-restaurant-logos/season-restaurant-5529d4a46845.png",
+      "generationDate": "2026-09-11",
+      "assetOrigin": "original_generated_mark",
+      "generationMethod": "OpenAI imagegen original icon + deterministic local crop/typesetting",
+      "designBasis": "seasonal leaf and sun motifs circling a plate",
+      "spriteSourcePath": "data/source/custom-logo-sprites/2026-09-11/batch-04.png",
+      "spriteCell": {
+        "index": 6,
+        "row": 3,
+        "column": 1
+      },
+      "width": 512,
+      "height": 512,
+      "sha256": "20ee2de9d411d8804a5c33e89468a04fbea0070416b897a4eaa9ec4f2682a4f4"
+    },
+    {
+      "rmpKey": "brooklyn|tonel to go|1407 flatbush avenue|11210",
+      "restaurantName": "Anba Tonel",
+      "officialName": "Tonel To Go",
+      "borough": "Brooklyn",
+      "generatedAssetPath": "app/src/main/assets/custom-restaurant-logos/anba-tonel-a778266e3cd0.png",
+      "generationDate": "2026-09-11",
+      "assetOrigin": "original_generated_mark",
+      "generationMethod": "OpenAI imagegen original icon + deterministic local crop/typesetting",
+      "designBasis": "takeaway box with barrel-hoop motif",
+      "spriteSourcePath": "data/source/custom-logo-sprites/2026-09-11/batch-04.png",
+      "spriteCell": {
+        "index": 7,
+        "row": 3,
+        "column": 2
+      },
+      "width": 512,
+      "height": 512,
+      "sha256": "c3e8d4cc50a4369e19f2eeaabe4c37ed37e1d6dcd9ad55d994b2a368c4227a91"
+    },
+    {
+      "rmpKey": "brooklyn|uncle ng's recipe|5603 8th avenue|11220",
+      "restaurantName": "Uncle NG's Recipe",
+      "officialName": "Uncle NG's Recipe",
+      "borough": "Brooklyn",
+      "generatedAssetPath": "app/src/main/assets/custom-restaurant-logos/uncle-ng-s-recipe-d3ffd60b5a93.png",
+      "generationDate": "2026-09-11",
+      "assetOrigin": "original_generated_mark",
+      "generationMethod": "OpenAI imagegen original icon + deterministic local crop/typesetting",
+      "designBasis": "recipe scroll with steaming bowl and spoon",
+      "spriteSourcePath": "data/source/custom-logo-sprites/2026-09-11/batch-04.png",
+      "spriteCell": {
+        "index": 8,
+        "row": 3,
+        "column": 3
+      },
+      "width": 512,
+      "height": 512,
+      "sha256": "3ee369e976ca98d7773781ec48a5f5222647067ee36fbda3fc74f693cc75c38e"
+    },
+    {
+      "rmpKey": "manhattan|el nuevo capri ii restaurant|1497 saint nicholas avenue|10033",
+      "restaurantName": "El Nuevo Capri II Restaurant",
+      "officialName": "El Nuevo Capri II Restaurant",
+      "borough": "Manhattan",
+      "generatedAssetPath": "app/src/main/assets/custom-restaurant-logos/el-nuevo-capri-ii-restaurant-c7342f6bb4cf.png",
+      "generationDate": "2026-09-11",
+      "assetOrigin": "original_generated_mark",
+      "generationMethod": "OpenAI imagegen original icon + deterministic local crop/typesetting",
+      "designBasis": "Capri-inspired sea cliff, sun, and serving plate",
+      "spriteSourcePath": "data/source/custom-logo-sprites/2026-09-11/batch-05.png",
+      "spriteCell": {
+        "index": 0,
+        "row": 1,
+        "column": 1
+      },
+      "width": 512,
+      "height": 512,
+      "sha256": "f165cc689ad1d305c98bead9a2739f25b7c6fe4f43a891ff38314221e4482e40"
+    },
+    {
+      "rmpKey": "manhattan|el nuevo capri restaurant|1340 saint nicholas avenue|10033",
+      "restaurantName": "El Nuevo Capri Restaurant",
+      "officialName": "El Nuevo Capri Restaurant",
+      "borough": "Manhattan",
+      "generatedAssetPath": "app/src/main/assets/custom-restaurant-logos/el-nuevo-capri-restaurant-fd1199f97d82.png",
+      "generationDate": "2026-09-11",
+      "assetOrigin": "original_generated_mark",
+      "generationMethod": "OpenAI imagegen original icon + deterministic local crop/typesetting",
+      "designBasis": "wave, island cliff, and cloche",
+      "spriteSourcePath": "data/source/custom-logo-sprites/2026-09-11/batch-05.png",
+      "spriteCell": {
+        "index": 1,
+        "row": 1,
+        "column": 2
+      },
+      "width": 512,
+      "height": 512,
+      "sha256": "5c84bd7066a8c2c895b63500b0e8266749c88a73d27097564f35eb9d320fc8f0"
+    },
+    {
+      "rmpKey": "manhattan|el nuevo valle seafood|231 sherman street|10034",
+      "restaurantName": "El Valle Seafood Restaurant",
+      "officialName": "El Nuevo Valle Seafood",
+      "borough": "Manhattan",
+      "generatedAssetPath": "app/src/main/assets/custom-restaurant-logos/el-valle-seafood-restaurant-0a104f7fbb18.png",
+      "generationDate": "2026-09-11",
+      "assetOrigin": "original_generated_mark",
+      "generationMethod": "OpenAI imagegen original icon + deterministic local crop/typesetting",
+      "designBasis": "fish over winding river between valley curves",
+      "spriteSourcePath": "data/source/custom-logo-sprites/2026-09-11/batch-05.png",
+      "spriteCell": {
+        "index": 2,
+        "row": 1,
+        "column": 3
+      },
+      "width": 512,
+      "height": 512,
+      "sha256": "d3de3c960bae823ab136db3cf3fc4f54f741ec20e4cc8f0ecdd843f48ba7693e"
+    },
+    {
+      "rmpKey": "manhattan|jojo duck|131 walker street|10013",
+      "restaurantName": "Jojo Duck",
+      "officialName": "Jojo Duck",
+      "borough": "Manhattan",
+      "generatedAssetPath": "app/src/main/assets/custom-restaurant-logos/jojo-duck-3721ae90a3df.png",
+      "generationDate": "2026-09-11",
+      "assetOrigin": "original_generated_mark",
+      "generationMethod": "OpenAI imagegen original icon + deterministic local crop/typesetting",
+      "designBasis": "duck silhouette paired with a serving bowl",
+      "spriteSourcePath": "data/source/custom-logo-sprites/2026-09-11/batch-05.png",
+      "spriteCell": {
+        "index": 3,
+        "row": 2,
+        "column": 1
+      },
+      "width": 512,
+      "height": 512,
+      "sha256": "82c2b3b527f2481fddc8b17d23d0f9f2e7948660ce970aab945768d4b0ac8c91"
+    },
+    {
+      "rmpKey": "manhattan|nomas restaurant|3855 10th avenue|10034",
+      "restaurantName": "Nomas Restaurant",
+      "officialName": "Nomas Restaurant",
+      "borough": "Manhattan",
+      "generatedAssetPath": "app/src/main/assets/custom-restaurant-logos/nomas-restaurant-41a2696b485a.png",
+      "generationDate": "2026-09-11",
+      "assetOrigin": "original_generated_mark",
+      "generationMethod": "OpenAI imagegen original icon + deterministic local crop/typesetting",
+      "designBasis": "four-point star above a clean plate",
+      "spriteSourcePath": "data/source/custom-logo-sprites/2026-09-11/batch-05.png",
+      "spriteCell": {
+        "index": 4,
+        "row": 2,
+        "column": 2
+      },
+      "width": 512,
+      "height": 512,
+      "sha256": "548633f7819f3206c0f35bfd7524bc906bf144fc019d164b744aea17f6a92501"
+    },
+    {
+      "rmpKey": "manhattan|tu sabor latino restaurant|3881 broadway|10032",
+      "restaurantName": "Tu Sabor Latino Restaurant",
+      "officialName": "Tu Sabor Latino Restaurant",
+      "borough": "Manhattan",
+      "generatedAssetPath": "app/src/main/assets/custom-restaurant-logos/tu-sabor-latino-restaurant-255e6d0afe21.png",
+      "generationDate": "2026-09-11",
+      "assetOrigin": "original_generated_mark",
+      "generationMethod": "OpenAI imagegen original icon + deterministic local crop/typesetting",
+      "designBasis": "chili pepper, warm sun, and plate",
+      "spriteSourcePath": "data/source/custom-logo-sprites/2026-09-11/batch-05.png",
+      "spriteCell": {
+        "index": 5,
+        "row": 2,
+        "column": 3
+      },
+      "width": 512,
+      "height": 512,
+      "sha256": "3e200525261ae65cf959c7521a4904669fe8887bafce2d200961feaea3a0ae16"
+    },
+    {
+      "rmpKey": "queens|blaze 718|109-10 guy r brewer boulevard|11413",
+      "restaurantName": "Blaze 718",
+      "officialName": "Blaze 718",
+      "borough": "Queens",
+      "generatedAssetPath": "app/src/main/assets/custom-restaurant-logos/blaze-718-45d8de5ebab7.png",
+      "generationDate": "2026-09-11",
+      "assetOrigin": "original_generated_mark",
+      "generationMethod": "OpenAI imagegen original icon + deterministic local crop/typesetting",
+      "designBasis": "flame rising in front of a city skyline",
+      "spriteSourcePath": "data/source/custom-logo-sprites/2026-09-11/batch-05.png",
+      "spriteCell": {
+        "index": 6,
+        "row": 3,
+        "column": 1
+      },
+      "width": 512,
+      "height": 512,
+      "sha256": "746be306fe30da673fb3863a4d80e89029d54fe5de02439b0f956ace40fc84b0"
+    },
+    {
+      "rmpKey": "queens|gyro qila|10503 crossbay boulevard|11417",
+      "restaurantName": "Gyro Qila",
+      "officialName": "Gyro Qila",
+      "borough": "Queens",
+      "generatedAssetPath": "app/src/main/assets/custom-restaurant-logos/gyro-qila-641aabe3f959.png",
+      "generationDate": "2026-09-11",
+      "assetOrigin": "original_generated_mark",
+      "generationMethod": "OpenAI imagegen original icon + deterministic local crop/typesetting",
+      "designBasis": "gyro spit framed by a fortress arch",
+      "spriteSourcePath": "data/source/custom-logo-sprites/2026-09-11/batch-05.png",
+      "spriteCell": {
+        "index": 7,
+        "row": 3,
+        "column": 2
+      },
+      "width": 512,
+      "height": 512,
+      "sha256": "dfad67fa7d811e285091e0c1a16ccdb57056d2e2672e5285a9e2d85ca39498fe"
+    },
+    {
+      "rmpKey": "queens|lao yu yuan dumpling house|42-35 main street|11355",
+      "restaurantName": "Lao Yu Yuan Dumpling House",
+      "officialName": "Lao Yu Yuan Dumpling House",
+      "borough": "Queens",
+      "generatedAssetPath": "app/src/main/assets/custom-restaurant-logos/lao-yu-yuan-dumpling-house-90c0e967934a.png",
+      "generationDate": "2026-09-11",
+      "assetOrigin": "original_generated_mark",
+      "generationMethod": "OpenAI imagegen original icon + deterministic local crop/typesetting",
+      "designBasis": "dumpling under a courtyard gate with chopsticks",
+      "spriteSourcePath": "data/source/custom-logo-sprites/2026-09-11/batch-05.png",
+      "spriteCell": {
+        "index": 8,
+        "row": 3,
+        "column": 3
+      },
+      "width": 512,
+      "height": 512,
+      "sha256": "d7b2b03f4cb1bad78b658b8d564ba51374986dc4260e9adb741e6369b5d6d2ab"
+    },
+    {
+      "rmpKey": "queens|on & on 168|40-46 main street|11354",
+      "restaurantName": "On & On 168",
+      "officialName": "On & On 168",
+      "borough": "Queens",
+      "generatedAssetPath": "app/src/main/assets/custom-restaurant-logos/on-and-on-168-6fc2d7623e5c.png",
+      "generationDate": "2026-09-11",
+      "assetOrigin": "original_generated_mark",
+      "generationMethod": "OpenAI imagegen original icon + deterministic local crop/typesetting",
+      "designBasis": "looping steam ribbons above a warm bowl",
+      "spriteSourcePath": "data/source/custom-logo-sprites/2026-09-11/batch-06.png",
+      "spriteCell": null,
+      "width": 512,
+      "height": 512,
+      "sha256": "101b2ea1eacbbfee1c3c915461080be931759009e0b3668d04b9655a3a92b967"
+    },
+    {
+      "rmpKey": "queens|peter's grill|7511 rockaway|11421",
+      "restaurantName": "Peter's Grill",
+      "officialName": "Peter's Grill",
+      "borough": "Queens",
+      "generatedAssetPath": "app/src/main/assets/custom-restaurant-logos/peter-s-grill-47f0480fcc5d.png",
+      "generationDate": "2026-09-11",
+      "assetOrigin": "original_generated_mark",
+      "generationMethod": "OpenAI imagegen original icon + deterministic local crop/typesetting",
+      "designBasis": "grill grate with flames and fork/spatula accents",
+      "spriteSourcePath": "data/source/custom-logo-sprites/2026-09-11/batch-07.png",
+      "spriteCell": null,
+      "width": 512,
+      "height": 512,
+      "sha256": "a4221c25d8b84715dcd0f9c9a9f8f6ae4d9e934488c133f5570829d24bba215a"
+    }
+  ]
+}
