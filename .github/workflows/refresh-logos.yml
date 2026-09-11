@@ -4,12 +4,14 @@ name: Refresh restaurant logos
 # development environment usually cannot. Run it when logo coverage should be
 # re-checked, then review the commit it pushes.
 #
-# Two ways to start it:
-#   - push a tag beginning with `logos-`, which works from any branch
+# Three ways to start it:
+#   - push a branch named `logo-refresh`, which needs no tag permission
+#   - push a tag beginning with `logos-`
 #   - Actions -> Refresh restaurant logos -> Run workflow, which GitHub only
 #     offers for workflows that are on the default branch
 on:
   push:
+    branches: ['logo-refresh']
     tags: ['logos-*']
   workflow_dispatch:
     inputs:
@@ -69,14 +71,16 @@ jobs:
           git commit \
             -m "Refresh restaurant logo assets" \
             -m "Re-ran tools/build_logos.py with network access. Bundled assets: ${COUNT}. Every asset passes the curator quality gate and is recorded in the discovery evidence."
-          if [ "$GITHUB_EVENT_NAME" = "push" ]; then
-            # A tag started this run, so GITHUB_REF_NAME is the tag rather than a
-            # branch. The checkout is shallow and has no remote branches, so ask
-            # GitHub which branch this commit is the head of instead of git.
-            BRANCH="$(gh api "repos/$GITHUB_REPOSITORY/commits/$GITHUB_SHA/branches-where-head" --jq '.[0].name // empty')"
-          else
-            BRANCH="$GITHUB_REF_NAME"
-          fi
+          case "$GITHUB_REF" in
+            refs/tags/*)
+              # A tag names no branch, and the checkout is shallow with no remote
+              # branches, so ask GitHub which branch this commit heads.
+              BRANCH="$(gh api "repos/$GITHUB_REPOSITORY/commits/$GITHUB_SHA/branches-where-head" --jq '.[0].name // empty')"
+              ;;
+            *)
+              BRANCH="$GITHUB_REF_NAME"
+              ;;
+          esac
           if [ -z "$BRANCH" ]; then
             echo "::error::This commit is not the head of any branch, so the refreshed logos have nowhere to go."
             echo "Tag the head of a branch, or run the workflow from the Actions tab."

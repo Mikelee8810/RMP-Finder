@@ -99,7 +99,14 @@ once before installing the first build that uses it.
 
 ## Cutting a release
 
-Make sure the branch is green in **Android CI** first, then either:
+Make sure the branch is green in **Android CI** first, then use any of these:
+
+**Push a release branch.** Useful where tag pushes are not permitted; the
+workflow creates the real tag itself when it publishes.
+
+```sh
+git push origin HEAD:release/v1.1.0
+```
 
 **Push a tag.** This works from any branch.
 
@@ -132,8 +139,19 @@ The release build packages native libraries for `arm64-v8a` only.
 MapLibre ships its renderer as a native library per ABI. The 1.0.0 APK carried
 all four, which was 49.0 MB of its 70.4 MB: `x86_64` 13.4 MB and `x86` 13.2 MB,
 which only ever run on an emulator, plus `armeabi-v7a` 9.5 MB of 32-bit ARM the
-target Pixel does not use. Filtering the release to `arm64-v8a` removes about
-36 MB with no behavior change on the device.
+target Pixel does not use.
+
+Measured on the first release build after the change, the APK is **29.1 MB**,
+down from 70.4 MB, while also carrying 1.49 MB of restaurant logos that 1.0.0
+did not have:
+
+| component | size | share |
+| --- | --- | --- |
+| `*.dex` | 13.87 MB | 47.6% |
+| `lib/arm64-v8a` | 12.84 MB | 44.1% |
+| `assets/restaurant-logos/` | 1.49 MB | 5.1% |
+| `resources.arsc` | 0.64 MB | 2.2% |
+| everything else | ~0.3 MB | 1.0% |
 
 Debug builds deliberately keep every ABI so emulator-based instrumented tests in
 `app/src/androidTest/` still run. Both workflows measure the built APK with
