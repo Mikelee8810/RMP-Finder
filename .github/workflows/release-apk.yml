@@ -93,13 +93,37 @@ jobs:
           fi
           ./gradlew --no-daemon :app:assembleRelease
 
-      - name: Verify the APK is actually signed
+      - name: Verify the APK is signed by the expected key
+        env:
+          # Android only installs an upgrade when the new build carries the same
+          # signing certificate as the installed one. 1.0.0 shipped with this
+          # fingerprint, so a mismatch here means the published APK would force
+          # an uninstall. Set the EXPECTED_SIGNER_SHA256 repository variable to
+          # roll the key deliberately.
+          EXPECTED_SIGNER_SHA256: ${{ vars.EXPECTED_SIGNER_SHA256 || '97:30:23:F7:B7:91:A9:DA:C0:7E:1B:8C:F1:65:9D:F1:ED:44:1F:41:83:8C:04:02:9D:DB:2C:5D:E4:CE:10:84' }}
         run: |
           APKSIGNER="$(ls -d "$ANDROID_HOME"/build-tools/*/apksigner | sort -V | tail -1)"
           BUILT="$(find app/build/outputs/apk/release -name '*.apk' | head -1)"
           echo "apksigner: $APKSIGNER"
           echo "apk: $BUILT"
-          "$APKSIGNER" verify --verbose --print-certs "$BUILT"
+          "$APKSIGNER" verify --verbose --print-certs "$BUILT" | tee signer.txt
+
+          EXPECTED="$(printf '%s' "$EXPECTED_SIGNER_SHA256" | tr -d ': ' | tr '[:upper:]' '[:lower:]')"
+          ACTUAL="$(grep -iEo 'SHA-256 digest: *[0-9a-f]{64}' signer.txt | head -1 | grep -Eo '[0-9a-f]{64}')"
+          echo "expected signer: $EXPECTED"
+          echo "actual signer:   $ACTUAL"
+          if [ -z "$ACTUAL" ]; then
+            echo "::error::Could not read a signer certificate digest from the built APK."
+            exit 1
+          fi
+          if [ "$ACTUAL" != "$EXPECTED" ]; then
+            echo "::error::This APK is signed by a different key than the installed 1.0.0 build."
+            echo "Android would refuse to install it as an upgrade and the app would have to be"
+            echo "uninstalled first, clearing saved favorites and statuses. Check RMP_KEYSTORE_BASE64,"
+            echo "or set the EXPECTED_SIGNER_SHA256 repository variable if the key change is intended."
+            exit 1
+          fi
+          echo "Signer matches the key 1.0.0 was signed with; this build upgrades in place."
           mkdir -p dist
           cp "$BUILT" "dist/$APK_NAME"
 

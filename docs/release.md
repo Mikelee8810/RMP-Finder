@@ -51,6 +51,15 @@ Add these under **Settings → Secrets and variables → Actions**:
 `RMP_KEYSTORE_BASE64` is missing, rather than publishing an APK that cannot be
 installed.
 
+### The signer is checked before anything is published
+
+After building, the workflow reads the APK's signing certificate and compares it
+to the fingerprint 1.0.0 shipped with. A mismatch fails the run before a release
+exists, so a wrong or re-generated keystore cannot quietly produce an APK that
+forces an uninstall. To change keys on purpose, set the repository variable
+`EXPECTED_SIGNER_SHA256` (Settings → Secrets and variables → Actions →
+Variables) to the new certificate's SHA-256.
+
 ### Reusing the existing 1.0.0 key
 
 On the machine that built 1.0.0:
