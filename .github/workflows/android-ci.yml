@@ -38,6 +38,9 @@ jobs:
           python3 -m pip install --quiet --upgrade pillow requests
           python3 tools/check_logo_assets.py
 
+      - name: Verify every RMP record resolves to a bundled logo
+        run: python3 tools/check_logo_coverage.py
+
       - name: Unit tests
         run: ./gradlew --no-daemon :app:testDebugUnitTest
 
@@ -48,6 +51,11 @@ jobs:
         # Unsigned: this job has no signing key. It exists to catch a release-only
         # configuration break and to measure what the release actually packages.
         run: ./gradlew --no-daemon :app:assembleRelease
+
+      - name: Verify every mapped logo is packaged in the release APK
+        run: |
+          APK="$(find app/build/outputs/apk/release -name '*.apk' | head -1)"
+          python3 tools/check_apk_logo_assets.py "$APK"
 
       - name: Measure the release APK
         run: |
