@@ -41,10 +41,12 @@ val releaseSigningReady = releaseKeystore?.isFile == true &&
     releaseKeyAlias.isNotEmpty() &&
     releaseKeyPassword.isNotEmpty()
 
-// A tagged release overrides these so the published APK carries the tag it
-// was cut from; a plain local build keeps the defaults.
+// A tagged release overrides these so the published APK carries the tag it was
+// cut from; a plain local build keeps the defaults. The release workflow derives
+// the version code from the version name as major * 10000 + minor * 100 + patch,
+// so the defaults below follow the same scheme to stay consistent with it.
 val appVersionName = buildInput("RMP_VERSION_NAME", "1.1.0")
-val appVersionCode = buildInput("RMP_VERSION_CODE", "2").let {
+val appVersionCode = buildInput("RMP_VERSION_CODE", "10100").let {
     it.toIntOrNull() ?: error("RMP_VERSION_CODE must be an integer, but was \"$it\"")
 }
 
