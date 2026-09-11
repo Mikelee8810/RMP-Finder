@@ -1,0 +1,67 @@
+name: Refresh restaurant logos
+
+# The curation step needs to reach the restaurant websites, which a sandboxed
+# development environment usually cannot. Run this from the Actions tab when
+# logo coverage should be re-checked, then review the commit it pushes.
+on:
+  workflow_dispatch:
+    inputs:
+      fresh:
+        description: 'Discard every bundled icon first instead of keeping ones this run cannot re-fetch'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    name: Re-capture website icons
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install curation dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq libcairo2
+          python3 -m pip install --quiet --upgrade requests pillow cairosvg jsonschema
+
+      - name: Capture icons
+        run: |
+          if [ "${{ inputs.fresh }}" = "true" ]; then
+            python3 tools/build_logos.py --fresh
+          else
+            python3 tools/build_logos.py
+          fi
+
+      - name: Enforce the asset quality gate
+        run: |
+          python3 tools/check_logo_assets.py
+          python3 tools/verify_data.py
+
+      - name: Commit any change
+        run: |
+          if git diff --quiet; then
+            echo "No logo change to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add app/src/main/assets/restaurant-logos data/source/website-logo-discovery-2026-09-10.json
+          COUNT="$(find app/src/main/assets/restaurant-logos -name '*.png' | wc -l | tr -d ' ')"
+          git commit \
+            -m "Refresh restaurant logo assets" \
+            -m "Re-ran tools/build_logos.py with network access. Bundled assets: ${COUNT}. Every asset passes the curator quality gate and is recorded in the discovery evidence."
+          git push origin "HEAD:${GITHUB_REF_NAME}"
+
+      - name: Summary
+        run: |
+          COUNT="$(find app/src/main/assets/restaurant-logos -name '*.png' | wc -l | tr -d ' ')"
+          echo "### Logo refresh complete" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "Bundled assets: **${COUNT}**" >> "$GITHUB_STEP_SUMMARY"

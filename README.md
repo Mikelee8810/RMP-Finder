@@ -35,6 +35,14 @@ The pre-build data gate and Android v1 acceptance gate are complete. The reposit
 
 Run `python3 tools/build_data.py` followed by `python3 tools/verify_data.py` to regenerate and verify the static dataset.
 
+## Build and release
+
+GitHub Actions builds every push and publishes signed release APKs. `Android CI`
+runs the dataset gate, the logo asset gate, the unit tests and a debug build.
+`Release APK` builds and signs the release, publishes it with its SHA-256, and
+re-downloads the published file to confirm the GitHub-hosted copy matches. See
+[build and release](docs/release.md) for the signing secrets and the exact steps.
+
 ## Install
 
 Download the latest installable APK from [GitHub Releases](https://github.com/Mikelee8810/RMP-Finder/releases/latest). See [Android install instructions](docs/install.md) for the exact steps.
@@ -47,5 +55,6 @@ Download the latest installable APK from [GitHub Releases](https://github.com/Mi
 - [Data readiness and build gate](docs/data-readiness.md)
 - [Android v1 acceptance evidence](docs/android-v1-acceptance.md)
 - [Android install instructions](docs/install.md)
+- [Build and release](docs/release.md)
 - [Restaurant record schema](data/restaurant.schema.json)
 - [Dataset manifest schema](data/manifest.schema.json)

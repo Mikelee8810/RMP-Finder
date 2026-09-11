@@ -1,0 +1,119 @@
+# Building and releasing RMP Finder
+
+RMP Finder releases are built, signed and published by GitHub Actions. CI is the
+source of truth for a release build: it is reproducible, it re-runs the data and
+logo gates on every build, and it re-downloads the published APK to confirm the
+GitHub-hosted copy matches what it built.
+
+## Workflows
+
+| Workflow | Trigger | What it does |
+| --- | --- | --- |
+| `android-ci.yml` | push, pull request | Dataset gate, logo asset gate, unit tests, debug APK |
+| `release-apk.yml` | manual | Signed release APK, GitHub Release, SHA-256, integrity read-back |
+| `refresh-logos.yml` | manual | Re-captures restaurant website icons and commits the result |
+
+## Signing
+
+Android will not install an unsigned APK, and it will not install an APK as an
+upgrade when the new build is signed with a different key than the installed
+build. The signing key therefore has to be stable across releases.
+
+### What 1.0.0 used
+
+The published 1.0.0 APK is v2-signed with the Android **debug** keystore from the
+machine that built it:
+
+```
+subject      CN = Android Debug, O = Android, C = US
+valid from   2026-08-10
+SHA-256      97:30:23:F7:B7:91:A9:DA:C0:7E:1B:8C:F1:65:9D:F1:ED:44:1F:41:83:8C:04:02:9D:DB:2C:5D:E4:CE:10:84
+```
+
+A debug keystore holds a randomly generated private key created on that machine.
+It cannot be regenerated anywhere else. Continuing to sign with it requires
+copying that exact file; signing with any other key requires uninstalling 1.0.0
+before installing the next build, which clears saved favorites and statuses.
+
+### Required repository secrets
+
+Add these under **Settings → Secrets and variables → Actions**:
+
+| Secret | Value |
+| --- | --- |
+| `RMP_KEYSTORE_BASE64` | The keystore file, base64 encoded |
+| `RMP_KEYSTORE_PASSWORD` | Keystore password |
+| `RMP_KEY_ALIAS` | Key alias inside the keystore |
+| `RMP_KEY_PASSWORD` | Key password |
+| `MAPTILER_KEY` | Optional. Without it the Map tab shows its outage state; everything else still works offline. |
+
+`release-apk.yml` fails immediately with a clear message when
+`RMP_KEYSTORE_BASE64` is missing, rather than publishing an APK that cannot be
+installed.
+
+### Reusing the existing 1.0.0 key
+
+On the machine that built 1.0.0:
+
+```sh
+base64 -i ~/.android/debug.keystore | pbcopy
+```
+
+Paste that into `RMP_KEYSTORE_BASE64`. The Android debug keystore always uses
+these values:
+
+- `RMP_KEYSTORE_PASSWORD`: `android`
+- `RMP_KEY_ALIAS`: `androiddebugkey`
+- `RMP_KEY_PASSWORD`: `android`
+
+Confirm the fingerprint matches the one above before relying on it:
+
+```sh
+keytool -list -v -keystore ~/.android/debug.keystore -storepass android | grep SHA256
+```
+
+### Creating a fresh release key instead
+
+```sh
+keytool -genkeypair -v \
+  -keystore rmp-release.jks \
+  -alias rmp-finder \
+  -keyalg RSA -keysize 4096 -validity 10000 \
+  -dname "CN=RMP Finder, O=Personal, C=US"
+base64 -i rmp-release.jks | pbcopy
+```
+
+Keep `rmp-release.jks` backed up somewhere durable and outside the repository.
+Losing it means every future release needs an uninstall first. A build signed
+with this key cannot upgrade an installed 1.0.0, so 1.0.0 must be uninstalled
+once before installing the first build that uses it.
+
+## Cutting a release
+
+1. Make sure `main` is green in **Android CI**.
+2. Open **Actions → Release APK → Run workflow**.
+3. Enter the version name (for example `1.1.0`) and a version code higher than
+   the previous release. 1.0.0 used version code `1`.
+4. The workflow refuses to run if that tag already exists, so an existing
+   release is never overwritten.
+
+The run publishes `RMP-Finder-<version>.apk` and `RMP-Finder-<version>.apk.sha256`,
+then downloads the published APK back from GitHub and fails if the checksum does
+not match the build output. The run summary records the tag, commit, filename,
+SHA-256 and the integrity result.
+
+## Building locally
+
+A local release build needs the Android SDK plus `dl.google.com` for the Android
+Gradle Plugin and the AndroidX artifacts. In a restricted network environment
+those hosts are unavailable and no local Android build is possible; use the
+workflows above. Where the network does allow it:
+
+```sh
+./gradlew :app:testDebugUnitTest :app:assembleDebug
+python3 tools/verify_data.py
+python3 tools/check_logo_assets.py
+```
+
+Put `MAPTILER_KEY` and any signing values in `local.properties`; that file is
+ignored by git.

@@ -16,12 +16,37 @@ val localProperties = Properties().apply {
     val file = rootProject.file("local.properties")
     if (file.exists()) file.inputStream().use(::load)
 }
-val mapTilerKey = providers.gradleProperty("MAPTILER_KEY")
-    .orElse(providers.environmentVariable("MAPTILER_KEY"))
-    .orElse(localProperties.getProperty("MAPTILER_KEY", ""))
-val mapStyleUrlOverride = providers.gradleProperty("MAP_STYLE_URL_OVERRIDE")
-    .orElse(providers.environmentVariable("MAP_STYLE_URL_OVERRIDE"))
-    .orElse(localProperties.getProperty("MAP_STYLE_URL_OVERRIDE", ""))
+// Build inputs come from a Gradle property, an environment variable, or
+// local.properties, in that order, so the same build works on a workstation
+// and on CI without checking any secret into the repository.
+// A blank value counts as absent: CI sets an unset secret to an empty string,
+// which should fall through to the default rather than win the lookup.
+fun buildInput(name: String, default: String = ""): String = listOf(
+    providers.gradleProperty(name).orNull,
+    providers.environmentVariable(name).orNull,
+    localProperties.getProperty(name),
+).firstOrNull { !it.isNullOrBlank() }?.trim() ?: default
+
+val mapTilerKey = buildInput("MAPTILER_KEY")
+val mapStyleUrlOverride = buildInput("MAP_STYLE_URL_OVERRIDE")
+
+// Release signing. The APK must be signed with a stable key or Android will
+// refuse to install it as an upgrade over an earlier build.
+val releaseKeystore = buildInput("RMP_KEYSTORE_FILE").let { if (it.isEmpty()) null else rootProject.file(it) }
+val releaseKeystorePassword = buildInput("RMP_KEYSTORE_PASSWORD")
+val releaseKeyAlias = buildInput("RMP_KEY_ALIAS")
+val releaseKeyPassword = buildInput("RMP_KEY_PASSWORD")
+val releaseSigningReady = releaseKeystore?.isFile == true &&
+    releaseKeystorePassword.isNotEmpty() &&
+    releaseKeyAlias.isNotEmpty() &&
+    releaseKeyPassword.isNotEmpty()
+
+// A tagged release overrides these so the published APK carries the tag it
+// was cut from; a plain local build keeps the defaults.
+val appVersionName = buildInput("RMP_VERSION_NAME", "1.1.0")
+val appVersionCode = buildInput("RMP_VERSION_CODE", "2").let {
+    it.toIntOrNull() ?: error("RMP_VERSION_CODE must be an integer, but was \"$it\"")
+}
 
 android {
     namespace = "com.mike.rmpfinder"
@@ -31,11 +56,34 @@ android {
         applicationId = "com.mike.rmpfinder"
         minSdk = 26
         targetSdk = 36
-        versionCode = 1
-        versionName = "1.0.0"
+        versionCode = appVersionCode
+        versionName = appVersionName
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "MAPTILER_KEY", "\"${mapTilerKey.get().replace("\"", "\\\"")}\"")
-        buildConfigField("String", "MAP_STYLE_URL_OVERRIDE", "\"${mapStyleUrlOverride.get().replace("\"", "\\\"")}\"")
+        buildConfigField("String", "MAPTILER_KEY", "\"${mapTilerKey.replace("\"", "\\\"")}\"")
+        buildConfigField("String", "MAP_STYLE_URL_OVERRIDE", "\"${mapStyleUrlOverride.replace("\"", "\\\"")}\"")
+    }
+
+    signingConfigs {
+        if (releaseSigningReady) {
+            create("release") {
+                storeFile = releaseKeystore
+                storePassword = releaseKeystorePassword
+                keyAlias = releaseKeyAlias
+                keyPassword = releaseKeyPassword
+                enableV1Signing = false
+                enableV2Signing = true
+                enableV3Signing = true
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            // Left unsigned on purpose when no key is supplied: a silently
+            // unsigned APK that cannot install is worse than an obvious gap,
+            // and the release workflow fails the build when signing is missing.
+            signingConfig = if (releaseSigningReady) signingConfigs.getByName("release") else null
+        }
     }
 
     buildFeatures {
