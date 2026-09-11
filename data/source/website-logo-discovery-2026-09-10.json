@@ -3,7 +3,7 @@
     "assetFile": null,
     "checkedAt": "2026-09-10",
     "credit": "Website icon published by 109pizzeriany.com",
-    "failure": "No usable site icon found (HTTPError)",
+    "failure": "No usable site icon found (HTTPError, ParseError while decoding)",
     "license": null,
     "resolvedWebsiteUrl": "https://www.109pizzeriany.com/",
     "websiteUrl": "https://www.109pizzeriany.com/"
@@ -17,7 +17,7 @@
     "imageSourceUrl": "https://static.wixstatic.com/media/c4cd58_e9c6d66f887142aabf85fbba1d5f9b41~mv2.png/v1/fill/w_192%2Ch_192%2Clg_1%2Cusm_0.66_1.00_0.01/c4cd58_e9c6d66f887142aabf85fbba1d5f9b41~mv2.png",
     "license": null,
     "resolvedWebsiteUrl": "https://www.1saborlatino.com/",
-    "sha256": "6fd8f224bd33696f8ce350e439cdaba96cc9162804eb6f03e3dee6c1612fbf72",
+    "sha256": "2463c467edc23c9f6ebe6ba8bbc4f7c4e1532d2861eb8e8db8f33eee960b9c2e",
     "websiteUrl": "https://www.1saborlatino.com/",
     "width": 192
   },
@@ -39,7 +39,7 @@
     "imageSourceUrl": "https://framerusercontent.com/images/WVo3o2ADCgVvizwoL6A8C8by0k.jpg",
     "license": null,
     "resolvedWebsiteUrl": "https://www.8bitbitesbk.com/",
-    "sha256": "7ffbf08a712696a52023b712d2e11e7184c1837c224971b5c6cebbca3f61a931",
+    "sha256": "4d0d15d2fd1eaa2527ce12c1db61fd43e8bcd69dd9a0c82648b02036b89bccb2",
     "websiteUrl": "https://8bitbitesbk.com",
     "width": 1080
   },
@@ -61,7 +61,7 @@
     "imageSourceUrl": "https://cdn.prod.website-files.com/64888789d6b75626f3ba5b5b/652d4664d018193e335bca60_Group%2039.png",
     "license": null,
     "resolvedWebsiteUrl": "https://www.atomicwings.com/locations/brooklyn-ny",
-    "sha256": "8b73376fc63679135145eef9cce818877ddd23733da92415f04875cf587ce0f3",
+    "sha256": "32367b925d18d458b0725d9e4f5fd2ef0a133417f9114e56a1b6c769e0408fe2",
     "websiteUrl": "https://www.atomicwings.com/locations/brooklyn-ny",
     "width": 256
   },
@@ -74,7 +74,7 @@
     "imageSourceUrl": "https://production-cdn-hdb5b9fwgnb9bdf9.z01.azurefd.net/sitecontent/website/images/apple-touch-icon.png?lu=348122e9f09b1d200e84cd53cbd4d0f6",
     "license": null,
     "resolvedWebsiteUrl": "https://www.baileykuchifrito.com/",
-    "sha256": "c60064296f7746d48b278763c45bcfa8464c91824b25a00e87a1a2150e7b0751",
+    "sha256": "b73f980053a95059252db6daf460e5fa4291e6404d4e2328fa3459f24fffe2e5",
     "websiteUrl": "https://www.baileykuchifrito.com/",
     "width": 180
   },
@@ -87,7 +87,7 @@
     "imageSourceUrl": "https://d28f3w0x9i80nq.cloudfront.net/restaurantImages/e008696b-c373-4c54-8478-07c689ee3a41/Screenshot_20240206_144202_Drive5.jpg",
     "license": null,
     "resolvedWebsiteUrl": "https://bitesonvalentine.com/",
-    "sha256": "d30dcba99568b8bec5e6d6f8f06dcb561215eebfe135ab48b5177cba55ae881b",
+    "sha256": "345b3f7549ebc3b4ad09e3805e8ec8c75906fb4ef75b7d509dd3870bdfd73ca2",
     "websiteUrl": "https://bitesonvalentine.com/",
     "width": 800
   },
@@ -100,7 +100,7 @@
     "imageSourceUrl": "https://www.bk.com/favicon.ico",
     "license": null,
     "resolvedWebsiteUrl": "https://www.bk.com/",
-    "sha256": "0dee2868e0b83e5377a5547e3c2bcf5b26dc667834f95856125cb979034e7ad5",
+    "sha256": "bb0f27e1913d4427f626def796fe02a4fc50bb3ecb3ff9afbb2a3d7006d4ded1",
     "websiteUrl": "https://www.bk.com/",
     "width": 48
   },
@@ -113,7 +113,7 @@
     "imageSourceUrl": "https://cdn.prod.website-files.com/5f24c41d7547109ca1ca858d/5f3c5ec04ba9ef192011f508_bw19901022-bobos-crab-shack_Bag-and-Crab_256.png",
     "license": null,
     "resolvedWebsiteUrl": "https://www.boboscrabshack.com/menu",
-    "sha256": "4c44ff3b63ac02946591a8defcc623cb0a0ae2a0c640bf96bcff3ee5b6af5a91",
+    "sha256": "f02490755bcfbce7550fd9c3e7917e82567d1dab854463539bb350eecd1a2ad8",
     "websiteUrl": "https://www.boboscrabshack.com/menu",
     "width": 256
   },
@@ -126,7 +126,7 @@
     "imageSourceUrl": "https://www.bojangles.com/_nuxt/icons/icon_512x512.51c217.png",
     "license": null,
     "resolvedWebsiteUrl": "https://www.bojangles.com/",
-    "sha256": "3de94ca2c94ae5b44911f9c27313185aa6bbfa2e90aa0ec9000b6197bb171610",
+    "sha256": "d7b02157d03074ff8ff55f4e88aaa33fb46df92938b1d59cec747a22f3de28fd",
     "websiteUrl": "https://www.bojangles.com/",
     "width": 512
   },
@@ -139,7 +139,7 @@
     "imageSourceUrl": "https://img1.wsimg.com/isteam/ip/0eef8f20-874e-4736-af9e-b9ffd6f577db/brainfood%20coffeecup.png/:/rs=w:180,h:180,m",
     "license": null,
     "resolvedWebsiteUrl": "https://brainfoodbk.com/",
-    "sha256": "7d475bff44aac1f672e36304634e41e7f71e05fa0fb4443ba29f41d3629163f3",
+    "sha256": "045b41d7d98eab0fa76d37ccc6e9a07a0d83d58695741b545000394bef19c3e2",
     "websiteUrl": "https://www.brainfoodbk.com",
     "width": 324
   },
@@ -152,7 +152,7 @@
     "imageSourceUrl": "https://popmenucloud.com/cdn-cgi/image/width=180,height=180,format=png,fit=pad,background=transparent/ownypfxc/380985fd-eb93-4418-9fb4-dd5c41e39a44.png",
     "license": null,
     "resolvedWebsiteUrl": "https://www.bunnan.co/",
-    "sha256": "6595418467644015fb0e9f4130d53fc3e978bc797907b36cc88d40e6fe3dd081",
+    "sha256": "3fd3646bee7ae29be1d8b39dbfb7ab8e2993ed614ba50a34e279c3b3b12d1be8",
     "websiteUrl": "https://www.bunnan.co/",
     "width": 180
   },
@@ -165,7 +165,7 @@
     "imageSourceUrl": "https://www.bk.com/favicon.ico",
     "license": null,
     "resolvedWebsiteUrl": "https://www.bk.com/",
-    "sha256": "0dee2868e0b83e5377a5547e3c2bcf5b26dc667834f95856125cb979034e7ad5",
+    "sha256": "bb0f27e1913d4427f626def796fe02a4fc50bb3ecb3ff9afbb2a3d7006d4ded1",
     "websiteUrl": "https://burgerking.com",
     "width": 48
   },
@@ -181,8 +181,9 @@
     "assetFile": null,
     "checkedAt": "2026-09-10",
     "credit": "Website icon published by checkers.com",
-    "failure": "HTTPError: 404 Client Error: Not Found for url: https://checkersandrallys.com:443/",
+    "failure": "No usable site icon found (HTTPError)",
     "license": null,
+    "resolvedWebsiteUrl": "https://www.checkers.com/",
     "websiteUrl": "https://www.checkers.com/"
   },
   "cuihuakitchen.com": {
@@ -198,9 +199,8 @@
     "assetFile": null,
     "checkedAt": "2026-09-10",
     "credit": "Website icon published by daiguny.com",
-    "failure": "No usable site icon found (HTTPError)",
+    "failure": "ConnectTimeout: HTTPSConnectionPool(host='www.daiguny.com', port=443): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.daiguny.com', port=443) at 0x7f12696af5f0>, 'Connection to www.daiguny.com timed out. (connect timeout=10)'))",
     "license": null,
-    "resolvedWebsiteUrl": "https://www.daiguny.com/",
     "websiteUrl": "https://www.daiguny.com/"
   },
   "dallasbbq.com": {
@@ -212,7 +212,7 @@
     "imageSourceUrl": "https://images.squarespace-cdn.com/content/v1/5f4e7155ce513218e4076c12/5e74fcac-3aa1-4c5a-8ae5-6bcdb23c753c/favicon.ico?format=100w",
     "license": null,
     "resolvedWebsiteUrl": "https://www.dallasbbq.com/",
-    "sha256": "9f8e24e76b4593780e900e0cf5558bcd04b3b9c4c8a9affce050e1975a3ca84d",
+    "sha256": "e3702007786a77f5f09d33b81e8aeed04c217735c63d07d2ad75089d83b26714",
     "websiteUrl": "https://www.dallasbbq.com/",
     "width": 100
   },
@@ -225,7 +225,7 @@
     "imageSourceUrl": "https://static.spotapps.co/website_images/ab_websites/790147_website_v1/favicons/apple-touch-icon.png",
     "license": null,
     "resolvedWebsiteUrl": "https://dhakayarestaurant.com/",
-    "sha256": "d0712cfd3355b2c8187844fc986aac3cc893b2d5a232bdbebb4558ef055080dc",
+    "sha256": "d06efe7adc56295bf6929e90c446631fcaf391394c646ffc42968793d5f3dcaa",
     "websiteUrl": "https://dhakayarestaurant.com/",
     "width": 180
   },
@@ -233,8 +233,9 @@
     "assetFile": null,
     "checkedAt": "2026-09-10",
     "credit": "Website icon published by dimsumsam.us",
-    "failure": "HTTPError: 403 Client Error: Forbidden for url: https://dimsumsam.us/",
+    "failure": "No usable site icon found (InvalidSchema, UnidentifiedImageError while decoding)",
     "license": null,
+    "resolvedWebsiteUrl": "https://dimsumsam.us/",
     "websiteUrl": "https://dimsumsam.us/"
   },
   "dunkindonuts.com": {
@@ -246,7 +247,7 @@
     "imageSourceUrl": "https://www.dunkindonuts.com/brands/dun/apple-touch-icon.png",
     "license": null,
     "resolvedWebsiteUrl": "https://www.dunkindonuts.com/locations/us/ny/bronx/2366-grand-concourse/store-340876/",
-    "sha256": "f41ea0c15ab5c58b7d05166ee6b620feea11bff246ec91288803d273a1d3c46e",
+    "sha256": "55c4cd23c45d7c0477d991b3129a26ec40f8a17a21d85424dc08452d83fca86d",
     "websiteUrl": "https://www.dunkindonuts.com/locations/us/ny/bronx/2366-grand-concourse/store-340876/",
     "width": 180
   },
@@ -254,42 +255,25 @@
     "assetFile": null,
     "checkedAt": "2026-09-10",
     "credit": "Website icon published by elnuevocapri3restaurantny.com",
-    "failure": "No usable site icon found (icon is 16x16, below the 48px minimum)",
-    "format": "png",
-    "height": 16,
-    "imageSourceUrl": "https://elnuevocapri3restaurantny.com/favicon.ico",
+    "failure": "No usable site icon found (HTTPError, icon is 16x16, below the 48px minimum)",
     "license": null,
     "resolvedWebsiteUrl": "https://elnuevocapri3restaurantny.com/",
-    "websiteUrl": "https://elnuevocapri3restaurantny.com/",
-    "width": 16
+    "websiteUrl": "https://elnuevocapri3restaurantny.com/"
   },
   "eveliastamales.com": {
     "assetFile": null,
     "checkedAt": "2026-09-10",
     "credit": "Website icon published by eveliastamales.com",
-    "failure": "No usable site icon found (icon is 30x32, below the 48px minimum)",
-    "format": "png",
-    "height": 32,
-    "imageSourceUrl": "https://eveliastamales.com/cdn/shop/files/olla_32x32.png?v=1661455833",
+    "failure": "No usable site icon found (HTTPError, icon is 30x32, below the 48px minimum)",
     "license": null,
     "resolvedWebsiteUrl": "https://eveliastamales.com/",
-    "websiteUrl": "https://eveliastamales.com/",
-    "width": 30
-  },
-  "facebook.com": {
-    "assetFile": null,
-    "checkedAt": "2026-09-10",
-    "credit": "Website icon published by facebook.com",
-    "failure": "Skipped generic social-platform branding; app uses restaurant fallback",
-    "license": null,
-    "resolvedWebsiteUrl": "https://www.facebook.com/mott.street.eatery/",
-    "websiteUrl": "https://www.facebook.com/mott.street.eatery/"
+    "websiteUrl": "https://eveliastamales.com/"
   },
   "fixuplate.com": {
     "assetFile": null,
     "checkedAt": "2026-09-10",
     "credit": "Website icon published by fixuplate.com",
-    "failure": "ConnectionError: HTTPSConnectionPool(host='fixuplate.com', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(\"HTTPSConnection(host='fixuplate.com', port=443): Failed to resolve 'fixuplate.com' ([Errno 8] nodename nor servname provided, or not known)\"))",
+    "failure": "ConnectionError: HTTPSConnectionPool(host='fixuplate.com', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(\"HTTPSConnection(host='fixuplate.com', port=443): Failed to resolve 'fixuplate.com' ([Errno -5] No address associated with hostname)\"))",
     "license": null,
     "websiteUrl": "https://fixuplate.com/"
   },
@@ -302,18 +286,22 @@
     "imageSourceUrl": "https://direct-web.prod.slicelife.com/static/favicon-180x180.png",
     "license": null,
     "resolvedWebsiteUrl": "https://www.flacospizzamenu.com/",
-    "sha256": "8c71f16cecb78008e1b5c3db2cbfb83dafed4f5d788df8c6c4e054b7bb5afa08",
+    "sha256": "07911fe8c54e8cef16df94ba5d7fe7a6826fc04068e49682ca2bdc91fe75535d",
     "websiteUrl": "https://flacospizzamenu.com/",
     "width": 180
   },
   "foknoodles.com": {
-    "assetFile": null,
+    "assetFile": "foknoodles.com.png",
     "checkedAt": "2026-09-10",
     "credit": "Website icon published by foknoodles.com",
-    "failure": "No usable site icon found (HTTPError)",
+    "format": "png",
+    "height": 512,
+    "imageSourceUrl": "https://ik.imagekit.io/awwybhhmo/assets/favicons/Chinese/002-chinese.svg",
     "license": null,
     "resolvedWebsiteUrl": "https://www.foknoodles.com/",
-    "websiteUrl": "https://www.foknoodles.com/"
+    "sha256": "0684f5410dc0d281d06271e02ead743be574113eb0335ec15c0b3c000a8a5f3f",
+    "websiteUrl": "https://www.foknoodles.com/",
+    "width": 512
   },
   "getmemphisseoul.com": {
     "assetFile": "getmemphisseoul.com.png",
@@ -324,7 +312,7 @@
     "imageSourceUrl": "https://img1.wsimg.com/isteam/ip/68952ad3-c202-420a-b358-838a5ef8ffc4/LOGO.png/:/rs=w:180,h:180,m",
     "license": null,
     "resolvedWebsiteUrl": "https://getmemphisseoul.com/",
-    "sha256": "967dada2d8c533484a1a948388726963b929b4510360a0038ecdad3a84ad4ef9",
+    "sha256": "78156c2a3085e616bf2826af211f8b3d98afeb5bf52499e9996e41d03c69add7",
     "websiteUrl": "https://getmemphisseoul.com",
     "width": 338
   },
@@ -337,7 +325,7 @@
     "imageSourceUrl": "https://ik.imagekit.io/awwybhhmo/satellite_images/custom/www_greengardenvillagetogo_com/logos/favicon_dbc2.png",
     "license": null,
     "resolvedWebsiteUrl": "https://www.greengardenvillagetogo.com/?utm_source=redirect&utm_medium=greengardenvillageny.com",
-    "sha256": "cd63faa87c96622a6b019bb451e23bb3611c0b914e7bdc6e4c5f6144f20003ce",
+    "sha256": "3a9cfd5a025f29de255dabc98cda2e44fb5642929af3048229b869ee8da5ee9b",
     "websiteUrl": "https://greengardenvillageny.com/",
     "width": 1254
   },
@@ -345,26 +333,16 @@
     "assetFile": null,
     "checkedAt": "2026-09-10",
     "credit": "Website icon published by gyrokingny.com",
-    "failure": "ConnectionError: HTTPSConnectionPool(host='gyrokingny.com', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(\"HTTPSConnection(host='gyrokingny.com', port=443): Failed to resolve 'gyrokingny.com' ([Errno 8] nodename nor servname provided, or not known)\"))",
+    "failure": "ConnectionError: HTTPSConnectionPool(host='gyrokingny.com', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(\"HTTPSConnection(host='gyrokingny.com', port=443): Failed to resolve 'gyrokingny.com' ([Errno -5] No address associated with hostname)\"))",
     "license": null,
     "websiteUrl": "https://gyrokingny.com/"
-  },
-  "instagram.com": {
-    "assetFile": null,
-    "checkedAt": "2026-09-10",
-    "credit": "Website icon published by instagram.com",
-    "failure": "Skipped generic social-platform branding; app uses restaurant fallback",
-    "license": null,
-    "resolvedWebsiteUrl": "https://www.instagram.com/labarcanyc/",
-    "websiteUrl": "https://www.instagram.com/labarcanyc/"
   },
   "irestaurantny.com": {
     "assetFile": null,
     "checkedAt": "2026-09-10",
     "credit": "Website icon published by irestaurantny.com",
-    "failure": "No usable site icon found (HTTPError)",
+    "failure": "ConnectTimeout: HTTPSConnectionPool(host='www.irestaurantny.com', port=443): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.irestaurantny.com', port=443) at 0x7f126966c1a0>, 'Connection to www.irestaurantny.com timed out. (connect timeout=10)'))",
     "license": null,
-    "resolvedWebsiteUrl": "https://www.irestaurantny.com/",
     "websiteUrl": "https://www.irestaurantny.com"
   },
   "jamaicanflavors.com": {
@@ -376,7 +354,7 @@
     "imageSourceUrl": "https://static.wixstatic.com/media/0fcf07_e2560fd69b6c4dea8fcb63b7cf3b76e1~mv2.png/v1/fill/w_192%2Ch_192%2Clg_1%2Cusm_0.66_1.00_0.01/0fcf07_e2560fd69b6c4dea8fcb63b7cf3b76e1~mv2.png",
     "license": null,
     "resolvedWebsiteUrl": "https://www.jamaicanflavors.com/",
-    "sha256": "0f6db2bde5db3558ec906ef084a51785cae1d3e1fbe572769fd0fa7fa6454399",
+    "sha256": "0f9daea4c5a71d79a0373e68f64ed1317f540de81005584d90107c0fbac6779f",
     "websiteUrl": "https://www.jamaicanflavors.com/",
     "width": 192
   },
@@ -389,7 +367,7 @@
     "imageSourceUrl": "https://jamitbistrony.com/wp-content/uploads/2024/12/cropped-untitled-design-1.png",
     "license": null,
     "resolvedWebsiteUrl": "https://jamitbistrony.com/",
-    "sha256": "065547e0a44bca7b38b4ba29f3eee2ff59d5292aa742ef6ee3b3973e0852884c",
+    "sha256": "4ef8a342c1c97c0a69cfabaeb61e3ce26ef04d34b6dd0bf57fbaa4487ca6e712",
     "websiteUrl": "https://www.jamitbistrony.com",
     "width": 150
   },
@@ -397,27 +375,23 @@
     "assetFile": null,
     "checkedAt": "2026-09-10",
     "credit": "Website icon published by jensfrenchtoast.com",
-    "failure": "No usable site icon found (icon is 16x16, below the 48px minimum)",
-    "format": "png",
-    "height": 16,
-    "imageSourceUrl": "https://static.parastorage.com/client/pfavico.ico",
+    "failure": "No usable site icon found (HTTPError, icon is 16x16, below the 48px minimum)",
     "license": null,
     "resolvedWebsiteUrl": "https://www.jensfrenchtoast.com/",
-    "websiteUrl": "https://www.jensfrenchtoast.com/",
-    "width": 16
+    "websiteUrl": "https://www.jensfrenchtoast.com/"
   },
   "justinospizzeria.com": {
-    "assetFile": null,
+    "assetFile": "justinospizzeria.com.png",
     "checkedAt": "2026-09-10",
     "credit": "Website icon published by justinospizzeria.com",
-    "failure": "No usable site icon found (icon is 32x32, below the 48px minimum)",
     "format": "png",
-    "height": 32,
-    "imageSourceUrl": "https://justinospizzeria.com/wp-content/themes/ekko/core/assets/images/favicon.png",
+    "height": 80,
+    "imageSourceUrl": "https://justinospizzeria.com/wp-includes/images/w-logo-gray-white-bg.png",
     "license": null,
     "resolvedWebsiteUrl": "https://justinospizzeria.com/",
+    "sha256": "9182a828e749087d83d5c5698a7502f8039abea2596f4199e48357669e74c36e",
     "websiteUrl": "https://justinospizzeria.com/",
-    "width": 32
+    "width": 80
   },
   "kandplounge.com": {
     "assetFile": null,
@@ -432,8 +406,9 @@
     "assetFile": null,
     "checkedAt": "2026-09-10",
     "credit": "Website icon published by kfc.com",
-    "failure": "HTTPError: 403 Client Error: Forbidden for url: https://www.kfc.com/",
+    "failure": "No usable site icon found (HTTPError)",
     "license": null,
+    "resolvedWebsiteUrl": "https://www.kfc.com/",
     "websiteUrl": "https://www.kfc.com/"
   },
   "ladychowkitchen.com": {
@@ -448,15 +423,16 @@
     "assetFile": null,
     "checkedAt": "2026-09-10",
     "credit": "Website icon published by lavashawarma.com",
-    "failure": "HTTPError: 403 Client Error: Forbidden for url: https://www.lavashawarma.com/",
+    "failure": "No usable site icon found (InvalidSchema, UnidentifiedImageError while decoding)",
     "license": null,
+    "resolvedWebsiteUrl": "https://www.lavashawarma.com/",
     "websiteUrl": "https://www.lavashawarma.com/"
   },
   "lecheymielrestaurant.com": {
     "assetFile": null,
     "checkedAt": "2026-09-10",
     "credit": "Website icon published by lecheymielrestaurant.com",
-    "failure": "SSLError: HTTPSConnectionPool(host='www.lecheymielrestaurant.com', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1032)')))",
+    "failure": "SSLError: HTTPSConnectionPool(host='www.lecheymielrestaurant.com', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1010)')))",
     "license": null,
     "websiteUrl": "https://www.lecheymielrestaurant.com/"
   },
@@ -464,7 +440,7 @@
     "assetFile": null,
     "checkedAt": "2026-09-10",
     "credit": "Website icon published by locations.goldenkrust.com",
-    "failure": "No usable site icon found",
+    "failure": "No usable site icon found (UnidentifiedImageError while decoding)",
     "license": null,
     "resolvedWebsiteUrl": "https://locations.goldenkrust.com/ll/US/NY/Brooklyn/1364-Pennsylvania-Ave_",
     "websiteUrl": "https://locations.goldenkrust.com/ll/US/NY/Brooklyn/1364-Pennsylvania-Ave_"
@@ -486,7 +462,7 @@
     "imageSourceUrl": "https://d28f3w0x9i80nq.cloudfront.net/restaurantImages/abee940e-e07e-49b1-8bbc-7b4741263659/PHOTO20210204182314.jpeg",
     "license": null,
     "resolvedWebsiteUrl": "https://losamigosny.com/",
-    "sha256": "afef965ba941b6208f3a763a2dddb295dd8700567655c9ab38c27bf7657f0380",
+    "sha256": "e639727f066d623c031be1e0bb7d3453a5c2f5069935df8facd2c72180af4377",
     "websiteUrl": "https://losamigosny.com/",
     "width": 682
   },
@@ -494,7 +470,7 @@
     "assetFile": null,
     "checkedAt": "2026-09-10",
     "credit": "Website icon published by lunacafeny.com",
-    "failure": "SSLError: HTTPSConnectionPool(host='lunacafeny.com', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLError(1, '[SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:1032)')))",
+    "failure": "SSLError: HTTPSConnectionPool(host='lunacafeny.com', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLError(1, '[SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:1010)')))",
     "license": null,
     "websiteUrl": "https://lunacafeny.com"
   },
@@ -507,7 +483,7 @@
     "imageSourceUrl": "https://maspethdiner.com/images/website/2026012422503192032.png",
     "license": null,
     "resolvedWebsiteUrl": "https://maspethdiner.com/",
-    "sha256": "3343fa91f8c762f40690edefdd26b8399d07ac9f3a08ea0f1aec9a4046ab7aff",
+    "sha256": "1cc5c171590fb4ea3df3fb738427a529a19d426eccb5fac6cf720d2fd742a3e9",
     "websiteUrl": "https://maspethdiner.com/",
     "width": 295
   },
@@ -515,8 +491,9 @@
     "assetFile": null,
     "checkedAt": "2026-09-10",
     "credit": "Website icon published by mcdonalds.com",
-    "failure": "ReadTimeout: HTTPSConnectionPool(host='www.mcdonalds.com', port=443): Read timed out. (read timeout=10)",
+    "failure": "No usable site icon found (ReadTimeout)",
     "license": null,
+    "resolvedWebsiteUrl": "https://www.mcdonalds.com/",
     "websiteUrl": "https://www.mcdonalds.com/"
   },
   "morethanfries.com": {
@@ -531,23 +508,18 @@
     "assetFile": null,
     "checkedAt": "2026-09-10",
     "credit": "Website icon published by nago416.com",
-    "failure": "No usable site icon found (HTTPError)",
+    "failure": "ConnectTimeout: HTTPSConnectionPool(host='www.nago416.com', port=443): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.nago416.com', port=443) at 0x7f126a85e840>, 'Connection to www.nago416.com timed out. (connect timeout=10)'))",
     "license": null,
-    "resolvedWebsiteUrl": "https://www.nago416.com/",
     "websiteUrl": "https://www.nago416.com/"
   },
   "nyaminzjaminzrest.com": {
     "assetFile": null,
     "checkedAt": "2026-09-10",
     "credit": "Website icon published by nyaminzjaminzrest.com",
-    "failure": "No usable site icon found (icon is 16x16, below the 48px minimum)",
-    "format": "png",
-    "height": 16,
-    "imageSourceUrl": "https://www.dropcatch.com/favicon.ico",
+    "failure": "No usable site icon found (ParseError while decoding, UnidentifiedImageError while decoding, icon is 16x16, below the 48px minimum)",
     "license": null,
     "resolvedWebsiteUrl": "https://www.DropCatch.com/domain/nyaminzjaminzrest.com",
-    "websiteUrl": "https://nyaminzjaminzrest.com",
-    "width": 16
+    "websiteUrl": "https://nyaminzjaminzrest.com"
   },
   "oceaneatsbk.com": {
     "assetFile": null,
@@ -562,7 +534,7 @@
     "assetFile": null,
     "checkedAt": "2026-09-10",
     "credit": "Website icon published by offthehookfreshfishandchips.com",
-    "failure": "No usable site icon found (HTTPError)",
+    "failure": "No usable site icon found (HTTPError, UnidentifiedImageError while decoding)",
     "license": null,
     "resolvedWebsiteUrl": "https://offthehookfreshfishandchips.com/",
     "websiteUrl": "https://offthehookfreshfishandchips.com/"
@@ -571,7 +543,7 @@
     "assetFile": null,
     "checkedAt": "2026-09-10",
     "credit": "Website icon published by ordermofongodelvalle.com",
-    "failure": "SSLError: HTTPSConnectionPool(host='ordermofongodelvalle.com', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)')))",
+    "failure": "SSLError: HTTPSConnectionPool(host='ordermofongodelvalle.com', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1010)')))",
     "license": null,
     "websiteUrl": "https://ordermofongodelvalle.com/"
   },
@@ -584,7 +556,7 @@
     "imageSourceUrl": "https://www.papajohns.com/favicon.ico",
     "license": null,
     "resolvedWebsiteUrl": "https://www.papajohns.com/",
-    "sha256": "bdaa00c563d6e15a43e53a41f03b7f9feb158c2540ac1369460876ce8817dfa1",
+    "sha256": "0c09781a8db2f391b69cb199e6136fb688fe33d2ec31d97944b12a9a45d82a06",
     "websiteUrl": "https://www.papajohns.com",
     "width": 64
   },
@@ -601,20 +573,16 @@
     "assetFile": null,
     "checkedAt": "2026-09-10",
     "credit": "Website icon published by peppasonline.com",
-    "failure": "No usable site icon found (icon is 16x16, below the 48px minimum)",
-    "format": "png",
-    "height": 16,
-    "imageSourceUrl": "https://peppasonline.com/wp-content/uploads/2021/09/fab.jpg",
+    "failure": "No usable site icon found (HTTPError, icon is 16x16, below the 48px minimum)",
     "license": null,
     "resolvedWebsiteUrl": "https://peppasonline.com/",
-    "websiteUrl": "https://peppasonline.com",
-    "width": 16
+    "websiteUrl": "https://peppasonline.com"
   },
   "popeyes.com": {
     "assetFile": null,
     "checkedAt": "2026-09-10",
     "credit": "Website icon published by popeyes.com",
-    "failure": "No usable site icon found",
+    "failure": "No usable site icon found (ParseError while decoding, UnidentifiedImageError while decoding)",
     "license": null,
     "resolvedWebsiteUrl": "https://www.popeyes.com/",
     "websiteUrl": "https://www.popeyes.com/"
@@ -628,7 +596,7 @@
     "imageSourceUrl": "https://www.qdoba.com/favicon.ico",
     "license": null,
     "resolvedWebsiteUrl": "https://www.qdoba.com/",
-    "sha256": "f7409de4d18684e3af5ddf10bdc9b72923ee32b2487bdb362f2dac8d8c0898e6",
+    "sha256": "219ba69d005d531f14796ce27afcede27f0d4a27231014a5e8f5072a81120c97",
     "websiteUrl": "https://www.qdoba.com/",
     "width": 48
   },
@@ -636,7 +604,7 @@
     "assetFile": null,
     "checkedAt": "2026-09-10",
     "credit": "Website icon published by rayspizzabar.biz",
-    "failure": "SSLError: HTTPSConnectionPool(host='rayspizzabar.biz', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLError(1, '[SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032)')))",
+    "failure": "SSLError: HTTPSConnectionPool(host='rayspizzabar.biz', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLError(1, '[SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1010)')))",
     "license": null,
     "websiteUrl": "https://rayspizzabar.biz"
   },
@@ -649,7 +617,7 @@
     "imageSourceUrl": "https://assets.restaurants.ihop.com/images/apple-touch-icon.png",
     "license": null,
     "resolvedWebsiteUrl": "https://restaurants.ihop.com/en-us/ny/brooklyn/breakfast-1019-surf-ave-2132",
-    "sha256": "64b95d1c341418a61e10c6ec3b7af2e7d0abaac2afd03e6e6240f82a89acaa22",
+    "sha256": "a25a831a86f16c88eb02e3f97425b661820a0a01df2452be01d5391587ac4d67",
     "websiteUrl": "https://restaurants.ihop.com/en-us/ny/brooklyn/breakfast-1019-surf-ave-2132",
     "width": 180
   },
@@ -662,7 +630,7 @@
     "imageSourceUrl": "https://static.wixstatic.com/media/7c21db_8666b1925cae4937a5e32b41f699e292~mv2.jpg/v1/fill/w_192%2Ch_192%2Clg_1%2Cusm_0.66_1.00_0.01/7c21db_8666b1925cae4937a5e32b41f699e292~mv2.jpg",
     "license": null,
     "resolvedWebsiteUrl": "https://www.roastguy.com/",
-    "sha256": "ed65dee70aba13c12437bd1f98c2e6187079a0abbf7897e454232a3eabe9c2b3",
+    "sha256": "89a447ec9c7720e355ed69ff339bc59cfcb20042e1052d65574491f338757384",
     "websiteUrl": "https://www.roastguy.com/",
     "width": 192
   },
@@ -670,14 +638,10 @@
     "assetFile": null,
     "checkedAt": "2026-09-10",
     "credit": "Website icon published by rocbodyfitnesscafe.com",
-    "failure": "No usable site icon found (icon is 16x16, below the 48px minimum)",
-    "format": "png",
-    "height": 16,
-    "imageSourceUrl": "https://static.parastorage.com/client/pfavico.ico",
+    "failure": "No usable site icon found (HTTPError, icon is 16x16, below the 48px minimum)",
     "license": null,
     "resolvedWebsiteUrl": "https://www.rocbodyfitnesscafe.com/",
-    "websiteUrl": "https://www.rocbodyfitnesscafe.com",
-    "width": 16
+    "websiteUrl": "https://www.rocbodyfitnesscafe.com"
   },
   "saborrestaurantbakery.nyc": {
     "assetFile": "saborrestaurantbakery.nyc.png",
@@ -688,7 +652,7 @@
     "imageSourceUrl": "https://saborrestaurantbakery.nyc/favicon.ico",
     "license": null,
     "resolvedWebsiteUrl": "https://saborrestaurantbakery.nyc/",
-    "sha256": "93cb4597c8126faf53908bae4aabfb4832335f9ddf7498ee4465f2a78522ba00",
+    "sha256": "b2da92445e71d3faf3b1ae8ea5fd4ecb9730671ca7a5a67206eb0f494c720dfd",
     "websiteUrl": "https://saborrestaurantbakery.nyc/",
     "width": 513
   },
@@ -696,21 +660,18 @@
     "assetFile": null,
     "checkedAt": "2026-09-10",
     "credit": "Website icon published by sanmiwagocuisine.com",
-    "failure": "No usable site icon found (icon is 16x16, below the 48px minimum)",
-    "format": "png",
-    "height": 16,
-    "imageSourceUrl": "https://www.sanmiwagocuisine.com/assets/favicon.ico",
+    "failure": "No usable site icon found (UnidentifiedImageError while decoding, icon is 16x16, below the 48px minimum)",
     "license": null,
     "resolvedWebsiteUrl": "https://www.sanmiwagocuisine.com/",
-    "websiteUrl": "https://www.sanmiwagocuisine.com/",
-    "width": 16
+    "websiteUrl": "https://www.sanmiwagocuisine.com/"
   },
   "sapoaranyc.com": {
     "assetFile": null,
     "checkedAt": "2026-09-10",
     "credit": "Website icon published by sapoaranyc.com",
-    "failure": "ReadTimeout: HTTPSConnectionPool(host='www.alwaystrimming.com', port=443): Read timed out. (read timeout=10)",
+    "failure": "No usable site icon found (HTTPError, icon is 45x45, below the 48px minimum)",
     "license": null,
+    "resolvedWebsiteUrl": "https://www.alwaystrimming.com/",
     "websiteUrl": "https://sapoaranyc.com"
   },
   "seaskybuffet.com": {
@@ -722,7 +683,7 @@
     "imageSourceUrl": "https://s3.ezordernow.com/branded-webs/2055/favicon-1718683129.png",
     "license": null,
     "resolvedWebsiteUrl": "https://seaskybuffet.com/",
-    "sha256": "76d46bbc2a4d6b3171e1517910a78ce8d8e9fe5dc3b958132adfeb223fc1899b",
+    "sha256": "309872978d665f1cd7189badbf2cd93d5290163e17f6fc021907b39b4de82bb9",
     "websiteUrl": "https://seaskybuffet.com",
     "width": 1290
   },
@@ -735,7 +696,7 @@
     "imageSourceUrl": "https://static.wixstatic.com/media/3bc1bc_a8afa8bdbcab4095bbf8057f65885d35~mv2.png/v1/fill/w_192%2Ch_192%2Clg_1%2Cusm_0.66_1.00_0.01/3bc1bc_a8afa8bdbcab4095bbf8057f65885d35~mv2.png",
     "license": null,
     "resolvedWebsiteUrl": "https://www.sheepbybarashka.com/",
-    "sha256": "744345f10c68a488833839a79bf8d497722531256d5fd352b6d1397053bf61d3",
+    "sha256": "8888f2c65602bccaa37829f10580c04fe798ebbc4534616d22768a75ca80e4da",
     "websiteUrl": "https://www.sheepbybarashka.com/",
     "width": 192
   },
@@ -748,7 +709,7 @@
     "imageSourceUrl": "https://www.sonicdrivein.com/brands/sdi/apple-touch-icon.png",
     "license": null,
     "resolvedWebsiteUrl": "https://www.sonicdrivein.com/",
-    "sha256": "78078e0f61321d4c2e8c58ca62ec73b81ec2938becafcac1b35154c5a3752401",
+    "sha256": "e1e14c2bb4e4885a0850f1061909a07bb9c80983cfcf888d4810da6bc68eb4a5",
     "websiteUrl": "https://www.sonicdrivein.com/",
     "width": 180
   },
@@ -756,9 +717,8 @@
     "assetFile": null,
     "checkedAt": "2026-09-10",
     "credit": "Website icon published by sunhongwong.com",
-    "failure": "No usable site icon found (HTTPError)",
+    "failure": "ConnectTimeout: HTTPSConnectionPool(host='www.sunhongwong.com', port=443): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.sunhongwong.com', port=443) at 0x7f126b9baff0>, 'Connection to www.sunhongwong.com timed out. (connect timeout=10)'))",
     "license": null,
-    "resolvedWebsiteUrl": "https://www.sunhongwong.com/",
     "websiteUrl": "https://www.sunhongwong.com/"
   },
   "taburestaurante.com": {
@@ -778,7 +738,7 @@
     "imageSourceUrl": "https://ik.imagekit.io/awwybhhmo/satellite_images/custom/www_tastyconewyork_com/logos/favicon_dbc2.png",
     "license": null,
     "resolvedWebsiteUrl": "https://www.tastyconewyork.com/5fdjiulg/restaurant/order-online",
-    "sha256": "e9a8e738fc56e055e3b0f6467382a500f80d02e57874500eaddf0a79dd7aca33",
+    "sha256": "ca2d7f3446f5a6af4a6813487da398fe915e04f269de029b9e281826522efb80",
     "websiteUrl": "https://www.tastyconewyork.com",
     "width": 1024
   },
@@ -791,7 +751,7 @@
     "imageSourceUrl": "https://images.squarespace-cdn.com/content/v1/5fff378b9777405fd542a74b/be5a4f76-e7d1-4a99-ab95-f02c698b28ba/favicon.ico?format=100w",
     "license": null,
     "resolvedWebsiteUrl": "https://theartisancrepe.com/",
-    "sha256": "f92b85c3cb4d9f806b90f570c483de209db63a4e884614024f115cb5fc2a06c9",
+    "sha256": "cff74e131cf6aef9c4f7fa21070d0274731cdc2143923d77df7a0cb25d5bdc9f",
     "websiteUrl": "https://theartisancrepe.com/",
     "width": 100
   },
@@ -804,7 +764,7 @@
     "imageSourceUrl": "https://www.thechubbycrab.com/uploads/b/373a6300-296b-11ed-a4f1-e13ff4ff7490/icon_180x180_ios_NDA2MT.png?width=180",
     "license": null,
     "resolvedWebsiteUrl": "https://www.thechubbycrab.com/",
-    "sha256": "1815a468195d9eff8326933fbc5f111e8cb95e031b10a6105f0eeb242bd0c940",
+    "sha256": "f3aa3d2af1bff7846420dca1a16367ff21bd71b0ddac5edbac26b093a8937f3a",
     "websiteUrl": "https://www.thechubbycrab.com",
     "width": 180
   },
@@ -817,7 +777,7 @@
     "imageSourceUrl": "https://www.umibuffet.com/assets/images/logo-square.png",
     "license": null,
     "resolvedWebsiteUrl": "https://www.umibuffet.com/",
-    "sha256": "c39d105729df96b7d30913e5280f33011a3bae544aa66d0b1f7cb6df9cdb68aa",
+    "sha256": "d59a12665a513b1a30970c8e123a5137cd84dda791d8874fdab00f5003a3776e",
     "websiteUrl": "https://www.umibuffet.com/",
     "width": 256
   },
@@ -830,7 +790,7 @@
     "imageSourceUrl": "https://img1.wsimg.com/isteam/ip/static/pwa-app/logo-default.png/:/rs=w:180,h:180,m",
     "license": null,
     "resolvedWebsiteUrl": "https://unksfish.com/",
-    "sha256": "cd5aed3a911d7dc558d6a5a19b9d54bb84c2d31f2ed868ec68b4892c1fd7bff3",
+    "sha256": "75032b29eed3996b63e48ad3ebd202f99d27b03dac9dc5dd5d83986de31aa3ef",
     "websiteUrl": "https://unksfish.com/",
     "width": 180
   },
@@ -843,7 +803,7 @@
     "imageSourceUrl": "https://img1.wsimg.com/isteam/ip/0b8c0105-acc1-4fab-97ff-cda3aa25b0a1/est.%202010%20(Label)%20(4%20%C3%97%204%20in).png/:/rs=w:180,h:180,m",
     "license": null,
     "resolvedWebsiteUrl": "https://yummythainy.com/",
-    "sha256": "8053a25c1d501b7cc929001b0d10d63fa3021c86283250417ff5a7d95ea02011",
+    "sha256": "95b7417a46a417ab1921f22a5c0b77d52efd8d126e3cf07bc82ffc24c23f3b7a",
     "websiteUrl": "https://yummythainy.com/",
     "width": 180
   }
