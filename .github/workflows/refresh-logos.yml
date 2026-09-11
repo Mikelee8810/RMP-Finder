@@ -1,9 +1,16 @@
 name: Refresh restaurant logos
 
 # The curation step needs to reach the restaurant websites, which a sandboxed
-# development environment usually cannot. Run this from the Actions tab when
-# logo coverage should be re-checked, then review the commit it pushes.
+# development environment usually cannot. Run it when logo coverage should be
+# re-checked, then review the commit it pushes.
+#
+# Two ways to start it:
+#   - push a tag beginning with `logos-`, which works from any branch
+#   - Actions -> Refresh restaurant logos -> Run workflow, which GitHub only
+#     offers for workflows that are on the default branch
 on:
+  push:
+    tags: ['logos-*']
   workflow_dispatch:
     inputs:
       fresh:
@@ -45,6 +52,8 @@ jobs:
           python3 tools/verify_data.py
 
       - name: Commit any change
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           PATHS="app/src/main/assets/restaurant-logos data/source/website-logo-discovery-2026-09-10.json"
           # git diff only reports tracked files, so a run whose only result is a
@@ -60,7 +69,21 @@ jobs:
           git commit \
             -m "Refresh restaurant logo assets" \
             -m "Re-ran tools/build_logos.py with network access. Bundled assets: ${COUNT}. Every asset passes the curator quality gate and is recorded in the discovery evidence."
-          git push origin "HEAD:${GITHUB_REF_NAME}"
+          if [ "$GITHUB_EVENT_NAME" = "push" ]; then
+            # A tag started this run, so GITHUB_REF_NAME is the tag rather than a
+            # branch. The checkout is shallow and has no remote branches, so ask
+            # GitHub which branch this commit is the head of instead of git.
+            BRANCH="$(gh api "repos/$GITHUB_REPOSITORY/commits/$GITHUB_SHA/branches-where-head" --jq '.[0].name // empty')"
+          else
+            BRANCH="$GITHUB_REF_NAME"
+          fi
+          if [ -z "$BRANCH" ]; then
+            echo "::error::This commit is not the head of any branch, so the refreshed logos have nowhere to go."
+            echo "Tag the head of a branch, or run the workflow from the Actions tab."
+            exit 1
+          fi
+          echo "pushing refreshed logos to $BRANCH"
+          git push origin "HEAD:$BRANCH"
 
       - name: Summary
         run: |
