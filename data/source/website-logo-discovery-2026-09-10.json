@@ -400,13 +400,18 @@
     "websiteUrl": "https://www.kandplounge.com/"
   },
   "kfc.com": {
-    "assetFile": null,
-    "checkedAt": "2026-09-10",
-    "credit": "Website icon published by kfc.com",
-    "failure": "No usable site icon found (HTTPError)",
-    "license": null,
+    "assetFile": "kfc.com.png",
+    "checkedAt": "2026-09-11",
+    "credit": "KFC official branding verified on kfc.com; bundled vector mirror from Wikimedia Commons",
+    "format": "png",
+    "height": 512,
+    "imageSourceUrl": "https://upload.wikimedia.org/wikipedia/commons/9/91/KFC_Logo.svg",
+    "license": "PD-textlogo / trademark identification; see source page",
     "resolvedWebsiteUrl": "https://www.kfc.com/",
-    "websiteUrl": "https://www.kfc.com/"
+    "sha256": "cb3c9fdb33c12a36b362bf18b77c9f65bcebe05d60444dafa4c85bb9f553b6b1",
+    "websiteUrl": "https://www.kfc.com/",
+    "width": 512,
+    "verification": "Firecrawl branding on official site, 2026-09-11"
   },
   "ladychowkitchen.com": {
     "assetFile": null,
@@ -443,12 +448,18 @@
     "websiteUrl": "https://locations.goldenkrust.com/ll/US/NY/Brooklyn/1364-Pennsylvania-Ave_"
   },
   "locations.kfc.com": {
-    "assetFile": null,
-    "checkedAt": "2026-09-10",
-    "credit": "Website icon published by locations.kfc.com",
-    "failure": "HTTPError: 404 Client Error: Not Found for url: https://locations.kfc.com/ny/corona/39-21-103rd-street",
-    "license": null,
-    "websiteUrl": "https://locations.kfc.com/ny/corona/39-21-103rd-street"
+    "assetFile": "kfc.com.png",
+    "checkedAt": "2026-09-11",
+    "credit": "KFC official branding verified on kfc.com; location records share the KFC bundled mark",
+    "format": "png",
+    "height": 512,
+    "imageSourceUrl": "https://upload.wikimedia.org/wikipedia/commons/9/91/KFC_Logo.svg",
+    "license": "PD-textlogo / trademark identification; see source page",
+    "resolvedWebsiteUrl": "https://www.kfc.com/",
+    "sha256": "cb3c9fdb33c12a36b362bf18b77c9f65bcebe05d60444dafa4c85bb9f553b6b1",
+    "websiteUrl": "https://www.kfc.com/",
+    "width": 512,
+    "verification": "Firecrawl branding on official site, 2026-09-11"
   },
   "losamigosny.com": {
     "assetFile": "losamigosny.com.png",
@@ -485,13 +496,18 @@
     "width": 295
   },
   "mcdonalds.com": {
-    "assetFile": null,
-    "checkedAt": "2026-09-10",
-    "credit": "Website icon published by mcdonalds.com",
-    "failure": "No usable site icon found (ReadTimeout)",
-    "license": null,
-    "resolvedWebsiteUrl": "https://www.mcdonalds.com/",
-    "websiteUrl": "https://www.mcdonalds.com/"
+    "assetFile": "mcdonalds.com.png",
+    "checkedAt": "2026-09-11",
+    "credit": "McDonald’s official Golden Arches branding verified on mcdonalds.com; bundled vector mirror from Wikimedia Commons",
+    "format": "png",
+    "height": 512,
+    "imageSourceUrl": "https://upload.wikimedia.org/wikipedia/commons/3/36/McDonald%27s_Golden_Arches.svg",
+    "license": "PD-textlogo / trademark identification; see source page",
+    "resolvedWebsiteUrl": "https://www.mcdonalds.com/us/en-us.html",
+    "sha256": "83a03b515f8a9bd48a8ee0cf07b9a7f43f38b1c9c4cf65d59213e9941de2bfa3",
+    "websiteUrl": "https://www.mcdonalds.com/us/en-us.html",
+    "width": 512,
+    "verification": "Firecrawl branding on official site, 2026-09-11"
   },
   "morethanfries.com": {
     "assetFile": null,
@@ -576,13 +592,18 @@
     "websiteUrl": "https://peppasonline.com"
   },
   "popeyes.com": {
-    "assetFile": null,
-    "checkedAt": "2026-09-10",
-    "credit": "Website icon published by popeyes.com",
-    "failure": "No usable site icon found (ParseError while decoding, UnidentifiedImageError while decoding)",
-    "license": null,
+    "assetFile": "popeyes.com.png",
+    "checkedAt": "2026-09-11",
+    "credit": "Popeyes official orange wordmark verified on popeyes.com; bundled vector mirror from Wikimedia Commons",
+    "format": "png",
+    "height": 512,
+    "imageSourceUrl": "https://upload.wikimedia.org/wikipedia/commons/2/24/Logo_of_Popeyes_Louisiana_Kitchen.svg",
+    "license": "PD-textlogo / trademark identification; see source page",
     "resolvedWebsiteUrl": "https://www.popeyes.com/",
-    "websiteUrl": "https://www.popeyes.com/"
+    "sha256": "4313fdca3694b8df1670e24843c1a9b6ce419f894a59c7ea8e049d3f52e28945",
+    "websiteUrl": "https://www.popeyes.com/",
+    "width": 512,
+    "verification": "Firecrawl branding on official site, 2026-09-11"
   },
   "qdoba.com": {
     "assetFile": "qdoba.com.png",
