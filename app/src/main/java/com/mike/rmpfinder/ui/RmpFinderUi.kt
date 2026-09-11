@@ -537,7 +537,7 @@ private fun RestaurantDetail(
 @Composable
 private fun RestaurantBrandMark(restaurant: RmpRestaurant, size: Int) {
     val context = LocalContext.current
-    val logo = remember(restaurant.website) { RestaurantLogos.forWebsite(context, restaurant.website) }
+    val logo = remember(restaurant.rmpKey, restaurant.website) { RestaurantLogos.forRestaurant(context, restaurant) }
     val shape = RoundedCornerShape((size * 0.24f).dp)
 
     Surface(
@@ -590,25 +590,30 @@ private fun RestaurantBrandFallback(restaurant: RmpRestaurant, size: Int) {
  */
 private object RestaurantLogos {
     private const val TARGET_PIXELS = 256
+    private const val LOGO_MAP_ASSET = "restaurant-logo-map.json"
     private val cache = ConcurrentHashMap<String, Optional<ImageBitmap>>()
+    @Volatile private var mappingCache: Map<String, String>? = null
 
-    fun forWebsite(context: Context, website: String?): ImageBitmap? {
-        val domain = assetDomain(website) ?: return null
+    fun forRestaurant(context: Context, restaurant: RmpRestaurant): ImageBitmap? {
         val appContext = context.applicationContext
-        return cache.computeIfAbsent(domain) { Optional.ofNullable(decode(appContext, it)) }.orElse(null)
+        val mapping = mapping(appContext)
+        return RestaurantLogoResolver.assetPathsFor(restaurant, mapping).firstNotNullOfOrNull { path ->
+            cache.computeIfAbsent(path) { Optional.ofNullable(decode(appContext, it)) }.orElse(null)
+        }
     }
 
-    private fun assetDomain(website: String?): String? = website
-        ?.let(Uri::parse)
-        ?.host
-        ?.lowercase()
-        ?.removePrefix("www.")
-        ?.replace(Regex("[^a-z0-9.-]+"), "-")
-        ?.trim('-', '.')
-        ?.takeIf { it.isNotBlank() }
+    private fun mapping(context: Context): Map<String, String> {
+        mappingCache?.let { return it }
+        return synchronized(this) {
+            mappingCache ?: runCatching {
+                context.assets.open(LOGO_MAP_ASSET).bufferedReader().use { reader ->
+                    RestaurantLogoResolver.parseMapping(reader.readText())
+                }
+            }.getOrElse { emptyMap() }.also { mappingCache = it }
+        }
+    }
 
-    private fun decode(context: Context, domain: String): ImageBitmap? = runCatching {
-        val path = "restaurant-logos/$domain.png"
+    private fun decode(context: Context, path: String): ImageBitmap? = runCatching {
         val bounds = BitmapFactory.Options().apply { inJustDecodeBounds = true }
         context.assets.open(path).use { BitmapFactory.decodeStream(it, null, bounds) }
         val options = BitmapFactory.Options().apply {
