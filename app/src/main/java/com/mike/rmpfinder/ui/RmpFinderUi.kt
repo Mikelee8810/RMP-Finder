@@ -2,6 +2,7 @@
 
 package com.mike.rmpfinder.ui
 
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
@@ -437,7 +438,14 @@ private fun RestaurantDetail(
                     Text(restaurant.officialName, style = MaterialTheme.typography.titleMedium)
                     Text(restaurant.officialAddress.display())
                     Text("OTDA verification: ${restaurant.rmpVerifiedAt}", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                    DirectionButtons(context, restaurant.officialAddress, "Official RMP address")
+                    DirectionButtons(
+                        context = context,
+                        address = restaurant.officialAddress,
+                        label = "Official RMP address",
+                        // The reviewed geocode is more precise than the address
+                        // text, and it describes the official RMP location.
+                        point = "${restaurant.latitude},${restaurant.longitude}",
+                    )
                 }
             }
             if (restaurant.currentName != null || restaurant.currentAddress != null || restaurant.businessCheckedAt != null) {
@@ -471,11 +479,48 @@ private fun RestaurantDetail(
             }
             if (restaurant.phone != null || restaurant.website != null || restaurant.menuUrl != null) {
                 item {
+                    // Kept named "Actions": AppAcceptanceTest asserts on this exact
+                    // title for acceptance criterion 7, and those instrumented tests
+                    // can only be re-run on a real device.
                     DetailSection("Actions") {
+                        // The number itself is worth showing, not just a button:
+                        // it can be read aloud or copied without placing a call.
+                        restaurant.phone?.let { phone -> Text(phone, style = MaterialTheme.typography.bodyLarge) }
+                        restaurant.website?.let { url ->
+                            Text(
+                                text = Uri.parse(url).host?.removePrefix("www.") ?: url,
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.primary,
+                                modifier = Modifier.clickable { openUrl(context, url) },
+                            )
+                        }
                         Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                             restaurant.phone?.let { phone -> ActionButton(Icons.Default.Phone, "Call") { openIntent(context, Intent(Intent.ACTION_DIAL, Uri.parse("tel:$phone"))) } }
                             restaurant.website?.let { url -> ActionButton(Icons.Default.Language, "Website") { openUrl(context, url) } }
                             restaurant.menuUrl?.let { url -> ActionButton(Icons.Default.MenuBook, "Menu") { openUrl(context, url) } }
+                        }
+                    }
+                }
+            }
+            if (restaurant.sources.isNotEmpty()) {
+                item {
+                    DetailSection("Where this comes from") {
+                        // Every record carries its provenance. Showing it is the
+                        // point of keeping official and current facts apart: it
+                        // says which claim rests on OTDA and which on a later check.
+                        restaurant.sources.forEachIndexed { index, source ->
+                            if (index > 0) HorizontalDivider()
+                            Text(sourceRoleLabel(source.role), style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary)
+                            Text(source.kind, style = MaterialTheme.typography.bodyMedium)
+                            Text("Checked ${source.checkedAt}", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                            source.url?.let { url ->
+                                Text(
+                                    text = Uri.parse(url).host?.removePrefix("www.") ?: url,
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.primary,
+                                    modifier = Modifier.clickable { openUrl(context, url) },
+                                )
+                            }
                         }
                     }
                 }
@@ -597,6 +642,18 @@ private fun restaurantCategory(restaurant: RmpRestaurant): String {
 private fun availabilityLabel(restaurant: RmpRestaurant, instant: Instant = Instant.now()): String =
     OpenNow.label(restaurant, instant)
 
+private fun sourceRoleLabel(role: String): String = when (role) {
+    "rmp_eligibility" -> "RMP eligibility"
+    "business_status" -> "Business status"
+    "hours" -> "Hours"
+    "phone" -> "Phone"
+    "website" -> "Website"
+    "address" -> "Address"
+    "coordinates" -> "Map location"
+    "image" -> "Image"
+    else -> role.replace('_', ' ').replaceFirstChar { it.uppercase() }
+}
+
 private fun businessStatusLabel(status: String): String = when (status) {
     "likely_open" -> "Likely open"
     "temporarily_closed" -> "Temporarily closed"
@@ -663,11 +720,14 @@ private fun DetailSection(title: String, content: @Composable ColumnScope.() -> 
 }
 
 @Composable
-private fun DirectionButtons(context: Context, address: RmpAddress, label: String) {
+private fun DirectionButtons(context: Context, address: RmpAddress, label: String, point: String? = null) {
+    // A business that has moved is routed by its own address text: the geocode
+    // on the record belongs to the official RMP location, not to that address.
+    val destination = point ?: address.display()
     Text(label, style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-        OutlinedButton(onClick = { openDirections(context, address, "transit") }) { Icon(Icons.Default.Subway, null); Text(" Transit") }
-        OutlinedButton(onClick = { openDirections(context, address, "walking") }) { Icon(Icons.Default.DirectionsWalk, null); Text(" Walk") }
+        OutlinedButton(onClick = { openDirections(context, destination, "transit") }) { Icon(Icons.Default.Subway, null); Text(" Transit") }
+        OutlinedButton(onClick = { openDirections(context, destination, "walking") }) { Icon(Icons.Default.DirectionsWalk, null); Text(" Walk") }
     }
 }
 
@@ -710,13 +770,35 @@ private fun InfoScreen(state: RmpUiState, onRefresh: () -> Unit, modifier: Modif
     }
 }
 
-private fun openDirections(context: Context, address: RmpAddress, mode: String) {
-    val destination = URLEncoder.encode(address.display(), StandardCharsets.UTF_8.toString())
-    openIntent(context, Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/maps/dir/?api=1&destination=$destination&travelmode=$mode")))
+private const val GOOGLE_MAPS_PACKAGE = "com.google.android.apps.maps"
+
+private fun openDirections(context: Context, destination: String, mode: String) {
+    val encoded = URLEncoder.encode(destination, StandardCharsets.UTF_8.toString())
+    val uri = Uri.parse("https://www.google.com/maps/dir/?api=1&destination=$encoded&travelmode=$mode")
+    // Address the Google Maps app directly so directions open there rather than
+    // in a browser tab or an app chooser, and fall back to any other handler
+    // when Maps is not installed.
+    if (!startActivitySafely(context, Intent(Intent.ACTION_VIEW, uri).setPackage(GOOGLE_MAPS_PACKAGE))) {
+        startActivitySafely(context, Intent(Intent.ACTION_VIEW, uri))
+    }
 }
 
 private fun openUrl(context: Context, url: String) = openIntent(context, Intent(Intent.ACTION_VIEW, Uri.parse(url)))
 
 private fun openIntent(context: Context, intent: Intent) {
-    if (intent.resolveActivity(context.packageManager) != null) context.startActivity(intent)
+    startActivitySafely(context, intent)
+}
+
+/**
+ * Starts [intent] and reports whether anything handled it.
+ *
+ * resolveActivity is not usable here: from Android 11 it returns null for any
+ * app the manifest does not declare in <queries>, so a check that passes on an
+ * older phone turns a working button into one that silently does nothing.
+ */
+private fun startActivitySafely(context: Context, intent: Intent): Boolean = try {
+    context.startActivity(intent)
+    true
+} catch (_: ActivityNotFoundException) {
+    false
 }

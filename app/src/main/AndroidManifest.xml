@@ -5,6 +5,23 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
+    <!--
+        Directions are handed to Google Maps by package name. From Android 11 a
+        package the app does not declare here is invisible to it, so without
+        this block the maps intent would silently resolve to nothing.
+    -->
+    <queries>
+        <package android:name="com.google.android.apps.maps" />
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="https" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.DIAL" />
+            <data android:scheme="tel" />
+        </intent>
+    </queries>
+
     <application
         android:name=".RmpFinderApplication"
         android:allowBackup="true"
