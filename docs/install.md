@@ -41,6 +41,19 @@ printed in the release notes. The release workflow already re-downloads the
 published APK and fails if it does not match the build output, so a mismatch
 here means the local copy was corrupted in transit.
 
+## Verifying on a connected phone
+
+With the phone plugged in and USB debugging enabled, `tools/verify_install.sh`
+downloads the latest release, checks it against its published SHA-256, installs
+it, launches it, and reports the installed version and any crash. Run it on the
+machine the phone is connected to; a sandboxed build environment has no USB path
+to the device.
+
+```sh
+tools/verify_install.sh                       # latest release
+tools/verify_install.sh RMP-Finder-1.1.0.apk  # a local file
+```
+
 ## Verification record
 
 | Version | Build | Physical install |
