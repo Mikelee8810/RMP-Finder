@@ -178,13 +178,18 @@
     "websiteUrl": "https://caridad145.com/"
   },
   "checkers.com": {
-    "assetFile": null,
-    "checkedAt": "2026-09-10",
-    "credit": "Website icon published by checkers.com",
-    "failure": "No usable site icon found (HTTPError)",
+    "assetFile": "checkers.com.png",
+    "checkedAt": "2026-09-11",
+    "credit": "Restaurant/brand mark published for checkers.com",
     "license": null,
     "resolvedWebsiteUrl": "https://www.checkers.com/",
-    "websiteUrl": "https://www.checkers.com/"
+    "websiteUrl": "https://www.checkers.com/",
+    "format": "png",
+    "width": 360,
+    "height": 105,
+    "imageSourceUrl": "https://img.cdn4dd.com/r/fit=contain,width=360,format=auto,quality=60,metadata=none,anim=false/https://media-platform.cdn4dd.com/media/online_ordering_asset/processed/124dc413-7f1e-4ddc-8730-aafa4068ed97.png",
+    "sha256": "7e60b66933eeb6cdd84a9207c69fc25dee9168ab1df936c5e1d6bf1814d17b1b",
+    "curation": "Manually reviewed as the restaurant/brand mark; blank, platform, storefront-photo, and unrelated-image candidates were rejected."
   },
   "cuihuakitchen.com": {
     "assetFile": null,
@@ -230,13 +235,18 @@
     "width": 180
   },
   "dimsumsam.us": {
-    "assetFile": null,
-    "checkedAt": "2026-09-10",
-    "credit": "Website icon published by dimsumsam.us",
-    "failure": "No usable site icon found (InvalidSchema, UnidentifiedImageError while decoding)",
+    "assetFile": "dimsumsam.us.png",
+    "checkedAt": "2026-09-11",
+    "credit": "Restaurant/brand mark published for dimsumsam.us",
     "license": null,
     "resolvedWebsiteUrl": "https://dimsumsam.us/",
-    "websiteUrl": "https://dimsumsam.us/"
+    "websiteUrl": "https://dimsumsam.us/",
+    "format": "png",
+    "width": 150,
+    "height": 79,
+    "imageSourceUrl": "https://dimsumsam.us/wp-content/uploads/2023/04/dimsumpalace-150x79.png?ver=1784052185",
+    "sha256": "9edde2207fb0c71bbf3a68b3da349039e5a0e25cbc582f4668d3d3f72b6296c1",
+    "curation": "Manually reviewed as the restaurant/brand mark; blank, platform, storefront-photo, and unrelated-image candidates were rejected."
   },
   "dunkindonuts.com": {
     "assetFile": "dunkindonuts.com.png",
@@ -261,13 +271,18 @@
     "websiteUrl": "https://elnuevocapri3restaurantny.com/"
   },
   "eveliastamales.com": {
-    "assetFile": null,
-    "checkedAt": "2026-09-10",
-    "credit": "Website icon published by eveliastamales.com",
-    "failure": "No usable site icon found (HTTPError, icon is 30x32, below the 48px minimum)",
+    "assetFile": "eveliastamales.com.png",
+    "checkedAt": "2026-09-11",
+    "credit": "Restaurant/brand mark published for eveliastamales.com",
     "license": null,
     "resolvedWebsiteUrl": "https://eveliastamales.com/",
-    "websiteUrl": "https://eveliastamales.com/"
+    "websiteUrl": "https://eveliastamales.com/",
+    "format": "png",
+    "width": 268,
+    "height": 220,
+    "imageSourceUrl": "https://eveliastamales.com/cdn/shop/files/Evelia_s_Tamales_Primary-Logo_78fe396f-bf18-453f-b95e-6a0757aea162_500x.png?v=1613735925",
+    "sha256": "713f3279d27a3b81c6adfa8b9f790791c8bf6b3e979f93d48d7819763ecd6be0",
+    "curation": "Manually reviewed as the restaurant/brand mark; blank, platform, storefront-photo, and unrelated-image candidates were rejected."
   },
   "fixuplate.com": {
     "assetFile": null,
@@ -372,32 +387,46 @@
     "width": 150
   },
   "jensfrenchtoast.com": {
-    "assetFile": null,
-    "checkedAt": "2026-09-10",
-    "credit": "Website icon published by jensfrenchtoast.com",
-    "failure": "No usable site icon found (HTTPError, icon is 16x16, below the 48px minimum)",
+    "assetFile": "jensfrenchtoast.com.png",
+    "checkedAt": "2026-09-11",
+    "credit": "Restaurant/brand mark published for jensfrenchtoast.com",
     "license": null,
     "resolvedWebsiteUrl": "https://www.jensfrenchtoast.com/",
-    "websiteUrl": "https://www.jensfrenchtoast.com/"
+    "websiteUrl": "https://www.jensfrenchtoast.com/",
+    "format": "png",
+    "width": 169,
+    "height": 220,
+    "imageSourceUrl": "https://static.wixstatic.com/media/02d705_7c7b0d95e21542079d3b93ed3a24877d~mv2.png/v1/fill/w_500,h_650,al_c,q_90/franch%20toast%20logo.png",
+    "sha256": "acbf54b3075abc525c3a1afede3ba48e30e0001f6a1ffade6bddb45122d08e60",
+    "curation": "Manually reviewed as the restaurant/brand mark; blank, platform, storefront-photo, and unrelated-image candidates were rejected."
   },
   "justinospizzeria.com": {
-    "assetFile": null,
-    "checkedAt": "2026-09-10",
-    "credit": "Website icon published by justinospizzeria.com",
-    "failure": "No usable site icon found (platform icon, not restaurant branding)",
-    "imageSourceUrl": "https://justinospizzeria.com/wp-includes/images/w-logo-gray-white-bg.png",
+    "assetFile": "justinospizzeria.com.png",
+    "checkedAt": "2026-09-11",
+    "credit": "Restaurant/brand mark published for justinospizzeria.com",
+    "imageSourceUrl": "https://justinospizzeria.com/wp-content/uploads/2020/10/logo.png",
     "license": null,
     "resolvedWebsiteUrl": "https://justinospizzeria.com/",
-    "websiteUrl": "https://justinospizzeria.com/"
+    "websiteUrl": "https://justinospizzeria.com/",
+    "format": "png",
+    "width": 269,
+    "height": 80,
+    "sha256": "333de7965a9d2854cd5777237b389b596c455e37e785fa52239de7c8913c1de8",
+    "curation": "Manually reviewed as the restaurant/brand mark; blank, platform, storefront-photo, and unrelated-image candidates were rejected."
   },
   "kandplounge.com": {
-    "assetFile": null,
-    "checkedAt": "2026-09-10",
-    "credit": "Website icon published by kandplounge.com",
-    "failure": "No usable site icon found (HTTPError)",
+    "assetFile": "kandplounge.com.png",
+    "checkedAt": "2026-09-11",
+    "credit": "Restaurant/brand mark published for kandplounge.com",
     "license": null,
     "resolvedWebsiteUrl": "https://www.kandplounge.com/",
-    "websiteUrl": "https://www.kandplounge.com/"
+    "websiteUrl": "https://www.kandplounge.com/",
+    "format": "png",
+    "width": 221,
+    "height": 220,
+    "imageSourceUrl": "https://www.kandplounge.com/cdn/shop/files/SIX_23925350-17C0-46B7-8AE3-BA1E6B3F2A94.png?v=1786857305&width=800",
+    "sha256": "6a0ba47da9438a1000636bd964c06502f93fd638056adedaf5a8282205f5765d",
+    "curation": "Manually reviewed as the restaurant/brand mark; blank, platform, storefront-photo, and unrelated-image candidates were rejected."
   },
   "kfc.com": {
     "assetFile": "kfc.com.png",
@@ -422,13 +451,18 @@
     "websiteUrl": "https://ladychowkitchen.com/"
   },
   "lavashawarma.com": {
-    "assetFile": null,
-    "checkedAt": "2026-09-10",
-    "credit": "Website icon published by lavashawarma.com",
-    "failure": "No usable site icon found (InvalidSchema, UnidentifiedImageError while decoding)",
+    "assetFile": "lavashawarma.com.png",
+    "checkedAt": "2026-09-11",
+    "credit": "Restaurant/brand mark published for lavashawarma.com",
     "license": null,
     "resolvedWebsiteUrl": "https://www.lavashawarma.com/",
-    "websiteUrl": "https://www.lavashawarma.com/"
+    "websiteUrl": "https://www.lavashawarma.com/",
+    "format": "png",
+    "width": 420,
+    "height": 157,
+    "imageSourceUrl": "https://www.lavashawarma.com/images/brand/lava-logo.png",
+    "sha256": "49d57d9579ad2cc68de005ad118397217a5a1f8827131164b442d425f046d72f",
+    "curation": "Manually reviewed as the restaurant/brand mark; blank, platform, storefront-photo, and unrelated-image candidates were rejected."
   },
   "lecheymielrestaurant.com": {
     "assetFile": null,
@@ -439,13 +473,18 @@
     "websiteUrl": "https://www.lecheymielrestaurant.com/"
   },
   "locations.goldenkrust.com": {
-    "assetFile": null,
-    "checkedAt": "2026-09-10",
-    "credit": "Website icon published by locations.goldenkrust.com",
-    "failure": "No usable site icon found (UnidentifiedImageError while decoding)",
+    "assetFile": "locations.goldenkrust.com.png",
+    "checkedAt": "2026-09-11",
+    "credit": "Restaurant/brand mark published for locations.goldenkrust.com",
     "license": null,
     "resolvedWebsiteUrl": "https://locations.goldenkrust.com/ll/US/NY/Brooklyn/1364-Pennsylvania-Ave_",
-    "websiteUrl": "https://locations.goldenkrust.com/ll/US/NY/Brooklyn/1364-Pennsylvania-Ave_"
+    "websiteUrl": "https://locations.goldenkrust.com/ll/US/NY/Brooklyn/1364-Pennsylvania-Ave_",
+    "format": "png",
+    "width": 192,
+    "height": 192,
+    "imageSourceUrl": "https://s3-us-west-1.amazonaws.com/mfeed-store-locator.momentfeed.com/GoldenKrust/cropped-GK-2020-Favicon-192x192.png",
+    "sha256": "21f2a31189929b73de342e3c11fcd33728ff8956626a51d55bf83261e3769d3d",
+    "curation": "Manually reviewed as the restaurant/brand mark; blank, platform, storefront-photo, and unrelated-image candidates were rejected."
   },
   "locations.kfc.com": {
     "assetFile": "kfc.com.png",
@@ -544,13 +583,18 @@
     "websiteUrl": "https://oceaneatsbk.com"
   },
   "offthehookfreshfishandchips.com": {
-    "assetFile": null,
-    "checkedAt": "2026-09-10",
-    "credit": "Website icon published by offthehookfreshfishandchips.com",
-    "failure": "No usable site icon found (HTTPError, UnidentifiedImageError while decoding)",
+    "assetFile": "offthehookfreshfishandchips.com.png",
+    "checkedAt": "2026-09-11",
+    "credit": "Restaurant/brand mark published for offthehookfreshfishandchips.com",
     "license": null,
     "resolvedWebsiteUrl": "https://offthehookfreshfishandchips.com/",
-    "websiteUrl": "https://offthehookfreshfishandchips.com/"
+    "websiteUrl": "https://offthehookfreshfishandchips.com/",
+    "format": "png",
+    "width": 286,
+    "height": 220,
+    "imageSourceUrl": "https://offthehookfreshfishandchips.com/assets/logo.png",
+    "sha256": "05afd6a639bc63a25b0f4e0e58249ff485ad3f784a8fcf0f54ac24e2da8fde26",
+    "curation": "Manually reviewed as the restaurant/brand mark; blank, platform, storefront-photo, and unrelated-image candidates were rejected."
   },
   "ordermofongodelvalle.com": {
     "assetFile": null,
@@ -583,13 +627,19 @@
     "websiteUrl": "https://peppasjerkchicken.com/"
   },
   "peppasonline.com": {
-    "assetFile": null,
-    "checkedAt": "2026-09-10",
-    "credit": "Website icon published by peppasonline.com",
-    "failure": "No usable site icon found (HTTPError, icon is 16x16, below the 48px minimum)",
+    "assetFile": "peppasonline.com.png",
+    "checkedAt": "2026-09-11",
+    "credit": "Restaurant/brand mark published for peppasonline.com",
     "license": null,
     "resolvedWebsiteUrl": "https://peppasonline.com/",
-    "websiteUrl": "https://peppasonline.com"
+    "websiteUrl": "https://peppasonline.com",
+    "format": "png",
+    "width": 220,
+    "height": 203,
+    "imageSourceUrl": "https://peppasonline.com/wp-content/uploads/2021/09/logo-1.png",
+    "sha256": "835c5c6c84cffab8e277d751c446dc2ae65effc73f6ae569a6cd4766fb8af26e",
+    "curation": "Manually reviewed as the restaurant/brand mark; blank, platform, storefront-photo, and unrelated-image candidates were rejected.",
+    "postProcessing": "Official transparent white mark composited onto a charcoal background for legibility on the app light theme."
   },
   "popeyes.com": {
     "assetFile": "popeyes.com.png",
@@ -653,13 +703,18 @@
     "width": 192
   },
   "rocbodyfitnesscafe.com": {
-    "assetFile": null,
-    "checkedAt": "2026-09-10",
-    "credit": "Website icon published by rocbodyfitnesscafe.com",
-    "failure": "No usable site icon found (HTTPError, icon is 16x16, below the 48px minimum)",
+    "assetFile": "rocbodyfitnesscafe.com.png",
+    "checkedAt": "2026-09-11",
+    "credit": "Restaurant/brand mark published for rocbodyfitnesscafe.com",
     "license": null,
     "resolvedWebsiteUrl": "https://www.rocbodyfitnesscafe.com/",
-    "websiteUrl": "https://www.rocbodyfitnesscafe.com"
+    "websiteUrl": "https://www.rocbodyfitnesscafe.com",
+    "format": "png",
+    "width": 333,
+    "height": 220,
+    "imageSourceUrl": "https://static.wixstatic.com/media/c8c27c_c6d78b76689145ddb1f49bed0ec9b08c~mv2.png/v1/fill/w_600,h_396,al_c,q_90/Rocbody-Fitness-cafe-logo-2019-LARGE_edi.png",
+    "sha256": "8b7c99c49ba90ee2f9ae244f7cc0927dafeb2849ee647afd50c6bfc0b7fd575e",
+    "curation": "Manually reviewed as the restaurant/brand mark; blank, platform, storefront-photo, and unrelated-image candidates were rejected."
   },
   "saborrestaurantbakery.nyc": {
     "assetFile": "saborrestaurantbakery.nyc.png",
