@@ -251,28 +251,28 @@
     "width": 180
   },
   "elnuevocapri3restaurantny.com": {
-    "assetFile": "elnuevocapri3restaurantny.com.png",
+    "assetFile": null,
     "checkedAt": "2026-09-10",
     "credit": "Website icon published by elnuevocapri3restaurantny.com",
+    "failure": "No usable site icon found (icon is 16x16, below the 48px minimum)",
     "format": "png",
     "height": 16,
     "imageSourceUrl": "https://elnuevocapri3restaurantny.com/favicon.ico",
     "license": null,
     "resolvedWebsiteUrl": "https://elnuevocapri3restaurantny.com/",
-    "sha256": "a901afae7bdb66678f08a39b32f8a46da9864c8a64fabc0e77a7f12b93df12ba",
     "websiteUrl": "https://elnuevocapri3restaurantny.com/",
     "width": 16
   },
   "eveliastamales.com": {
-    "assetFile": "eveliastamales.com.png",
+    "assetFile": null,
     "checkedAt": "2026-09-10",
     "credit": "Website icon published by eveliastamales.com",
+    "failure": "No usable site icon found (icon is 30x32, below the 48px minimum)",
     "format": "png",
     "height": 32,
     "imageSourceUrl": "https://eveliastamales.com/cdn/shop/files/olla_32x32.png?v=1661455833",
     "license": null,
     "resolvedWebsiteUrl": "https://eveliastamales.com/",
-    "sha256": "b961037c4407a0bb9d00d5b2b99c31174c23de9bc8406c8f6aaa08912a85901a",
     "websiteUrl": "https://eveliastamales.com/",
     "width": 30
   },
@@ -394,28 +394,28 @@
     "width": 150
   },
   "jensfrenchtoast.com": {
-    "assetFile": "jensfrenchtoast.com.png",
+    "assetFile": null,
     "checkedAt": "2026-09-10",
     "credit": "Website icon published by jensfrenchtoast.com",
+    "failure": "No usable site icon found (icon is 16x16, below the 48px minimum)",
     "format": "png",
     "height": 16,
     "imageSourceUrl": "https://static.parastorage.com/client/pfavico.ico",
     "license": null,
     "resolvedWebsiteUrl": "https://www.jensfrenchtoast.com/",
-    "sha256": "14bf73d8cb9528426f52a8183c89135dd07d873e0b98aa811fb1008cd8fe3587",
     "websiteUrl": "https://www.jensfrenchtoast.com/",
     "width": 16
   },
   "justinospizzeria.com": {
-    "assetFile": "justinospizzeria.com.png",
+    "assetFile": null,
     "checkedAt": "2026-09-10",
     "credit": "Website icon published by justinospizzeria.com",
+    "failure": "No usable site icon found (icon is 32x32, below the 48px minimum)",
     "format": "png",
     "height": 32,
     "imageSourceUrl": "https://justinospizzeria.com/wp-content/themes/ekko/core/assets/images/favicon.png",
     "license": null,
     "resolvedWebsiteUrl": "https://justinospizzeria.com/",
-    "sha256": "90f1842d1ee70c70523408c43bd769c688665b7a86a42e03a26f103f7650cc76",
     "websiteUrl": "https://justinospizzeria.com/",
     "width": 32
   },
@@ -537,15 +537,15 @@
     "websiteUrl": "https://www.nago416.com/"
   },
   "nyaminzjaminzrest.com": {
-    "assetFile": "nyaminzjaminzrest.com.png",
+    "assetFile": null,
     "checkedAt": "2026-09-10",
     "credit": "Website icon published by nyaminzjaminzrest.com",
+    "failure": "No usable site icon found (icon is 16x16, below the 48px minimum)",
     "format": "png",
     "height": 16,
     "imageSourceUrl": "https://www.dropcatch.com/favicon.ico",
     "license": null,
     "resolvedWebsiteUrl": "https://www.DropCatch.com/domain/nyaminzjaminzrest.com",
-    "sha256": "434ece1492f67962bd4bea9c0608705ffa148d7a4a6f93d76c0405f3e36f05ca",
     "websiteUrl": "https://nyaminzjaminzrest.com",
     "width": 16
   },
@@ -598,15 +598,15 @@
     "websiteUrl": "https://peppasjerkchicken.com/"
   },
   "peppasonline.com": {
-    "assetFile": "peppasonline.com.png",
+    "assetFile": null,
     "checkedAt": "2026-09-10",
     "credit": "Website icon published by peppasonline.com",
+    "failure": "No usable site icon found (icon is 16x16, below the 48px minimum)",
     "format": "png",
     "height": 16,
     "imageSourceUrl": "https://peppasonline.com/wp-content/uploads/2021/09/fab.jpg",
     "license": null,
     "resolvedWebsiteUrl": "https://peppasonline.com/",
-    "sha256": "ee4a7494053668094a7146787569312ff7f09737ac0f1fba500f0ffe70467aa5",
     "websiteUrl": "https://peppasonline.com",
     "width": 16
   },
@@ -667,15 +667,15 @@
     "width": 192
   },
   "rocbodyfitnesscafe.com": {
-    "assetFile": "rocbodyfitnesscafe.com.png",
+    "assetFile": null,
     "checkedAt": "2026-09-10",
     "credit": "Website icon published by rocbodyfitnesscafe.com",
+    "failure": "No usable site icon found (icon is 16x16, below the 48px minimum)",
     "format": "png",
     "height": 16,
     "imageSourceUrl": "https://static.parastorage.com/client/pfavico.ico",
     "license": null,
     "resolvedWebsiteUrl": "https://www.rocbodyfitnesscafe.com/",
-    "sha256": "14bf73d8cb9528426f52a8183c89135dd07d873e0b98aa811fb1008cd8fe3587",
     "websiteUrl": "https://www.rocbodyfitnesscafe.com",
     "width": 16
   },
@@ -693,15 +693,15 @@
     "width": 513
   },
   "sanmiwagocuisine.com": {
-    "assetFile": "sanmiwagocuisine.com.png",
+    "assetFile": null,
     "checkedAt": "2026-09-10",
     "credit": "Website icon published by sanmiwagocuisine.com",
+    "failure": "No usable site icon found (icon is 16x16, below the 48px minimum)",
     "format": "png",
     "height": 16,
     "imageSourceUrl": "https://www.sanmiwagocuisine.com/assets/favicon.ico",
     "license": null,
     "resolvedWebsiteUrl": "https://www.sanmiwagocuisine.com/",
-    "sha256": "b6cbf2dc59b4e727d3b767f69bd2b3311fd1ba8c58d3218bf5246f6dd18ab4f0",
     "websiteUrl": "https://www.sanmiwagocuisine.com/",
     "width": 16
   },
