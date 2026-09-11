@@ -24,6 +24,21 @@ All eight acceptance criteria in `docs/product-requirements.md` have direct PASS
 - `RepositoryAcceptanceTest` — BUILD SUCCESSFUL on Pixel 10 Pro XL / Android 17.
 - `DatasetAcceptanceTest` — 10 tests, 0 failures.
 
+## Continuous re-verification
+
+The evidence above was produced by hand on 2026-09-10. From 2026-09-11 the same
+gates run automatically: `.github/workflows/android-ci.yml` runs
+`tools/verify_data.py`, `tools/check_logo_assets.py`, `:app:testDebugUnitTest`
+and both a debug and an unsigned release build on every push and pull request,
+and `.github/workflows/release-apk.yml` re-runs the data and logo gates plus the
+unit tests before it will publish anything.
+
+Two of the eight criteria above rest on instrumented tests that need a real
+device or emulator (`AppAcceptanceTest`, `OfflineFirstLaunchAcceptanceTest`,
+`RepositoryAcceptanceTest`). Those are not part of CI and remain verified only
+by the 2026-09-10 physical Pixel runs recorded above. The JVM tests that back
+criteria 5, 6 and 8 (`DatasetAcceptanceTest`) do run on every push.
+
 ## Data gate carried into Android v1
 
 The bundled runtime data is the already-approved 241-record export described in `docs/data-readiness.md`. `DatasetAcceptanceTest#bundledDatasetPassesRuntimeGate` verifies the bundled manifest/data pair and confirms all 241 records pass the runtime gate.

@@ -33,7 +33,9 @@ jobs:
 
       - name: Check bundled logo assets against the quality gate
         run: |
-          python3 -m pip install --quiet --upgrade pillow
+          # requests comes in because the gate is imported from the curator, so the
+          # thresholds cannot drift between the two.
+          python3 -m pip install --quiet --upgrade pillow requests
           python3 tools/check_logo_assets.py
 
       - name: Unit tests

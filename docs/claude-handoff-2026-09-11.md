@@ -37,6 +37,15 @@ sources at full resolution for a mark drawn at 52dp. Decoding now happens once
 per asset behind a process-level cache and downsamples to roughly the drawn
 size: about 9 MB worst case instead of about 37 MB.
 
+**The release APK is arm64 only.** The published 1.0.0 APK was 70.4 MB, of
+which 49.0 MB was MapLibre's renderer duplicated across four ABIs: `x86_64`
+13.4 MB and `x86` 13.2 MB that only ever run on an emulator, and `armeabi-v7a`
+9.5 MB of 32-bit ARM the Pixel does not use. The release now filters to
+`arm64-v8a`, removing about 36 MB with no behavior change on the device. Debug
+builds keep every ABI so emulator instrumented tests still run.
+`tools/apk_report.py` measures the built APK in both workflows and fails if it
+packages anything else, so the size is measured rather than asserted.
+
 **The project can now build itself.** There was no Gradle wrapper and no CI; a
 release depended entirely on one workstation. Added the wrapper (Gradle 9.6.0,
 which is what AGP 9.4.0 requires) and three workflows described in
@@ -94,11 +103,11 @@ not match, so a wrong keystore cannot produce an APK that forces an uninstall.
 - **Physical install.** 1.1.0 has not been installed on the Pixel. That is the
   only device-dependent step and it was deliberately left until the device is
   back.
-- **APK size.** 70.4 MB, of which 49.0 MB is MapLibre native libraries across
-  four ABIs. `x86` and `x86_64` (26.6 MB) only run on an emulator. Filtering the
-  release to `arm64-v8a` would roughly halve the download with no behavior change
-  on the Pixel; debug builds should keep every ABI so emulator instrumented tests
-  still run.
+- **R8.** Code shrinking is off. It would cut into the 20.6 MB of dex, but Room
+  and MapLibre's JNI callbacks can need keep rules and a missing rule usually
+  surfaces as a runtime crash rather than a build failure. Nothing in this build
+  environment can launch a release APK, so turning it on belongs with a real
+  install check on the device.
 
 ## Invariants to preserve
 

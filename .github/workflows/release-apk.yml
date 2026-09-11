@@ -92,7 +92,7 @@ jobs:
 
       - name: Verify the 241-record dataset gate
         run: |
-          python3 -m pip install --quiet --upgrade jsonschema pillow
+          python3 -m pip install --quiet --upgrade jsonschema pillow requests
           python3 tools/verify_data.py
           python3 tools/check_logo_assets.py
 
