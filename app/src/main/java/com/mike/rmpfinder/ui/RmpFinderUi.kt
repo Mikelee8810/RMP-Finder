@@ -510,16 +510,21 @@ private fun RestaurantDetail(
                         // says which claim rests on OTDA and which on a later check.
                         restaurant.sources.forEachIndexed { index, source ->
                             if (index > 0) HorizontalDivider()
-                            Text(sourceRoleLabel(source.role), style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary)
-                            Text(source.kind, style = MaterialTheme.typography.bodyMedium)
-                            Text("Checked ${source.checkedAt}", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                            source.url?.let { url ->
-                                Text(
-                                    text = Uri.parse(url).host?.removePrefix("www.") ?: url,
-                                    style = MaterialTheme.typography.bodySmall,
-                                    color = MaterialTheme.colorScheme.primary,
-                                    modifier = Modifier.clickable { openUrl(context, url) },
-                                )
+                            // Grouped in its own Column: DetailSection spaces its
+                            // children evenly, which would set the lines of one
+                            // source as far apart as two separate sources.
+                            Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                                Text(sourceRoleLabel(source.role), style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary)
+                                Text(source.kind, style = MaterialTheme.typography.bodyMedium)
+                                Text("Checked ${source.checkedAt}", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                source.url?.let { url ->
+                                    Text(
+                                        text = Uri.parse(url).host?.removePrefix("www.") ?: url,
+                                        style = MaterialTheme.typography.bodySmall,
+                                        color = MaterialTheme.colorScheme.primary,
+                                        modifier = Modifier.clickable { openUrl(context, url) },
+                                    )
+                                }
                             }
                         }
                     }
