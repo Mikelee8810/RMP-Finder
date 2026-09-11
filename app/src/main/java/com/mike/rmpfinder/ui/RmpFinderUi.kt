@@ -92,6 +92,8 @@ import com.mike.rmpfinder.data.RmpRestaurant
 import com.mike.rmpfinder.data.RmpRepository
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
+import java.util.Optional
+import java.util.concurrent.ConcurrentHashMap
 import java.time.Instant
 import java.time.LocalDate
 import kotlinx.coroutines.delay
@@ -484,7 +486,7 @@ private fun RestaurantDetail(
 @Composable
 private fun RestaurantBrandMark(restaurant: RmpRestaurant, size: Int) {
     val context = LocalContext.current
-    val logo = remember(restaurant.rmpKey, restaurant.website) { loadRestaurantLogo(context, restaurant.website) }
+    val logo = remember(restaurant.website) { RestaurantLogos.forWebsite(context, restaurant.website) }
     val shape = RoundedCornerShape((size * 0.24f).dp)
 
     Surface(
@@ -527,8 +529,25 @@ private fun RestaurantBrandFallback(restaurant: RmpRestaurant, size: Int) {
     }
 }
 
-private fun loadRestaurantLogo(context: Context, website: String?) = runCatching {
-    val domain = website
+/**
+ * Bundled brand marks, decoded once and shared by every row that shows them.
+ *
+ * Browse is a 241-row list over at most a few dozen distinct logos, so decoding
+ * per row would repeat the same work on every scroll pass. Marks are drawn at
+ * 52dp and 76dp, so a full 512px source is also downsampled rather than held at
+ * full resolution. The cache is bounded by the number of bundled assets.
+ */
+private object RestaurantLogos {
+    private const val TARGET_PIXELS = 256
+    private val cache = ConcurrentHashMap<String, Optional<ImageBitmap>>()
+
+    fun forWebsite(context: Context, website: String?): ImageBitmap? {
+        val domain = assetDomain(website) ?: return null
+        val appContext = context.applicationContext
+        return cache.computeIfAbsent(domain) { Optional.ofNullable(decode(appContext, it)) }.orElse(null)
+    }
+
+    private fun assetDomain(website: String?): String? = website
         ?.let(Uri::parse)
         ?.host
         ?.lowercase()
@@ -536,12 +555,25 @@ private fun loadRestaurantLogo(context: Context, website: String?) = runCatching
         ?.replace(Regex("[^a-z0-9.-]+"), "-")
         ?.trim('-', '.')
         ?.takeIf { it.isNotBlank() }
-        ?: return@runCatching null
 
-    context.assets.open("restaurant-logos/$domain.png").use { stream ->
-        BitmapFactory.decodeStream(stream)?.asImageBitmap()
+    private fun decode(context: Context, domain: String): ImageBitmap? = runCatching {
+        val path = "restaurant-logos/$domain.png"
+        val bounds = BitmapFactory.Options().apply { inJustDecodeBounds = true }
+        context.assets.open(path).use { BitmapFactory.decodeStream(it, null, bounds) }
+        val options = BitmapFactory.Options().apply {
+            inSampleSize = sampleSizeFor(bounds.outWidth, bounds.outHeight)
+        }
+        context.assets.open(path).use { stream ->
+            BitmapFactory.decodeStream(stream, null, options)?.asImageBitmap()
+        }
+    }.getOrNull()
+
+    private fun sampleSizeFor(width: Int, height: Int): Int {
+        var sample = 1
+        while (maxOf(width, height) / (sample * 2) >= TARGET_PIXELS) sample *= 2
+        return sample
     }
-}.getOrNull()
+}
 
 private fun restaurantCategory(restaurant: RmpRestaurant): String {
     val name = "${restaurant.displayName} ${restaurant.officialName}".lowercase()
