@@ -99,12 +99,26 @@ once before installing the first build that uses it.
 
 ## Cutting a release
 
-1. Make sure `main` is green in **Android CI**.
-2. Open **Actions → Release APK → Run workflow**.
-3. Enter the version name (for example `1.1.0`) and a version code higher than
-   the previous release. 1.0.0 used version code `1`.
-4. The workflow refuses to run if that tag already exists, so an existing
-   release is never overwritten.
+Make sure the branch is green in **Android CI** first, then either:
+
+**Push a tag.** This works from any branch.
+
+```sh
+git tag v1.1.0
+git push origin v1.1.0
+```
+
+**Or use the Actions tab.** Open **Actions → Release APK → Run workflow** and
+enter the version name. GitHub only offers manual runs for workflows that are on
+the default branch, so this appears once these workflows are on `main`.
+
+The version code is derived from the version name as
+`major * 10000 + minor * 100 + patch`, so it always increases with the version
+and cannot be entered wrong. `1.1.0` becomes `10100`; the installed 1.0.0 build
+used version code `1`.
+
+The workflow refuses to run when a release for that tag already exists, so an
+existing release is never overwritten.
 
 The run publishes `RMP-Finder-<version>.apk` and `RMP-Finder-<version>.apk.sha256`,
 then downloads the published APK back from GitHub and fails if the checksum does
