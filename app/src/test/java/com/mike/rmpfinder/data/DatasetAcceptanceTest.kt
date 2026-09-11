@@ -49,6 +49,25 @@ class DatasetAcceptanceTest {
     }
 
     @Test
+    fun everyRecordCarriesTheProvenanceTheDetailScreenShows() {
+        // The codec used to validate sources and then drop them, so the detail
+        // screen had nothing to show. Every record must keep its provenance.
+        assertTrue(restaurants.all { it.sources.isNotEmpty() })
+        assertTrue(restaurants.all { restaurant -> restaurant.sources.any { it.role == "rmp_eligibility" } })
+        assertTrue(restaurants.all { restaurant -> restaurant.sources.any { it.role == "coordinates" } })
+
+        val otda = restaurants.first().sources.first { it.role == "rmp_eligibility" }
+        assertEquals("NYS OTDA Restaurant Meals Program", otda.kind)
+        assertTrue(otda.url?.startsWith("https://otda.ny.gov/") == true)
+
+        // A role the schema allows must never appear under a different spelling,
+        // or the detail screen would fall back to showing the raw enum value.
+        val known = setOf("rmp_eligibility", "business_status", "hours", "phone", "website", "address", "coordinates", "image")
+        assertTrue(restaurants.flatMap { it.sources }.all { it.role in known })
+        assertTrue(restaurants.flatMap { it.sources }.none { it.kind.isBlank() })
+    }
+
+    @Test
     fun disappearedExistingKeyIsHeldForReview() {
         val allKeys = restaurants.map { it.rmpKey }.toSet()
         val syntheticOldKey = "bronx|removed test location|1 test street|10451"
