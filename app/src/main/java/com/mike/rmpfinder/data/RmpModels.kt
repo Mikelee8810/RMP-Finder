@@ -36,6 +36,14 @@ data class WeeklyHours(
     }
 }
 
+/** Where one fact on a record came from, and when it was last checked. */
+data class RmpSource(
+    val kind: String,
+    val role: String,
+    val url: String?,
+    val checkedAt: String,
+)
+
 data class RmpRestaurant(
     val rmpKey: String,
     val officialName: String,
@@ -57,6 +65,7 @@ data class RmpRestaurant(
     val rmpVerifiedAt: String,
     val businessCheckedAt: String?,
     val conflictFlags: List<String>,
+    val sources: List<RmpSource>,
 ) {
     val displayName: String get() = currentName ?: officialName
     val needsAttention: Boolean get() = conflictFlags.isNotEmpty() || businessStatus in ATTENTION_STATUSES || hoursStatus in ATTENTION_HOURS

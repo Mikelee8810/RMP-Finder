@@ -148,11 +148,11 @@ object DatasetCodec {
         val rmpVerifiedAt = obj.string("rmpVerifiedAt").also { LocalDate.parse(it) }
         val businessCheckedAt = obj.nullableString("businessCheckedAt")?.also { LocalDate.parse(it) }
         val flags = obj.arrayOrEmpty("conflictFlags").map { it.jsonPrimitive.content }.also { values -> require(values.all { it in conflictFlags } && values.distinct().size == values.size) }
-        validateSources(obj.arrayOrEmpty("sources"))
+        val sources = parseSources(obj.arrayOrEmpty("sources"))
         return RmpRestaurant(
             rmpKey, officialName, currentName, aliases, officialAddress, currentAddress, borough, zip,
             latitude, longitude, phone, website, menuUrl, imageUrl, businessStatus, hoursStatus, hours,
-            rmpVerifiedAt, businessCheckedAt, flags,
+            rmpVerifiedAt, businessCheckedAt, flags, sources,
         )
     }
 
@@ -186,15 +186,16 @@ object DatasetCodec {
         obj.nullableString("license")
     }
 
-    private fun validateSources(values: JsonArray) {
+    private fun parseSources(values: JsonArray): List<RmpSource> {
         val roles = setOf("rmp_eligibility", "business_status", "hours", "phone", "website", "address", "coordinates", "image")
-        values.forEach { element ->
+        return values.map { element ->
             val obj = element.jsonObject
             requireAllowed(obj, setOf("kind", "role", "url", "checkedAt"), setOf("kind", "role", "checkedAt"))
-            require(obj.string("kind").isNotBlank())
-            require(obj.string("role") in roles)
-            obj.nullableString("url")?.also(::requireUri)
-            LocalDate.parse(obj.string("checkedAt"))
+            val kind = obj.string("kind").also { require(it.isNotBlank()) }
+            val role = obj.string("role").also { require(it in roles) }
+            val url = obj.nullableString("url")?.also(::requireUri)
+            val checkedAt = obj.string("checkedAt").also { LocalDate.parse(it) }
+            RmpSource(kind, role, url, checkedAt)
         }
     }
 
