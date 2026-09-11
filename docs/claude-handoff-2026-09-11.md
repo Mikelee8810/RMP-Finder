@@ -108,9 +108,17 @@ not match, so a wrong keystore cannot produce an APK that forces an uninstall.
   | `locations.goldenkrust.com` | 1 | response was not a decodable image |
 
   A further 47 restaurants have no website at all, so there is nothing to fetch
-  for them. The timeout has since been raised to 20 seconds, which may be enough
-  for McDonald's alone; the others look like bot protection or wrong candidate
-  URLs and would need the brand marks supplied by hand.
+  for them.
+
+  A second run with the timeout raised from 10 to 20 seconds produced the same
+  five failures and captured no new assets, so this is not slowness. McDonald's
+  drops the connection rather than answering slowly, and the rest return errors
+  or content that is not an image. Treat automated capture of these brands as
+  closed: the marks would have to be supplied by hand, with attention to whether
+  reusing a chain's trademark that way is wanted at all.
+
+  The two runs produced byte-identical assets, so the curator is stable and a
+  re-run is safe.
 
   Name-based brand aliasing was measured and rejected: it would have covered
   exactly one more restaurant.
