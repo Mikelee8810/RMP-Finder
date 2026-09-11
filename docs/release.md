@@ -125,6 +125,28 @@ then downloads the published APK back from GitHub and fails if the checksum does
 not match the build output. The run summary records the tag, commit, filename,
 SHA-256 and the integrity result.
 
+## What the release APK contains
+
+The release build packages native libraries for `arm64-v8a` only.
+
+MapLibre ships its renderer as a native library per ABI. The 1.0.0 APK carried
+all four, which was 49.0 MB of its 70.4 MB: `x86_64` 13.4 MB and `x86` 13.2 MB,
+which only ever run on an emulator, plus `armeabi-v7a` 9.5 MB of 32-bit ARM the
+target Pixel does not use. Filtering the release to `arm64-v8a` removes about
+36 MB with no behavior change on the device.
+
+Debug builds deliberately keep every ABI so emulator-based instrumented tests in
+`app/src/androidTest/` still run. Both workflows measure the built APK with
+`tools/apk_report.py` and fail if it packages anything other than `arm64-v8a`,
+so the size claim is measured rather than assumed.
+
+R8 code shrinking is **not** enabled. It would cut into the 20.6 MB of dex, but
+the app uses Room and MapLibre's JNI callbacks, both of which can need keep
+rules, and a missing rule usually shows up as a crash at runtime rather than a
+build failure. Nothing in this project's build environment can launch a release
+APK, so enabling it would mean shipping it unverified. Turn it on alongside a
+real install check on the device.
+
 ## Building locally
 
 A local release build needs the Android SDK plus `dl.google.com` for the Android

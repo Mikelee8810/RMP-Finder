@@ -160,6 +160,11 @@ jobs:
           mkdir -p dist
           cp "$BUILT" "dist/$APK_NAME"
 
+      - name: Measure the APK
+        run: |
+          python3 tools/apk_report.py "dist/$APK_NAME" --expect-abis arm64-v8a | tee apk-report.txt
+          echo "APK_MB=$(du -m "dist/$APK_NAME" | cut -f1)" >> "$GITHUB_ENV"
+
       - name: Checksum the APK
         working-directory: dist
         run: |
@@ -221,5 +226,10 @@ jobs:
             echo "| Commit | \`$GITHUB_SHA\` |"
             echo "| APK | \`$APK_NAME\` |"
             echo "| SHA-256 | \`$APK_SHA256\` |"
+            echo "| Size | ${APK_MB} MB, arm64-v8a only |"
             echo "| Integrity | GitHub-hosted copy re-downloaded and matched |"
+            echo
+            echo '```'
+            cat apk-report.txt
+            echo '```'
           } >> "$GITHUB_STEP_SUMMARY"

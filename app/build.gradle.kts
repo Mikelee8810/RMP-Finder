@@ -83,6 +83,16 @@ android {
             // unsigned APK that cannot install is worse than an obvious gap,
             // and the release workflow fails the build when signing is missing.
             signingConfig = if (releaseSigningReady) signingConfigs.getByName("release") else null
+
+            // MapLibre's renderer ships a native library per ABI, and four of
+            // them were 49 MB of a 70 MB APK. The release targets one personal
+            // arm64 phone: x86 and x86_64 only ever run on an emulator, and
+            // armeabi-v7a is 32-bit ARM the device does not use. Debug builds
+            // deliberately keep every ABI so emulator-based instrumented tests
+            // in src/androidTest still run.
+            ndk {
+                abiFilters.add("arm64-v8a")
+            }
         }
     }
 
