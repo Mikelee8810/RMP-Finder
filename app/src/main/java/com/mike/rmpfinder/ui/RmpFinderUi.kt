@@ -83,8 +83,10 @@ import com.mike.rmpfinder.data.RmpAddress
 import com.mike.rmpfinder.data.RmpRepository
 import com.mike.rmpfinder.data.RmpRestaurant
 import com.mike.rmpfinder.data.TimePeriod
+import com.mike.rmpfinder.data.WeeklyHours
 import com.mike.rmpfinder.update.AppUpdateChecker
 import com.mike.rmpfinder.update.AppUpdateState
+import com.mike.rmpfinder.reviews.ReviewsState
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 import java.time.DayOfWeek
@@ -119,30 +121,22 @@ import org.maplibre.geojson.FeatureCollection
 import org.maplibre.geojson.Point
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
-import androidx.compose.material.icons.rounded.BreakfastDining
 import androidx.compose.material.icons.rounded.Call
 import androidx.compose.material.icons.rounded.Cancel
 import androidx.compose.material.icons.rounded.ChevronRight
-import androidx.compose.material.icons.rounded.Coffee
 import androidx.compose.material.icons.rounded.Directions
 import androidx.compose.material.icons.rounded.DirectionsWalk
 import androidx.compose.material.icons.rounded.ExpandMore
-import androidx.compose.material.icons.rounded.Fastfood
 import androidx.compose.material.icons.rounded.Favorite
 import androidx.compose.material.icons.rounded.FavoriteBorder
 import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.Language
-import androidx.compose.material.icons.rounded.LocalPizza
-import androidx.compose.material.icons.rounded.LunchDining
 import androidx.compose.material.icons.rounded.Map
 import androidx.compose.material.icons.rounded.MenuBook
 import androidx.compose.material.icons.rounded.Person
 import androidx.compose.material.icons.rounded.Place
-import androidx.compose.material.icons.rounded.RamenDining
-import androidx.compose.material.icons.rounded.Restaurant
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material.icons.rounded.SearchOff
-import androidx.compose.material.icons.rounded.SetMeal
 import androidx.compose.material.icons.rounded.Verified
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.outlined.Home
@@ -165,6 +159,8 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import androidx.compose.material.icons.rounded.Tune
+import androidx.compose.material.icons.rounded.Star
+import androidx.compose.material.icons.rounded.RateReview
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.draw.shadow
 
@@ -196,11 +192,14 @@ fun RmpFinderRoot(
     }
 
     if (selected != null) {
+        val reviews by viewModel.reviews.collectAsStateWithLifecycle()
         RestaurantDetail(
             restaurant = selected,
             favorite = selected.rmpKey in state.favoriteKeys,
             distanceMiles = state.distances[selected.rmpKey],
             now = state.now,
+            reviews = reviews[selected.rmpKey] ?: if (viewModel.reviewsConfigured) ReviewsState.Loading else ReviewsState.Unavailable,
+            onLoadReviews = { address -> viewModel.loadReviews(selected, address) },
             onBack = { selectedKey = null },
             onFavorite = { viewModel.toggleFavorite(selected) },
         )
@@ -228,10 +227,11 @@ private fun RmpBottomNavigation(tab: MainTab, onTab: (MainTab) -> Unit) {
     // A floating espresso dock with one tomato bubble for the active tab.
     Box(Modifier.fillMaxWidth().navigationBarsPadding().padding(start = 24.dp, end = 24.dp, bottom = 12.dp)) {
         Surface(
-            modifier = Modifier.fillMaxWidth().height(68.dp),
+            modifier = Modifier.fillMaxWidth().height(66.dp),
             shape = RoundedCornerShape(50),
-            color = RmpTokens.Ink,
+            color = RmpTokens.Ink.copy(alpha = 0.84f),
             shadowElevation = 18.dp,
+            border = BorderStroke(1.dp, Color.White.copy(alpha = 0.10f)),
         ) {
             Row(Modifier.fillMaxSize().padding(6.dp), verticalAlignment = Alignment.CenterVertically) {
                 NavItem(tab == MainTab.HOME, Icons.Rounded.Home, Icons.Outlined.Home, "Home") { onTab(MainTab.HOME) }
@@ -303,26 +303,21 @@ private fun LocationRequiredScreen(onRequestLocation: () -> Unit, onOpenLocation
 // Home
 // ---------------------------------------------------------------------------
 
-private data class Cuisine(
-    val label: String,
-    val category: String,
-    val icon: ImageVector,
-    val color: Color,
-)
+private data class Cuisine(val label: String, val category: String, val emoji: String)
 
 private val QuickCuisines = listOf(
-    Cuisine("Pizza", "Pizza", Icons.Rounded.LocalPizza, RmpTokens.Accent),
-    Cuisine("Chicken", "Chicken & Wings", Icons.Rounded.Fastfood, RmpTokens.Warn),
-    Cuisine("Burgers", "Burgers & Fast Food", Icons.Rounded.LunchDining, RmpTokens.ButterInk),
-    Cuisine("Caribbean", "Caribbean", Icons.Rounded.Restaurant, RmpTokens.Open),
-    Cuisine("Latin", "Latin American", Icons.Rounded.Restaurant, RmpTokens.Accent),
-    Cuisine("Chinese", "Chinese", Icons.Rounded.RamenDining, RmpTokens.Warn),
-    Cuisine("Seafood", "Seafood", Icons.Rounded.SetMeal, RmpTokens.Open),
-    Cuisine("Café", "Café & Bakery", Icons.Rounded.Coffee, RmpTokens.ButterInk),
-    Cuisine("Mexican", "Mexican", Icons.Rounded.Restaurant, RmpTokens.Accent),
-    Cuisine("Halal", "Mediterranean & Halal", Icons.Rounded.Restaurant, RmpTokens.Open),
-    Cuisine("Breakfast", "Breakfast & Diner", Icons.Rounded.BreakfastDining, RmpTokens.Warn),
-    Cuisine("Deli", "Deli & Sandwiches", Icons.Rounded.LunchDining, RmpTokens.ButterInk),
+    Cuisine("Pizza", "Pizza", "\uD83C\uDF55"),
+    Cuisine("Chicken", "Chicken & Wings", "\uD83C\uDF57"),
+    Cuisine("Burgers", "Burgers & Fast Food", "\uD83C\uDF54"),
+    Cuisine("Caribbean", "Caribbean", "\uD83C\uDF34"),
+    Cuisine("Latin", "Latin American", "\uD83C\uDF5B"),
+    Cuisine("Chinese", "Chinese", "\uD83E\uDD61"),
+    Cuisine("Seafood", "Seafood", "\uD83E\uDD90"),
+    Cuisine("Café", "Café & Bakery", "\u2615"),
+    Cuisine("Mexican", "Mexican", "\uD83C\uDF2E"),
+    Cuisine("Halal", "Mediterranean & Halal", "\uD83E\uDD59"),
+    Cuisine("Breakfast", "Breakfast & Diner", "\uD83E\uDD5E"),
+    Cuisine("Deli", "Deli & Sandwiches", "\uD83E\uDD6A"),
 )
 
 /** The warm ground every screen sits on: apricot at the top fading to cream. */
@@ -347,7 +342,7 @@ private fun HomeScreen(
 
     WarmGround(modifier) {
         if (state.allRestaurants.isEmpty()) { LoadingList(); return@WarmGround }
-        LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(bottom = 110.dp)) {
+        LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(bottom = 120.dp)) {
             item {
                 Column(Modifier.padding(horizontal = 22.dp).padding(top = 10.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
                     Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
@@ -507,12 +502,7 @@ private fun CuisineDisc(cuisine: Cuisine, selected: Boolean, onClick: () -> Unit
     ) {
         Surface(shape = CircleShape, color = if (selected) RmpTokens.Ink else Color.White, shadowElevation = if (selected) 0.dp else 4.dp, modifier = Modifier.size(62.dp)) {
             Box(contentAlignment = Alignment.Center) {
-                Icon(
-                    cuisine.icon,
-                    contentDescription = null,
-                    modifier = Modifier.size(28.dp),
-                    tint = if (selected) RmpTokens.Butter else cuisine.color,
-                )
+                Text(cuisine.emoji, style = MaterialTheme.typography.headlineMedium.copy(fontFamily = null, letterSpacing = 0.sp), fontSize = 30.sp)
             }
         }
         Text(cuisine.label, style = MaterialTheme.typography.labelMedium, maxLines = 1, softWrap = false, color = if (selected) RmpTokens.Accent else RmpTokens.Ink, fontWeight = if (selected) FontWeight.Bold else FontWeight.SemiBold)
@@ -599,29 +589,33 @@ private fun StoreRow(restaurant: RmpRestaurant, distanceMiles: Double?, favorite
     val context = LocalContext.current
     val logo = remember(restaurant.rmpKey) { RestaurantLogos.forRestaurant(context, restaurant) }
     val availability = availabilityOf(restaurant, now)
-    Surface(
-        onClick = { onClick(restaurant) },
-        shape = RoundedCornerShape(22.dp),
-        color = RmpTokens.Paper,
-        border = BorderStroke(1.dp, RmpTokens.Hairline),
-        shadowElevation = 0.dp,
-        modifier = Modifier.fillMaxWidth(),
-    ) {
-        Row(Modifier.padding(start = 12.dp, end = 4.dp, top = 12.dp, bottom = 12.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(14.dp)) {
-            BrandCircle(restaurant, logo, size = 60)
-            Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                Text(restaurant.displayName, style = MaterialTheme.typography.titleMedium, maxLines = 1, overflow = TextOverflow.Ellipsis)
-                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                    if (distanceMiles != null) { Text(formatMiles(distanceMiles), style = MaterialTheme.typography.bodySmall, color = RmpTokens.InkMuted); Dot() }
-                    Text(restaurant.cuisineLabel, style = MaterialTheme.typography.bodySmall, color = RmpTokens.InkMuted, maxLines = 1, overflow = TextOverflow.Ellipsis)
+    val brand = logo?.brandColor ?: fallbackBrandColor(restaurant.displayName)
+    Surface(onClick = { onClick(restaurant) }, shape = RoundedCornerShape(24.dp), color = Color.White, shadowElevation = 6.dp, modifier = Modifier.fillMaxWidth()) {
+        Box(
+            Modifier.background(
+                // A wash of the brand's colour bleeding in from the logo side, so the
+                // list reads as a row of storefronts rather than identical cards.
+                Brush.horizontalGradient(0f to brand.copy(alpha = 0.22f), 0.45f to brand.copy(alpha = 0.06f), 1f to Color.Transparent),
+            ),
+        ) {
+            Row(Modifier.padding(start = 12.dp, end = 4.dp, top = 12.dp, bottom = 12.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(14.dp)) {
+                Box(Modifier.size(66.dp).clip(CircleShape).background(brand), contentAlignment = Alignment.Center) {
+                    BrandCircle(restaurant, logo, size = 60)
                 }
-                Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                    Tag("10% off", Tone.BUTTER)
-                    if (availability != null) Tag(availability.short, availability.tone)
+                Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                    Text(restaurant.displayName, style = MaterialTheme.typography.titleMedium, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                        if (distanceMiles != null) { Text(formatMiles(distanceMiles), style = MaterialTheme.typography.labelMedium, color = RmpTokens.Ink); Dot() }
+                        Text(restaurant.cuisineLabel, style = MaterialTheme.typography.bodySmall, color = RmpTokens.InkMuted, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                    }
+                    Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                        Tag("10% off", Tone.BUTTER)
+                        if (availability != null) Tag(availability.short, availability.tone)
+                    }
                 }
-            }
-            IconButton(onClick = onFavorite) {
-                Icon(if (favorite) Icons.Rounded.Favorite else Icons.Rounded.FavoriteBorder, contentDescription = if (favorite) "Remove from saved" else "Save", tint = if (favorite) RmpTokens.Accent else RmpTokens.InkFaint, modifier = Modifier.size(22.dp))
+                IconButton(onClick = onFavorite) {
+                    Icon(if (favorite) Icons.Rounded.Favorite else Icons.Rounded.FavoriteBorder, contentDescription = if (favorite) "Remove from saved" else "Save", tint = if (favorite) RmpTokens.Accent else RmpTokens.InkFaint, modifier = Modifier.size(22.dp))
+                }
             }
         }
     }
@@ -999,6 +993,8 @@ private fun RestaurantDetail(
     favorite: Boolean,
     distanceMiles: Double?,
     now: Instant,
+    reviews: ReviewsState,
+    onLoadReviews: (RmpAddress) -> Unit,
     onBack: () -> Unit,
     onFavorite: () -> Unit,
 ) {
@@ -1006,8 +1002,14 @@ private fun RestaurantDetail(
     val availability = availabilityOf(restaurant, now)
     val logo = remember(restaurant.rmpKey) { RestaurantLogos.forRestaurant(context, restaurant) }
     val brand = logo?.brandColor ?: fallbackBrandColor(restaurant.displayName)
-    val destination = "${restaurant.latitude},${restaurant.longitude}"
+    // A business that moved is routed by its current address text: the geocode
+    // on the record belongs to the official RMP location.
+    val whereItIs = restaurant.currentAddress ?: restaurant.officialAddress
+    val destination = if (restaurant.currentAddress != null && restaurant.currentAddress != restaurant.officialAddress) whereItIs.display() else "${restaurant.latitude},${restaurant.longitude}"
     LightStatusBarIcons()
+    LaunchedEffect(restaurant.rmpKey) { onLoadReviews(whereItIs) }
+    // The headline numbers from whichever source answered first with a rating.
+    val headline = (reviews as? ReviewsState.Loaded)?.summaries?.firstOrNull { it.rating != null }
 
     WarmGround {
         LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(bottom = 40.dp)) {
@@ -1025,7 +1027,15 @@ private fun RestaurantDetail(
                                         Text(restaurant.displayName, style = MaterialTheme.typography.headlineSmall, maxLines = 2, overflow = TextOverflow.Ellipsis)
                                         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                                             if (distanceMiles != null) { Text(formatMiles(distanceMiles), style = MaterialTheme.typography.bodyMedium, color = RmpTokens.InkMuted); Dot() }
-                                            Text(restaurant.cuisineLabel, style = MaterialTheme.typography.bodyMedium, color = RmpTokens.InkMuted, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                                            Text(restaurant.cuisineLabel, style = MaterialTheme.typography.bodyMedium, color = RmpTokens.InkMuted, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f, fill = false))
+                                        }
+                                        if (headline != null) {
+                                            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                                                Icon(Icons.Rounded.Star, contentDescription = null, tint = RmpTokens.Butter, modifier = Modifier.size(16.dp))
+                                                Text("%.1f".format(headline.rating), style = MaterialTheme.typography.labelLarge)
+                                                headline.ratingCount?.let { Text("($it)", style = MaterialTheme.typography.bodySmall, color = RmpTokens.InkMuted) }
+                                                headline.priceLevel?.let { Dot(); Text("$".repeat(it), style = MaterialTheme.typography.labelLarge, color = RmpTokens.Open) }
+                                            }
                                         }
                                     }
                                 }
@@ -1052,6 +1062,7 @@ private fun RestaurantDetail(
                 }
             }
 
+            item { ReviewsCard(reviews, onOpen = { url -> openUrl(context, url) }, fallbackGoogle = mapsSearchUrl(restaurant, whereItIs), fallbackYelp = yelpSearchUrl(restaurant, whereItIs)) }
             item {
                 DetailCard("Hours") {
                     val hours = restaurant.hours
@@ -1077,7 +1088,7 @@ private fun RestaurantDetail(
                                 ) {
                                     Text(day.getDisplayName(TextStyle.FULL, Locale.US), style = MaterialTheme.typography.bodyMedium, fontWeight = if (isToday) FontWeight.Bold else FontWeight.Medium, color = if (isToday) RmpTokens.Ink else RmpTokens.InkMuted, modifier = Modifier.width(104.dp))
                                     Text(
-                                        formatPeriods(hours.periods(day)),
+                                        displayPeriods(hours, day),
                                         style = MaterialTheme.typography.bodyMedium,
                                         fontWeight = if (isToday) FontWeight.Bold else FontWeight.Medium,
                                         color = if (isToday) RmpTokens.Ink else RmpTokens.InkMuted,
@@ -1112,19 +1123,17 @@ private fun RestaurantDetail(
             }
             item {
                 DetailCard("Location") {
-                    Text(restaurant.officialAddress.display(), style = MaterialTheme.typography.bodyLarge)
-                    restaurant.currentAddress?.takeIf { it != restaurant.officialAddress }?.let { current ->
-                        Surface(shape = RoundedCornerShape(14.dp), color = RmpTokens.WarnSoft, contentColor = RmpTokens.Warn, modifier = Modifier.fillMaxWidth()) {
-                            Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                                Text("Now operating at", style = MaterialTheme.typography.labelMedium)
-                                Text(current.display(), style = MaterialTheme.typography.bodyMedium, color = RmpTokens.Ink)
-                                Text("Directions here", style = MaterialTheme.typography.labelLarge, modifier = Modifier.clickable { openDirections(context, current.display(), "transit") }.padding(top = 2.dp))
-                            }
-                        }
+                    // Where the business is today. The official RMP address stays in
+                    // the dataset for the record but is not what you navigate to.
+                    Text(whereItIs.display(), style = MaterialTheme.typography.bodyLarge)
+                    Row(Modifier.fillMaxWidth().padding(top = 4.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        QuickAction(Modifier.weight(1f), Icons.Rounded.Directions, "Transit", primary = true) { openDirections(context, destination, "transit") }
+                        QuickAction(Modifier.weight(1f), Icons.Rounded.DirectionsWalk, "Walk") { openDirections(context, destination, "walking") }
+                        QuickAction(Modifier.weight(1f), Icons.Rounded.Map, "Map") { openUrl(context, mapsSearchUrl(restaurant, whereItIs)) }
                     }
                 }
             }
-            if (restaurant.phone != null || restaurant.website != null || restaurant.menuUrl != null) {
+            run {
                 item {
                     // Kept named "Actions": AppAcceptanceTest asserts on this exact
                     // title for acceptance criterion 7, and those instrumented tests
@@ -1146,6 +1155,52 @@ private fun RestaurantDetail(
                 tint = if (favorite) RmpTokens.Accent else RmpTokens.Ink,
                 onClick = onFavorite,
             )
+        }
+    }
+}
+
+@Composable
+private fun ReviewsCard(state: ReviewsState, onOpen: (String) -> Unit, fallbackGoogle: String, fallbackYelp: String) {
+    DetailCard("Reviews") {
+        when (state) {
+            ReviewsState.Loading -> Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                CircularProgressIndicator(Modifier.size(18.dp), strokeWidth = 2.dp, color = RmpTokens.Accent)
+                Text("Pulling the latest reviews…", style = MaterialTheme.typography.bodyMedium, color = RmpTokens.InkMuted)
+            }
+            ReviewsState.Idle, ReviewsState.Unavailable -> {
+                Text("Read what people are saying on the apps you already use.", style = MaterialTheme.typography.bodyMedium, color = RmpTokens.InkMuted)
+                ContactRow(Icons.Rounded.Star, "Google reviews & rating") { onOpen(fallbackGoogle) }
+                ContactRow(Icons.Rounded.RateReview, "Yelp reviews") { onOpen(fallbackYelp) }
+            }
+            is ReviewsState.Loaded -> state.summaries.forEachIndexed { index, summary ->
+                if (index > 0) Hairline(Modifier.padding(vertical = 4.dp))
+                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Text(summary.source, style = MaterialTheme.typography.titleMedium)
+                    summary.rating?.let { rating ->
+                        Icon(Icons.Rounded.Star, contentDescription = null, tint = RmpTokens.Butter, modifier = Modifier.size(16.dp))
+                        Text("%.1f".format(rating), style = MaterialTheme.typography.labelLarge)
+                    }
+                    summary.ratingCount?.let { Text("$it reviews", style = MaterialTheme.typography.bodySmall, color = RmpTokens.InkMuted) }
+                    summary.priceLevel?.let { Spacer(Modifier.weight(1f)); Text("$".repeat(it), style = MaterialTheme.typography.labelLarge, color = RmpTokens.Open) }
+                }
+                summary.reviews.take(2).forEach { review ->
+                    Surface(shape = RoundedCornerShape(14.dp), color = RmpTokens.Ground, modifier = Modifier.fillMaxWidth()) {
+                        Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                                Text(review.author, style = MaterialTheme.typography.labelLarge, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f, fill = false))
+                                Text("★".repeat(review.rating.coerceIn(0, 5)), style = MaterialTheme.typography.labelMedium, color = RmpTokens.Butter.let { Color(0xFFE0A800) })
+                                Text(review.when_, style = MaterialTheme.typography.bodySmall, color = RmpTokens.InkFaint)
+                            }
+                            Text(review.text, style = MaterialTheme.typography.bodyMedium, maxLines = 4, overflow = TextOverflow.Ellipsis)
+                        }
+                    }
+                }
+                Text(
+                    "See all on ${summary.source}",
+                    style = MaterialTheme.typography.labelLarge, color = RmpTokens.Accent,
+                    modifier = Modifier.clip(RoundedCornerShape(50)).clickable { onOpen(summary.listingUrl) }.padding(horizontal = 4.dp, vertical = 6.dp),
+                )
+            }
         }
     }
 }
@@ -1223,7 +1278,7 @@ private fun InfoScreen(
     val updatedAt = state.metadata[RmpRepository.KEY_GENERATED_AT]?.take(10)
     WarmGround(modifier) { LazyColumn(
         Modifier.fillMaxSize(),
-        contentPadding = PaddingValues(start = 22.dp, end = 22.dp, top = 14.dp, bottom = 110.dp),
+        contentPadding = PaddingValues(start = 22.dp, end = 22.dp, top = 14.dp, bottom = 120.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         item { Text("RMP Finder", style = MaterialTheme.typography.headlineMedium, modifier = Modifier.padding(bottom = 6.dp)) }
@@ -1532,6 +1587,10 @@ private fun closesAt(restaurant: RmpRestaurant, now: Instant): String? {
         val end = if (p.close == "24:00") 24 * 60 else toMinutes(p.close)
         minute in toMinutes(p.open) until end
     } ?: return null
+    if (period.close == "24:00") {
+        val stub = hours.periods(zoned.dayOfWeek.plus(1)).firstOrNull { it.open == "00:00" && it.close != "24:00" }
+        if (stub != null) return formatClock(stub.close)
+    }
     return formatClock(period.close)
 }
 
@@ -1542,6 +1601,26 @@ private fun toMinutes(value: String): Int {
 
 internal fun isOpen24Hours(periods: List<TimePeriod>): Boolean =
     periods.size == 1 && periods.single().open == "00:00" && periods.single().close == "24:00"
+
+/**
+ * The dataset splits an overnight span at midnight: "10:00–24:00" today and
+ * "00:00–05:00" tomorrow. People read that as "10 AM – 5 AM", so the display
+ * joins the two halves on the day the span starts and hides the stub on the
+ * day it ends.
+ */
+internal fun displayPeriods(hours: WeeklyHours, day: DayOfWeek): String {
+    val today = hours.periods(day)
+    if (today.isEmpty()) return "Closed"
+    if (isOpen24Hours(today)) return "Open 24 hours"
+    val tomorrowStub = hours.periods(day.plus(1)).firstOrNull { it.open == "00:00" && it.close != "24:00" }
+    val yesterdayRunsOver = hours.periods(day.minus(1)).lastOrNull()?.close == "24:00"
+    val shown = today.filterNot { yesterdayRunsOver && it.open == "00:00" && it.close != "24:00" }
+    if (shown.isEmpty()) return "Closed"
+    return shown.joinToString(", ") { p ->
+        val close = if (p.close == "24:00" && tomorrowStub != null) tomorrowStub.close else p.close
+        "${formatClock(p.open)} – ${formatClock(close)}"
+    }
+}
 
 internal fun formatPeriods(periods: List<TimePeriod>): String = when {
     periods.isEmpty() -> "Closed"
@@ -1574,6 +1653,14 @@ private fun openObtainium(context: Context) {
 }
 
 private const val GOOGLE_MAPS_PACKAGE = "com.google.android.apps.maps"
+
+/** Google Maps place search: opens the listing with its rating, reviews and price level. */
+private fun mapsSearchUrl(restaurant: RmpRestaurant, address: RmpAddress): String =
+    "https://www.google.com/maps/search/?api=1&query=" + URLEncoder.encode("${restaurant.displayName} ${address.display()}", StandardCharsets.UTF_8.toString())
+
+private fun yelpSearchUrl(restaurant: RmpRestaurant, address: RmpAddress): String =
+    "https://www.yelp.com/search?find_desc=" + URLEncoder.encode(restaurant.displayName, StandardCharsets.UTF_8.toString()) +
+        "&find_loc=" + URLEncoder.encode("${address.city}, ${address.state} ${address.zip}", StandardCharsets.UTF_8.toString())
 
 private fun openDirections(context: Context, destination: String, mode: String) {
     val encoded = URLEncoder.encode(destination, StandardCharsets.UTF_8.toString())

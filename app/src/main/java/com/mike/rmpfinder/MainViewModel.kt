@@ -10,6 +10,9 @@ import com.mike.rmpfinder.data.UpdateResult
 import com.mike.rmpfinder.data.distanceMiles
 import com.mike.rmpfinder.update.AppUpdateChecker
 import com.mike.rmpfinder.update.AppUpdateState
+import com.mike.rmpfinder.reviews.ReviewsFetcher
+import com.mike.rmpfinder.reviews.ReviewsState
+import com.mike.rmpfinder.data.RmpAddress
 import java.time.Instant
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -67,6 +70,21 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val refreshMessage = MutableStateFlow<String?>(null)
     private val appUpdateState = MutableStateFlow<AppUpdateState>(AppUpdateState.Idle)
     private val appUpdateChecker = AppUpdateChecker()
+    private val reviewsFetcher = ReviewsFetcher()
+    private val reviewsByKey = MutableStateFlow<Map<String, ReviewsState>>(emptyMap())
+    /** Reviews for whichever restaurant is open; keyed so going back and forth never refetches. */
+    val reviews: StateFlow<Map<String, ReviewsState>> = reviewsByKey
+    val reviewsConfigured: Boolean get() = reviewsFetcher.isConfigured
+
+    fun loadReviews(restaurant: RmpRestaurant, address: RmpAddress) {
+        if (!reviewsFetcher.isConfigured) return
+        if (reviewsByKey.value[restaurant.rmpKey] is ReviewsState.Loaded) return
+        reviewsByKey.value = reviewsByKey.value + (restaurant.rmpKey to ReviewsState.Loading)
+        viewModelScope.launch {
+            val summaries = reviewsFetcher.fetch(restaurant, address)
+            reviewsByKey.value = reviewsByKey.value + (restaurant.rmpKey to if (summaries.isEmpty()) ReviewsState.Unavailable else ReviewsState.Loaded(summaries))
+        }
+    }
     private val clock = flow {
         while (true) {
             emit(Instant.now())
