@@ -123,7 +123,6 @@ jobs:
           RMP_VERSION_CODE: ${{ env.VERSION_CODE }}
           MAPTILER_KEY: ${{ secrets.MAPTILER_KEY }}
           GOOGLE_PLACES_KEY: ${{ secrets.GOOGLE_PLACES_KEY }}
-          YELP_API_KEY: ${{ secrets.YELP_API_KEY }}
         run: |
           if [ -z "$MAPTILER_KEY" ]; then
             echo "::notice::MAPTILER_KEY is not set. The Map tab will use OpenFreeMap Liberty."

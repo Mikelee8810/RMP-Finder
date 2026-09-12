@@ -30,7 +30,6 @@ fun buildInput(name: String, default: String = ""): String = listOf(
 val mapTilerKey = buildInput("MAPTILER_KEY")
 val mapStyleUrlOverride = buildInput("MAP_STYLE_URL_OVERRIDE")
 val googlePlacesKey = buildInput("GOOGLE_PLACES_KEY")
-val yelpApiKey = buildInput("YELP_API_KEY")
 
 // Release signing. The APK must be signed with a stable key or Android will
 // refuse to install it as an upgrade over an earlier build.
@@ -66,7 +65,6 @@ android {
         buildConfigField("String", "MAPTILER_KEY", "\"${mapTilerKey.replace("\"", "\\\"")}\"")
         buildConfigField("String", "MAP_STYLE_URL_OVERRIDE", "\"${mapStyleUrlOverride.replace("\"", "\\\"")}\"")
         buildConfigField("String", "GOOGLE_PLACES_KEY", "\"${googlePlacesKey.replace("\"", "\\\"")}\"")
-        buildConfigField("String", "YELP_API_KEY", "\"${yelpApiKey.replace("\"", "\\\"")}\"")
     }
 
     signingConfigs {

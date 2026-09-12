@@ -162,7 +162,6 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.material.icons.rounded.Tune
 import androidx.compose.material.icons.rounded.Star
 import androidx.compose.material.icons.rounded.StarBorder
-import androidx.compose.material.icons.rounded.RateReview
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.draw.shadow
 
@@ -1126,7 +1125,7 @@ private fun RestaurantDetail(
                 }
             }
 
-            item { ReviewsCard(reviews, onOpen = { url -> openUrl(context, url) }, fallbackGoogle = mapsSearchUrl(restaurant, whereItIs), fallbackYelp = yelpSearchUrl(restaurant, whereItIs)) }
+            item { ReviewsCard(reviews, onOpen = { url -> openUrl(context, url) }, fallbackGoogle = mapsSearchUrl(restaurant, whereItIs)) }
             item {
                 DetailCard("Hours") {
                     val hours = restaurant.hours
@@ -1224,7 +1223,7 @@ private fun RestaurantDetail(
 }
 
 @Composable
-private fun ReviewsCard(state: ReviewsState, onOpen: (String) -> Unit, fallbackGoogle: String, fallbackYelp: String) {
+private fun ReviewsCard(state: ReviewsState, onOpen: (String) -> Unit, fallbackGoogle: String) {
     DetailCard("Reviews") {
         when (state) {
             ReviewsState.Loading -> Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
@@ -1234,7 +1233,6 @@ private fun ReviewsCard(state: ReviewsState, onOpen: (String) -> Unit, fallbackG
             ReviewsState.Idle, ReviewsState.Unavailable -> {
                 Text("Read what people are saying on the apps you already use.", style = MaterialTheme.typography.bodyMedium, color = RmpTokens.InkMuted)
                 ContactRow(Icons.Rounded.Star, "Google reviews & rating") { onOpen(fallbackGoogle) }
-                ContactRow(Icons.Rounded.RateReview, "Yelp reviews") { onOpen(fallbackYelp) }
             }
             is ReviewsState.Loaded -> state.summaries.forEachIndexed { index, summary ->
                 if (index > 0) Hairline(Modifier.padding(vertical = 4.dp))
@@ -1721,10 +1719,6 @@ private const val GOOGLE_MAPS_PACKAGE = "com.google.android.apps.maps"
 /** Google Maps place search: opens the listing with its rating, reviews and price level. */
 private fun mapsSearchUrl(restaurant: RmpRestaurant, address: RmpAddress): String =
     "https://www.google.com/maps/search/?api=1&query=" + URLEncoder.encode("${restaurant.displayName} ${address.display()}", StandardCharsets.UTF_8.toString())
-
-private fun yelpSearchUrl(restaurant: RmpRestaurant, address: RmpAddress): String =
-    "https://www.yelp.com/search?find_desc=" + URLEncoder.encode(restaurant.displayName, StandardCharsets.UTF_8.toString()) +
-        "&find_loc=" + URLEncoder.encode("${address.city}, ${address.state} ${address.zip}", StandardCharsets.UTF_8.toString())
 
 private fun openDirections(context: Context, destination: String, mode: String) {
     val encoded = URLEncoder.encode(destination, StandardCharsets.UTF_8.toString())

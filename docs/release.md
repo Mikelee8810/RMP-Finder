@@ -47,7 +47,6 @@ Add these under **Settings → Secrets and variables → Actions**:
 | `RMP_KEY_PASSWORD` | Key password |
 | `MAPTILER_KEY` | Optional. Without it the Map tab uses OpenFreeMap Liberty. |
 | `GOOGLE_PLACES_KEY` | Optional. Google Places API (New) key: rating, price level and the newest reviews on the detail screen. Without it the Reviews card shows links. |
-| `YELP_API_KEY` | Optional. Yelp Fusion key: Yelp rating, price and newest reviews on the detail screen. |
 
 `release-apk.yml` fails immediately with a clear message when
 `RMP_KEYSTORE_BASE64` is missing, rather than publishing an APK that cannot be
