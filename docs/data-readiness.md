@@ -82,4 +82,15 @@ Code may begin after all items below are complete:
 - [x] `manifest.json` generated with checksum/count/version.
 - [x] All 241 records pass the export quality gate.
 
-Final verification checks 241 records, 241 unique keys, first/last key stability, zero restaurant-schema errors, zero manifest-schema errors, zero unmatched coordinates, usable-hours completeness, official/current high-risk truth separation, Kings Plaza coordinate correction, manifest version/URL/policy, and SHA-256 equality with `restaurants.json`.
+Final verification checks 241 records, 241 unique keys, first/last key stability, zero restaurant-schema errors, zero manifest-schema errors, zero unmatched coordinates, usable-hours completeness, official/current high-risk truth separation, Kings Plaza coordinate correction, manifest version/URL/policy, and SHA-256 equality with `restaurants.json`. That exact check, frozen to the 241-record launch state, now lives at `tools/verify_baseline_2026-09-09.py` and is run by hand, not by CI.
+
+## Ongoing sync from Notion
+
+Past the initial 241-record gate above, the directory is kept current from the "RMP Restaurant Snapshot" Notion database rather than by hand-editing `data/restaurants.json`:
+
+- Add a row in Notion to add a restaurant; delete one to retire it; edit Hours/Phone/Website/Business Status/Menu URL to update what the app shows.
+- `RMP Key` is the join key back to the app's dataset — never edit it for an existing row.
+- `.github/workflows/sync-notion.yml` runs nightly (and on demand) with `NOTION_TOKEN`, calls `tools/sync_notion.py`, and commits the regenerated `data/restaurants.json` / `data/manifest.json` straight to `main` when they changed.
+- A restaurant missing from Notion is **reported, not removed** unless the workflow is dispatched with `allow_removals` — the same guard the app's own updater enforces.
+- A brand-new restaurant's coordinates are looked up once via the free U.S. Census geocoder and written back into its Notion row so it is never re-geocoded.
+- `tools/verify_data.py` is the gate this sync (and every push) runs against. Unlike the frozen baseline above, it is size-agnostic: it checks schema validity, key uniqueness, manifest/file agreement, and the open-now/truth-separation invariants, but never an exact restaurant count.

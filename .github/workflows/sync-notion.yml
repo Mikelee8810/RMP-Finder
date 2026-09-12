@@ -1,0 +1,71 @@
+name: Sync from Notion
+
+# Notion's "RMP Restaurant Snapshot" database is the ongoing editing
+# workspace: add a row to add a restaurant, delete one to retire it, edit a
+# cell to update what the app shows. This pulls the live database, merges it
+# onto data/restaurants.json, verifies the result against the same gates a
+# human push has to pass, and commits straight to main when it changed.
+#
+# Removing a restaurant from Notion never removes it here automatically:
+# tools/sync_notion.py reports it and keeps it unless a run is dispatched
+# with allow_removals, so a bad export or a deleted-by-accident row can never
+# silently shrink the directory.
+
+on:
+  schedule:
+    - cron: '17 9 * * *' # ~05:17 America/New_York
+  workflow_dispatch:
+    inputs:
+      allow_removals:
+        description: 'Apply restaurant removals found in Notion (otherwise they are reported and kept)'
+        type: boolean
+        default: false
+
+concurrency:
+  group: sync-notion
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    name: Pull Notion, rebuild the dataset, commit if changed
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: python3 -m pip install --quiet --upgrade certifi pillow requests jsonschema
+
+      - name: Sync the dataset from Notion
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+        run: |
+          python3 tools/sync_notion.py ${{ inputs.allow_removals == true && '--allow-removals' || '' }}
+
+      - name: Verify the dataset gate
+        run: python3 tools/verify_data.py
+
+      - name: Check logo coverage and asset quality
+        run: |
+          python3 tools/check_logo_coverage.py
+          python3 tools/check_logo_assets.py
+
+      - name: Commit and push if the dataset changed
+        run: |
+          if git diff --quiet -- data/ app/src/main/assets/; then
+            echo "No changes from Notion."
+            exit 0
+          fi
+          git config user.name "rmp-finder-bot"
+          git config user.email "noreply@users.noreply.github.com"
+          git add data/ app/src/main/assets/
+          git commit -m "Sync restaurant directory from Notion
+
+Automated: tools/sync_notion.py pulled the RMP Restaurant Snapshot database
+and regenerated data/restaurants.json + data/manifest.json."
+          git push

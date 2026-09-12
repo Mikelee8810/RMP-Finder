@@ -93,7 +93,7 @@ jobs:
 
       - uses: gradle/actions/setup-gradle@v4
 
-      - name: Verify the 241-record dataset gate
+      - name: Verify the restaurant dataset gate
         run: |
           python3 -m pip install --quiet --upgrade jsonschema pillow requests
           python3 tools/verify_data.py
@@ -184,13 +184,14 @@ jobs:
           GH_REPO: ${{ github.repository }}
           PRERELEASE: ${{ inputs.prerelease }}
         run: |
+          RECORD_COUNT=$(python3 -c "import json; print(json.load(open('data/manifest.json'))['recordCount'])")
           {
             echo "RMP Finder ${VERSION} personal Android install build."
             echo
             echo "Built and signed by GitHub Actions from \`${GITHUB_SHA}\`."
             echo
             echo "- \`versionName\` ${VERSION}, \`versionCode\` ${VERSION_CODE}"
-            echo "- Bundled 241-location RMP directory, verified by \`tools/verify_data.py\` in this run"
+            echo "- Bundled ${RECORD_COUNT}-location RMP directory, verified by \`tools/verify_data.py\` in this run"
             echo "- SHA-256: \`${APK_SHA256}\`"
             echo
             echo "Install: download \`${APK_NAME}\` under Assets, open it on Android, tap Install."
