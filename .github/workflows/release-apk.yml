@@ -124,8 +124,7 @@ jobs:
           MAPTILER_KEY: ${{ secrets.MAPTILER_KEY }}
         run: |
           if [ -z "$MAPTILER_KEY" ]; then
-            echo "::warning::MAPTILER_KEY is not set. The directory, search, filters and"
-            echo "details still work offline, but the Map tab will fall back to its outage state."
+            echo "::notice::MAPTILER_KEY is not set. The Map tab will use OpenFreeMap Liberty."
           fi
           ./gradlew --no-daemon :app:assembleRelease
 

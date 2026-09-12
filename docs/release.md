@@ -45,7 +45,7 @@ Add these under **Settings → Secrets and variables → Actions**:
 | `RMP_KEYSTORE_PASSWORD` | Keystore password |
 | `RMP_KEY_ALIAS` | Key alias inside the keystore |
 | `RMP_KEY_PASSWORD` | Key password |
-| `MAPTILER_KEY` | Optional. Without it the Map tab shows its outage state; everything else still works offline. |
+| `MAPTILER_KEY` | Optional. Without it the Map tab uses OpenFreeMap Liberty. |
 
 `release-apk.yml` fails immediately with a clear message when
 `RMP_KEYSTORE_BASE64` is missing, rather than publishing an APK that cannot be
@@ -131,6 +131,11 @@ The run publishes `RMP-Finder-<version>.apk` and `RMP-Finder-<version>.apk.sha25
 then downloads the published APK back from GitHub and fails if the checksum does
 not match the build output. The run summary records the tag, commit, filename,
 SHA-256 and the integrity result.
+
+Those GitHub Release APK assets are also the app's update feed. RMP Finder's
+**Check for app update** button reads the latest GitHub Release and links to the
+new APK when a newer version exists. Obtainium can track the same releases by
+adding `https://github.com/Mikelee8810/RMP-Finder` as the source URL.
 
 ## What the release APK contains
 

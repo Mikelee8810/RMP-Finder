@@ -20,17 +20,9 @@ object OpenNow {
         }
     }
 
-    fun label(restaurant: RmpRestaurant, instant: Instant = Instant.now()): String = when {
-        restaurant.businessStatus in setOf("closed", "likely_closed") -> "Closed"
-        restaurant.businessStatus == "temporarily_closed" -> "Temporarily closed"
-        restaurant.businessStatus == "moved" -> "Moved"
-        restaurant.businessStatus == "conflicting" -> "Status varies by source"
-        restaurant.hoursStatus !in allowedHoursStatuses || restaurant.hours == null -> when (restaurant.hoursStatus) {
-            "partial" -> "Hours partially confirmed"
-            "stale" -> "Hours not recently confirmed"
-            "conflicting" -> "Hours vary by source"
-            else -> "Hours unavailable"
-        }
+    fun label(restaurant: RmpRestaurant, instant: Instant = Instant.now()): String? = when {
+        restaurant.businessStatus in setOf("closed", "likely_closed", "temporarily_closed") -> "Closed"
+        restaurant.hoursStatus !in allowedHoursStatuses || restaurant.hours == null -> null
         isOpen(restaurant, instant) -> "Open now"
         else -> "Closed now"
     }

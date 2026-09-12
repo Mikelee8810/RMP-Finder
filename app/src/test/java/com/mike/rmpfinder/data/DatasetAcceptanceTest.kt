@@ -107,6 +107,17 @@ class DatasetAcceptanceTest {
     }
 
     @Test
+    fun kentuckyFriedChickenIsSearchableByKfcAndKentucky() {
+        val now = Instant.parse("2026-09-07T16:00:00Z")
+        val kfc = filterRestaurants(restaurants, emptySet(), BrowseFilters(query = "KFC"), null, now).first
+        val kentucky = filterRestaurants(restaurants, emptySet(), BrowseFilters(query = "Kentucky"), null, now).first
+
+        assertTrue(kfc.isNotEmpty())
+        assertEquals(kentucky.map { it.rmpKey }.toSet(), kfc.map { it.rmpKey }.toSet())
+        assertTrue(kfc.all { it.officialName.contains("Kentucky Fried Chicken", ignoreCase = true) })
+    }
+
+    @Test
     fun boroughOpenFavoritesAndAttentionFiltersWorkOffline() {
         val now = Instant.parse("2026-09-07T16:00:00Z")
         val favorite = restaurants.first().rmpKey
@@ -119,6 +130,22 @@ class DatasetAcceptanceTest {
         assertTrue(attention.isNotEmpty() && attention.all { it.needsAttention })
         val open = filterRestaurants(restaurants, emptySet(), BrowseFilters(openOnly = true), null, now).first
         assertTrue(open.all { OpenNow.isOpen(it, now) })
+    }
+
+    @Test
+    fun cuisineCategoryIsPresentAndFilterableForEveryRestaurant() {
+        val now = Instant.parse("2026-09-07T16:00:00Z")
+        assertTrue(restaurants.all { it.cuisineCategories.isNotEmpty() && it.cuisineCategories.none(String::isBlank) })
+        assertTrue(restaurants.none { "Other" in it.cuisineCategories })
+
+        val chicken = filterRestaurants(restaurants, emptySet(), BrowseFilters(category = "Chicken & Wings"), null, now).first
+        assertTrue(chicken.isNotEmpty())
+        assertTrue(chicken.all { "Chicken & Wings" in it.cuisineCategories })
+        assertTrue(chicken.any { it.officialName.contains("Kentucky Fried Chicken", ignoreCase = true) })
+
+        val combo = restaurants.first { it.officialName.contains("Burger King/Popeyes", ignoreCase = true) }
+        assertTrue("Burgers & Fast Food" in combo.cuisineCategories)
+        assertTrue("Chicken & Wings" in combo.cuisineCategories)
     }
 
     @Test

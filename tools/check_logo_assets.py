@@ -36,7 +36,7 @@ def main() -> int:
             with Image.open(path) as image:
                 image.load()
                 width, height = image.size
-                if width < MIN_SOURCE_DIMENSION or height < MIN_SOURCE_DIMENSION:
+                if max(width, height) < MIN_SOURCE_DIMENSION:
                     failures.append(f"{path.name}: {width}x{height} is below the {MIN_SOURCE_DIMENSION}px minimum")
                     continue
                 reason = quality_failure(image)

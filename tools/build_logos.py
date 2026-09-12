@@ -55,7 +55,8 @@ PLATFORM_ICON_PATTERNS = (
 
 # Quality gate. An icon below these thresholds looks worse in the app than the
 # built-in fallback, so it is rejected rather than bundled.
-MIN_SOURCE_DIMENSION = 48
+# Marks are drawn at 88dp, so a 48px favicon blurs; the long edge must reach 96px.
+MIN_SOURCE_DIMENSION = 96
 MIN_DISTINCT_COLORS = 3
 ALPHA_VISIBLE_THRESHOLD = 8
 
@@ -189,7 +190,7 @@ def freeze_image(content: bytes, content_type: str, source_url: str, domain: str
 
     with image:
         width, height = image.size
-        if width < MIN_SOURCE_DIMENSION or height < MIN_SOURCE_DIMENSION:
+        if max(width, height) < MIN_SOURCE_DIMENSION:
             return f"icon is {width}x{height}, below the {MIN_SOURCE_DIMENSION}px minimum"
         image.thumbnail((512, 512))
         if image.mode not in {"RGB", "RGBA"}:

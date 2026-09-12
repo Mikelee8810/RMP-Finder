@@ -8,6 +8,8 @@ import com.mike.rmpfinder.data.RmpRepository
 import com.mike.rmpfinder.data.RmpRestaurant
 import com.mike.rmpfinder.data.UpdateResult
 import com.mike.rmpfinder.data.distanceMiles
+import com.mike.rmpfinder.update.AppUpdateChecker
+import com.mike.rmpfinder.update.AppUpdateState
 import java.time.Instant
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,6 +25,7 @@ data class GeoPoint(val latitude: Double, val longitude: Double, val source: Str
 data class BrowseFilters(
     val query: String = "",
     val borough: String? = null,
+    val category: String? = null,
     val openOnly: Boolean = false,
     val favoritesOnly: Boolean = false,
     val attentionOnly: Boolean = false,
@@ -39,6 +42,7 @@ data class RmpUiState(
     val now: Instant = Instant.now(),
     val refreshing: Boolean = false,
     val refreshMessage: String? = null,
+    val appUpdateState: AppUpdateState = AppUpdateState.Idle,
 )
 
 private data class BaseData(
@@ -52,6 +56,7 @@ private data class Selection(
     val origin: GeoPoint?,
     val refreshing: Boolean,
     val refreshMessage: String?,
+    val appUpdateState: AppUpdateState,
 )
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
@@ -60,6 +65,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val origin = MutableStateFlow<GeoPoint?>(null)
     private val refreshing = MutableStateFlow(false)
     private val refreshMessage = MutableStateFlow<String?>(null)
+    private val appUpdateState = MutableStateFlow<AppUpdateState>(AppUpdateState.Idle)
+    private val appUpdateChecker = AppUpdateChecker()
     private val clock = flow {
         while (true) {
             emit(Instant.now())
@@ -71,8 +78,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         BaseData(restaurants, favorites, metadata)
     }
 
-    private val selection = combine(filters, origin, refreshing, refreshMessage) { filters, origin, refreshing, message ->
-        Selection(filters, origin, refreshing, message)
+    private val selection = combine(filters, origin, refreshing, refreshMessage, appUpdateState) { filters, origin, refreshing, message, appUpdate ->
+        Selection(filters, origin, refreshing, message, appUpdate)
     }
 
     val uiState: StateFlow<RmpUiState> = combine(baseData, selection, clock) { base, selection, now ->
@@ -88,11 +95,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             now = now,
             refreshing = selection.refreshing,
             refreshMessage = selection.refreshMessage,
+            appUpdateState = selection.appUpdateState,
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), RmpUiState())
 
     fun setQuery(value: String) = filters.update { copy(query = value) }
-    fun setBorough(value: String?) = filters.update { copy(borough = value) }
+    fun setBorough(value: String?) = filters.update { copy(borough = if (borough == value) null else value) }
+    fun setCategory(value: String?) = filters.update { copy(category = if (category == value) null else value) }
     fun toggleOpenOnly() = filters.update { copy(openOnly = !openOnly) }
     fun toggleFavoritesOnly() = filters.update { copy(favoritesOnly = !favoritesOnly) }
     fun toggleAttentionOnly() = filters.update { copy(attentionOnly = !attentionOnly) }
@@ -101,12 +110,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun setUserLocation(latitude: Double, longitude: Double) {
         origin.value = GeoPoint(latitude, longitude, "My location")
     }
-
-    fun setMapPoint(latitude: Double, longitude: Double) {
-        origin.value = GeoPoint(latitude, longitude, "Map point")
-    }
-
-    fun clearOrigin() { origin.value = null }
 
     fun toggleFavorite(restaurant: RmpRestaurant) {
         viewModelScope.launch {
@@ -120,12 +123,20 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             refreshing.value = true
             refreshMessage.value = null
             refreshMessage.value = when (val result = repository.checkForUpdates()) {
-                is UpdateResult.Updated -> "Updated to dataset ${result.version} (${result.count} locations)"
-                is UpdateResult.Current -> "Dataset ${result.version} is current"
-                is UpdateResult.NeedsReview -> "Update paused: ${result.missingKeys.size} RMP locations are missing from the new list"
-                is UpdateResult.Failed -> "Update failed: ${result.message}"
+                is UpdateResult.Updated -> "Restaurant list updated (${result.count} locations)."
+                is UpdateResult.Current -> "Restaurant list is up to date."
+                is UpdateResult.NeedsReview -> "A new restaurant list is available but needs review before it can be applied."
+                is UpdateResult.Failed -> "Couldn’t update the restaurant list. Try again later."
             }
             refreshing.value = false
+        }
+    }
+
+    fun checkAppUpdate() {
+        if (appUpdateState.value == AppUpdateState.Checking) return
+        viewModelScope.launch {
+            appUpdateState.value = AppUpdateState.Checking
+            appUpdateState.value = appUpdateChecker.check()
         }
     }
 
@@ -155,6 +166,7 @@ internal fun filterRestaurants(
     val visible = restaurants.asSequence()
         .filter { query.isEmpty() || restaurantSearchText(it).contains(query) }
         .filter { filters.borough == null || it.borough == filters.borough }
+        .filter { filters.category == null || filters.category in it.cuisineCategories }
         .filter { !filters.openOnly || OpenNow.isOpen(it, now) }
         .filter { !filters.favoritesOnly || it.rmpKey in favorites }
         .filter { !filters.attentionOnly || it.needsAttention }
@@ -173,8 +185,17 @@ private fun restaurantSearchText(restaurant: RmpRestaurant): String = buildList 
     add(restaurant.officialName)
     restaurant.currentName?.let(::add)
     addAll(restaurant.aliases)
+    val names = buildList {
+        add(restaurant.officialName)
+        restaurant.currentName?.let(::add)
+        addAll(restaurant.aliases)
+    }
+    if (names.any { it.contains("Kentucky Fried Chicken", ignoreCase = true) }) {
+        add("KFC")
+    }
     add(restaurant.officialAddress.display())
     restaurant.currentAddress?.display()?.let(::add)
     add(restaurant.borough)
     add(restaurant.zip)
+    addAll(restaurant.cuisineCategories)
 }.joinToString(" ").lowercase()

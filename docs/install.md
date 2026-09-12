@@ -27,6 +27,17 @@ If Android ever reports `App not installed` or a signature conflict, the build
 was signed with a different key. Uninstalling first will install it, but that
 clears saved favorites and statuses.
 
+## Automatic updates with Obtainium
+
+Add this source in Obtainium:
+
+`https://github.com/Mikelee8810/RMP-Finder`
+
+Obtainium supports GitHub Releases directly, so it detects the versioned
+`RMP-Finder-<version>.apk` asset each release workflow publishes. RMP Finder's
+Info screen also has an **Add to Obtainium** button that opens Obtainium with
+that source already filled in.
+
 ## Verifying the download
 
 Each release also publishes `RMP-Finder-<version>.apk.sha256`. To check a

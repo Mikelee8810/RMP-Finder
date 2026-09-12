@@ -2,7 +2,10 @@ package com.mike.rmpfinder
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
@@ -37,9 +40,11 @@ class MainActivity : ComponentActivity() {
                     viewModel = viewModel,
                     mapView = mapView,
                     onRequestLocation = ::requestLocation,
+                    onOpenLocationSettings = ::openLocationSettings,
                 )
             }
         }
+        requestLocation()
     }
 
     private fun requestLocation() {
@@ -63,6 +68,10 @@ class MainActivity : ComponentActivity() {
             .addOnSuccessListener { location ->
                 location?.let { viewModel.setUserLocation(it.latitude, it.longitude) }
             }
+    }
+
+    private fun openLocationSettings() {
+        startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:$packageName")))
     }
 
     override fun onStart() { super.onStart(); mapView.onStart() }
