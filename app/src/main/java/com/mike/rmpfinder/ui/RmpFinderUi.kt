@@ -1043,10 +1043,6 @@ private fun RestaurantDetail(
                                     Tag("10% off meals", Tone.BUTTER)
                                     if (availability != null) Tag(availability.long, availability.tone)
                                 }
-                                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                                    Icon(Icons.Rounded.Verified, contentDescription = null, tint = RmpTokens.Accent, modifier = Modifier.size(15.dp))
-                                    Text("On the official NY Restaurant Meals Program list · verified ${restaurant.rmpVerifiedAt}", style = MaterialTheme.typography.bodySmall, color = RmpTokens.InkMuted)
-                                }
                                 Hairline(Modifier.padding(vertical = 4.dp))
                                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                                     QuickAction(Modifier.weight(1f), Icons.Rounded.Directions, "Transit", primary = true) { openDirections(context, destination, "transit") }
