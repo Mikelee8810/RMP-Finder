@@ -63,7 +63,7 @@ except ImportError:
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "data/restaurants.json"
 MANIFEST = ROOT / "data/manifest.json"
-DATA_SOURCE_ID = "98cff255-25a9-41ef-a3ca-be6085b4e68c"
+DATABASE_ID = "aa6af51c-2f79-494d-9a21-2667b1e53942"
 NOTION_VERSION = "2022-06-28"
 OTDA = "https://otda.ny.gov/programs/rmp/participating-restaurants/default.asp"
 CENSUS_ONE_LINE = "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress"
@@ -96,7 +96,7 @@ def fetch_all_rows(token: str) -> list[dict]:
         body = {"page_size": 100}
         if cursor:
             body["start_cursor"] = cursor
-        page = notion_request("POST", f"data_sources/{DATA_SOURCE_ID}/query", token, body)
+        page = notion_request("POST", f"databases/{DATABASE_ID}/query", token, body)
         rows.extend(page["results"])
         if not page.get("has_more"):
             break
