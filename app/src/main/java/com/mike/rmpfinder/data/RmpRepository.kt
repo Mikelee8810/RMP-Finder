@@ -26,11 +26,17 @@ class RmpRepository(
     val metadata: Flow<Map<String, String>> = dao.observeMetadata().map { rows -> rows.associate { it.key to it.value } }
 
     suspend fun ensureBundledData() = withContext(Dispatchers.IO) {
-        if (dao.restaurantCount() > 0) return@withContext
         val datasetBytes = assets.open("restaurants.json").use { it.readBytes() }
         val manifestBytes = assets.open("manifest.json").use { it.readBytes() }
-        val validated = DatasetValidator.validate(manifestBytes, datasetBytes, BuildConfig.VERSION_CODE)
+        val existingKeys = dao.restaurantKeys().toSet()
+        val validated = DatasetValidator.validate(manifestBytes, datasetBytes, BuildConfig.VERSION_CODE, existingKeys)
+        val installedVersion = dao.metadataValue(KEY_DATASET_VERSION)?.toIntOrNull() ?: 0
+        if (existingKeys.isNotEmpty() && installedVersion >= validated.manifest.datasetVersion) return@withContext
+        // A bundled upgrade must observe the same removal safeguard as a network
+        // update. It keeps saved places intact while refusing a partial directory.
+        if (validated.missingExistingKeys.isNotEmpty()) return@withContext
         database.withTransaction {
+            if (existingKeys.isNotEmpty()) dao.deleteRestaurants()
             dao.insertRestaurants(validated.entities)
             saveManifestMetadata(validated.manifest)
             dao.putMetadata(MetadataEntity(KEY_LAST_SUCCESS, Instant.now().toString()))

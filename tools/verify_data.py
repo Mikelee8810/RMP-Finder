@@ -13,6 +13,7 @@ DATA = ROOT / "data"
 SOURCE = DATA / "source"
 
 EXPECTED_COUNT = 241
+EXPECTED_DATASET_VERSION = 2
 EXPECTED_FIRST = "bronx|a daughter and two sons|1807 archer street|10460"
 EXPECTED_LAST = "westchester|unk's fish & chips|31 john street|10701"
 
@@ -149,7 +150,12 @@ def main():
     lady_chow = rows_by_key["manhattan|lady chow kitchen|171 hester street|10013"]
     assert lady_chow["businessStatus"] == "likely_open"
     assert lady_chow["hoursStatus"] == "usable"
-    assert lady_chow["businessCheckedAt"] == "2026-09-10"
+    assert lady_chow["businessCheckedAt"] == "2026-09-12"
+
+    numero_uno = rows_by_key["bronx|numero uno sabor latino restaurant|4120 white plains road|10466"]
+    assert numero_uno["businessStatus"] == "likely_open"
+    assert numero_uno["hoursStatus"] == "conflicting"
+    assert numero_uno["businessCheckedAt"] == "2026-09-12"
 
     times_square = rows_by_key["manhattan|mcdonald's|1528 broadway|10036"]
     assert times_square["businessStatus"] == "likely_open"
@@ -159,7 +165,7 @@ def main():
     digest = hashlib.sha256((DATA / "restaurants.json").read_bytes()).hexdigest()
     assert manifest["recordCount"] == EXPECTED_COUNT
     assert manifest["sha256"] == digest
-    assert manifest["datasetVersion"] == 1
+    assert manifest["datasetVersion"] == EXPECTED_DATASET_VERSION
     assert manifest["schemaVersion"] == 1
     assert manifest["minimumAppVersion"] == 1
     assert manifest["datasetUrl"] == "https://raw.githubusercontent.com/Mikelee8810/RMP-Finder/main/data/restaurants.json"

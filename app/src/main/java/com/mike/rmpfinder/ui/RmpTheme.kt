@@ -34,17 +34,20 @@ object RmpTokens {
     val PaperDeep = Color(0xFFFBE3C4)
     val Hairline = Color(0xFFF0D7B8)
     // Tomato: the brand. Deep tomato for pressed/gradient ends.
-    val Accent = Color(0xFFF2431F)
-    val AccentDeep = Color(0xFFC4290F)
+    // Paprika tomato: deep enough for white labels and status text to stay
+    // readable at normal text sizes, without losing the appetite-forward hit.
+    val Accent = Color(0xFFB83218)
+    val AccentDeep = Color(0xFF8E2412)
     val AccentSoft = Color(0xFFFFD9CC)
     val AccentInk = Color(0xFF7A1B08)
     // Butter: the 10% off / saved highlight.
     val Butter = Color(0xFFFFCF4D)
     val ButterInk = Color(0xFF5C4200)
     // Basil: open right now.
-    val Open = Color(0xFF1E9E52)
+    // Text-bearing semantic colours meet AA against their soft containers.
+    val Open = Color(0xFF0B743D)
     val OpenSoft = Color(0xFFD5F3DF)
-    val Warn = Color(0xFFB4640A)
+    val Warn = Color(0xFF8A4B08)
     val WarnSoft = Color(0xFFFFE9C7)
 }
 

@@ -68,6 +68,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -95,6 +97,7 @@ import java.util.concurrent.ConcurrentHashMap
 import kotlinx.coroutines.delay
 import org.maplibre.android.camera.CameraPosition
 import org.maplibre.android.geometry.LatLng
+import org.maplibre.android.maps.MapLibreMap
 import org.maplibre.android.maps.MapView
 import org.maplibre.android.style.expressions.Expression
 import org.maplibre.android.style.layers.CircleLayer
@@ -114,26 +117,32 @@ import org.maplibre.android.style.sources.GeoJsonSource
 import org.maplibre.geojson.Feature
 import org.maplibre.geojson.FeatureCollection
 import org.maplibre.geojson.Point
-import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
+import androidx.compose.material.icons.rounded.BreakfastDining
 import androidx.compose.material.icons.rounded.Call
 import androidx.compose.material.icons.rounded.Cancel
 import androidx.compose.material.icons.rounded.ChevronRight
+import androidx.compose.material.icons.rounded.Coffee
 import androidx.compose.material.icons.rounded.Directions
 import androidx.compose.material.icons.rounded.DirectionsWalk
 import androidx.compose.material.icons.rounded.ExpandMore
+import androidx.compose.material.icons.rounded.Fastfood
 import androidx.compose.material.icons.rounded.Favorite
 import androidx.compose.material.icons.rounded.FavoriteBorder
 import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.Language
+import androidx.compose.material.icons.rounded.LocalPizza
+import androidx.compose.material.icons.rounded.LunchDining
 import androidx.compose.material.icons.rounded.Map
 import androidx.compose.material.icons.rounded.MenuBook
 import androidx.compose.material.icons.rounded.Person
 import androidx.compose.material.icons.rounded.Place
+import androidx.compose.material.icons.rounded.RamenDining
+import androidx.compose.material.icons.rounded.Restaurant
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material.icons.rounded.SearchOff
+import androidx.compose.material.icons.rounded.SetMeal
 import androidx.compose.material.icons.rounded.Verified
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.outlined.Home
@@ -282,7 +291,7 @@ private fun LocationRequiredScreen(onRequestLocation: () -> Unit, onOpenLocation
                     "Open app settings",
                     style = MaterialTheme.typography.labelLarge,
                     color = Color.White,
-                    modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(50)).clickable(onClick = onOpenLocationSettings).padding(14.dp),
+                    modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(50)).clickable(role = Role.Button, onClick = onOpenLocationSettings).padding(14.dp),
                     textAlign = TextAlign.Center,
                 )
             }
@@ -294,21 +303,26 @@ private fun LocationRequiredScreen(onRequestLocation: () -> Unit, onOpenLocation
 // Home
 // ---------------------------------------------------------------------------
 
-private data class Cuisine(val label: String, val category: String, val emoji: String)
+private data class Cuisine(
+    val label: String,
+    val category: String,
+    val icon: ImageVector,
+    val color: Color,
+)
 
 private val QuickCuisines = listOf(
-    Cuisine("Pizza", "Pizza", "\uD83C\uDF55"),
-    Cuisine("Chicken", "Chicken & Wings", "\uD83C\uDF57"),
-    Cuisine("Burgers", "Burgers & Fast Food", "\uD83C\uDF54"),
-    Cuisine("Caribbean", "Caribbean", "\uD83C\uDF34"),
-    Cuisine("Latin", "Latin American", "\uD83C\uDF5B"),
-    Cuisine("Chinese", "Chinese", "\uD83E\uDD61"),
-    Cuisine("Seafood", "Seafood", "\uD83E\uDD90"),
-    Cuisine("Café", "Café & Bakery", "\u2615"),
-    Cuisine("Mexican", "Mexican", "\uD83C\uDF2E"),
-    Cuisine("Halal", "Mediterranean & Halal", "\uD83E\uDD59"),
-    Cuisine("Breakfast", "Breakfast & Diner", "\uD83E\uDD5E"),
-    Cuisine("Deli", "Deli & Sandwiches", "\uD83E\uDD6A"),
+    Cuisine("Pizza", "Pizza", Icons.Rounded.LocalPizza, RmpTokens.Accent),
+    Cuisine("Chicken", "Chicken & Wings", Icons.Rounded.Fastfood, RmpTokens.Warn),
+    Cuisine("Burgers", "Burgers & Fast Food", Icons.Rounded.LunchDining, RmpTokens.ButterInk),
+    Cuisine("Caribbean", "Caribbean", Icons.Rounded.Restaurant, RmpTokens.Open),
+    Cuisine("Latin", "Latin American", Icons.Rounded.Restaurant, RmpTokens.Accent),
+    Cuisine("Chinese", "Chinese", Icons.Rounded.RamenDining, RmpTokens.Warn),
+    Cuisine("Seafood", "Seafood", Icons.Rounded.SetMeal, RmpTokens.Open),
+    Cuisine("Café", "Café & Bakery", Icons.Rounded.Coffee, RmpTokens.ButterInk),
+    Cuisine("Mexican", "Mexican", Icons.Rounded.Restaurant, RmpTokens.Accent),
+    Cuisine("Halal", "Mediterranean & Halal", Icons.Rounded.Restaurant, RmpTokens.Open),
+    Cuisine("Breakfast", "Breakfast & Diner", Icons.Rounded.BreakfastDining, RmpTokens.Warn),
+    Cuisine("Deli", "Deli & Sandwiches", Icons.Rounded.LunchDining, RmpTokens.ButterInk),
 )
 
 /** The warm ground every screen sits on: apricot at the top fading to cream. */
@@ -452,7 +466,7 @@ private fun SectionHeader(title: String, modifier: Modifier = Modifier, trailing
 @Composable
 private fun IconToggle(selected: Boolean, activeIcon: ImageVector, idleIcon: ImageVector, description: String, onClick: () -> Unit) {
     Box(
-        Modifier.size(42.dp).clip(CircleShape)
+        Modifier.size(48.dp).clip(CircleShape)
             .background(if (selected) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceVariant)
             .selectable(selected = selected, onClick = onClick, role = Role.Checkbox),
         contentAlignment = Alignment.Center,
@@ -471,10 +485,15 @@ private fun SearchField(value: String, onValueChange: (String) -> Unit) {
                 BasicTextField(
                     value = value, onValueChange = onValueChange, singleLine = true,
                     textStyle = MaterialTheme.typography.bodyLarge.copy(color = RmpTokens.Ink),
-                    cursorBrush = SolidColor(RmpTokens.Accent), modifier = Modifier.fillMaxWidth(),
+                    cursorBrush = SolidColor(RmpTokens.Accent),
+                    modifier = Modifier.fillMaxWidth().semantics { contentDescription = "Search restaurants" },
                 )
             }
-            if (value.isNotEmpty()) Icon(Icons.Rounded.Cancel, contentDescription = "Clear search", tint = RmpTokens.InkFaint, modifier = Modifier.size(20.dp).clip(CircleShape).clickable { onValueChange("") })
+            if (value.isNotEmpty()) {
+                IconButton(onClick = { onValueChange("") }) {
+                    Icon(Icons.Rounded.Cancel, contentDescription = "Clear search", tint = RmpTokens.InkFaint, modifier = Modifier.size(20.dp))
+                }
+            }
         }
     }
 }
@@ -488,7 +507,12 @@ private fun CuisineDisc(cuisine: Cuisine, selected: Boolean, onClick: () -> Unit
     ) {
         Surface(shape = CircleShape, color = if (selected) RmpTokens.Ink else Color.White, shadowElevation = if (selected) 0.dp else 4.dp, modifier = Modifier.size(62.dp)) {
             Box(contentAlignment = Alignment.Center) {
-                Text(cuisine.emoji, style = MaterialTheme.typography.headlineMedium.copy(fontFamily = null, letterSpacing = 0.sp), fontSize = 28.sp)
+                Icon(
+                    cuisine.icon,
+                    contentDescription = null,
+                    modifier = Modifier.size(28.dp),
+                    tint = if (selected) RmpTokens.Butter else cuisine.color,
+                )
             }
         }
         Text(cuisine.label, style = MaterialTheme.typography.labelMedium, maxLines = 1, softWrap = false, color = if (selected) RmpTokens.Accent else RmpTokens.Ink, fontWeight = if (selected) FontWeight.Bold else FontWeight.SemiBold)
@@ -501,17 +525,24 @@ private fun OpenCard(restaurant: RmpRestaurant, distanceMiles: Double?, now: Ins
     val context = LocalContext.current
     val logo = remember(restaurant.rmpKey) { RestaurantLogos.forRestaurant(context, restaurant) }
     val brand = logo?.brandColor ?: fallbackBrandColor(restaurant.displayName)
-    val until = closesAt(restaurant, now)
+    val availability = availabilityOf(restaurant, now)
     Surface(onClick = { onClick(restaurant) }, shape = RoundedCornerShape(24.dp), color = Color.White, shadowElevation = 8.dp, modifier = Modifier.width(168.dp)) {
         Column(Modifier.padding(14.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
             Box(Modifier.fillMaxWidth().height(96.dp).clip(RoundedCornerShape(18.dp)).background(Brush.linearGradient(listOf(brand.copy(alpha = 0.18f), brand.copy(alpha = 0.45f)))), contentAlignment = Alignment.Center) {
                 BrandCircle(restaurant, logo, size = 68)
+                distanceMiles?.let { miles ->
+                    Surface(
+                        modifier = Modifier.align(Alignment.TopEnd).padding(8.dp),
+                        shape = RoundedCornerShape(50),
+                        color = Color.White.copy(alpha = 0.92f),
+                        contentColor = RmpTokens.Ink,
+                    ) {
+                        Text(formatMiles(miles), style = MaterialTheme.typography.labelSmall, modifier = Modifier.padding(horizontal = 7.dp, vertical = 4.dp), maxLines = 1, softWrap = false)
+                    }
+                }
             }
             Text(restaurant.displayName, style = MaterialTheme.typography.titleSmall, maxLines = 1, overflow = TextOverflow.Ellipsis)
-            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                Tag(if (until != null) "Open · $until" else "Open", Tone.OPEN)
-                distanceMiles?.let { Text(formatMiles(it), style = MaterialTheme.typography.labelMedium, color = RmpTokens.InkMuted) }
-            }
+            Tag(availability?.long ?: "Hours unavailable", availability?.tone ?: Tone.NEUTRAL)
         }
     }
 }
@@ -568,7 +599,14 @@ private fun StoreRow(restaurant: RmpRestaurant, distanceMiles: Double?, favorite
     val context = LocalContext.current
     val logo = remember(restaurant.rmpKey) { RestaurantLogos.forRestaurant(context, restaurant) }
     val availability = availabilityOf(restaurant, now)
-    Surface(onClick = { onClick(restaurant) }, shape = RoundedCornerShape(22.dp), color = Color.White, shadowElevation = 3.dp, modifier = Modifier.fillMaxWidth()) {
+    Surface(
+        onClick = { onClick(restaurant) },
+        shape = RoundedCornerShape(22.dp),
+        color = RmpTokens.Paper,
+        border = BorderStroke(1.dp, RmpTokens.Hairline),
+        shadowElevation = 0.dp,
+        modifier = Modifier.fillMaxWidth(),
+    ) {
         Row(Modifier.padding(start = 12.dp, end = 4.dp, top = 12.dp, bottom = 12.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(14.dp)) {
             BrandCircle(restaurant, logo, size = 60)
             Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
@@ -598,7 +636,7 @@ private fun Tag(text: String, tone: Tone) {
 
 @Composable
 private fun LoadingList() {
-    Column(Modifier.fillMaxSize().padding(horizontal = 22.dp, vertical = 10.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
+    Column(Modifier.fillMaxSize().semantics { contentDescription = "Loading restaurants" }.padding(horizontal = 22.dp, vertical = 10.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) { repeat(4) { Box(Modifier.size(width = 84.dp, height = 34.dp).clip(RoundedCornerShape(50)).background(MaterialTheme.colorScheme.surfaceVariant)) } }
         Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) { repeat(3) { Box(Modifier.weight(1f).height(84.dp).clip(CircleShape).background(MaterialTheme.colorScheme.surfaceVariant)) } }
         repeat(4) {
@@ -642,11 +680,24 @@ private fun MapScreen(
     modifier: Modifier = Modifier,
 ) {
     var mapLoadFailed by remember(mapView) { mutableStateOf(false) }
+    var selectedMapKey by rememberSaveable { mutableStateOf<String?>(null) }
     val nearby = state.visibleRestaurants.take(20)
+    val selectedMapRestaurant = remember(state.visibleRestaurants, selectedMapKey) {
+        state.visibleRestaurants.firstOrNull { it.rmpKey == selectedMapKey }
+    }
+    val filtersActive = state.filters.query.isNotBlank() || state.filters.openOnly || state.filters.favoritesOnly ||
+        state.filters.borough != null || state.filters.category != null
+
+    LaunchedEffect(selectedMapKey, selectedMapRestaurant) {
+        if (selectedMapKey != null && selectedMapRestaurant == null) selectedMapKey = null
+    }
 
     BottomSheetScaffold(
         modifier = modifier.fillMaxSize(),
-        sheetPeekHeight = 176.dp,
+        // The root's floating dock deliberately overlaps the screen. Give the
+        // collapsed sheet enough lift that its first results remain readable
+        // and tappable rather than disappearing under the dock.
+        sheetPeekHeight = 248.dp,
         sheetContainerColor = RmpTokens.Paper,
         sheetShape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp),
         sheetDragHandle = {
@@ -655,35 +706,41 @@ private fun MapScreen(
         sheetContent = {
             Column(Modifier.fillMaxWidth().fillMaxHeight(0.62f)) {
                 Row(Modifier.padding(horizontal = 20.dp, vertical = 6.dp), verticalAlignment = Alignment.CenterVertically) {
-                    Text("Closest to you", style = MaterialTheme.typography.headlineSmall, modifier = Modifier.weight(1f))
-                    Text("${nearby.size} nearby", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Text(if (filtersActive) "Matching places" else "Closest to you", style = MaterialTheme.typography.headlineSmall, modifier = Modifier.weight(1f))
+                    Text("${nearby.size} ${if (filtersActive) "shown" else "nearby"}", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
-                LazyColumn(contentPadding = PaddingValues(start = 20.dp, end = 20.dp, bottom = 16.dp)) {
-                    items(nearby, key = { it.rmpKey }) { restaurant ->
-                        val availability = availabilityOf(restaurant, state.now)
-                        Row(
-                            Modifier.fillMaxWidth().clickable { onRestaurant(restaurant) }.padding(vertical = 10.dp),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(14.dp),
-                        ) {
-                            val ctx = LocalContext.current
-                            val logo = remember(restaurant.rmpKey) { RestaurantLogos.forRestaurant(ctx, restaurant) }
-                            BrandCircle(restaurant, logo, size = 52)
-                            Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-                                Text(restaurant.displayName, style = MaterialTheme.typography.titleSmall, maxLines = 1, overflow = TextOverflow.Ellipsis)
-                                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                                    state.distances[restaurant.rmpKey]?.let { Text(formatMiles(it), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
-                                    Dot()
-                                    Text(restaurant.cuisineLabel, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f, fill = false))
-                                    if (availability != null) {
+                LazyColumn(contentPadding = PaddingValues(start = 20.dp, end = 20.dp, bottom = 120.dp)) {
+                    if (nearby.isEmpty()) {
+                        item {
+                            MapEmptyState()
+                        }
+                    } else {
+                        items(nearby, key = { it.rmpKey }) { restaurant ->
+                            val availability = availabilityOf(restaurant, state.now)
+                            Row(
+                                Modifier.fillMaxWidth().clickable { onRestaurant(restaurant) }.padding(vertical = 10.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(14.dp),
+                            ) {
+                                val ctx = LocalContext.current
+                                val logo = remember(restaurant.rmpKey) { RestaurantLogos.forRestaurant(ctx, restaurant) }
+                                BrandCircle(restaurant, logo, size = 52)
+                                Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                                    Text(restaurant.displayName, style = MaterialTheme.typography.titleSmall, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                                        state.distances[restaurant.rmpKey]?.let { Text(formatMiles(it), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
                                         Dot()
-                                        Text(availability.short, style = MaterialTheme.typography.labelSmall, color = availability.tone.ink)
+                                        Text(restaurant.cuisineLabel, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f, fill = false))
+                                        if (availability != null) {
+                                            Dot()
+                                            Text(availability.short, style = MaterialTheme.typography.labelSmall, color = availability.tone.ink)
+                                        }
                                     }
                                 }
+                                Icon(Icons.Rounded.ChevronRight, contentDescription = null, tint = RmpTokens.InkFaint)
                             }
-                            Icon(Icons.Rounded.ChevronRight, contentDescription = null, tint = RmpTokens.InkFaint)
+                            Hairline(Modifier.padding(start = 66.dp))
                         }
-                        Hairline(Modifier.padding(start = 66.dp))
                     }
                 }
             }
@@ -692,17 +749,94 @@ private fun MapScreen(
         Box(Modifier.fillMaxSize().padding(sheetPadding)) {
             RmpMap(
                 mapView = mapView,
-                restaurants = state.allRestaurants,
+                restaurants = state.visibleRestaurants,
                 originLat = state.origin?.latitude,
                 originLon = state.origin?.longitude,
                 onMapLoadFailed = { mapLoadFailed = true },
                 onMapLoadSucceeded = { mapLoadFailed = false },
+                onRestaurantSelected = { selectedMapKey = it },
+                onMapCleared = { selectedMapKey = null },
             )
             if (mapLoadFailed) {
                 Surface(Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.surfaceVariant) {
                     EmptyState(icon = Icons.Rounded.Map, title = "Map unavailable right now", body = "The restaurant list still works offline.")
                 }
             }
+            AnimatedVisibility(
+                visible = selectedMapRestaurant != null && !mapLoadFailed,
+                modifier = Modifier.align(Alignment.BottomCenter).padding(horizontal = 20.dp, vertical = 16.dp),
+                enter = expandVertically(expandFrom = Alignment.Bottom) + fadeIn(),
+                exit = shrinkVertically(shrinkTowards = Alignment.Bottom) + fadeOut(),
+            ) {
+                selectedMapRestaurant?.let { restaurant ->
+                    MapRestaurantPreview(
+                        restaurant = restaurant,
+                        distanceMiles = state.distances[restaurant.rmpKey],
+                        now = state.now,
+                        onClick = { onRestaurant(restaurant) },
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun MapEmptyState() {
+    Row(
+        Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
+    ) {
+        Box(
+            Modifier.size(42.dp).clip(CircleShape).background(RmpTokens.PaperDeep),
+            contentAlignment = Alignment.Center,
+        ) {
+            Icon(Icons.Rounded.SearchOff, contentDescription = null, modifier = Modifier.size(22.dp), tint = RmpTokens.InkMuted)
+        }
+        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+            Text("No matches on the map", style = MaterialTheme.typography.titleSmall)
+            Text("Clear or change filters on Home to see restaurants.", style = MaterialTheme.typography.bodySmall, color = RmpTokens.InkMuted)
+        }
+    }
+}
+
+@Composable
+private fun MapRestaurantPreview(
+    restaurant: RmpRestaurant,
+    distanceMiles: Double?,
+    now: Instant,
+    onClick: () -> Unit,
+) {
+    val context = LocalContext.current
+    val logo = remember(restaurant.rmpKey) { RestaurantLogos.forRestaurant(context, restaurant) }
+    val availability = availabilityOf(restaurant, now)
+    Surface(
+        onClick = onClick,
+        shape = RoundedCornerShape(22.dp),
+        color = RmpTokens.Ink,
+        contentColor = Color.White,
+        shadowElevation = 12.dp,
+        modifier = Modifier.fillMaxWidth(),
+    ) {
+        Row(
+            Modifier.padding(start = 12.dp, end = 16.dp, top = 12.dp, bottom = 12.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+        ) {
+            BrandCircle(restaurant, logo, size = 54)
+            Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
+                Text(restaurant.displayName, style = MaterialTheme.typography.titleMedium, maxLines = 2, overflow = TextOverflow.Ellipsis)
+                Text(
+                    listOfNotNull(restaurant.cuisineLabel, distanceMiles?.let(::formatMiles), availability?.short).joinToString(" · "),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = RmpTokens.Butter,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                )
+                Text("View details", style = MaterialTheme.typography.labelLarge, color = Color.White)
+            }
+            Icon(Icons.Rounded.ChevronRight, contentDescription = null, tint = RmpTokens.Butter)
         }
     }
 }
@@ -715,6 +849,8 @@ private fun RmpMap(
     originLon: Double?,
     onMapLoadFailed: () -> Unit,
     onMapLoadSucceeded: () -> Unit,
+    onRestaurantSelected: (String) -> Unit,
+    onMapCleared: () -> Unit,
 ) {
     val styleUrl = BuildConfig.MAP_STYLE_URL_OVERRIDE.ifBlank {
         if (BuildConfig.MAPTILER_KEY.isNotBlank()) {
@@ -724,8 +860,14 @@ private fun RmpMap(
         }
     }
     var mapLoadResolved by remember(mapView, styleUrl) { mutableStateOf(false) }
+    var mapLibreMap by remember(mapView) { mutableStateOf<MapLibreMap?>(null) }
 
-    AndroidView(factory = { mapView }, modifier = Modifier.fillMaxSize())
+    AndroidView(
+        factory = { mapView },
+        modifier = Modifier.fillMaxSize().semantics {
+            contentDescription = "Restaurant map. Tap a red pin to reveal a restaurant."
+        },
+    )
     DisposableEffect(mapView) {
         val listener = MapView.OnDidFailLoadingMapListener {
             mapLoadResolved = true
@@ -738,9 +880,37 @@ private fun RmpMap(
         delay(10_000)
         if (!mapLoadResolved) onMapLoadFailed()
     }
-    LaunchedEffect(restaurants) {
-        if (restaurants.isEmpty()) return@LaunchedEffect
+    DisposableEffect(mapLibreMap, onRestaurantSelected, onMapCleared) {
+        val liveMap = mapLibreMap ?: return@DisposableEffect onDispose { }
+        val listener = MapLibreMap.OnMapClickListener { point ->
+            val screenPoint = liveMap.projection.toScreenLocation(point)
+            val pin = liveMap.queryRenderedFeatures(screenPoint, "rmp-pins").firstOrNull()
+            val restaurantKey = pin?.getStringProperty("rmpKey")
+            when {
+                restaurantKey != null -> {
+                    onRestaurantSelected(restaurantKey)
+                    true
+                }
+                liveMap.queryRenderedFeatures(screenPoint, "rmp-clusters").isNotEmpty() -> {
+                    onMapCleared()
+                    liveMap.cameraPosition = CameraPosition.Builder()
+                        .target(point)
+                        .zoom((liveMap.cameraPosition.zoom + 1.75).coerceAtMost(18.0))
+                        .build()
+                    true
+                }
+                else -> {
+                    onMapCleared()
+                    false
+                }
+            }
+        }
+        liveMap.addOnMapClickListener(listener)
+        onDispose { liveMap.removeOnMapClickListener(listener) }
+    }
+    LaunchedEffect(restaurants, originLat, originLon) {
         mapView.getMapAsync { map ->
+            mapLibreMap = map
             val features = restaurants.map { restaurant ->
                 Feature.fromGeometry(Point.fromLngLat(restaurant.longitude, restaurant.latitude)).apply {
                     addStringProperty("rmpKey", restaurant.rmpKey)
@@ -887,20 +1057,54 @@ private fun RestaurantDetail(
                     val hours = restaurant.hours
                     if (hours != null) {
                         val today = now.atZone(ZoneId.of(hours.timezone)).dayOfWeek
-                        DayOfWeek.entries.forEach { day ->
-                            val isToday = day == today
-                            Row(
-                                Modifier.fillMaxWidth().clip(RoundedCornerShape(10.dp)).background(if (isToday) RmpTokens.Ground else Color.Transparent).padding(horizontal = 10.dp, vertical = 7.dp),
-                                verticalAlignment = Alignment.CenterVertically,
-                            ) {
-                                Text(day.getDisplayName(TextStyle.FULL, Locale.US), style = MaterialTheme.typography.bodyMedium, fontWeight = if (isToday) FontWeight.Bold else FontWeight.Medium, color = if (isToday) RmpTokens.Ink else RmpTokens.InkMuted, modifier = Modifier.width(104.dp))
-                                Text(formatPeriods(hours.periods(day)), style = MaterialTheme.typography.bodyMedium, fontWeight = if (isToday) FontWeight.Bold else FontWeight.Medium, color = if (isToday) RmpTokens.Ink else RmpTokens.InkMuted)
-                                if (isToday) { Spacer(Modifier.weight(1f)); Text("Today", style = MaterialTheme.typography.labelSmall, color = RmpTokens.Accent) }
+                        val everyDayIsAllDay = DayOfWeek.entries.all { isOpen24Hours(hours.periods(it)) }
+                        if (everyDayIsAllDay) {
+                            Surface(shape = RoundedCornerShape(14.dp), color = RmpTokens.OpenSoft, modifier = Modifier.fillMaxWidth()) {
+                                Row(
+                                    Modifier.padding(horizontal = 14.dp, vertical = 12.dp),
+                                    verticalAlignment = Alignment.CenterVertically,
+                                ) {
+                                    Text("Open 24 hours", style = MaterialTheme.typography.titleSmall, color = RmpTokens.Open, modifier = Modifier.weight(1f))
+                                    Text("Every day", style = MaterialTheme.typography.labelLarge, color = RmpTokens.Open)
+                                }
+                            }
+                        } else {
+                            DayOfWeek.entries.forEach { day ->
+                                val isToday = day == today
+                                Row(
+                                    Modifier.fillMaxWidth().clip(RoundedCornerShape(10.dp)).background(if (isToday) RmpTokens.Ground else Color.Transparent).padding(horizontal = 10.dp, vertical = 7.dp),
+                                    verticalAlignment = Alignment.CenterVertically,
+                                ) {
+                                    Text(day.getDisplayName(TextStyle.FULL, Locale.US), style = MaterialTheme.typography.bodyMedium, fontWeight = if (isToday) FontWeight.Bold else FontWeight.Medium, color = if (isToday) RmpTokens.Ink else RmpTokens.InkMuted, modifier = Modifier.width(104.dp))
+                                    Text(
+                                        formatPeriods(hours.periods(day)),
+                                        style = MaterialTheme.typography.bodyMedium,
+                                        fontWeight = if (isToday) FontWeight.Bold else FontWeight.Medium,
+                                        color = if (isToday) RmpTokens.Ink else RmpTokens.InkMuted,
+                                        modifier = Modifier.weight(1f),
+                                        maxLines = 2,
+                                        overflow = TextOverflow.Ellipsis,
+                                    )
+                                    if (isToday) {
+                                        Text(
+                                            "Today",
+                                            style = MaterialTheme.typography.labelSmall,
+                                            color = RmpTokens.Accent,
+                                            modifier = Modifier.padding(start = 8.dp),
+                                            maxLines = 1,
+                                            softWrap = false,
+                                        )
+                                    }
+                                }
                             }
                         }
                     } else {
                         Text(
-                            if (availability == null) "Hours aren’t listed for this location. Call ahead before you go." else "Weekly hours aren’t listed for this location.",
+                            when (restaurant.hoursStatus) {
+                                "conflicting" -> "Published hours conflict for this location. Call ahead before you go."
+                                "stale" -> "Published hours may be out of date. Call ahead before you go."
+                                else -> if (availability == null) "Hours aren’t listed for this location. Call ahead before you go." else "Weekly hours aren’t listed for this location."
+                            },
                             style = MaterialTheme.typography.bodyMedium, color = RmpTokens.InkMuted,
                         )
                     }
@@ -1305,8 +1509,14 @@ private fun availabilityOf(restaurant: RmpRestaurant, now: Instant): Availabilit
     "temporarily_closed" -> Availability("Temporarily closed", "Temporarily closed", Tone.WARN)
     else -> when (OpenNow.label(restaurant, now)) {
         "Open now" -> {
-            val until = closesAt(restaurant, now)
-            Availability("Open", if (until != null) "Open · until $until" else "Open now", Tone.OPEN)
+            val hours = restaurant.hours
+            val todayPeriods = hours?.let { it.periods(now.atZone(ZoneId.of(it.timezone)).dayOfWeek) }.orEmpty()
+            if (isOpen24Hours(todayPeriods)) {
+                Availability("24 hr", "Open 24 hours", Tone.OPEN)
+            } else {
+                val until = closesAt(restaurant, now)
+                Availability("Open", if (until != null) "Open · until $until" else "Open now", Tone.OPEN)
+            }
         }
         "Closed now" -> Availability("Closed now", "Closed right now", Tone.CLOSED_NOW)
         else -> null
@@ -1316,6 +1526,7 @@ private fun availabilityOf(restaurant: RmpRestaurant, now: Instant): Availabilit
 private fun closesAt(restaurant: RmpRestaurant, now: Instant): String? {
     val hours = restaurant.hours ?: return null
     val zoned = now.atZone(ZoneId.of(hours.timezone))
+    if (isOpen24Hours(hours.periods(zoned.dayOfWeek))) return null
     val minute = zoned.hour * 60 + zoned.minute
     val period = hours.periods(zoned.dayOfWeek).firstOrNull { p ->
         val end = if (p.close == "24:00") 24 * 60 else toMinutes(p.close)
@@ -1329,8 +1540,14 @@ private fun toMinutes(value: String): Int {
     return parts[0].toInt() * 60 + parts[1].toInt()
 }
 
-private fun formatPeriods(periods: List<TimePeriod>): String =
-    if (periods.isEmpty()) "Closed" else periods.joinToString(", ") { "${formatClock(it.open)} – ${formatClock(it.close)}" }
+internal fun isOpen24Hours(periods: List<TimePeriod>): Boolean =
+    periods.size == 1 && periods.single().open == "00:00" && periods.single().close == "24:00"
+
+internal fun formatPeriods(periods: List<TimePeriod>): String = when {
+    periods.isEmpty() -> "Closed"
+    isOpen24Hours(periods) -> "Open 24 hours"
+    else -> periods.joinToString(", ") { "${formatClock(it.open)} – ${formatClock(it.close)}" }
+}
 
 /** "11:00" → "11 AM", "22:30" → "10:30 PM", "24:00" → "Midnight". */
 private fun formatClock(value: String): String {

@@ -2,7 +2,7 @@
 
 ## Verified Notion snapshot
 
-Audited September 9, 2026 from the `RMP Restaurant Snapshot` data source.
+Audited September 9, 2026 from the `RMP Restaurant Snapshot` data source, with targeted official-source refreshes on September 12, 2026.
 
 | Measure | Count |
 |---|---:|
@@ -11,9 +11,9 @@ Audited September 9, 2026 from the `RMP Restaurant Snapshot` data source.
 | Missing official addresses | 0 |
 | Missing ZIP codes | 0 |
 | Missing phone numbers | 1 |
-| Missing source hour text | 15 |
+| Missing source hour text | 12 |
 | Source hours needing refresh | 11 |
-| Source hours marked unknown | 12 |
+| Source hours marked unknown | 10 |
 | Export records with usable structured hours | 176 |
 | Export records excluded from open-now calculation | 65 |
 | Missing websites | 47 |
@@ -31,7 +31,7 @@ The directory is ready for Browse/Search. Unknown and conflicting enrichment doe
 
 ## Notion-to-export field mapping
 
-The September 9 snapshot is the fixed source input. Official OTDA identity stays separate from current-business enrichment when a reviewed conflict exists.
+The versioned Notion snapshot is the source input. Official OTDA identity stays separate from current-business enrichment when a reviewed conflict exists.
 
 | Snapshot field | Export field | Mapping rule |
 |---|---|---|

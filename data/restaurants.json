@@ -2481,7 +2481,7 @@
     "hoursStatus": "unknown",
     "hours": null,
     "rmpVerifiedAt": "2026-09-09",
-    "businessCheckedAt": "2026-09-10",
+    "businessCheckedAt": "2026-09-12",
     "conflictFlags": [],
     "sources": [
       {
@@ -2500,7 +2500,7 @@
         "kind": "Luna Café official site",
         "role": "business_status",
         "url": "https://lunacafeny.com",
-        "checkedAt": "2026-09-10"
+        "checkedAt": "2026-09-12"
       },
       {
         "kind": "reviewed business enrichment snapshot",
@@ -2545,12 +2545,14 @@
     "menuUrl": null,
     "imageUrl": null,
     "imageAttribution": null,
-    "businessStatus": "temporarily_closed",
-    "hoursStatus": "unknown",
+    "businessStatus": "likely_open",
+    "hoursStatus": "conflicting",
     "hours": null,
     "rmpVerifiedAt": "2026-09-09",
-    "businessCheckedAt": null,
-    "conflictFlags": [],
+    "businessCheckedAt": "2026-09-12",
+    "conflictFlags": [
+      "hours_conflict"
+    ],
     "sources": [
       {
         "kind": "NYS OTDA Restaurant Meals Program",
@@ -2563,6 +2565,12 @@
         "role": "coordinates",
         "url": "https://geocoding.geo.census.gov/geocoder/",
         "checkedAt": "2026-09-09"
+      },
+      {
+        "kind": "1 Sabor Latino official site",
+        "role": "business_status",
+        "url": "https://www.1saborlatino.com/",
+        "checkedAt": "2026-09-12"
       },
       {
         "kind": "reviewed business enrichment snapshot",
@@ -10757,13 +10765,58 @@
     "menuUrl": null,
     "imageUrl": null,
     "imageAttribution": null,
-    "businessStatus": "temporarily_closed",
-    "hoursStatus": "unknown",
-    "hours": null,
+    "businessStatus": "conflicting",
+    "hoursStatus": "conflicting",
+    "hours": {
+      "timezone": "America/New_York",
+      "monday": [
+        {
+          "open": "12:00",
+          "close": "22:00"
+        }
+      ],
+      "tuesday": [
+        {
+          "open": "12:00",
+          "close": "22:00"
+        }
+      ],
+      "wednesday": [
+        {
+          "open": "12:00",
+          "close": "22:00"
+        }
+      ],
+      "thursday": [
+        {
+          "open": "12:00",
+          "close": "22:00"
+        }
+      ],
+      "friday": [
+        {
+          "open": "12:00",
+          "close": "22:00"
+        }
+      ],
+      "saturday": [
+        {
+          "open": "12:00",
+          "close": "22:00"
+        }
+      ],
+      "sunday": [
+        {
+          "open": "12:00",
+          "close": "21:00"
+        }
+      ]
+    },
     "rmpVerifiedAt": "2026-09-09",
-    "businessCheckedAt": null,
+    "businessCheckedAt": "2026-09-12",
     "conflictFlags": [
-      "phone_conflict"
+      "phone_conflict",
+      "status_conflict"
     ],
     "sources": [
       {
@@ -10779,16 +10832,28 @@
         "checkedAt": "2026-09-09"
       },
       {
+        "kind": "Memphis Seoul official location page",
+        "role": "business_status",
+        "url": "https://getmemphisseoul.com/location",
+        "checkedAt": "2026-09-12"
+      },
+      {
+        "kind": "reviewed business enrichment snapshot",
+        "role": "hours",
+        "url": "https://getmemphisseoul.com",
+        "checkedAt": "2026-09-12"
+      },
+      {
         "kind": "reviewed business enrichment snapshot",
         "role": "phone",
         "url": "https://getmemphisseoul.com",
-        "checkedAt": "2026-09-09"
+        "checkedAt": "2026-09-12"
       },
       {
         "kind": "reviewed business enrichment snapshot",
         "role": "website",
         "url": "https://getmemphisseoul.com",
-        "checkedAt": "2026-09-09"
+        "checkedAt": "2026-09-12"
       }
     ]
   },
@@ -16325,7 +16390,7 @@
       ]
     },
     "rmpVerifiedAt": "2026-09-09",
-    "businessCheckedAt": "2026-09-10",
+    "businessCheckedAt": "2026-09-12",
     "conflictFlags": [],
     "sources": [
       {
@@ -16344,25 +16409,25 @@
         "kind": "Lady Chow Kitchen official site",
         "role": "business_status",
         "url": "https://www.ladychowkitchen.com/",
-        "checkedAt": "2026-09-10"
+        "checkedAt": "2026-09-12"
       },
       {
         "kind": "reviewed business enrichment snapshot",
         "role": "hours",
         "url": "https://ladychowkitchen.com/",
-        "checkedAt": "2026-09-10"
+        "checkedAt": "2026-09-12"
       },
       {
         "kind": "reviewed business enrichment snapshot",
         "role": "phone",
         "url": "https://ladychowkitchen.com/",
-        "checkedAt": "2026-09-10"
+        "checkedAt": "2026-09-12"
       },
       {
         "kind": "reviewed business enrichment snapshot",
         "role": "website",
         "url": "https://ladychowkitchen.com/",
-        "checkedAt": "2026-09-10"
+        "checkedAt": "2026-09-12"
       }
     ]
   },
@@ -16688,7 +16753,7 @@
       ]
     },
     "rmpVerifiedAt": "2026-09-09",
-    "businessCheckedAt": "2026-09-10",
+    "businessCheckedAt": "2026-09-12",
     "conflictFlags": [],
     "sources": [
       {
@@ -16707,25 +16772,25 @@
         "kind": "McDonald's official location page",
         "role": "business_status",
         "url": "https://www.mcdonalds.com/us/en-us/location/NY/New-York/1528-Broadway/39147.html",
-        "checkedAt": "2026-09-10"
+        "checkedAt": "2026-09-12"
       },
       {
         "kind": "reviewed business enrichment snapshot",
         "role": "hours",
         "url": "https://www.mcdonalds.com/us/en-us/location/NY/New-York/1528-Broadway/39147.html",
-        "checkedAt": "2026-09-10"
+        "checkedAt": "2026-09-12"
       },
       {
         "kind": "reviewed business enrichment snapshot",
         "role": "phone",
         "url": "https://www.mcdonalds.com/us/en-us/location/NY/New-York/1528-Broadway/39147.html",
-        "checkedAt": "2026-09-10"
+        "checkedAt": "2026-09-12"
       },
       {
         "kind": "reviewed business enrichment snapshot",
         "role": "website",
         "url": "https://www.mcdonalds.com/us/en-us/location/NY/New-York/1528-Broadway/39147.html",
-        "checkedAt": "2026-09-10"
+        "checkedAt": "2026-09-12"
       }
     ]
   },

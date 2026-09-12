@@ -11,6 +11,7 @@ OUT=ROOT/'data/restaurants.json'
 REVIEW=ROOT/'data/source/geocode-review-2026-09-09.json'
 MANIFEST=ROOT/'data/manifest.json'
 DATE='2026-09-09'
+DATASET_VERSION=2
 OTDA='https://otda.ny.gov/programs/rmp/participating-restaurants/default.asp'
 CENSUS='https://geocoding.geo.census.gov/geocoder/'
 
@@ -61,6 +62,7 @@ PHONE_CONFLICTS={1,16,23,44,66,94,108,128,149,153,156,196,223}
 # take precedence over older words preserved in historical notes.
 STATUS_OVERRIDES={
   26:'likely_open',
+  27:'likely_open',
   41:'likely_open',
   130:'conflicting',
   135:'rebranded',
@@ -72,8 +74,16 @@ STATUS_OVERRIDES={
   237:'conflicting',
 }
 BUSINESS_REVIEW_DATE='2026-09-10'
+BUSINESS_REVIEW_DATES={
+  26:'2026-09-12',
+  27:'2026-09-12',
+  108:'2026-09-12',
+  160:'2026-09-12',
+  164:'2026-09-12',
+}
 BUSINESS_STATUS_SOURCES={
   26:[('Luna Café official site','https://lunacafeny.com')],
+  27:[('1 Sabor Latino official site','https://www.1saborlatino.com/')],
   41:[
     ('Atomic Wings official location page','https://www.atomicwings.com/locations/brooklyn-ny'),
     ('Downtown Brooklyn directory','https://www.downtownbrooklyn.com/directory/'),
@@ -88,6 +98,7 @@ BUSINESS_STATUS_SOURCES={
   ],
   160:[('Lady Chow Kitchen official site','https://www.ladychowkitchen.com/')],
   164:[('McDonald\'s official location page','https://www.mcdonalds.com/us/en-us/location/NY/New-York/1528-Broadway/39147.html')],
+  108:[('Memphis Seoul official location page','https://getmemphisseoul.com/location')],
 }
 
 # Reviewed coordinate replacements / acceptances. These never rewrite the official address.
@@ -280,6 +291,7 @@ def main():
     assert len(src)==len(geo)==241
     records=[]; reviews=[]; parsed=0
     for i,(r,g) in enumerate(zip(src,geo)):
+        business_reviewed_at=BUSINESS_REVIEW_DATES.get(i,BUSINESS_REVIEW_DATE)
         official_name,official_addr=official_for(i,r)
         current_addr=current_for(i,r); current_name=CURRENT_NAMES.get(i)
         fl=flags(r.get('Notes'),i); bs=business_status(r.get('Notes'),r['Hours Status'],i)
@@ -296,14 +308,14 @@ def main():
           'officialAddress':official_addr,'currentAddress':current_addr,'borough':r['Area'],'zip':official_addr['zip'],
           'coordinates':coord,'phone':r.get('Phone'),'website':r.get('Website'),'menuUrl':None,'imageUrl':None,'imageAttribution':None,
           'businessStatus':bs,'hoursStatus':hstatus,'hours':hours,'rmpVerifiedAt':r['RMP Verified'],
-          'businessCheckedAt':BUSINESS_REVIEW_DATE if i in BUSINESS_STATUS_SOURCES else r.get('Hours Verified'),'conflictFlags':fl,
+          'businessCheckedAt':business_reviewed_at if i in BUSINESS_STATUS_SOURCES else r.get('Hours Verified'),'conflictFlags':fl,
           'sources':[
             {'kind':'NYS OTDA Restaurant Meals Program','role':'rmp_eligibility','url':r.get('OTDA Source') or OTDA,'checkedAt':r['RMP Verified']},
             {'kind':coord['provider'],'role':'coordinates','url':CENSUS if 'Census' in coord['provider'] else None,'checkedAt':DATE},
           ]
         }
         for kind,url in BUSINESS_STATUS_SOURCES.get(i,[]):
-            rec['sources'].append({'kind':kind,'role':'business_status','url':url,'checkedAt':BUSINESS_REVIEW_DATE})
+            rec['sources'].append({'kind':kind,'role':'business_status','url':url,'checkedAt':business_reviewed_at})
         if r.get('Hours Verified'):
             rec['sources'].append({'kind':'reviewed business enrichment snapshot','role':'hours','url':r.get('Website'),'checkedAt':r['Hours Verified']})
         if current_addr:
@@ -318,7 +330,7 @@ def main():
     OUT.write_text(json.dumps(records,ensure_ascii=False,indent=2)+'\n')
     REVIEW.write_text(json.dumps(reviews,ensure_ascii=False,indent=2)+'\n')
     sha=hashlib.sha256(OUT.read_bytes()).hexdigest()
-    manifest={'datasetVersion':1,'schemaVersion':1,'generatedAt':datetime.now(ZoneInfo('America/New_York')).isoformat(timespec='seconds'),'recordCount':len(records),'sha256':sha,'datasetUrl':'https://raw.githubusercontent.com/Mikelee8810/RMP-Finder/main/data/restaurants.json','minimumAppVersion':1,'sourceRevision':None,'programPolicy':{'rmpDiscountPercent':10,'checkedAt':DATE,'sourceUrl':'https://otda.ny.gov/policy/gis/2025/25DC012.pdf'}}
+    manifest={'datasetVersion':DATASET_VERSION,'schemaVersion':1,'generatedAt':datetime.now(ZoneInfo('America/New_York')).isoformat(timespec='seconds'),'recordCount':len(records),'sha256':sha,'datasetUrl':'https://raw.githubusercontent.com/Mikelee8810/RMP-Finder/main/data/restaurants.json','minimumAppVersion':1,'sourceRevision':None,'programPolicy':{'rmpDiscountPercent':10,'checkedAt':DATE,'sourceUrl':'https://otda.ny.gov/policy/gis/2025/25DC012.pdf'}}
     MANIFEST.write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
     print(f'generated records={len(records)} parsed_hours={parsed} explicit_nonparsed_hours={sum(1 for r in src if r.get("Hours"))-parsed} sha256={sha}')
 if __name__=='__main__': main()
