@@ -2,6 +2,7 @@
 
 package com.mike.rmpfinder.ui
 
+import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
@@ -64,6 +65,8 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalView
+import androidx.core.view.WindowCompat
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -141,6 +144,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -148,6 +152,10 @@ import androidx.compose.material3.Text
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.withStyle
+import androidx.compose.material.icons.rounded.Tune
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.draw.shadow
 
@@ -208,26 +216,37 @@ fun RmpFinderRoot(
 
 @Composable
 private fun RmpBottomNavigation(tab: MainTab, onTab: (MainTab) -> Unit) {
-    Column(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surface).navigationBarsPadding()) {
-        Hairline()
-        Row(Modifier.fillMaxWidth().height(60.dp).padding(horizontal = 24.dp), verticalAlignment = Alignment.CenterVertically) {
-            NavItem(tab == MainTab.HOME, Icons.Rounded.Home, Icons.Outlined.Home, "Home") { onTab(MainTab.HOME) }
-            NavItem(tab == MainTab.MAP, Icons.Rounded.Map, Icons.Outlined.Map, "Map") { onTab(MainTab.MAP) }
-            NavItem(tab == MainTab.INFO, Icons.Rounded.Person, Icons.Outlined.Person, "Info") { onTab(MainTab.INFO) }
+    // A floating espresso dock with one tomato bubble for the active tab.
+    Box(Modifier.fillMaxWidth().navigationBarsPadding().padding(start = 24.dp, end = 24.dp, bottom = 12.dp)) {
+        Surface(
+            modifier = Modifier.fillMaxWidth().height(68.dp),
+            shape = RoundedCornerShape(50),
+            color = RmpTokens.Ink,
+            shadowElevation = 18.dp,
+        ) {
+            Row(Modifier.fillMaxSize().padding(6.dp), verticalAlignment = Alignment.CenterVertically) {
+                NavItem(tab == MainTab.HOME, Icons.Rounded.Home, Icons.Outlined.Home, "Home") { onTab(MainTab.HOME) }
+                NavItem(tab == MainTab.MAP, Icons.Rounded.Map, Icons.Outlined.Map, "Map") { onTab(MainTab.MAP) }
+                NavItem(tab == MainTab.INFO, Icons.Rounded.Person, Icons.Outlined.Person, "Info") { onTab(MainTab.INFO) }
+            }
         }
     }
 }
 
 @Composable
 private fun RowScope.NavItem(selected: Boolean, activeIcon: ImageVector, idleIcon: ImageVector, label: String, onClick: () -> Unit) {
-    val tint = if (selected) MaterialTheme.colorScheme.primary else RmpTokens.InkFaint
-    Column(
-        modifier = Modifier.weight(1f).clip(MaterialTheme.shapes.small).selectable(selected = selected, onClick = onClick, role = Role.Tab).padding(vertical = 6.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(2.dp),
+    val tint = if (selected) Color.White else RmpTokens.InkFaint
+    Row(
+        modifier = Modifier.weight(1f).fillMaxHeight().clip(RoundedCornerShape(50))
+            .background(if (selected) RmpTokens.Accent else Color.Transparent)
+            .selectable(selected = selected, onClick = onClick, role = Role.Tab),
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically,
     ) {
-        Icon(if (selected) activeIcon else idleIcon, contentDescription = null, modifier = Modifier.size(26.dp), tint = tint)
-        Text(label, style = MaterialTheme.typography.labelSmall, color = tint, fontWeight = FontWeight.Bold)
+        Icon(if (selected) activeIcon else idleIcon, contentDescription = label, modifier = Modifier.size(24.dp), tint = tint)
+        AnimatedVisibility(visible = selected) {
+            Text(label, style = MaterialTheme.typography.labelLarge, color = tint, modifier = Modifier.padding(start = 6.dp))
+        }
     }
 }
 
@@ -275,24 +294,28 @@ private fun LocationRequiredScreen(onRequestLocation: () -> Unit, onOpenLocation
 // Home
 // ---------------------------------------------------------------------------
 
-private data class Cuisine(val label: String, val category: String, val emoji: String, val tint: Color)
+private data class Cuisine(val label: String, val category: String, val emoji: String)
 
-// Emoji read as illustration on a Pixel (Noto Color Emoji) and sit in a soft
-// tinted disc, the way storefront apps draw their category rails.
 private val QuickCuisines = listOf(
-    Cuisine("Pizza", "Pizza", "\uD83C\uDF55", Color(0xFFFFE9DC)),
-    Cuisine("Chicken", "Chicken & Wings", "\uD83C\uDF57", Color(0xFFFFF1D6)),
-    Cuisine("Burgers", "Burgers & Fast Food", "\uD83C\uDF54", Color(0xFFFFE4E0)),
-    Cuisine("Caribbean", "Caribbean", "\uD83C\uDF34", Color(0xFFE0F5EA)),
-    Cuisine("Latin", "Latin American", "\uD83C\uDF5B", Color(0xFFFFF0D9)),
-    Cuisine("Chinese", "Chinese", "\uD83E\uDD61", Color(0xFFFFE6E6)),
-    Cuisine("Seafood", "Seafood", "\uD83E\uDD90", Color(0xFFE0F0FA)),
-    Cuisine("Café", "Café & Bakery", "\u2615", Color(0xFFF1E7DD)),
-    Cuisine("Mexican", "Mexican", "\uD83C\uDF2E", Color(0xFFF3F8DC)),
-    Cuisine("Halal", "Mediterranean & Halal", "\uD83E\uDD59", Color(0xFFE9F3E0)),
-    Cuisine("Breakfast", "Breakfast & Diner", "\uD83E\uDD5E", Color(0xFFFFF3DA)),
-    Cuisine("Deli", "Deli & Sandwiches", "\uD83E\uDD6A", Color(0xFFF3ECDF)),
+    Cuisine("Pizza", "Pizza", "\uD83C\uDF55"),
+    Cuisine("Chicken", "Chicken & Wings", "\uD83C\uDF57"),
+    Cuisine("Burgers", "Burgers & Fast Food", "\uD83C\uDF54"),
+    Cuisine("Caribbean", "Caribbean", "\uD83C\uDF34"),
+    Cuisine("Latin", "Latin American", "\uD83C\uDF5B"),
+    Cuisine("Chinese", "Chinese", "\uD83E\uDD61"),
+    Cuisine("Seafood", "Seafood", "\uD83E\uDD90"),
+    Cuisine("Café", "Café & Bakery", "\u2615"),
+    Cuisine("Mexican", "Mexican", "\uD83C\uDF2E"),
+    Cuisine("Halal", "Mediterranean & Halal", "\uD83E\uDD59"),
+    Cuisine("Breakfast", "Breakfast & Diner", "\uD83E\uDD5E"),
+    Cuisine("Deli", "Deli & Sandwiches", "\uD83E\uDD6A"),
 )
+
+/** The warm ground every screen sits on: apricot at the top fading to cream. */
+@Composable
+private fun WarmGround(modifier: Modifier = Modifier, content: @Composable () -> Unit) {
+    Box(modifier.fillMaxSize().background(Brush.verticalGradient(listOf(Color(0xFFFFE4CC), Color(0xFFFFF6EA), Color(0xFFFFF6EA))))) { content() }
+}
 
 @Composable
 private fun HomeScreen(
@@ -304,110 +327,105 @@ private fun HomeScreen(
     var showBoroughs by rememberSaveable { mutableStateOf(false) }
     val filters = state.filters
     val filtersActive = filters.query.isNotBlank() || filters.openOnly || filters.favoritesOnly || filters.borough != null || filters.category != null
-    val openNearby = remember(state.visibleRestaurants, state.now) {
-        if (filtersActive) emptyList() else state.visibleRestaurants.filter { OpenNow.isOpen(it, state.now) }.take(12)
+    val openNearby = remember(state.visibleRestaurants, state.now, filtersActive) {
+        if (filtersActive) emptyList() else state.visibleRestaurants.filter { OpenNow.isOpen(it, state.now) }.take(10)
     }
 
-    Column(modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)) {
-        // Header: where we are, then search. Both sit on white like a storefront app.
-        Column(Modifier.padding(horizontal = 20.dp).padding(top = 10.dp, bottom = 6.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                Icon(Icons.Rounded.Place, contentDescription = null, modifier = Modifier.size(18.dp), tint = MaterialTheme.colorScheme.primary)
-                Text("Near you", style = MaterialTheme.typography.titleMedium)
-                Text("·", color = RmpTokens.InkFaint)
-                Text("${state.allRestaurants.size} RMP spots", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
-            }
-            SearchField(value = filters.query, onValueChange = viewModel::setQuery)
-        }
-
-        when {
-            state.allRestaurants.isEmpty() -> LoadingList()
-            else -> LazyColumn(contentPadding = PaddingValues(bottom = 16.dp)) {
-                item {
-                    // Cuisine rail
-                    Row(
-                        Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()).padding(horizontal = 20.dp, vertical = 10.dp),
-                        horizontalArrangement = Arrangement.spacedBy(18.dp),
-                    ) {
-                        QuickCuisines.forEach { cuisine ->
-                            CuisineBubble(
-                                cuisine = cuisine,
-                                selected = filters.category == cuisine.category,
-                                onClick = { viewModel.setCategory(cuisine.category) },
-                            )
+    WarmGround(modifier) {
+        if (state.allRestaurants.isEmpty()) { LoadingList(); return@WarmGround }
+        LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(bottom = 110.dp)) {
+            item {
+                Column(Modifier.padding(horizontal = 22.dp).padding(top = 10.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
+                    Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                        Row(Modifier.weight(1f), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                            Box(Modifier.size(30.dp).clip(CircleShape).background(RmpTokens.Accent), contentAlignment = Alignment.Center) {
+                                Icon(Icons.Rounded.Place, contentDescription = null, modifier = Modifier.size(16.dp), tint = Color.White)
+                            }
+                            Column {
+                                Text("Near you", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                Text("Current location", style = MaterialTheme.typography.labelLarge)
+                            }
+                        }
+                        IconToggle(selected = filters.favoritesOnly, activeIcon = Icons.Rounded.Favorite, idleIcon = Icons.Rounded.FavoriteBorder, description = "Saved", onClick = viewModel::toggleFavoritesOnly)
+                    }
+                    Text(
+                        buildAnnotatedString {
+                            append("Hungry?\n")
+                            withStyle(SpanStyle(color = RmpTokens.Accent)) { append("10% off") }
+                            append(" near you.")
+                        },
+                        style = MaterialTheme.typography.displaySmall,
+                    )
+                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                        Box(Modifier.weight(1f)) { SearchField(value = filters.query, onValueChange = viewModel::setQuery) }
+                        Surface(
+                            onClick = { showBoroughs = !showBoroughs },
+                            shape = CircleShape,
+                            color = if (showBoroughs || filters.borough != null) RmpTokens.Ink else RmpTokens.Accent,
+                            shadowElevation = 6.dp,
+                            modifier = Modifier.size(50.dp),
+                        ) {
+                            Box(contentAlignment = Alignment.Center) { Icon(Icons.Rounded.Tune, contentDescription = "Filters", tint = Color.White) }
                         }
                     }
                 }
-                item {
-                    // Filter chips
+                AnimatedVisibility(visible = showBoroughs, enter = expandVertically() + fadeIn(), exit = shrinkVertically() + fadeOut()) {
                     Row(
-                        Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()).padding(horizontal = 20.dp, vertical = 4.dp),
+                        Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()).padding(horizontal = 22.dp).padding(top = 12.dp),
                         horizontalArrangement = Arrangement.spacedBy(8.dp),
                     ) {
                         FilterChipPill(selected = filters.openOnly, label = "Open now", onClick = viewModel::toggleOpenOnly)
-                        FilterChipPill(selected = filters.favoritesOnly, label = "Saved", icon = Icons.Rounded.Favorite, onClick = viewModel::toggleFavoritesOnly)
-                        FilterChipPill(selected = filters.borough != null || showBoroughs, label = filters.borough ?: "Borough", trailing = Icons.Rounded.ExpandMore, onClick = { showBoroughs = !showBoroughs })
-                        if (filters.category != null && QuickCuisines.none { it.category == filters.category }) {
-                            FilterChipPill(selected = true, label = filters.category!!, onClick = { viewModel.setCategory(null) })
-                        }
-                        if (filtersActive) {
-                            FilterChipPill(selected = false, label = "Clear all", onClick = { viewModel.clearFilters(); showBoroughs = false })
-                        }
-                    }
-                    AnimatedVisibility(visible = showBoroughs, enter = expandVertically() + fadeIn(), exit = shrinkVertically() + fadeOut()) {
-                        Row(
-                            Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()).padding(horizontal = 20.dp, vertical = 6.dp),
-                            horizontalArrangement = Arrangement.spacedBy(8.dp),
-                        ) {
-                            MainViewModel.BOROUGHS.forEach { borough ->
-                                FilterChipPill(selected = filters.borough == borough, label = borough, onClick = { viewModel.setBorough(borough) })
-                            }
+                        MainViewModel.BOROUGHS.forEach { borough ->
+                            FilterChipPill(selected = filters.borough == borough, label = borough, onClick = { viewModel.setBorough(borough) })
                         }
                     }
                 }
-
-                if (openNearby.isNotEmpty()) {
-                    item {
-                        SectionHeader("Open now near you", modifier = Modifier.padding(top = 14.dp))
-                        Row(
-                            Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()).padding(horizontal = 20.dp, vertical = 10.dp),
-                            horizontalArrangement = Arrangement.spacedBy(14.dp),
-                        ) {
-                            openNearby.forEach { restaurant ->
-                                StoreCard(restaurant, state.distances[restaurant.rmpKey], state.now, onRestaurant, width = 236.dp)
-                            }
-                        }
+            }
+            item {
+                // Cuisine rail: white discs on the warm ground.
+                Row(
+                    Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()).padding(horizontal = 22.dp, vertical = 16.dp),
+                    horizontalArrangement = Arrangement.spacedBy(14.dp),
+                ) {
+                    QuickCuisines.forEach { cuisine ->
+                        CuisineDisc(cuisine = cuisine, selected = filters.category == cuisine.category, onClick = { viewModel.setCategory(cuisine.category) })
                     }
                 }
+            }
 
+            if (openNearby.size >= 2) {
                 item {
-                    SectionHeader(
-                        title = when {
-                            filters.query.isNotBlank() -> "Results for “${filters.query.trim()}”"
-                            filters.category != null -> filters.category!!
-                            filters.favoritesOnly -> "Saved"
-                            filters.openOnly -> "Open now"
-                            else -> "All restaurants"
-                        },
-                        trailing = "${state.visibleRestaurants.size}",
-                        modifier = Modifier.padding(top = 14.dp, bottom = 4.dp),
-                    )
-                }
-                if (state.visibleRestaurants.isEmpty()) {
-                    item {
-                        EmptyState(
-                            icon = Icons.Rounded.SearchOff,
-                            title = "No matches",
-                            body = "Try another name, cuisine, or borough.",
-                            action = "Clear filters",
-                            onAction = viewModel::clearFilters,
-                        )
+                    SectionHeader("Open right now", modifier = Modifier.padding(bottom = 10.dp), trailing = "${openNearby.size} nearby")
+                    Row(
+                        Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()).padding(horizontal = 22.dp).padding(bottom = 6.dp),
+                        horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    ) {
+                        openNearby.forEach { r -> OpenCard(r, state.distances[r.rmpKey], state.now, onRestaurant) }
                     }
-                } else {
-                    items(state.visibleRestaurants, key = { it.rmpKey }) { restaurant ->
-                        Box(Modifier.padding(horizontal = 20.dp, vertical = 8.dp)) {
-                            StoreCard(restaurant, state.distances[restaurant.rmpKey], state.now, onRestaurant)
-                        }
+                }
+            }
+
+            item {
+                SectionHeader(
+                    title = when {
+                        filters.query.isNotBlank() -> "Results"
+                        filters.category != null -> filters.category!!
+                        filters.favoritesOnly -> "Saved"
+                        filters.openOnly -> "Open now"
+                        filters.borough != null -> filters.borough!!
+                        else -> "All restaurants"
+                    },
+                    trailing = if (filtersActive) "Reset" else "${state.visibleRestaurants.size} places",
+                    onTrailing = if (filtersActive) { { viewModel.clearFilters(); showBoroughs = false } } else null,
+                    modifier = Modifier.padding(top = 18.dp, bottom = 10.dp),
+                )
+            }
+            if (state.visibleRestaurants.isEmpty()) {
+                item { EmptyState(icon = Icons.Rounded.SearchOff, title = "No matches", body = "Try another name, cuisine, or borough.", action = "Reset filters", onAction = viewModel::clearFilters) }
+            } else {
+                items(state.visibleRestaurants, key = { it.rmpKey }) { restaurant ->
+                    Box(Modifier.padding(horizontal = 22.dp, vertical = 5.dp)) {
+                        StoreRow(restaurant, state.distances[restaurant.rmpKey], restaurant.rmpKey in state.favoriteKeys, state.now, onRestaurant, onFavorite = { viewModel.toggleFavorite(restaurant) })
                     }
                 }
             }
@@ -416,61 +434,85 @@ private fun HomeScreen(
 }
 
 @Composable
-private fun SectionHeader(title: String, modifier: Modifier = Modifier, trailing: String? = null) {
-    Row(modifier.fillMaxWidth().padding(horizontal = 20.dp), verticalAlignment = Alignment.CenterVertically) {
+private fun SectionHeader(title: String, modifier: Modifier = Modifier, trailing: String? = null, onTrailing: (() -> Unit)? = null) {
+    Row(modifier.fillMaxWidth().padding(horizontal = 22.dp), verticalAlignment = Alignment.CenterVertically) {
         Text(title, style = MaterialTheme.typography.headlineSmall, modifier = Modifier.weight(1f), maxLines = 1, overflow = TextOverflow.Ellipsis)
-        if (trailing != null) Text(trailing, style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        if (trailing != null) {
+            if (onTrailing != null) {
+                Surface(onClick = onTrailing, shape = RoundedCornerShape(50), color = MaterialTheme.colorScheme.surfaceVariant) {
+                    Text(trailing, style = MaterialTheme.typography.labelLarge, modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp))
+                }
+            } else {
+                Text(trailing, style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            }
+        }
+    }
+}
+
+@Composable
+private fun IconToggle(selected: Boolean, activeIcon: ImageVector, idleIcon: ImageVector, description: String, onClick: () -> Unit) {
+    Box(
+        Modifier.size(42.dp).clip(CircleShape)
+            .background(if (selected) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceVariant)
+            .selectable(selected = selected, onClick = onClick, role = Role.Checkbox),
+        contentAlignment = Alignment.Center,
+    ) {
+        Icon(if (selected) activeIcon else idleIcon, contentDescription = description, modifier = Modifier.size(22.dp), tint = if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface)
     }
 }
 
 @Composable
 private fun SearchField(value: String, onValueChange: (String) -> Unit) {
-    Row(
-        Modifier.fillMaxWidth().height(48.dp).clip(RoundedCornerShape(50)).background(MaterialTheme.colorScheme.surfaceVariant).padding(horizontal = 16.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(10.dp),
-    ) {
-        Icon(Icons.Rounded.Search, contentDescription = null, tint = MaterialTheme.colorScheme.onSurface, modifier = Modifier.size(22.dp))
-        Box(Modifier.weight(1f)) {
-            if (value.isEmpty()) Text("Search RMP Finder", style = MaterialTheme.typography.bodyLarge, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 1)
-            BasicTextField(
-                value = value,
-                onValueChange = onValueChange,
-                singleLine = true,
-                textStyle = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.onSurface),
-                cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
-                modifier = Modifier.fillMaxWidth(),
-            )
-        }
-        if (value.isNotEmpty()) {
-            Icon(Icons.Rounded.Cancel, contentDescription = "Clear search", tint = RmpTokens.InkFaint, modifier = Modifier.size(20.dp).clip(CircleShape).clickable { onValueChange("") })
+    Surface(shape = RoundedCornerShape(50), color = Color.White, shadowElevation = 6.dp, modifier = Modifier.fillMaxWidth().height(50.dp)) {
+        Row(Modifier.fillMaxSize().padding(horizontal = 16.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+            Icon(Icons.Rounded.Search, contentDescription = null, tint = RmpTokens.InkMuted, modifier = Modifier.size(22.dp))
+            Box(Modifier.weight(1f)) {
+                if (value.isEmpty()) Text("Search for “pizza”", style = MaterialTheme.typography.bodyLarge, color = RmpTokens.InkFaint, maxLines = 1)
+                BasicTextField(
+                    value = value, onValueChange = onValueChange, singleLine = true,
+                    textStyle = MaterialTheme.typography.bodyLarge.copy(color = RmpTokens.Ink),
+                    cursorBrush = SolidColor(RmpTokens.Accent), modifier = Modifier.fillMaxWidth(),
+                )
+            }
+            if (value.isNotEmpty()) Icon(Icons.Rounded.Cancel, contentDescription = "Clear search", tint = RmpTokens.InkFaint, modifier = Modifier.size(20.dp).clip(CircleShape).clickable { onValueChange("") })
         }
     }
 }
 
 @Composable
-private fun CuisineBubble(cuisine: Cuisine, selected: Boolean, onClick: () -> Unit) {
+private fun CuisineDisc(cuisine: Cuisine, selected: Boolean, onClick: () -> Unit) {
     Column(
-        Modifier.width(76.dp).clip(MaterialTheme.shapes.small).selectable(selected = selected, onClick = onClick, role = Role.Checkbox).padding(vertical = 4.dp),
+        Modifier.width(70.dp).clip(MaterialTheme.shapes.small).selectable(selected = selected, onClick = onClick, role = Role.Checkbox).padding(vertical = 2.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        Box(
-            Modifier.size(68.dp).clip(CircleShape)
-                .background(if (selected) MaterialTheme.colorScheme.onSurface else cuisine.tint)
-                .then(if (selected) Modifier.border(3.dp, MaterialTheme.colorScheme.primary, CircleShape) else Modifier),
-            contentAlignment = Alignment.Center,
-        ) {
-            Text(cuisine.emoji, style = MaterialTheme.typography.headlineMedium.copy(fontFamily = null, letterSpacing = 0.sp), fontSize = 32.sp)
+        Surface(shape = CircleShape, color = if (selected) RmpTokens.Ink else Color.White, shadowElevation = if (selected) 0.dp else 4.dp, modifier = Modifier.size(62.dp)) {
+            Box(contentAlignment = Alignment.Center) {
+                Text(cuisine.emoji, style = MaterialTheme.typography.headlineMedium.copy(fontFamily = null, letterSpacing = 0.sp), fontSize = 28.sp)
+            }
         }
-        Text(
-            cuisine.label,
-            style = MaterialTheme.typography.labelMedium,
-            maxLines = 1,
-            softWrap = false,
-            color = if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
-            fontWeight = if (selected) FontWeight.Bold else FontWeight.SemiBold,
-        )
+        Text(cuisine.label, style = MaterialTheme.typography.labelMedium, maxLines = 1, softWrap = false, color = if (selected) RmpTokens.Accent else RmpTokens.Ink, fontWeight = if (selected) FontWeight.Bold else FontWeight.SemiBold)
+    }
+}
+
+/** Horizontal card for places open right now. */
+@Composable
+private fun OpenCard(restaurant: RmpRestaurant, distanceMiles: Double?, now: Instant, onClick: (RmpRestaurant) -> Unit) {
+    val context = LocalContext.current
+    val logo = remember(restaurant.rmpKey) { RestaurantLogos.forRestaurant(context, restaurant) }
+    val brand = logo?.brandColor ?: fallbackBrandColor(restaurant.displayName)
+    val until = closesAt(restaurant, now)
+    Surface(onClick = { onClick(restaurant) }, shape = RoundedCornerShape(24.dp), color = Color.White, shadowElevation = 8.dp, modifier = Modifier.width(168.dp)) {
+        Column(Modifier.padding(14.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            Box(Modifier.fillMaxWidth().height(96.dp).clip(RoundedCornerShape(18.dp)).background(Brush.linearGradient(listOf(brand.copy(alpha = 0.18f), brand.copy(alpha = 0.45f)))), contentAlignment = Alignment.Center) {
+                BrandCircle(restaurant, logo, size = 68)
+            }
+            Text(restaurant.displayName, style = MaterialTheme.typography.titleSmall, maxLines = 1, overflow = TextOverflow.Ellipsis)
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                Tag(if (until != null) "Open · $until" else "Open", Tone.OPEN)
+                distanceMiles?.let { Text(formatMiles(it), style = MaterialTheme.typography.labelMedium, color = RmpTokens.InkMuted) }
+            }
+        }
     }
 }
 
@@ -479,10 +521,11 @@ private fun FilterChipPill(selected: Boolean, label: String, onClick: () -> Unit
     Surface(
         modifier = Modifier.selectable(selected = selected, onClick = onClick, role = Role.Checkbox),
         shape = RoundedCornerShape(50),
-        color = if (selected) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.surfaceVariant,
-        contentColor = if (selected) Color.White else MaterialTheme.colorScheme.onSurface,
+        color = if (selected) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.surface,
+        contentColor = if (selected) RmpTokens.Ground else MaterialTheme.colorScheme.onSurface,
+        border = if (selected) null else BorderStroke(1.dp, RmpTokens.Hairline),
     ) {
-        Row(Modifier.padding(start = 14.dp, end = if (trailing != null) 8.dp else 14.dp, top = 9.dp, bottom = 9.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(5.dp)) {
+        Row(Modifier.padding(start = 14.dp, end = if (trailing != null) 8.dp else 14.dp, top = 8.dp, bottom = 8.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(5.dp)) {
             if (icon != null) Icon(icon, contentDescription = null, modifier = Modifier.size(15.dp))
             Text(label, style = MaterialTheme.typography.labelLarge)
             if (trailing != null) Icon(trailing, contentDescription = null, modifier = Modifier.size(18.dp))
@@ -490,55 +533,81 @@ private fun FilterChipPill(selected: Boolean, label: String, onClick: () -> Unit
     }
 }
 
-/**
- * The storefront card: a brand-coloured banner carrying the logo, then the
- * name and the two facts that decide a visit — how far and whether it is open.
- */
+/** Grid tile: a round logo with the name and distance under it. */
 @Composable
-private fun StoreCard(restaurant: RmpRestaurant, distanceMiles: Double?, now: Instant, onClick: (RmpRestaurant) -> Unit, width: Dp? = null) {
-    val availability = availabilityOf(restaurant, now)
+private fun StoreTile(modifier: Modifier, restaurant: RmpRestaurant, distanceMiles: Double?, favorite: Boolean, now: Instant, onClick: (RmpRestaurant) -> Unit) {
     val context = LocalContext.current
     val logo = remember(restaurant.rmpKey) { RestaurantLogos.forRestaurant(context, restaurant) }
-    val brand = logo?.brandColor ?: fallbackBrandColor(restaurant.displayName)
-    val base = if (width != null) Modifier.width(width) else Modifier.fillMaxWidth()
-    Column(base.clickable(interactionSource = remember { MutableInteractionSource() }, indication = null) { onClick(restaurant) }) {
-        Box(
-            Modifier.fillMaxWidth().height(if (width != null) 128.dp else 144.dp).clip(MaterialTheme.shapes.medium)
-                .background(Brush.linearGradient(listOf(brand, darken(brand, 0.28f)))),
-        ) {
-            Box(Modifier.align(Alignment.Center)) { BrandTile(restaurant, logo, size = if (width != null) 76 else 92, onBanner = true) }
-            if (availability != null && availability.tone != Tone.CLOSED_NOW) {
-                Box(Modifier.align(Alignment.TopStart).padding(10.dp)) { Pill(availability.short, availability.tone, solid = true) }
+    val availability = availabilityOf(restaurant, now)
+    Column(
+        modifier.clip(MaterialTheme.shapes.small).clickable { onClick(restaurant) }.padding(vertical = 4.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(6.dp),
+    ) {
+        Box {
+            BrandCircle(restaurant, logo, size = 84)
+            if (favorite) {
+                Box(Modifier.align(Alignment.TopEnd).size(22.dp).clip(CircleShape).background(Color.White), contentAlignment = Alignment.Center) {
+                    Icon(Icons.Rounded.Favorite, contentDescription = null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(13.dp))
+                }
             }
         }
-        Column(Modifier.padding(top = 10.dp, bottom = 2.dp), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-            Text(restaurant.displayName, style = MaterialTheme.typography.titleMedium, maxLines = 1, overflow = TextOverflow.Ellipsis)
-            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                if (distanceMiles != null) {
-                    Text(formatMiles(distanceMiles), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                    Dot()
+        Text(restaurant.displayName, style = MaterialTheme.typography.labelLarge, maxLines = 2, overflow = TextOverflow.Ellipsis, textAlign = TextAlign.Center, lineHeight = 17.sp)
+        Text(
+            listOfNotNull(distanceMiles?.let(::formatMiles), availability?.short?.takeIf { availability.tone == Tone.OPEN }).joinToString(" · "),
+            style = MaterialTheme.typography.bodySmall,
+            color = if (availability?.tone == Tone.OPEN) RmpTokens.Open else MaterialTheme.colorScheme.onSurfaceVariant,
+            maxLines = 1,
+        )
+    }
+}
+
+/** List card: round logo, name, the facts that decide a visit, and a save heart. */
+@Composable
+private fun StoreRow(restaurant: RmpRestaurant, distanceMiles: Double?, favorite: Boolean, now: Instant, onClick: (RmpRestaurant) -> Unit, onFavorite: () -> Unit) {
+    val context = LocalContext.current
+    val logo = remember(restaurant.rmpKey) { RestaurantLogos.forRestaurant(context, restaurant) }
+    val availability = availabilityOf(restaurant, now)
+    Surface(onClick = { onClick(restaurant) }, shape = RoundedCornerShape(22.dp), color = Color.White, shadowElevation = 3.dp, modifier = Modifier.fillMaxWidth()) {
+        Row(Modifier.padding(start = 12.dp, end = 4.dp, top = 12.dp, bottom = 12.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(14.dp)) {
+            BrandCircle(restaurant, logo, size = 60)
+            Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                Text(restaurant.displayName, style = MaterialTheme.typography.titleMedium, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                    if (distanceMiles != null) { Text(formatMiles(distanceMiles), style = MaterialTheme.typography.bodySmall, color = RmpTokens.InkMuted); Dot() }
+                    Text(restaurant.cuisineLabel, style = MaterialTheme.typography.bodySmall, color = RmpTokens.InkMuted, maxLines = 1, overflow = TextOverflow.Ellipsis)
                 }
-                Text(restaurant.cuisineLabel, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f, fill = false))
-                if (availability?.tone == Tone.CLOSED_NOW) {
-                    Dot()
-                    Text("Closed", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                    Tag("10% off", Tone.BUTTER)
+                    if (availability != null) Tag(availability.short, availability.tone)
                 }
+            }
+            IconButton(onClick = onFavorite) {
+                Icon(if (favorite) Icons.Rounded.Favorite else Icons.Rounded.FavoriteBorder, contentDescription = if (favorite) "Remove from saved" else "Save", tint = if (favorite) RmpTokens.Accent else RmpTokens.InkFaint, modifier = Modifier.size(22.dp))
             }
         }
     }
 }
 
 @Composable
+private fun Tag(text: String, tone: Tone) {
+    Surface(shape = RoundedCornerShape(50), color = tone.container, contentColor = tone.ink) {
+        Text(text, style = MaterialTheme.typography.labelSmall, modifier = Modifier.padding(horizontal = 7.dp, vertical = 3.dp))
+    }
+}
+
+@Composable
 private fun LoadingList() {
-    Column(Modifier.fillMaxSize().padding(horizontal = 20.dp, vertical = 10.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
-        Row(horizontalArrangement = Arrangement.spacedBy(18.dp)) {
-            repeat(5) { Box(Modifier.size(60.dp).clip(CircleShape).background(MaterialTheme.colorScheme.surfaceVariant)) }
-        }
-        repeat(3) {
-            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Box(Modifier.fillMaxWidth().height(156.dp).clip(MaterialTheme.shapes.medium).background(MaterialTheme.colorScheme.surfaceVariant))
-                Box(Modifier.fillMaxWidth(0.5f).height(16.dp).clip(RoundedCornerShape(6.dp)).background(MaterialTheme.colorScheme.surfaceVariant))
-                Box(Modifier.fillMaxWidth(0.3f).height(12.dp).clip(RoundedCornerShape(6.dp)).background(MaterialTheme.colorScheme.surfaceVariant))
+    Column(Modifier.fillMaxSize().padding(horizontal = 22.dp, vertical = 10.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) { repeat(4) { Box(Modifier.size(width = 84.dp, height = 34.dp).clip(RoundedCornerShape(50)).background(MaterialTheme.colorScheme.surfaceVariant)) } }
+        Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) { repeat(3) { Box(Modifier.weight(1f).height(84.dp).clip(CircleShape).background(MaterialTheme.colorScheme.surfaceVariant)) } }
+        repeat(4) {
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(14.dp)) {
+                Box(Modifier.size(58.dp).clip(CircleShape).background(MaterialTheme.colorScheme.surfaceVariant))
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Box(Modifier.fillMaxWidth(0.55f).height(16.dp).clip(RoundedCornerShape(6.dp)).background(MaterialTheme.colorScheme.surfaceVariant))
+                    Box(Modifier.fillMaxWidth(0.35f).height(12.dp).clip(RoundedCornerShape(6.dp)).background(MaterialTheme.colorScheme.surfaceVariant))
+                }
             }
         }
     }
@@ -578,8 +647,8 @@ private fun MapScreen(
     BottomSheetScaffold(
         modifier = modifier.fillMaxSize(),
         sheetPeekHeight = 176.dp,
-        sheetContainerColor = MaterialTheme.colorScheme.surface,
-        sheetShape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp),
+        sheetContainerColor = RmpTokens.Paper,
+        sheetShape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp),
         sheetDragHandle = {
             Box(Modifier.padding(top = 10.dp, bottom = 4.dp).size(width = 40.dp, height = 4.dp).clip(CircleShape).background(MaterialTheme.colorScheme.outline))
         },
@@ -599,7 +668,7 @@ private fun MapScreen(
                         ) {
                             val ctx = LocalContext.current
                             val logo = remember(restaurant.rmpKey) { RestaurantLogos.forRestaurant(ctx, restaurant) }
-                            BrandTile(restaurant, logo, size = 52)
+                            BrandCircle(restaurant, logo, size = 52)
                             Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
                                 Text(restaurant.displayName, style = MaterialTheme.typography.titleSmall, maxLines = 1, overflow = TextOverflow.Ellipsis)
                                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
@@ -768,93 +837,84 @@ private fun RestaurantDetail(
     val logo = remember(restaurant.rmpKey) { RestaurantLogos.forRestaurant(context, restaurant) }
     val brand = logo?.brandColor ?: fallbackBrandColor(restaurant.displayName)
     val destination = "${restaurant.latitude},${restaurant.longitude}"
+    LightStatusBarIcons()
 
-    Box(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)) {
+    WarmGround {
         LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(bottom = 40.dp)) {
             item {
-                // Hero: brand banner with the logo hanging over its bottom edge.
-                Box(Modifier.fillMaxWidth().height(276.dp)) {
-                    Box(
-                        Modifier.fillMaxWidth().height(232.dp)
-                            .background(Brush.linearGradient(listOf(brand, darken(brand, 0.3f)))),
-                    )
-                    Box(Modifier.align(Alignment.BottomStart).padding(start = 20.dp)) {
-                        BrandTile(restaurant, logo, size = 88, ring = true)
-                    }
-                }
-                Spacer(Modifier.height(12.dp))
-                Column(Modifier.padding(horizontal = 20.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                    Text(restaurant.displayName, style = MaterialTheme.typography.headlineMedium)
-                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                        Icon(Icons.Rounded.Verified, contentDescription = null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(16.dp))
-                        Text("RMP verified", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurface)
-                        Dot()
-                        Text("10% off meals", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurface)
-                    }
-                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                        if (distanceMiles != null) {
-                            Text(formatMiles(distanceMiles), style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                            Dot()
+                // Hero: the brand's colour, with the storefront card riding up over it.
+                Box(Modifier.fillMaxWidth()) {
+                    Box(Modifier.fillMaxWidth().height(250.dp).background(Brush.linearGradient(listOf(brand, darken(brand, 0.35f)))))
+                    Box(Modifier.align(Alignment.Center).padding(bottom = 60.dp).size(120.dp).clip(CircleShape).background(Color.White.copy(alpha = 0.12f)))
+                    Column(Modifier.padding(top = 196.dp).padding(horizontal = 18.dp)) {
+                        Surface(shape = RoundedCornerShape(28.dp), color = Color.White, shadowElevation = 10.dp, modifier = Modifier.fillMaxWidth()) {
+                            Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(14.dp)) {
+                                    BrandCircle(restaurant, logo, size = 72)
+                                    Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                                        Text(restaurant.displayName, style = MaterialTheme.typography.headlineSmall, maxLines = 2, overflow = TextOverflow.Ellipsis)
+                                        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                                            if (distanceMiles != null) { Text(formatMiles(distanceMiles), style = MaterialTheme.typography.bodyMedium, color = RmpTokens.InkMuted); Dot() }
+                                            Text(restaurant.cuisineLabel, style = MaterialTheme.typography.bodyMedium, color = RmpTokens.InkMuted, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                                        }
+                                    }
+                                }
+                                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                                    Tag("10% off meals", Tone.BUTTER)
+                                    if (availability != null) Tag(availability.long, availability.tone)
+                                }
+                                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                                    Icon(Icons.Rounded.Verified, contentDescription = null, tint = RmpTokens.Accent, modifier = Modifier.size(15.dp))
+                                    Text("On the official NY Restaurant Meals Program list · verified ${restaurant.rmpVerifiedAt}", style = MaterialTheme.typography.bodySmall, color = RmpTokens.InkMuted)
+                                }
+                                Hairline(Modifier.padding(vertical = 4.dp))
+                                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                                    QuickAction(Modifier.weight(1f), Icons.Rounded.Directions, "Transit", primary = true) { openDirections(context, destination, "transit") }
+                                    QuickAction(Modifier.weight(1f), Icons.Rounded.DirectionsWalk, "Walk") { openDirections(context, destination, "walking") }
+                                    restaurant.phone?.let { phone -> QuickAction(Modifier.weight(1f), Icons.Rounded.Call, "Call") { openIntent(context, Intent(Intent.ACTION_DIAL, Uri.parse("tel:$phone"))) } }
+                                    (restaurant.menuUrl ?: restaurant.website)?.let { url ->
+                                        QuickAction(Modifier.weight(1f), if (restaurant.menuUrl != null) Icons.Rounded.MenuBook else Icons.Rounded.Language, if (restaurant.menuUrl != null) "Menu" else "Site") { openUrl(context, url) }
+                                    }
+                                }
+                            }
                         }
-                        Text(restaurant.cuisineLabel, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 1, overflow = TextOverflow.Ellipsis)
-                    }
-                    if (availability != null) {
-                        Spacer(Modifier.height(2.dp))
-                        Text(availability.long, style = MaterialTheme.typography.titleMedium, color = availability.tone.ink)
                     }
                 }
-                // Quick actions
-                Row(
-                    Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 20.dp),
-                    horizontalArrangement = Arrangement.spacedBy(10.dp),
-                ) {
-                    QuickAction(Modifier.weight(1f), Icons.Rounded.Directions, "Transit", primary = true) { openDirections(context, destination, "transit") }
-                    QuickAction(Modifier.weight(1f), Icons.Rounded.DirectionsWalk, "Walk") { openDirections(context, destination, "walking") }
-                    restaurant.phone?.let { phone -> QuickAction(Modifier.weight(1f), Icons.Rounded.Call, "Call") { openIntent(context, Intent(Intent.ACTION_DIAL, Uri.parse("tel:$phone"))) } }
-                    (restaurant.menuUrl ?: restaurant.website)?.let { url ->
-                        QuickAction(Modifier.weight(1f), if (restaurant.menuUrl != null) Icons.Rounded.MenuBook else Icons.Rounded.Language, if (restaurant.menuUrl != null) "Menu" else "Site") { openUrl(context, url) }
-                    }
-                }
-                Hairline(Modifier.padding(horizontal = 20.dp))
             }
 
             item {
-                DetailSection("Hours") {
+                DetailCard("Hours") {
                     val hours = restaurant.hours
                     if (hours != null) {
                         val today = now.atZone(ZoneId.of(hours.timezone)).dayOfWeek
                         DayOfWeek.entries.forEach { day ->
                             val isToday = day == today
-                            val color = if (isToday) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurfaceVariant
-                            val weight = if (isToday) FontWeight.Bold else FontWeight.Medium
-                            Row(Modifier.fillMaxWidth().padding(vertical = 4.dp)) {
-                                Text(day.getDisplayName(TextStyle.FULL, Locale.US), style = MaterialTheme.typography.bodyMedium, fontWeight = weight, color = color, modifier = Modifier.width(112.dp))
-                                Text(formatPeriods(hours.periods(day)), style = MaterialTheme.typography.bodyMedium, fontWeight = weight, color = color)
+                            Row(
+                                Modifier.fillMaxWidth().clip(RoundedCornerShape(10.dp)).background(if (isToday) RmpTokens.Ground else Color.Transparent).padding(horizontal = 10.dp, vertical = 7.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                            ) {
+                                Text(day.getDisplayName(TextStyle.FULL, Locale.US), style = MaterialTheme.typography.bodyMedium, fontWeight = if (isToday) FontWeight.Bold else FontWeight.Medium, color = if (isToday) RmpTokens.Ink else RmpTokens.InkMuted, modifier = Modifier.width(104.dp))
+                                Text(formatPeriods(hours.periods(day)), style = MaterialTheme.typography.bodyMedium, fontWeight = if (isToday) FontWeight.Bold else FontWeight.Medium, color = if (isToday) RmpTokens.Ink else RmpTokens.InkMuted)
+                                if (isToday) { Spacer(Modifier.weight(1f)); Text("Today", style = MaterialTheme.typography.labelSmall, color = RmpTokens.Accent) }
                             }
                         }
                     } else {
                         Text(
                             if (availability == null) "Hours aren’t listed for this location. Call ahead before you go." else "Weekly hours aren’t listed for this location.",
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            style = MaterialTheme.typography.bodyMedium, color = RmpTokens.InkMuted,
                         )
                     }
                 }
             }
             item {
-                DetailSection("Location") {
+                DetailCard("Location") {
                     Text(restaurant.officialAddress.display(), style = MaterialTheme.typography.bodyLarge)
                     restaurant.currentAddress?.takeIf { it != restaurant.officialAddress }?.let { current ->
-                        Spacer(Modifier.height(6.dp))
-                        Surface(shape = MaterialTheme.shapes.small, color = RmpTokens.WarnSoft, contentColor = RmpTokens.Warn) {
-                            Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                        Surface(shape = RoundedCornerShape(14.dp), color = RmpTokens.WarnSoft, contentColor = RmpTokens.Warn, modifier = Modifier.fillMaxWidth()) {
+                            Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                                 Text("Now operating at", style = MaterialTheme.typography.labelMedium)
-                                Text(current.display(), style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurface)
-                                Text(
-                                    "Directions here",
-                                    style = MaterialTheme.typography.labelLarge,
-                                    modifier = Modifier.clickable { openDirections(context, current.display(), "transit") },
-                                )
+                                Text(current.display(), style = MaterialTheme.typography.bodyMedium, color = RmpTokens.Ink)
+                                Text("Directions here", style = MaterialTheme.typography.labelLarge, modifier = Modifier.clickable { openDirections(context, current.display(), "transit") }.padding(top = 2.dp))
                             }
                         }
                     }
@@ -865,7 +925,7 @@ private fun RestaurantDetail(
                     // Kept named "Actions": AppAcceptanceTest asserts on this exact
                     // title for acceptance criterion 7, and those instrumented tests
                     // can only be re-run on a real device.
-                    DetailSection("Actions", last = true) {
+                    DetailCard("Actions") {
                         restaurant.phone?.let { phone -> ContactRow(Icons.Rounded.Call, phone) { openIntent(context, Intent(Intent.ACTION_DIAL, Uri.parse("tel:$phone"))) } }
                         restaurant.website?.let { url -> ContactRow(Icons.Rounded.Language, Uri.parse(url).host?.removePrefix("www.") ?: url) { openUrl(context, url) } }
                         restaurant.menuUrl?.let { url -> ContactRow(Icons.Rounded.MenuBook, "View menu") { openUrl(context, url) } }
@@ -874,24 +934,43 @@ private fun RestaurantDetail(
             }
         }
         // Floating controls over the banner
-        Row(
-            Modifier.fillMaxWidth().statusBarsPadding().padding(horizontal = 12.dp, vertical = 8.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-        ) {
+        Row(Modifier.fillMaxWidth().statusBarsPadding().padding(horizontal = 14.dp, vertical = 8.dp), horizontalArrangement = Arrangement.SpaceBetween) {
             FloatingCircleButton(Icons.Rounded.ArrowBack, "Back", onBack)
             FloatingCircleButton(
                 icon = if (favorite) Icons.Rounded.Favorite else Icons.Rounded.FavoriteBorder,
                 description = if (favorite) "Remove from saved" else "Save",
-                tint = if (favorite) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
+                tint = if (favorite) RmpTokens.Accent else RmpTokens.Ink,
                 onClick = onFavorite,
             )
         }
     }
 }
 
+/** Flip status-bar icons to light while this composable is on screen (the hero behind them is dark). */
+@Composable
+private fun LightStatusBarIcons() {
+    val view = LocalView.current
+    DisposableEffect(view) {
+        val window = (view.context as? Activity)?.window ?: return@DisposableEffect onDispose {}
+        val controller = WindowCompat.getInsetsController(window, view)
+        controller.isAppearanceLightStatusBars = false
+        onDispose { controller.isAppearanceLightStatusBars = true }
+    }
+}
+
+@Composable
+private fun DetailCard(title: String, content: @Composable ColumnScope.() -> Unit) {
+    Surface(shape = RoundedCornerShape(24.dp), color = Color.White, shadowElevation = 3.dp, modifier = Modifier.fillMaxWidth().padding(horizontal = 18.dp).padding(top = 14.dp)) {
+        Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            Text(title, style = MaterialTheme.typography.titleLarge)
+            content()
+        }
+    }
+}
+
 @Composable
 private fun FloatingCircleButton(icon: ImageVector, description: String, onClick: () -> Unit, tint: Color = MaterialTheme.colorScheme.onSurface) {
-    Surface(onClick = onClick, shape = CircleShape, color = Color.White, shadowElevation = 2.dp, modifier = Modifier.size(42.dp)) {
+    Surface(onClick = onClick, shape = CircleShape, color = Color.White, shadowElevation = 4.dp, modifier = Modifier.size(42.dp)) {
         Box(contentAlignment = Alignment.Center) { Icon(icon, contentDescription = description, tint = tint, modifier = Modifier.size(22.dp)) }
     }
 }
@@ -903,11 +982,10 @@ private fun QuickAction(modifier: Modifier, icon: ImageVector, label: String, pr
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(6.dp),
     ) {
-        Box(
-            Modifier.size(52.dp).clip(CircleShape).background(if (primary) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant),
-            contentAlignment = Alignment.Center,
-        ) {
-            Icon(icon, contentDescription = null, modifier = Modifier.size(24.dp), tint = if (primary) Color.White else MaterialTheme.colorScheme.onSurface)
+        Surface(shape = CircleShape, color = if (primary) RmpTokens.Accent else Color.White, shadowElevation = 5.dp, modifier = Modifier.size(54.dp)) {
+            Box(contentAlignment = Alignment.Center) {
+                Icon(icon, contentDescription = null, modifier = Modifier.size(24.dp), tint = if (primary) Color.White else RmpTokens.Ink)
+            }
         }
         Text(label, style = MaterialTheme.typography.labelMedium)
     }
@@ -926,15 +1004,6 @@ private fun ContactRow(icon: ImageVector, text: String, onClick: () -> Unit) {
     }
 }
 
-@Composable
-private fun DetailSection(title: String, last: Boolean = false, content: @Composable ColumnScope.() -> Unit) {
-    Column(Modifier.fillMaxWidth().padding(horizontal = 20.dp).padding(top = 22.dp, bottom = if (last) 0.dp else 22.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-        Text(title, style = MaterialTheme.typography.titleLarge)
-        content()
-    }
-    if (!last) Hairline(Modifier.padding(horizontal = 20.dp))
-}
-
 // ---------------------------------------------------------------------------
 // Info
 // ---------------------------------------------------------------------------
@@ -948,9 +1017,9 @@ private fun InfoScreen(
 ) {
     val context = LocalContext.current
     val updatedAt = state.metadata[RmpRepository.KEY_GENERATED_AT]?.take(10)
-    LazyColumn(
-        modifier.fillMaxSize().background(MaterialTheme.colorScheme.background),
-        contentPadding = PaddingValues(start = 20.dp, end = 20.dp, top = 14.dp, bottom = 24.dp),
+    WarmGround(modifier) { LazyColumn(
+        Modifier.fillMaxSize(),
+        contentPadding = PaddingValues(start = 22.dp, end = 22.dp, top = 14.dp, bottom = 110.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         item { Text("RMP Finder", style = MaterialTheme.typography.headlineMedium, modifier = Modifier.padding(bottom = 6.dp)) }
@@ -993,12 +1062,12 @@ private fun InfoScreen(
             }
         }
     }
-}
+} }
 
 @Composable
 private fun InfoCard(title: String, content: @Composable ColumnScope.() -> Unit) {
-    Surface(Modifier.fillMaxWidth(), shape = MaterialTheme.shapes.medium, color = MaterialTheme.colorScheme.surfaceVariant) {
-        Column(Modifier.padding(18.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+    Surface(Modifier.fillMaxWidth(), shape = RoundedCornerShape(24.dp), color = Color.White, shadowElevation = 4.dp) {
+        Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
             Text(title, style = MaterialTheme.typography.titleLarge)
             content()
         }
@@ -1060,7 +1129,7 @@ private fun Pill(text: String, tone: Tone, solid: Boolean = false) {
     Surface(
         shape = RoundedCornerShape(50),
         color = if (solid) Color.White else tone.container,
-        contentColor = tone.ink,
+        contentColor = if (solid) Color(0xFF16130F) else tone.ink,
         shadowElevation = if (solid) 1.dp else 0.dp,
     ) {
         Text(text, style = MaterialTheme.typography.labelMedium, modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp))
@@ -1086,6 +1155,25 @@ private fun BrandTile(restaurant: RmpRestaurant, logo: BrandLogo?, size: Int, on
         when {
             logo != null && logo.fullBleed -> Image(logo.bitmap, contentDescription = "${restaurant.displayName} logo", modifier = Modifier.fillMaxSize(), contentScale = ContentScale.Crop)
             logo != null -> Image(logo.bitmap, contentDescription = "${restaurant.displayName} logo", modifier = Modifier.fillMaxSize().padding((size * 0.13f).dp), contentScale = ContentScale.Fit)
+            else -> Text(
+                restaurant.displayName.firstOrNull { it.isLetterOrDigit() }?.uppercase() ?: "R",
+                style = if (size >= 70) MaterialTheme.typography.headlineMedium else MaterialTheme.typography.titleLarge,
+                color = fallbackBrandColor(restaurant.displayName),
+            )
+        }
+    }
+}
+
+/** Round logo tile used on Home and Map: full-bleed icons crop to the circle; wordmarks sit inside on white. */
+@Composable
+private fun BrandCircle(restaurant: RmpRestaurant, logo: BrandLogo?, size: Int) {
+    Box(
+        Modifier.size(size.dp).clip(CircleShape).background(Color.White).border(1.dp, RmpTokens.Hairline, CircleShape),
+        contentAlignment = Alignment.Center,
+    ) {
+        when {
+            logo != null && logo.fullBleed -> Image(logo.bitmap, contentDescription = "${restaurant.displayName} logo", modifier = Modifier.fillMaxSize(), contentScale = ContentScale.Crop)
+            logo != null -> Image(logo.bitmap, contentDescription = "${restaurant.displayName} logo", modifier = Modifier.fillMaxSize().padding((size * 0.17f).dp), contentScale = ContentScale.Fit)
             else -> Text(
                 restaurant.displayName.firstOrNull { it.isLetterOrDigit() }?.uppercase() ?: "R",
                 style = if (size >= 70) MaterialTheme.typography.headlineMedium else MaterialTheme.typography.titleLarge,
@@ -1201,6 +1289,7 @@ private enum class Tone(val ink: Color, val container: Color) {
     CLOSED(RmpTokens.Accent, RmpTokens.AccentSoft),
     WARN(RmpTokens.Warn, RmpTokens.WarnSoft),
     NEUTRAL(RmpTokens.Ink, RmpTokens.Paper),
+    BUTTER(RmpTokens.ButterInk, RmpTokens.Butter),
 }
 
 /** [short] fits in a list row; [long] carries the extra word that removes ambiguity. */

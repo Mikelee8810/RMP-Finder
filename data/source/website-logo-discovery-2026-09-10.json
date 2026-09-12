@@ -252,16 +252,17 @@
   },
   "dunkindonuts.com": {
     "assetFile": "dunkindonuts.com.png",
-    "checkedAt": "2026-09-10",
-    "credit": "Website icon published by dunkindonuts.com",
+    "checkedAt": "2026-09-11",
+    "credit": "Dunkin' official wordmark verified on dunkindonuts.com; bundled vector mirror from Wikimedia Commons",
     "format": "png",
-    "height": 180,
-    "imageSourceUrl": "https://www.dunkindonuts.com/brands/dun/apple-touch-icon.png",
-    "license": null,
+    "height": 512,
+    "imageSourceUrl": "https://upload.wikimedia.org/wikipedia/commons/2/22/Dunkin%27_logo.svg",
+    "license": "PD-textlogo / trademark identification; see source page",
     "resolvedWebsiteUrl": "https://www.dunkindonuts.com/locations/us/ny/bronx/2366-grand-concourse/store-340876/",
-    "sha256": "55c4cd23c45d7c0477d991b3129a26ec40f8a17a21d85424dc08452d83fca86d",
+    "sha256": "419aa45fe6edc5e9d6c0cca073ca415cc4ba3e35a31d62515ad45b16f3317569",
+    "verification": "First-party site only serves the square app icon, which reads as an app tile rather than the brand; replaced with a 512px raster of the public-domain vector wordmark.",
     "websiteUrl": "https://www.dunkindonuts.com/locations/us/ny/bronx/2366-grand-concourse/store-340876/",
-    "width": 180
+    "width": 512
   },
   "elnuevocapri3restaurantny.com": {
     "assetFile": null,
@@ -433,14 +434,14 @@
   "kfc.com": {
     "assetFile": "kfc.com.png",
     "checkedAt": "2026-09-11",
-    "credit": "KFC official branding verified on kfc.com; bundled vector mirror from Wikimedia Commons",
+    "credit": "KFC official stripes-and-wordmark verified on kfc.com; bundled vector mirror from Wikimedia Commons",
     "format": "png",
     "height": 512,
-    "imageSourceUrl": "https://upload.wikimedia.org/wikipedia/commons/9/91/KFC_Logo.svg",
+    "imageSourceUrl": "https://upload.wikimedia.org/wikipedia/commons/1/1e/KFC_logo_wordmark.svg",
     "license": "PD-textlogo / trademark identification; see source page",
     "resolvedWebsiteUrl": "https://www.kfc.com/",
-    "sha256": "cb3c9fdb33c12a36b362bf18b77c9f65bcebe05d60444dafa4c85bb9f553b6b1",
-    "verification": "Firecrawl branding on official site, 2026-09-11",
+    "sha256": "f984a7fc73f3c5ed3ab3bfbedac34a4d99b315e24fdba5c89eba69eecfc5991b",
+    "verification": "First-party site only serves the square app icon, which reads as an app tile rather than the brand; replaced with a 512px raster of the public-domain vector wordmark.",
     "websiteUrl": "https://www.kfc.com/",
     "width": 512
   },

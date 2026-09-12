@@ -18,26 +18,34 @@ import com.mike.rmpfinder.R
 /**
  * Design tokens for the whole app.
  *
- * One committed palette: warm white ground, near-black ink, a single hot red
- * accent used sparingly (the active tab, the primary action, the "near you"
- * pin) and a green reserved for "open right now". Every other surface is a
- * neutral so the restaurant logos supply the colour.
+ * One committed palette: tomato red blocks for the header and primary actions,
+ * an apricot-cream ground (never white, never black), espresso ink, butter for
+ * the 10%-off highlight and basil green for "open right now". Restaurant logos
+ * always sit on white discs so every brand reads against the warm ground.
  */
 object RmpTokens {
-    val Ink = Color(0xFF16130F)
-    val InkMuted = Color(0xFF6B655C)
-    val InkFaint = Color(0xFF9C968D)
-    val Ground = Color(0xFFFFFFFF)
-    val Paper = Color(0xFFF6F4F0)
-    val PaperDeep = Color(0xFFECE9E3)
-    val Hairline = Color(0xFFE6E2DB)
-    val Accent = Color(0xFFE8321C)
-    val AccentSoft = Color(0xFFFFEDE9)
-    val AccentInk = Color(0xFF5E1006)
-    val Open = Color(0xFF13843F)
-    val OpenSoft = Color(0xFFE3F5E9)
+    // Ink: espresso, never pure black.
+    val Ink = Color(0xFF2A170E)
+    val InkMuted = Color(0xFF7A5F50)
+    val InkFaint = Color(0xFFB3998A)
+    // Ground: apricot cream. Cards sit a step lighter, never pure white.
+    val Ground = Color(0xFFFFEFD9)
+    val Paper = Color(0xFFFFF8EC)
+    val PaperDeep = Color(0xFFFBE3C4)
+    val Hairline = Color(0xFFF0D7B8)
+    // Tomato: the brand. Deep tomato for pressed/gradient ends.
+    val Accent = Color(0xFFF2431F)
+    val AccentDeep = Color(0xFFC4290F)
+    val AccentSoft = Color(0xFFFFD9CC)
+    val AccentInk = Color(0xFF7A1B08)
+    // Butter: the 10% off / saved highlight.
+    val Butter = Color(0xFFFFCF4D)
+    val ButterInk = Color(0xFF5C4200)
+    // Basil: open right now.
+    val Open = Color(0xFF1E9E52)
+    val OpenSoft = Color(0xFFD5F3DF)
     val Warn = Color(0xFFB4640A)
-    val WarnSoft = Color(0xFFFFF1DE)
+    val WarnSoft = Color(0xFFFFE9C7)
 }
 
 private val RmpColors = lightColorScheme(
@@ -45,14 +53,14 @@ private val RmpColors = lightColorScheme(
     onPrimary = Color.White,
     primaryContainer = RmpTokens.AccentSoft,
     onPrimaryContainer = RmpTokens.AccentInk,
-    secondary = RmpTokens.Ink,
-    onSecondary = Color.White,
-    secondaryContainer = RmpTokens.Paper,
-    onSecondaryContainer = RmpTokens.Ink,
+    secondary = RmpTokens.Butter,
+    onSecondary = RmpTokens.ButterInk,
+    secondaryContainer = RmpTokens.Butter,
+    onSecondaryContainer = RmpTokens.ButterInk,
     tertiary = RmpTokens.Open,
     onTertiary = Color.White,
     tertiaryContainer = RmpTokens.OpenSoft,
-    onTertiaryContainer = Color(0xFF06481F),
+    onTertiaryContainer = Color(0xFF0B4A25),
     background = RmpTokens.Ground,
     onBackground = RmpTokens.Ink,
     surface = RmpTokens.Ground,
