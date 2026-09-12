@@ -12,6 +12,8 @@ import com.mike.rmpfinder.update.AppUpdateChecker
 import com.mike.rmpfinder.update.AppUpdateState
 import com.mike.rmpfinder.reviews.ReviewsFetcher
 import com.mike.rmpfinder.reviews.ReviewsState
+import com.mike.rmpfinder.reviews.Rating
+import com.mike.rmpfinder.reviews.RatingsStore
 import com.mike.rmpfinder.data.RmpAddress
 import java.time.Instant
 import kotlinx.coroutines.delay
@@ -32,6 +34,10 @@ data class BrowseFilters(
     val openOnly: Boolean = false,
     val favoritesOnly: Boolean = false,
     val attentionOnly: Boolean = false,
+    /** Google rating floor, e.g. 4.0 or 4.5. */
+    val minRating: Double? = null,
+    /** Google price levels 1..4 to keep; empty means any. */
+    val priceLevels: Set<Int> = emptySet(),
 )
 
 data class RmpUiState(
@@ -46,6 +52,7 @@ data class RmpUiState(
     val refreshing: Boolean = false,
     val refreshMessage: String? = null,
     val appUpdateState: AppUpdateState = AppUpdateState.Idle,
+    val ratings: Map<String, Rating> = emptyMap(),
 )
 
 private data class BaseData(
@@ -71,6 +78,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val appUpdateState = MutableStateFlow<AppUpdateState>(AppUpdateState.Idle)
     private val appUpdateChecker = AppUpdateChecker()
     private val reviewsFetcher = ReviewsFetcher()
+    private val ratingsStore = RatingsStore(application, reviewsFetcher)
     private val reviewsByKey = MutableStateFlow<Map<String, ReviewsState>>(emptyMap())
     /** Reviews for whichever restaurant is open; keyed so going back and forth never refetches. */
     val reviews: StateFlow<Map<String, ReviewsState>> = reviewsByKey
@@ -100,9 +108,20 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         Selection(filters, origin, refreshing, message, appUpdate)
     }
 
-    val uiState: StateFlow<RmpUiState> = combine(baseData, selection, clock) { base, selection, now ->
-        val (visible, distances) = filterRestaurants(base.restaurants, base.favorites, selection.filters, selection.origin, now)
+    init {
+        // Ratings for the whole list, once, in the background; the list shows
+        // them as they land and the filters start working when they are in.
+        viewModelScope.launch {
+            repository.restaurants.collect { restaurants ->
+                if (restaurants.isNotEmpty()) { ratingsStore.fill(restaurants); return@collect }
+            }
+        }
+    }
+
+    val uiState: StateFlow<RmpUiState> = combine(baseData, selection, clock, ratingsStore.ratings) { base, selection, now, ratings ->
+        val (visible, distances) = filterRestaurants(base.restaurants, base.favorites, selection.filters, selection.origin, now, ratings)
         RmpUiState(
+            ratings = ratings,
             allRestaurants = base.restaurants,
             visibleRestaurants = visible,
             favoriteKeys = base.favorites,
@@ -123,6 +142,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun toggleOpenOnly() = filters.update { copy(openOnly = !openOnly) }
     fun toggleFavoritesOnly() = filters.update { copy(favoritesOnly = !favoritesOnly) }
     fun toggleAttentionOnly() = filters.update { copy(attentionOnly = !attentionOnly) }
+    fun setMinRating(value: Double?) = filters.update { copy(minRating = if (minRating == value) null else value) }
+    fun togglePriceLevel(level: Int) = filters.update { copy(priceLevels = if (level in priceLevels) priceLevels - level else priceLevels + level) }
     fun clearFilters() { filters.value = BrowseFilters() }
 
     fun setUserLocation(latitude: Double, longitude: Double) {
@@ -174,6 +195,7 @@ internal fun filterRestaurants(
     filters: BrowseFilters,
     origin: GeoPoint?,
     now: Instant,
+    ratings: Map<String, Rating> = emptyMap(),
 ): Pair<List<RmpRestaurant>, Map<String, Double>> {
     val distances = origin?.let { point ->
         restaurants.associate { restaurant ->
@@ -188,6 +210,8 @@ internal fun filterRestaurants(
         .filter { !filters.openOnly || OpenNow.isOpen(it, now) }
         .filter { !filters.favoritesOnly || it.rmpKey in favorites }
         .filter { !filters.attentionOnly || it.needsAttention }
+        .filter { filters.minRating == null || (ratings[it.rmpKey]?.rating ?: 0.0) >= filters.minRating }
+        .filter { filters.priceLevels.isEmpty() || ratings[it.rmpKey]?.priceLevel in filters.priceLevels }
         .sortedWith(
             if (origin != null) {
                 compareBy<RmpRestaurant> { distances[it.rmpKey] ?: Double.MAX_VALUE }.thenBy { it.displayName.lowercase() }

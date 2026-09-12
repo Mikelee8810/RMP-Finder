@@ -87,6 +87,7 @@ import com.mike.rmpfinder.data.WeeklyHours
 import com.mike.rmpfinder.update.AppUpdateChecker
 import com.mike.rmpfinder.update.AppUpdateState
 import com.mike.rmpfinder.reviews.ReviewsState
+import com.mike.rmpfinder.reviews.Rating
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 import java.time.DayOfWeek
@@ -160,6 +161,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import androidx.compose.material.icons.rounded.Tune
 import androidx.compose.material.icons.rounded.Star
+import androidx.compose.material.icons.rounded.StarBorder
 import androidx.compose.material.icons.rounded.RateReview
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.draw.shadow
@@ -174,6 +176,7 @@ private enum class MainTab { HOME, MAP, INFO }
 fun RmpFinderRoot(
     viewModel: MainViewModel,
     mapView: MapView,
+    locationGranted: Boolean,
     onRequestLocation: () -> Unit,
     onOpenLocationSettings: () -> Unit,
 ) {
@@ -186,7 +189,11 @@ fun RmpFinderRoot(
         if (selected != null) selectedKey = null else tab = MainTab.HOME
     }
 
-    if (state.origin == null) {
+    // The prompt is about permission, not about a fix having landed yet: once
+    // location is granted the app opens straight to Home (sorted by borough
+    // until GPS answers, same as with no location at all) instead of
+    // re-showing "Turn on location" on every cold start while GPS warms up.
+    if (!locationGranted) {
         LocationRequiredScreen(onRequestLocation, onOpenLocationSettings)
         return
     }
@@ -335,7 +342,8 @@ private fun HomeScreen(
 ) {
     var showBoroughs by rememberSaveable { mutableStateOf(false) }
     val filters = state.filters
-    val filtersActive = filters.query.isNotBlank() || filters.openOnly || filters.favoritesOnly || filters.borough != null || filters.category != null
+    val filtersActive = filters.query.isNotBlank() || filters.openOnly || filters.favoritesOnly || filters.borough != null || filters.category != null || filters.minRating != null || filters.priceLevels.isNotEmpty()
+    val hasRatings = state.ratings.isNotEmpty()
     val openNearby = remember(state.visibleRestaurants, state.now, filtersActive) {
         if (filtersActive) emptyList() else state.visibleRestaurants.filter { OpenNow.isOpen(it, state.now) }.take(10)
     }
@@ -379,13 +387,28 @@ private fun HomeScreen(
                     }
                 }
                 AnimatedVisibility(visible = showBoroughs, enter = expandVertically() + fadeIn(), exit = shrinkVertically() + fadeOut()) {
-                    Row(
-                        Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()).padding(horizontal = 22.dp).padding(top = 12.dp),
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    ) {
-                        FilterChipPill(selected = filters.openOnly, label = "Open now", onClick = viewModel::toggleOpenOnly)
-                        MainViewModel.BOROUGHS.forEach { borough ->
-                            FilterChipPill(selected = filters.borough == borough, label = borough, onClick = { viewModel.setBorough(borough) })
+                    Column(Modifier.padding(top = 12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                        Row(
+                            Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()).padding(horizontal = 22.dp),
+                            horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        ) {
+                            FilterChipPill(selected = filters.openOnly, label = "Open now", onClick = viewModel::toggleOpenOnly)
+                            MainViewModel.BOROUGHS.forEach { borough ->
+                                FilterChipPill(selected = filters.borough == borough, label = borough, onClick = { viewModel.setBorough(borough) })
+                            }
+                        }
+                        if (hasRatings) {
+                            Row(
+                                Modifier.fillMaxWidth().padding(horizontal = 22.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(14.dp),
+                            ) {
+                                StarRatingPicker(selected = filters.minRating, onSelect = viewModel::setMinRating)
+                                Box(Modifier.width(1.dp).height(22.dp).background(RmpTokens.Hairline))
+                                listOf(1, 2, 3).forEach { level ->
+                                    FilterChipPill(selected = level in filters.priceLevels, label = "$".repeat(level), onClick = { viewModel.togglePriceLevel(level) })
+                                }
+                            }
                         }
                     }
                 }
@@ -409,7 +432,7 @@ private fun HomeScreen(
                         Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()).padding(horizontal = 22.dp).padding(bottom = 6.dp),
                         horizontalArrangement = Arrangement.spacedBy(12.dp),
                     ) {
-                        openNearby.forEach { r -> OpenCard(r, state.distances[r.rmpKey], state.now, onRestaurant) }
+                        openNearby.forEach { r -> OpenCard(r, state.distances[r.rmpKey], state.now, onRestaurant, rating = state.ratings[r.rmpKey]) }
                     }
                 }
             }
@@ -434,7 +457,7 @@ private fun HomeScreen(
             } else {
                 items(state.visibleRestaurants, key = { it.rmpKey }) { restaurant ->
                     Box(Modifier.padding(horizontal = 22.dp, vertical = 5.dp)) {
-                        StoreRow(restaurant, state.distances[restaurant.rmpKey], restaurant.rmpKey in state.favoriteKeys, state.now, onRestaurant, onFavorite = { viewModel.toggleFavorite(restaurant) })
+                        StoreRow(restaurant, state.distances[restaurant.rmpKey], restaurant.rmpKey in state.favoriteKeys, state.now, onRestaurant, onFavorite = { viewModel.toggleFavorite(restaurant) }, rating = state.ratings[restaurant.rmpKey])
                     }
                 }
             }
@@ -511,7 +534,7 @@ private fun CuisineDisc(cuisine: Cuisine, selected: Boolean, onClick: () -> Unit
 
 /** Horizontal card for places open right now. */
 @Composable
-private fun OpenCard(restaurant: RmpRestaurant, distanceMiles: Double?, now: Instant, onClick: (RmpRestaurant) -> Unit) {
+private fun OpenCard(restaurant: RmpRestaurant, distanceMiles: Double?, now: Instant, onClick: (RmpRestaurant) -> Unit, rating: Rating? = null) {
     val context = LocalContext.current
     val logo = remember(restaurant.rmpKey) { RestaurantLogos.forRestaurant(context, restaurant) }
     val brand = logo?.brandColor ?: fallbackBrandColor(restaurant.displayName)
@@ -532,7 +555,44 @@ private fun OpenCard(restaurant: RmpRestaurant, distanceMiles: Double?, now: Ins
                 }
             }
             Text(restaurant.displayName, style = MaterialTheme.typography.titleSmall, maxLines = 1, overflow = TextOverflow.Ellipsis)
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                if (rating?.rating != null) {
+                    Icon(Icons.Rounded.Star, contentDescription = null, tint = Color(0xFFE0A800), modifier = Modifier.size(13.dp))
+                    Text("%.1f".format(rating.rating), style = MaterialTheme.typography.labelMedium)
+                    rating.priceLevel?.let { Dot(); Text("$".repeat(it), style = MaterialTheme.typography.labelMedium, color = RmpTokens.Open) }
+                } else {
+                    Text(restaurant.cuisineLabel, style = MaterialTheme.typography.bodySmall, color = RmpTokens.InkMuted, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                }
+            }
             Tag(availability?.long ?: "Hours unavailable", availability?.tone ?: Tone.NEUTRAL)
+        }
+    }
+}
+
+@Composable
+private fun StarRatingPicker(selected: Double?, onSelect: (Double?) -> Unit) {
+    // Tap a star to mean "this many and up"; tapping the already-selected star clears it.
+    Row(horizontalArrangement = Arrangement.spacedBy(2.dp), verticalAlignment = Alignment.CenterVertically) {
+        (1..5).forEach { star ->
+            val filled = selected != null && star <= selected
+            Icon(
+                if (filled) Icons.Rounded.Star else Icons.Rounded.StarBorder,
+                contentDescription = "$star star${if (star == 1) "" else "s"} and up",
+                tint = if (filled) Color(0xFFE0A800) else RmpTokens.InkFaint,
+                modifier = Modifier.size(26.dp).clip(CircleShape).selectable(
+                    selected = filled,
+                    onClick = { onSelect(if (selected == star.toDouble()) null else star.toDouble()) },
+                    role = Role.Checkbox,
+                ).padding(1.dp),
+            )
+        }
+        if (selected != null) {
+            Text(
+                "${selected.toInt()}+",
+                style = MaterialTheme.typography.labelLarge,
+                color = RmpTokens.Ink,
+                modifier = Modifier.padding(start = 4.dp),
+            )
         }
     }
 }
@@ -585,7 +645,7 @@ private fun StoreTile(modifier: Modifier, restaurant: RmpRestaurant, distanceMil
 
 /** List card: round logo, name, the facts that decide a visit, and a save heart. */
 @Composable
-private fun StoreRow(restaurant: RmpRestaurant, distanceMiles: Double?, favorite: Boolean, now: Instant, onClick: (RmpRestaurant) -> Unit, onFavorite: () -> Unit) {
+private fun StoreRow(restaurant: RmpRestaurant, distanceMiles: Double?, favorite: Boolean, now: Instant, onClick: (RmpRestaurant) -> Unit, onFavorite: () -> Unit, rating: Rating? = null) {
     val context = LocalContext.current
     val logo = remember(restaurant.rmpKey) { RestaurantLogos.forRestaurant(context, restaurant) }
     val availability = availabilityOf(restaurant, now)
@@ -606,7 +666,15 @@ private fun StoreRow(restaurant: RmpRestaurant, distanceMiles: Double?, favorite
                     Text(restaurant.displayName, style = MaterialTheme.typography.titleMedium, maxLines = 1, overflow = TextOverflow.Ellipsis)
                     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                         if (distanceMiles != null) { Text(formatMiles(distanceMiles), style = MaterialTheme.typography.labelMedium, color = RmpTokens.Ink); Dot() }
-                        Text(restaurant.cuisineLabel, style = MaterialTheme.typography.bodySmall, color = RmpTokens.InkMuted, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                        Text(restaurant.cuisineLabel, style = MaterialTheme.typography.bodySmall, color = RmpTokens.InkMuted, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f, fill = false))
+                    }
+                    if (rating?.rating != null) {
+                        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                            Icon(Icons.Rounded.Star, contentDescription = null, tint = Color(0xFFE0A800), modifier = Modifier.size(14.dp))
+                            Text("%.1f".format(rating.rating), style = MaterialTheme.typography.labelMedium, color = RmpTokens.Ink)
+                            rating.ratingCount?.let { Text("($it)", style = MaterialTheme.typography.bodySmall, color = RmpTokens.InkMuted) }
+                            rating.priceLevel?.let { Dot(); Text("$".repeat(it), style = MaterialTheme.typography.labelMedium, color = RmpTokens.Open) }
+                        }
                     }
                     Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                         Tag("10% off", Tone.BUTTER)

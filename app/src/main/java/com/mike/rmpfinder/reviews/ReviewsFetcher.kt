@@ -66,19 +66,45 @@ class ReviewsFetcher(
         results
     }
 
-    private fun google(restaurant: RmpRestaurant, address: RmpAddress): ReviewSummary? {
+    /** Rating, count and price level only — the fields that are cheap to ask for in bulk. */
+    suspend fun headline(restaurant: RmpRestaurant, address: RmpAddress): Rating? = withContext(Dispatchers.IO) {
+        if (googleKey.isBlank()) return@withContext null
+        runCatching {
+            val place = googleSearch(restaurant, address, "places.rating,places.userRatingCount,places.priceLevel") ?: return@runCatching null
+            Rating(
+                rating = place.optDouble("rating").takeIf { !it.isNaN() },
+                ratingCount = place.optInt("userRatingCount").takeIf { place.has("userRatingCount") },
+                priceLevel = priceLevelOf(place.optString("priceLevel")),
+                fetchedAt = System.currentTimeMillis(),
+            )
+        }.getOrNull()
+    }
+
+    private fun googleSearch(restaurant: RmpRestaurant, address: RmpAddress, fields: String): JSONObject? {
         val query = "${restaurant.displayName}, ${address.display()}"
         val body = JSONObject().put("textQuery", query).put("maxResultCount", 1)
             .put("locationBias", JSONObject().put("circle", JSONObject()
                 .put("center", JSONObject().put("latitude", restaurant.latitude).put("longitude", restaurant.longitude))
                 .put("radius", 800.0)))
-        val fields = "places.id,places.rating,places.userRatingCount,places.priceLevel,places.reviews,places.googleMapsUri"
         val response = post(
             "https://places.googleapis.com/v1/places:searchText",
             body.toString(),
             mapOf("X-Goog-Api-Key" to googleKey, "X-Goog-FieldMask" to fields, "Content-Type" to "application/json"),
         )
-        val place = JSONObject(response).optJSONArray("places")?.optJSONObject(0) ?: return null
+        return JSONObject(response).optJSONArray("places")?.optJSONObject(0)
+    }
+
+    private fun priceLevelOf(value: String): Int? = when (value) {
+        "PRICE_LEVEL_INEXPENSIVE" -> 1
+        "PRICE_LEVEL_MODERATE" -> 2
+        "PRICE_LEVEL_EXPENSIVE" -> 3
+        "PRICE_LEVEL_VERY_EXPENSIVE" -> 4
+        else -> null
+    }
+
+    private fun google(restaurant: RmpRestaurant, address: RmpAddress): ReviewSummary? {
+        val query = "${restaurant.displayName}, ${address.display()}"
+        val place = googleSearch(restaurant, address, "places.id,places.rating,places.userRatingCount,places.priceLevel,places.reviews,places.googleMapsUri") ?: return null
         val reviews = place.optJSONArray("reviews").toList().map { r ->
             Review(
                 author = r.optJSONObject("authorAttribution")?.optString("displayName").orEmpty().ifBlank { "Google user" },
@@ -91,13 +117,7 @@ class ReviewsFetcher(
             source = "Google",
             rating = place.optDouble("rating").takeIf { !it.isNaN() },
             ratingCount = place.optInt("userRatingCount").takeIf { place.has("userRatingCount") },
-            priceLevel = when (place.optString("priceLevel")) {
-                "PRICE_LEVEL_INEXPENSIVE" -> 1
-                "PRICE_LEVEL_MODERATE" -> 2
-                "PRICE_LEVEL_EXPENSIVE" -> 3
-                "PRICE_LEVEL_VERY_EXPENSIVE" -> 4
-                else -> null
-            },
+            priceLevel = priceLevelOf(place.optString("priceLevel")),
             reviews = reviews,
             listingUrl = place.optString("googleMapsUri").ifBlank {
                 "https://www.google.com/maps/search/?api=1&query=" + URLEncoder.encode(query, "UTF-8")
