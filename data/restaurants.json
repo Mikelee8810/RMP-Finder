@@ -2546,7 +2546,7 @@
     "imageUrl": null,
     "imageAttribution": null,
     "businessStatus": "likely_open",
-    "hoursStatus": "conflicting",
+    "hoursStatus": "stale",
     "hours": null,
     "rmpVerifiedAt": "2026-09-09",
     "businessCheckedAt": "2026-09-12",
@@ -4020,7 +4020,7 @@
       "matchedAddress": "66 WILLOUGHBY ST, BROOKLYN, NY, 11201"
     },
     "phone": "718-887-0861",
-    "website": "https://www.atomicwings.com/locations/brooklyn-ny",
+    "website": "https://www.atomicwings.com/",
     "menuUrl": null,
     "imageUrl": null,
     "imageAttribution": null,
@@ -4030,11 +4030,19 @@
       "timezone": "America/New_York",
       "monday": [
         {
+          "open": "00:00",
+          "close": "04:00"
+        },
+        {
           "open": "11:00",
           "close": "24:00"
         }
       ],
       "tuesday": [
+        {
+          "open": "00:00",
+          "close": "04:00"
+        },
         {
           "open": "11:00",
           "close": "24:00"
@@ -4042,11 +4050,19 @@
       ],
       "wednesday": [
         {
+          "open": "00:00",
+          "close": "04:00"
+        },
+        {
           "open": "11:00",
           "close": "24:00"
         }
       ],
       "thursday": [
+        {
+          "open": "00:00",
+          "close": "04:00"
+        },
         {
           "open": "11:00",
           "close": "24:00"
@@ -4084,7 +4100,7 @@
       ]
     },
     "rmpVerifiedAt": "2026-09-09",
-    "businessCheckedAt": "2026-09-10",
+    "businessCheckedAt": "2026-09-09",
     "conflictFlags": [],
     "sources": [
       {
@@ -6803,7 +6819,7 @@
       "matchedAddress": "1364 PENNSYLVANIA AVE, BROOKLYN, NY, 11239"
     },
     "phone": "718-277-1003",
-    "website": "https://locations.goldenkrust.com/ll/US/NY/Brooklyn/1364-Pennsylvania-Ave_",
+    "website": "https://locations.goldenkrust.com/",
     "menuUrl": null,
     "imageUrl": null,
     "imageAttribution": null,
@@ -6855,7 +6871,7 @@
       ]
     },
     "rmpVerifiedAt": "2026-09-09",
-    "businessCheckedAt": "2026-09-10",
+    "businessCheckedAt": "2026-09-09",
     "conflictFlags": [
       "address_mismatch"
     ],
@@ -10766,7 +10782,7 @@
     "imageUrl": null,
     "imageAttribution": null,
     "businessStatus": "conflicting",
-    "hoursStatus": "conflicting",
+    "hoursStatus": "stale",
     "hours": {
       "timezone": "America/New_York",
       "monday": [
@@ -14181,7 +14197,7 @@
     "imageUrl": null,
     "imageAttribution": null,
     "businessStatus": "conflicting",
-    "hoursStatus": "conflicting",
+    "hoursStatus": "stale",
     "hours": null,
     "rmpVerifiedAt": "2026-09-09",
     "businessCheckedAt": "2026-09-09",
@@ -16461,7 +16477,7 @@
     "imageUrl": null,
     "imageAttribution": null,
     "businessStatus": "conflicting",
-    "hoursStatus": "conflicting",
+    "hoursStatus": "stale",
     "hours": null,
     "rmpVerifiedAt": "2026-09-09",
     "businessCheckedAt": "2026-09-09",
@@ -19717,7 +19733,7 @@
     "imageUrl": null,
     "imageAttribution": null,
     "businessStatus": "conflicting",
-    "hoursStatus": "conflicting",
+    "hoursStatus": "stale",
     "hours": null,
     "rmpVerifiedAt": "2026-09-09",
     "businessCheckedAt": "2026-09-09",
@@ -20717,7 +20733,12 @@
       "state": "NY",
       "zip": "11432"
     },
-    "currentAddress": null,
+    "currentAddress": {
+      "line1": "162-02 Jamaica Avenue",
+      "city": "Jamaica",
+      "state": "NY",
+      "zip": "11434"
+    },
     "borough": "Queens",
     "zip": "11432",
     "coordinates": {
@@ -20999,7 +21020,12 @@
       "zip": "11355",
       "line2": "Ste 1M"
     },
-    "currentAddress": null,
+    "currentAddress": {
+      "line1": "42-35 Main Street, Ste 1M",
+      "city": "Flushing",
+      "state": "NY",
+      "zip": "11355"
+    },
     "borough": "Queens",
     "zip": "11355",
     "coordinates": {
@@ -22230,7 +22256,7 @@
     "imageUrl": null,
     "imageAttribution": null,
     "businessStatus": "unknown",
-    "hoursStatus": "conflicting",
+    "hoursStatus": "stale",
     "hours": null,
     "rmpVerifiedAt": "2026-09-09",
     "businessCheckedAt": "2026-09-09",
@@ -22300,7 +22326,7 @@
     "imageUrl": null,
     "imageAttribution": null,
     "businessStatus": "unknown",
-    "hoursStatus": "conflicting",
+    "hoursStatus": "stale",
     "hours": null,
     "rmpVerifiedAt": "2026-09-09",
     "businessCheckedAt": "2026-09-09",
@@ -23879,7 +23905,7 @@
     "imageUrl": null,
     "imageAttribution": null,
     "businessStatus": "conflicting",
-    "hoursStatus": "conflicting",
+    "hoursStatus": "stale",
     "hours": null,
     "rmpVerifiedAt": "2026-09-09",
     "businessCheckedAt": "2026-09-09",
@@ -24625,7 +24651,7 @@
     "imageUrl": null,
     "imageAttribution": null,
     "businessStatus": "conflicting",
-    "hoursStatus": "conflicting",
+    "hoursStatus": "stale",
     "hours": {
       "timezone": "America/New_York",
       "monday": [

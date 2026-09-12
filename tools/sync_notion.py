@@ -216,7 +216,13 @@ def build_records(rows: list[dict], existing: dict[str, dict], token: str, write
         else:
             official_name = prior["officialName"]
             official_addr = prior["officialAddress"]
-            current_name = row["restaurant"] if names_differ(row["restaurant"], official_name) else None
+            # Notion's Restaurant column is not reliable evidence that a
+            # rebrand has reverted: some rows keep the OTDA/official name
+            # there even while a real current name is only noted in prose
+            # (Notes). So a match against the official name is never treated
+            # as proof of "no divergence" — only a genuine difference adds
+            # new information; it can never erase a previously recorded one.
+            current_name = row["restaurant"] if names_differ(row["restaurant"], official_name) else prior.get("currentName")
             current_addr = notion_addr if addrs_differ(official_addr, notion_addr) and row["address"] else prior.get("currentAddress")
 
         # Coordinates: Notion's own value wins (a human or a prior sync
@@ -264,6 +270,13 @@ def build_records(rows: list[dict], existing: dict[str, dict], token: str, write
         business_status = row["businessStatus"] if row["businessStatus"] in VALID_BUSINESS_STATUS else (
             prior["businessStatus"] if prior else "unknown"
         )
+
+        # A business the sources already call closed/moved/conflicting must
+        # never be reported as having usable hours, even if the Hours cell
+        # itself parses cleanly — verify_data.py enforces this same
+        # invariant, so violating it here would fail every sync.
+        if business_status in {"closed", "temporarily_closed", "moved", "conflicting"} and hours_status == "usable":
+            hours_status = "stale"
 
         record = {
             "rmpKey": key,
