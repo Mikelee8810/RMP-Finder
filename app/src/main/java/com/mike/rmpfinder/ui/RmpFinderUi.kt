@@ -1803,8 +1803,12 @@ private fun formatMiles(miles: Double): String = if (miles < 10) "%.1f mi".forma
 // ---------------------------------------------------------------------------
 
 private fun openObtainium(context: Context) {
+    // Obtainium's own app uses this exact "add/<encoded-url>" path form when it
+    // builds add-app links for itself (see MainActivity.transformShareIntent in
+    // its source); that is a stronger guarantee of compatibility than the
+    // "add?url=" query form its wiki lists as merely "equivalent".
     val source = Uri.encode(AppUpdateChecker.REPOSITORY_URL)
-    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("obtainium://add?url=$source"))
+    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("obtainium://add/$source"))
     if (!startActivitySafely(context, intent)) {
         openUrl(context, AppUpdateChecker.REPOSITORY_URL)
     }
