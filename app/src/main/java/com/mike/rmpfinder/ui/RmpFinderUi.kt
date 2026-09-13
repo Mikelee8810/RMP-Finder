@@ -8,7 +8,12 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Canvas as AndroidCanvas
 import android.graphics.Color as AndroidColor
+import android.graphics.Matrix
+import android.graphics.Paint
+import android.graphics.Path
+import android.graphics.Typeface
 import android.net.Uri
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
@@ -61,7 +66,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -97,7 +104,10 @@ import java.time.format.TextStyle
 import java.util.Locale
 import java.util.Optional
 import java.util.concurrent.ConcurrentHashMap
+import kotlin.math.roundToInt
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.withContext
 import org.maplibre.android.camera.CameraPosition
 import org.maplibre.android.geometry.LatLng
 import org.maplibre.android.maps.MapLibreMap
@@ -108,6 +118,10 @@ import org.maplibre.android.style.layers.PropertyFactory.circleColor
 import org.maplibre.android.style.layers.PropertyFactory.circleRadius
 import org.maplibre.android.style.layers.PropertyFactory.circleStrokeColor
 import org.maplibre.android.style.layers.PropertyFactory.circleStrokeWidth
+import org.maplibre.android.style.layers.PropertyFactory.iconAllowOverlap
+import org.maplibre.android.style.layers.PropertyFactory.iconIgnorePlacement
+import org.maplibre.android.style.layers.PropertyFactory.iconImage
+import org.maplibre.android.style.layers.PropertyFactory.iconSize
 import org.maplibre.android.style.layers.PropertyFactory.textAllowOverlap
 import org.maplibre.android.style.layers.PropertyFactory.textColor
 import org.maplibre.android.style.layers.PropertyFactory.textField
@@ -902,6 +916,9 @@ private fun MapRestaurantPreview(
     }
 }
 
+/** Round logo badge size for map pins: legible at a glance, small enough that dense blocks still cluster. */
+private const val MARKER_DIAMETER_DP = 34
+
 @Composable
 private fun RmpMap(
     mapView: MapView,
@@ -922,11 +939,12 @@ private fun RmpMap(
     }
     var mapLoadResolved by remember(mapView, styleUrl) { mutableStateOf(false) }
     var mapLibreMap by remember(mapView) { mutableStateOf<MapLibreMap?>(null) }
+    val context = LocalContext.current
 
     AndroidView(
         factory = { mapView },
         modifier = Modifier.fillMaxSize().semantics {
-            contentDescription = "Restaurant map. Tap a red pin to reveal a restaurant."
+            contentDescription = "Restaurant map. Tap a pin to reveal a restaurant."
         },
     )
     DisposableEffect(mapView) {
@@ -969,13 +987,21 @@ private fun RmpMap(
         liveMap.addOnMapClickListener(listener)
         onDispose { liveMap.removeOnMapClickListener(listener) }
     }
+    val markerDiameterPx = remember(context) { (MARKER_DIAMETER_DP * context.resources.displayMetrics.density).roundToInt() }
     LaunchedEffect(restaurants, originLat, originLon) {
+        // Building ~200 composited logo bitmaps touches disk (asset decode) and
+        // canvas drawing, so it happens off the main thread before the style
+        // (which must be touched from the map's own callback) needs them.
+        val markerBitmaps = withContext(Dispatchers.Default) {
+            restaurants.associate { it.rmpKey to RestaurantLogos.markerBitmap(context, it, markerDiameterPx) }
+        }
         mapView.getMapAsync { map ->
             mapLibreMap = map
             val features = restaurants.map { restaurant ->
                 Feature.fromGeometry(Point.fromLngLat(restaurant.longitude, restaurant.latitude)).apply {
                     addStringProperty("rmpKey", restaurant.rmpKey)
                     addStringProperty("name", restaurant.displayName)
+                    addStringProperty("iconId", restaurant.rmpKey)
                 }
             }
             val options = GeoJsonOptions().withCluster(true).withClusterRadius(48).withClusterMaxZoom(14)
@@ -983,16 +1009,18 @@ private fun RmpMap(
                 mapLoadResolved = true
                 onMapLoadSucceeded()
                 style.addSource(GeoJsonSource("rmp-restaurants", FeatureCollection.fromFeatures(features), options))
+                markerBitmaps.forEach { (iconId, bitmap) -> style.addImage(iconId, bitmap) }
                 val accent = AndroidColor.parseColor("#E8321C")
                 val isCluster = Expression.has("point_count")
-                // Single restaurants: a small pin with a white ring so it reads
-                // over any street colour. Clusters: a larger disc with the count.
+                // Single restaurants: the restaurant's own logo in a small round
+                // badge, so the map reads at a glance instead of as plain dots.
+                // Clusters: a larger disc with the count.
                 style.addLayer(
-                    CircleLayer("rmp-pins", "rmp-restaurants").withProperties(
-                        circleColor(accent),
-                        circleRadius(7f),
-                        circleStrokeColor(AndroidColor.WHITE),
-                        circleStrokeWidth(2.5f),
+                    SymbolLayer("rmp-pins", "rmp-restaurants").withProperties(
+                        iconImage(Expression.get("iconId")),
+                        iconSize(1f),
+                        iconAllowOverlap(true),
+                        iconIgnorePlacement(true),
                     ).withFilter(Expression.not(isCluster)),
                 )
                 style.addLayer(
@@ -1535,6 +1563,74 @@ private object RestaurantLogos {
         return RestaurantLogoResolver.assetPathsFor(restaurant, mapping).firstNotNullOfOrNull { path ->
             cache.computeIfAbsent(path) { Optional.ofNullable(decode(appContext, it)) }.orElse(null)
         }
+    }
+
+    private val markerCache = ConcurrentHashMap<String, Bitmap>()
+
+    /**
+     * The same brand mark shown everywhere else in the app, composited into a
+     * round map-pin badge: white plate + hairline ring, full-bleed marks cropped
+     * to fill it, wordmarks padded to fit, and the same lettered fallback used
+     * on rows with no bundled logo — so a pin and its detail card always agree.
+     */
+    fun markerBitmap(context: Context, restaurant: RmpRestaurant, diameterPx: Int): Bitmap =
+        markerCache.computeIfAbsent("${restaurant.rmpKey}@$diameterPx") {
+            buildMarkerBitmap(context, restaurant, diameterPx)
+        }
+
+    private fun buildMarkerBitmap(context: Context, restaurant: RmpRestaurant, diameterPx: Int): Bitmap {
+        val logo = forRestaurant(context, restaurant)
+        val size = diameterPx.coerceAtLeast(1)
+        val bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
+        val canvas = AndroidCanvas(bitmap)
+        val center = size / 2f
+        val radius = size / 2f
+
+        canvas.save()
+        canvas.clipPath(Path().apply { addCircle(center, center, radius, Path.Direction.CW) })
+        val plate = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            color = if (logo != null) AndroidColor.WHITE else fallbackBrandColor(restaurant.displayName).toArgb()
+        }
+        canvas.drawCircle(center, center, radius, plate)
+
+        when {
+            logo != null && logo.fullBleed -> drawScaledBitmap(canvas, logo.bitmap.asAndroidBitmap(), size, pad = 0f)
+            logo != null -> drawScaledBitmap(canvas, logo.bitmap.asAndroidBitmap(), size, pad = size * 0.17f)
+            else -> {
+                val textPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+                    color = AndroidColor.WHITE
+                    textAlign = Paint.Align.CENTER
+                    textSize = size * 0.46f
+                    typeface = Typeface.DEFAULT_BOLD
+                }
+                val letter = restaurant.displayName.firstOrNull { it.isLetterOrDigit() }?.uppercase() ?: "R"
+                val metrics = textPaint.fontMetrics
+                canvas.drawText(letter, center, center - (metrics.ascent + metrics.descent) / 2f, textPaint)
+            }
+        }
+        canvas.restore()
+
+        val ring = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            style = Paint.Style.STROKE
+            strokeWidth = size * 0.045f
+            color = if (logo != null) RmpTokens.Hairline.toArgb() else AndroidColor.WHITE
+        }
+        canvas.drawCircle(center, center, radius - ring.strokeWidth / 2f, ring)
+        return bitmap
+    }
+
+    /** Mirrors [BrandCircle]'s Crop-vs-Fit choice, but onto a raw canvas for the map's bitmap icon. */
+    private fun drawScaledBitmap(canvas: AndroidCanvas, source: Bitmap, size: Int, pad: Float) {
+        val available = size - 2 * pad
+        val scale = if (pad > 0f) {
+            minOf(available / source.width, available / source.height)
+        } else {
+            maxOf(size / source.width.toFloat(), size / source.height.toFloat())
+        }
+        val dx = (size - source.width * scale) / 2f
+        val dy = (size - source.height * scale) / 2f
+        val matrix = Matrix().apply { setScale(scale, scale); postTranslate(dx, dy) }
+        canvas.drawBitmap(source, matrix, Paint(Paint.ANTI_ALIAS_FLAG or Paint.FILTER_BITMAP_FLAG))
     }
 
     private fun mapping(context: Context): Map<String, String> {

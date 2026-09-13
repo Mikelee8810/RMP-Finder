@@ -91,10 +91,54 @@
     "imageUrl": null,
     "imageAttribution": null,
     "businessStatus": "unknown",
-    "hoursStatus": "unknown",
-    "hours": null,
+    "hoursStatus": "usable",
+    "hours": {
+      "timezone": "America/New_York",
+      "monday": [
+        {
+          "open": "08:00",
+          "close": "22:00"
+        }
+      ],
+      "tuesday": [
+        {
+          "open": "08:00",
+          "close": "22:00"
+        }
+      ],
+      "wednesday": [
+        {
+          "open": "08:00",
+          "close": "22:00"
+        }
+      ],
+      "thursday": [
+        {
+          "open": "08:00",
+          "close": "22:00"
+        }
+      ],
+      "friday": [
+        {
+          "open": "08:00",
+          "close": "22:00"
+        }
+      ],
+      "saturday": [
+        {
+          "open": "08:00",
+          "close": "22:00"
+        }
+      ],
+      "sunday": [
+        {
+          "open": "08:00",
+          "close": "22:00"
+        }
+      ]
+    },
     "rmpVerifiedAt": "2026-09-09",
-    "businessCheckedAt": null,
+    "businessCheckedAt": "2026-09-13",
     "conflictFlags": [
       "hours_conflict",
       "phone_conflict"
@@ -2481,7 +2525,7 @@
     "hoursStatus": "unknown",
     "hours": null,
     "rmpVerifiedAt": "2026-09-09",
-    "businessCheckedAt": "2026-09-12",
+    "businessCheckedAt": "2026-09-13",
     "conflictFlags": [],
     "sources": [
       {
@@ -5453,15 +5497,59 @@
       "matchedAddress": "2310 86TH ST, BROOKLYN, NY, 11214"
     },
     "phone": "718-210-1780",
-    "website": null,
+    "website": "https://www.carnationrestaurant.com/",
     "menuUrl": null,
     "imageUrl": null,
     "imageAttribution": null,
     "businessStatus": "unknown",
-    "hoursStatus": "unknown",
-    "hours": null,
+    "hoursStatus": "usable",
+    "hours": {
+      "timezone": "America/New_York",
+      "monday": [
+        {
+          "open": "09:00",
+          "close": "21:00"
+        }
+      ],
+      "tuesday": [
+        {
+          "open": "09:00",
+          "close": "21:00"
+        }
+      ],
+      "wednesday": [
+        {
+          "open": "09:00",
+          "close": "21:00"
+        }
+      ],
+      "thursday": [
+        {
+          "open": "09:00",
+          "close": "21:00"
+        }
+      ],
+      "friday": [
+        {
+          "open": "09:00",
+          "close": "21:00"
+        }
+      ],
+      "saturday": [
+        {
+          "open": "09:00",
+          "close": "21:00"
+        }
+      ],
+      "sunday": [
+        {
+          "open": "09:00",
+          "close": "21:00"
+        }
+      ]
+    },
     "rmpVerifiedAt": "2026-09-09",
-    "businessCheckedAt": null,
+    "businessCheckedAt": "2026-09-13",
     "conflictFlags": [
       "address_mismatch"
     ],
@@ -8460,11 +8548,50 @@
     "menuUrl": null,
     "imageUrl": null,
     "imageAttribution": null,
-    "businessStatus": "temporarily_closed",
-    "hoursStatus": "unknown",
-    "hours": null,
+    "businessStatus": "likely_open",
+    "hoursStatus": "usable",
+    "hours": {
+      "timezone": "America/New_York",
+      "monday": [
+        {
+          "open": "12:00",
+          "close": "22:00"
+        }
+      ],
+      "tuesday": [
+        {
+          "open": "12:00",
+          "close": "22:00"
+        }
+      ],
+      "wednesday": [
+        {
+          "open": "12:00",
+          "close": "22:00"
+        }
+      ],
+      "thursday": [
+        {
+          "open": "12:00",
+          "close": "22:00"
+        }
+      ],
+      "friday": [
+        {
+          "open": "12:00",
+          "close": "22:00"
+        }
+      ],
+      "saturday": [
+        {
+          "open": "12:00",
+          "close": "22:00"
+        }
+      ],
+      "sunday": []
+    },
     "rmpVerifiedAt": "2026-09-09",
-    "businessCheckedAt": null,
+    "businessCheckedAt": "2026-09-13",
     "conflictFlags": [],
     "sources": [
       {
@@ -13889,10 +14016,54 @@
     "imageUrl": null,
     "imageAttribution": null,
     "businessStatus": "unknown",
-    "hoursStatus": "unknown",
-    "hours": null,
+    "hoursStatus": "usable",
+    "hours": {
+      "timezone": "America/New_York",
+      "monday": [
+        {
+          "open": "08:00",
+          "close": "20:00"
+        }
+      ],
+      "tuesday": [
+        {
+          "open": "08:00",
+          "close": "20:00"
+        }
+      ],
+      "wednesday": [
+        {
+          "open": "08:00",
+          "close": "20:00"
+        }
+      ],
+      "thursday": [
+        {
+          "open": "08:00",
+          "close": "20:00"
+        }
+      ],
+      "friday": [
+        {
+          "open": "08:00",
+          "close": "20:00"
+        }
+      ],
+      "saturday": [
+        {
+          "open": "08:00",
+          "close": "20:00"
+        }
+      ],
+      "sunday": [
+        {
+          "open": "08:00",
+          "close": "20:00"
+        }
+      ]
+    },
     "rmpVerifiedAt": "2026-09-09",
-    "businessCheckedAt": null,
+    "businessCheckedAt": "2026-09-13",
     "conflictFlags": [],
     "sources": [
       {
