@@ -57,15 +57,16 @@ class RmpPalette(
     val OpenSoft: Color,
     val Warn: Color,
     val WarnSoft: Color,
-    // The floating dock.
+    // The floating dock and every other deep filled block.
     val Dock: Color,
 )
 
 val LightPalette = RmpPalette(
     dark = false,
-    Ink = Color(0xFF2A170E),
-    InkMuted = Color(0xFF7A5F50),
-    InkFaint = Color(0xFFB3998A),
+    // Charcoal text, barely warm: never brown.
+    Ink = Color(0xFF1C1917),
+    InkMuted = Color(0xFF6B6461),
+    InkFaint = Color(0xFFA8A19C),
     Ground = Color(0xFFFFF6EA),
     GroundTop = Color(0xFFFFE4CC),
     Card = Color.White,
@@ -85,7 +86,8 @@ val LightPalette = RmpPalette(
     OpenSoft = Color(0xFFD5F3DF),
     Warn = Color(0xFF8A4B08),
     WarnSoft = Color(0xFFFFE9C7),
-    Dock = Color(0xFF2A170E),
+    // Deep crimson for filled blocks (dock, hero, widget): tomato, not mud.
+    Dock = Color(0xFF6E1707),
 )
 
 val DarkPalette = RmpPalette(
@@ -111,7 +113,7 @@ val DarkPalette = RmpPalette(
     OpenSoft = Color(0xFF0F2A1A),
     Warn = Color(0xFFF5B75B),
     WarnSoft = Color(0xFF33240C),
-    Dock = Color(0xFF2A2624),
+    Dock = Color(0xFF6E1707),
 )
 
 val LocalRmpPalette = staticCompositionLocalOf { LightPalette }

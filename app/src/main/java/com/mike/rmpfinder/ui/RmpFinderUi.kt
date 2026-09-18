@@ -52,6 +52,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
@@ -122,6 +125,7 @@ import org.maplibre.android.camera.CameraUpdateFactory
 import org.maplibre.android.style.layers.PropertyFactory.circleOpacity
 import androidx.compose.runtime.withFrameNanos
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.BlurredEdgeTreatment
 import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.BlendMode
@@ -286,20 +290,38 @@ fun RmpFinderRoot(
 
 @Composable
 private fun RmpBottomNavigation(tab: MainTab, onTab: (MainTab) -> Unit) {
-    // A floating espresso dock with one tomato bubble for the active tab.
+    // A floating crimson dock with a butter pill that slides to the active tab,
+    // a glassy top highlight and a warm glow underneath so it floats.
+    val tabs = MainTab.entries
     Box(Modifier.fillMaxWidth().navigationBarsPadding().padding(start = 24.dp, end = 24.dp, bottom = 12.dp)) {
+        Box(
+            Modifier.matchParentSize().padding(horizontal = 22.dp).offset(y = 12.dp).blur(26.dp, BlurredEdgeTreatment.Unbounded)
+                .background(RmpTokens.Accent.copy(alpha = 0.55f), RoundedCornerShape(50)),
+        )
         Surface(
-            modifier = Modifier.fillMaxWidth().height(66.dp),
+            modifier = Modifier.fillMaxWidth().height(68.dp),
             shape = RoundedCornerShape(50),
-            color = RmpTokens.Dock.copy(alpha = 0.88f),
-            shadowElevation = 18.dp,
-            border = BorderStroke(1.dp, Color.White.copy(alpha = 0.10f)),
+            color = RmpTokens.Dock,
+            shadowElevation = 14.dp,
+            border = BorderStroke(1.dp, Color.White.copy(alpha = 0.16f)),
         ) {
-            Row(Modifier.fillMaxSize().padding(6.dp), verticalAlignment = Alignment.CenterVertically) {
-                NavItem(tab == MainTab.HOME, Icons.Rounded.Home, Icons.Outlined.Home, "Home") { onTab(MainTab.HOME) }
-                NavItem(tab == MainTab.MAP, Icons.Rounded.Map, Icons.Outlined.Map, "Map") { onTab(MainTab.MAP) }
-                NavItem(tab == MainTab.SAVED, Icons.Rounded.Favorite, Icons.Outlined.FavoriteBorder, "Saved") { onTab(MainTab.SAVED) }
-                NavItem(tab == MainTab.INFO, Icons.Rounded.Person, Icons.Outlined.Person, "Info") { onTab(MainTab.INFO) }
+            BoxWithConstraints(
+                Modifier.fillMaxSize()
+                    .background(Brush.verticalGradient(listOf(Color.White.copy(alpha = 0.12f), Color.Transparent, Color.Black.copy(alpha = 0.10f))))
+                    .padding(6.dp),
+            ) {
+                val slot = maxWidth / tabs.size
+                val pillX by animateDpAsState(slot * tabs.indexOf(tab), spring(dampingRatio = 0.72f, stiffness = 420f), label = "dockPill")
+                Box(
+                    Modifier.offset(x = pillX).width(slot).fillMaxHeight().clip(RoundedCornerShape(50))
+                        .background(Brush.verticalGradient(listOf(Color(0xFFFFDC6E), RmpTokens.Butter))),
+                )
+                Row(Modifier.fillMaxSize(), verticalAlignment = Alignment.CenterVertically) {
+                    NavItem(tab == MainTab.HOME, Icons.Rounded.Home, Icons.Outlined.Home, "Home") { onTab(MainTab.HOME) }
+                    NavItem(tab == MainTab.MAP, Icons.Rounded.Map, Icons.Outlined.Map, "Map") { onTab(MainTab.MAP) }
+                    NavItem(tab == MainTab.SAVED, Icons.Rounded.Favorite, Icons.Outlined.FavoriteBorder, "Saved") { onTab(MainTab.SAVED) }
+                    NavItem(tab == MainTab.INFO, Icons.Rounded.Person, Icons.Outlined.Person, "Info") { onTab(MainTab.INFO) }
+                }
             }
         }
     }
@@ -307,15 +329,20 @@ private fun RmpBottomNavigation(tab: MainTab, onTab: (MainTab) -> Unit) {
 
 @Composable
 private fun RowScope.NavItem(selected: Boolean, activeIcon: ImageVector, idleIcon: ImageVector, label: String, onClick: () -> Unit) {
-    val tint = if (selected) Color.White else Color(0xFFB3998A)
+    val tint by animateColorAsState(if (selected) RmpTokens.ButterInk else Color.White.copy(alpha = 0.72f), tween(220), label = "navTint")
+    val pop by animateFloatAsState(if (selected) 1.12f else 1f, spring(dampingRatio = 0.45f, stiffness = 650f), label = "navPop")
+    val interaction = remember { MutableInteractionSource() }
     Row(
         modifier = Modifier.weight(1f).fillMaxHeight().clip(RoundedCornerShape(50))
-            .background(if (selected) RmpTokens.Accent else Color.Transparent)
-            .selectable(selected = selected, onClick = onClick, role = Role.Tab),
+            .selectable(selected = selected, interactionSource = interaction, indication = null, onClick = onClick, role = Role.Tab)
+            .pressScale(interaction),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Icon(if (selected) activeIcon else idleIcon, contentDescription = label, modifier = Modifier.size(24.dp), tint = tint)
+        Icon(
+            if (selected) activeIcon else idleIcon, contentDescription = label, tint = tint,
+            modifier = Modifier.size(24.dp).graphicsLayer { scaleX = pop; scaleY = pop },
+        )
         AnimatedVisibility(visible = selected) {
             Text(label, style = MaterialTheme.typography.labelLarge, color = tint, modifier = Modifier.padding(start = 6.dp))
         }
@@ -568,12 +595,13 @@ private fun NearestOpenHero(restaurant: RmpRestaurant, distanceMiles: Double?, n
         onClick = { onClick(restaurant) },
         interactionSource = interaction,
         shape = RoundedCornerShape(28.dp),
-        color = RmpTokens.Ink,
-        contentColor = if (RmpTokens.dark) RmpTokens.Ground else RmpTokens.Card,
+        color = RmpTokens.Dock,
+        contentColor = Color.White,
         shadowElevation = 12.dp,
         modifier = modifier.fillMaxWidth().pressScale(interaction),
     ) {
-        Box(Modifier.background(Brush.horizontalGradient(listOf(brand.copy(alpha = 0.55f), Color.Transparent)))) {
+        // Tomato-to-crimson, no brand wash: an orange logo over red turns to mud.
+        Box(Modifier.background(Brush.linearGradient(listOf(RmpTokens.Accent, RmpTokens.Dock)))) {
             Column(Modifier.padding(18.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     Box(Modifier.size(8.dp).clip(CircleShape).background(RmpTokens.Open))
@@ -594,8 +622,8 @@ private fun NearestOpenHero(restaurant: RmpRestaurant, distanceMiles: Double?, n
                 Surface(
                     onClick = { openDirections(context, destination, "transit") },
                     shape = RoundedCornerShape(50),
-                    color = RmpTokens.Accent,
-                    contentColor = Color.White,
+                    color = RmpTokens.Butter,
+                    contentColor = RmpTokens.ButterInk,
                     modifier = Modifier.fillMaxWidth(),
                 ) {
                     Row(Modifier.padding(vertical = 12.dp), horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
@@ -1923,7 +1951,7 @@ private fun fallbackBrandColor(name: String): Color {
     return Color(AndroidColor.HSVToColor(floatArrayOf(hue, 0.62f, 0.62f)))
 }
 
-private class BrandLogo(val bitmap: ImageBitmap, val fullBleed: Boolean, val brandColor: Color)
+internal class BrandLogo(val bitmap: ImageBitmap, val fullBleed: Boolean, val brandColor: Color)
 
 /**
  * Bundled brand marks, decoded once and shared by every row that shows them.
@@ -1933,7 +1961,7 @@ private class BrandLogo(val bitmap: ImageBitmap, val fullBleed: Boolean, val bra
  * 48dp to 96dp, so a full 512px source is also downsampled rather than held at
  * full resolution. The cache is bounded by the number of bundled assets.
  */
-private object RestaurantLogos {
+internal object RestaurantLogos {
     private const val TARGET_PIXELS = 256
     private const val LOGO_MAP_ASSET = "restaurant-logo-map.json"
     private val cache = ConcurrentHashMap<String, Optional<BrandLogo>>()
@@ -2157,7 +2185,7 @@ private fun minutesUntilClose(restaurant: RmpRestaurant, now: Instant): Int? {
     return end - minute
 }
 
-private fun closesAt(restaurant: RmpRestaurant, now: Instant): String? {
+internal fun closesAt(restaurant: RmpRestaurant, now: Instant): String? {
     val hours = restaurant.hours ?: return null
     val zoned = now.atZone(ZoneId.of(hours.timezone))
     if (isOpen24Hours(hours.periods(zoned.dayOfWeek))) return null
