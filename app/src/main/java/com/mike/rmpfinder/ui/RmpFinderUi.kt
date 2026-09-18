@@ -227,11 +227,13 @@ fun RmpFinderRoot(
     onOpenLocationSettings: () -> Unit,
     darkMode: Boolean = false,
     onToggleDarkMode: () -> Unit = {},
+    initialKey: String? = null,
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     SystemBarIcons(light = !darkMode)
     var tab by rememberSaveable { mutableStateOf(MainTab.HOME) }
     var selectedKey by rememberSaveable { mutableStateOf<String?>(null) }
+    LaunchedEffect(initialKey) { if (initialKey != null) selectedKey = initialKey }
     val selected = state.allRestaurants.firstOrNull { it.rmpKey == selectedKey }
 
     BackHandler(enabled = selected != null || tab != MainTab.HOME) {

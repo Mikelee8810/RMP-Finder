@@ -35,12 +35,25 @@
         android:theme="@style/Theme.RmpFinder">
         <activity
             android:name=".MainActivity"
+            android:launchMode="singleTop"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!-- Home-screen widget: three closest spots open right now. -->
+        <receiver
+            android:name=".widget.NearbyWidgetReceiver"
+            android:exported="true"
+            android:label="Open near you">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/nearby_widget_info" />
+        </receiver>
         <!-- Shares the downloaded update APK with the system installer. -->
         <provider
             android:name="androidx.core.content.FileProvider"

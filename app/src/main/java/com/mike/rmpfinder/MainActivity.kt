@@ -23,6 +23,11 @@ import org.maplibre.android.MapLibre
 import org.maplibre.android.maps.MapView
 
 class MainActivity : ComponentActivity() {
+    companion object {
+        /** A widget row opens the app straight on that restaurant. */
+        const val EXTRA_RMP_KEY = "rmp_key"
+    }
+
     private val viewModel: MainViewModel by viewModels()
     private lateinit var mapView: MapView
 
@@ -44,8 +49,17 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    /** Restaurant a widget row asked for; changes again if the app is already open. */
+    private var openKey by mutableStateOf<String?>(null)
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        intent.getStringExtra(EXTRA_RMP_KEY)?.let { openKey = it }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        openKey = intent.getStringExtra(EXTRA_RMP_KEY)
         MapLibre.getInstance(this)
         mapView = MapView(this)
         mapView.onCreate(savedInstanceState)
@@ -55,6 +69,7 @@ class MainActivity : ComponentActivity() {
             RmpFinderTheme(dark = darkMode) {
                 RmpFinderRoot(
                     viewModel = viewModel,
+                    initialKey = openKey,
                     mapView = mapView,
                     locationGranted = locationGranted,
                     darkMode = darkMode,
@@ -118,3 +133,4 @@ class MainActivity : ComponentActivity() {
 }
 
 private const val PREF_DARK_MODE = "dark_mode"
+

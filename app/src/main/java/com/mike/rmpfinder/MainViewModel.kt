@@ -10,6 +10,7 @@ import com.mike.rmpfinder.data.UpdateResult
 import com.mike.rmpfinder.data.distanceMiles
 import com.mike.rmpfinder.update.AppUpdateChecker
 import com.mike.rmpfinder.update.AppUpdateInstaller
+import com.mike.rmpfinder.widget.NearbyWidget
 import com.mike.rmpfinder.update.AppUpdateState
 import com.mike.rmpfinder.reviews.ReviewsFetcher
 import com.mike.rmpfinder.reviews.ReviewsState
@@ -181,6 +182,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun setUserLocation(latitude: Double, longitude: Double) {
         origin.value = GeoPoint(latitude, longitude, "My location")
+        viewModelScope.launch { NearbyWidget.refresh(getApplication(), latitude, longitude) }
     }
 
     fun toggleFavorite(restaurant: RmpRestaurant) {

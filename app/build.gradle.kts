@@ -182,6 +182,8 @@ dependencies {
     ksp("androidx.room:room-compiler:2.8.4")
 
     implementation("androidx.work:work-runtime-ktx:2.11.2")
+    implementation("androidx.glance:glance-appwidget:1.1.1")
+    implementation("androidx.glance:glance-material3:1.1.1")
     implementation("com.google.android.gms:play-services-location:21.4.0")
     implementation("org.maplibre.gl:android-sdk:13.6.1")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.11.0")
