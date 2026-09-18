@@ -17,6 +17,12 @@ sealed interface AppUpdateState {
         val releaseUrl: String,
     ) : AppUpdateState
     data object Failed : AppUpdateState
+    /** The new APK is coming down inside the app; [progress] is 0..1, or null while the size is unknown. */
+    data class Downloading(val version: String, val progress: Float?) : AppUpdateState
+    /** The APK is on disk and Android's installer can be opened with it. */
+    data class Ready(val version: String, val apk: java.io.File) : AppUpdateState
+    /** The in-app download did not finish; the browser link still works. */
+    data class DownloadFailed(val available: Available) : AppUpdateState
 }
 
 class AppUpdateChecker {

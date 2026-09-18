@@ -9,6 +9,7 @@ import com.mike.rmpfinder.data.RmpRestaurant
 import com.mike.rmpfinder.data.UpdateResult
 import com.mike.rmpfinder.data.distanceMiles
 import com.mike.rmpfinder.update.AppUpdateChecker
+import com.mike.rmpfinder.update.AppUpdateInstaller
 import com.mike.rmpfinder.update.AppUpdateState
 import com.mike.rmpfinder.reviews.ReviewsFetcher
 import com.mike.rmpfinder.reviews.ReviewsState
@@ -81,6 +82,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val refreshMessage = MutableStateFlow<String?>(null)
     private val appUpdateState = MutableStateFlow<AppUpdateState>(AppUpdateState.Idle)
     private val appUpdateChecker = AppUpdateChecker()
+    private val appUpdateInstaller = AppUpdateInstaller(application)
+    /** True while the "there's an update" pop-up should be on screen. */
+    val updatePromptOpen: StateFlow<Boolean> get() = updatePrompt
+    private val updatePrompt = MutableStateFlow(false)
     private val reviewsFetcher = ReviewsFetcher()
     private val ratingsStore = RatingsStore(application, reviewsFetcher)
     private val reviewsByKey = MutableStateFlow<Map<String, ReviewsState>>(emptyMap())
@@ -113,6 +118,15 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     init {
+        // Quiet check on launch: a newer release opens the update pop-up once
+        // per version; a failed or up-to-date check shows nothing.
+        viewModelScope.launch {
+            val result = appUpdateChecker.check()
+            if (result is AppUpdateState.Available && appUpdateState.value == AppUpdateState.Idle) {
+                appUpdateState.value = result
+                if (prefs.getString(PREF_UPDATE_DISMISSED, null) != result.version) updatePrompt.value = true
+            }
+        }
         // Ratings for the whole list, once, in the background; the list shows
         // them as they land and the filters start working when they are in.
         viewModelScope.launch {
@@ -191,11 +205,46 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun checkAppUpdate() {
-        if (appUpdateState.value == AppUpdateState.Checking) return
+        if (appUpdateState.value == AppUpdateState.Checking || appUpdateState.value is AppUpdateState.Downloading) return
         viewModelScope.launch {
             appUpdateState.value = AppUpdateState.Checking
             appUpdateState.value = appUpdateChecker.check()
         }
+    }
+
+    /** Pulls the new APK down inside the app, then opens Android's install sheet. */
+    fun downloadAppUpdate() {
+        val available = when (val current = appUpdateState.value) {
+            is AppUpdateState.Available -> current
+            is AppUpdateState.DownloadFailed -> current.available
+            is AppUpdateState.Ready -> { appUpdateInstaller.install(current.apk); return }
+            else -> return
+        }
+        viewModelScope.launch {
+            appUpdateState.value = AppUpdateState.Downloading(available.version, null)
+            try {
+                val apk = appUpdateInstaller.download(available.downloadUrl, available.version) { progress ->
+                    appUpdateState.value = AppUpdateState.Downloading(available.version, progress)
+                }
+                appUpdateState.value = AppUpdateState.Ready(available.version, apk)
+                appUpdateInstaller.install(apk)
+            } catch (_: Exception) {
+                appUpdateState.value = AppUpdateState.DownloadFailed(available)
+            }
+        }
+    }
+
+    /** Closes the pop-up and keeps it closed for this version; Info still offers the update. */
+    fun dismissAppUpdate() {
+        updatePrompt.value = false
+        val version = when (val current = appUpdateState.value) {
+            is AppUpdateState.Available -> current.version
+            is AppUpdateState.Downloading -> current.version
+            is AppUpdateState.Ready -> current.version
+            is AppUpdateState.DownloadFailed -> current.available.version
+            else -> null
+        }
+        if (version != null) prefs.edit().putString(PREF_UPDATE_DISMISSED, version).apply()
     }
 
     private inline fun MutableStateFlow<BrowseFilters>.update(block: BrowseFilters.() -> BrowseFilters) {
@@ -205,6 +254,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     companion object {
         private const val PREF_RECENTS = "recent_searches"
         private const val MAX_RECENTS = 6
+        private const val PREF_UPDATE_DISMISSED = "update_dismissed_version"
         val BOROUGHS = listOf("Bronx", "Brooklyn", "Manhattan", "Queens", "Staten Island", "Westchester")
         internal val BOROUGH_ORDER = BOROUGHS.withIndex().associate { it.value to it.index }
     }

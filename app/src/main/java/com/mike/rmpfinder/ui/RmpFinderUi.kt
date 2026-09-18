@@ -186,7 +186,10 @@ import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Map
 import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.BottomSheetScaffold
+import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -259,6 +262,9 @@ fun RmpFinderRoot(
         return
     }
 
+    val promptOpen by viewModel.updatePromptOpen.collectAsStateWithLifecycle()
+    if (promptOpen) UpdatePrompt(state.appUpdateState, viewModel::downloadAppUpdate, viewModel::dismissAppUpdate)
+
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
         bottomBar = { RmpBottomNavigation(tab = tab, onTab = { tab = it }) },
@@ -267,7 +273,7 @@ fun RmpFinderRoot(
             MainTab.HOME -> HomeScreen(state, viewModel, { selectedKey = it.rmpKey }, Modifier.padding(padding))
             MainTab.MAP -> MapScreen(state, viewModel, mapView, { selectedKey = it.rmpKey }, Modifier.padding(padding))
             MainTab.SAVED -> SavedScreen(state, viewModel, { selectedKey = it.rmpKey }, Modifier.padding(padding))
-            MainTab.INFO -> InfoScreen(state, viewModel::refreshData, viewModel::checkAppUpdate, darkMode, onToggleDarkMode, Modifier.padding(padding))
+            MainTab.INFO -> InfoScreen(state, viewModel::refreshData, viewModel::checkAppUpdate, viewModel::downloadAppUpdate, darkMode, onToggleDarkMode, Modifier.padding(padding))
         }
     }
 }
@@ -1638,6 +1644,7 @@ private fun InfoScreen(
     state: RmpUiState,
     onRefreshData: () -> Unit,
     onCheckAppUpdate: () -> Unit,
+    onDownloadAppUpdate: () -> Unit,
     darkMode: Boolean,
     onToggleDarkMode: () -> Unit,
     modifier: Modifier = Modifier,
@@ -1667,7 +1674,17 @@ private fun InfoScreen(
                 when (val update = state.appUpdateState) {
                     is AppUpdateState.Available -> {
                         Text("RMP Finder ${update.version} is available.", style = MaterialTheme.typography.bodyMedium)
-                        PrimaryButton(text = "Download ${update.version}", onClick = { openUrl(context, update.downloadUrl) }, modifier = Modifier.fillMaxWidth())
+                        PrimaryButton(text = "Update to ${update.version}", onClick = onDownloadAppUpdate, modifier = Modifier.fillMaxWidth())
+                    }
+                    is AppUpdateState.Downloading -> UpdateProgress(update)
+                    is AppUpdateState.Ready -> {
+                        Text("${update.version} is downloaded.", style = MaterialTheme.typography.bodyMedium)
+                        PrimaryButton(text = "Install", onClick = onDownloadAppUpdate, modifier = Modifier.fillMaxWidth())
+                    }
+                    is AppUpdateState.DownloadFailed -> {
+                        Text("The download didn’t finish.", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.error)
+                        PrimaryButton(text = "Try again", onClick = onDownloadAppUpdate, modifier = Modifier.fillMaxWidth())
+                        TonalButton(text = "Open in browser", onClick = { openUrl(context, update.available.downloadUrl) }, modifier = Modifier.fillMaxWidth())
                     }
                     is AppUpdateState.Current -> Text("You’re on the latest version.", style = MaterialTheme.typography.bodyMedium, color = RmpTokens.Open)
                     AppUpdateState.Failed -> Text("Couldn’t check for an update. Try again later.", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.error)
@@ -1730,6 +1747,73 @@ private fun InfoLine(text: String) {
 // ---------------------------------------------------------------------------
 // Shared primitives
 // ---------------------------------------------------------------------------
+
+/** Download bar for an in-app update: a moving bar until GitHub tells us the size, then a real one. */
+@Composable
+private fun UpdateProgress(update: AppUpdateState.Downloading) {
+    val progress = update.progress
+    Text(
+        if (progress == null) "Downloading ${update.version}…" else "Downloading ${update.version}… ${(progress * 100).toInt()}%",
+        style = MaterialTheme.typography.bodyMedium,
+    )
+    if (progress == null) {
+        LinearProgressIndicator(modifier = Modifier.fillMaxWidth(), color = MaterialTheme.colorScheme.primary, trackColor = RmpTokens.AccentSoft)
+    } else {
+        LinearProgressIndicator(progress = { progress }, modifier = Modifier.fillMaxWidth(), color = MaterialTheme.colorScheme.primary, trackColor = RmpTokens.AccentSoft)
+    }
+}
+
+/**
+ * The launch-time "there's a new version" pop-up. Update downloads inside the
+ * app and then opens Android's own install sheet; Later hides it for this version.
+ */
+@Composable
+private fun UpdatePrompt(update: AppUpdateState, onUpdate: () -> Unit, onDismiss: () -> Unit) {
+    val version = when (update) {
+        is AppUpdateState.Available -> update.version
+        is AppUpdateState.Downloading -> update.version
+        is AppUpdateState.Ready -> update.version
+        is AppUpdateState.DownloadFailed -> update.available.version
+        else -> return
+    }
+    val busy = update is AppUpdateState.Downloading
+    AlertDialog(
+        onDismissRequest = { if (!busy) onDismiss() },
+        containerColor = RmpTokens.Card,
+        titleContentColor = RmpTokens.Ink,
+        textContentColor = RmpTokens.InkMuted,
+        shape = MaterialTheme.shapes.extraLarge,
+        title = { Text("Update available", style = MaterialTheme.typography.headlineSmall) },
+        text = {
+            Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                when (update) {
+                    is AppUpdateState.Downloading -> UpdateProgress(update)
+                    is AppUpdateState.Ready -> Text("$version is downloaded. Tap Install to finish.", style = MaterialTheme.typography.bodyMedium)
+                    is AppUpdateState.DownloadFailed -> Text("The download didn’t finish. Try again?", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.error)
+                    else -> Text("RMP Finder $version is ready. You’re on ${BuildConfig.VERSION_NAME}.", style = MaterialTheme.typography.bodyMedium)
+                }
+            }
+        },
+        confirmButton = {
+            Button(
+                onClick = onUpdate, enabled = !busy,
+                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary, contentColor = Color.White),
+                shape = RoundedCornerShape(14.dp),
+            ) {
+                Text(
+                    when (update) {
+                        is AppUpdateState.Ready -> "Install"
+                        is AppUpdateState.DownloadFailed -> "Try again"
+                        is AppUpdateState.Downloading -> "Downloading…"
+                        else -> "Update"
+                    },
+                    style = MaterialTheme.typography.labelLarge,
+                )
+            }
+        },
+        dismissButton = { TextButton(onClick = onDismiss, enabled = !busy) { Text("Later", color = RmpTokens.InkMuted, style = MaterialTheme.typography.labelLarge) } },
+    )
+}
 
 @Composable
 private fun PrimaryButton(text: String, onClick: () -> Unit, modifier: Modifier = Modifier, loading: Boolean = false) {
