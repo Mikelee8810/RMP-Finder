@@ -118,6 +118,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 import org.maplibre.android.camera.CameraPosition
+import org.maplibre.android.camera.CameraUpdateFactory
+import org.maplibre.android.style.layers.PropertyFactory.circleOpacity
+import androidx.compose.runtime.withFrameNanos
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.blur
+import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.graphics.BlendMode
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.foundation.layout.offset
 import org.maplibre.android.geometry.LatLng
 import org.maplibre.android.maps.MapLibreMap
 import org.maplibre.android.maps.MapView
@@ -149,6 +158,8 @@ import androidx.compose.material.icons.rounded.Call
 import androidx.compose.material.icons.rounded.Cancel
 import androidx.compose.material.icons.rounded.ChevronRight
 import androidx.compose.material.icons.rounded.Directions
+import androidx.compose.material.icons.rounded.NearMe
+import androidx.compose.material.icons.rounded.Schedule
 import androidx.compose.material.icons.rounded.DirectionsWalk
 import androidx.compose.material.icons.rounded.ExpandMore
 import androidx.compose.material.icons.rounded.Favorite
@@ -245,7 +256,7 @@ fun RmpFinderRoot(
     ) { padding ->
         when (tab) {
             MainTab.HOME -> HomeScreen(state, viewModel, { selectedKey = it.rmpKey }, Modifier.padding(padding))
-            MainTab.MAP -> MapScreen(state, mapView, { selectedKey = it.rmpKey }, Modifier.padding(padding))
+            MainTab.MAP -> MapScreen(state, viewModel, mapView, { selectedKey = it.rmpKey }, Modifier.padding(padding))
             MainTab.INFO -> InfoScreen(state, viewModel::refreshData, viewModel::checkAppUpdate, darkMode, onToggleDarkMode, Modifier.padding(padding))
         }
     }
@@ -836,12 +847,15 @@ private fun EmptyState(icon: ImageVector, title: String, body: String, action: S
 @Composable
 private fun MapScreen(
     state: RmpUiState,
+    viewModel: MainViewModel,
     mapView: MapView,
     onRestaurant: (RmpRestaurant) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     var mapLoadFailed by remember(mapView) { mutableStateOf(false) }
     var selectedMapKey by rememberSaveable { mutableStateOf<String?>(null) }
+    var jumpTarget by remember { mutableStateOf<Pair<LatLng, Double>?>(null) }
+    var jumpLabel by rememberSaveable { mutableStateOf<String?>(null) }
     val nearby = state.visibleRestaurants.take(20)
     val selectedMapRestaurant = remember(state.visibleRestaurants, selectedMapKey) {
         state.visibleRestaurants.firstOrNull { it.rmpKey == selectedMapKey }
@@ -916,7 +930,23 @@ private fun MapScreen(
                 onMapLoadSucceeded = { mapLoadFailed = false },
                 onRestaurantSelected = { selectedMapKey = it },
                 onMapCleared = { selectedMapKey = null },
+                jumpTarget = jumpTarget,
             )
+            // Jump chips: hop the camera to a borough, or back to you, without scrolling.
+            Row(
+                Modifier.align(Alignment.TopStart).fillMaxWidth().horizontalScroll(rememberScrollState()).padding(horizontal = 16.dp, vertical = 12.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                FilterChipPill(selected = state.filters.openOnly, label = "Open now", icon = Icons.Rounded.Schedule, onClick = viewModel::toggleOpenOnly)
+                if (state.origin != null) {
+                    FilterChipPill(selected = jumpLabel == null, label = "Me", icon = Icons.Rounded.NearMe, onClick = {
+                        jumpLabel = null; jumpTarget = LatLng(state.origin.latitude, state.origin.longitude) to 12.8
+                    })
+                }
+                BoroughJumps.forEach { (name, target) ->
+                    FilterChipPill(selected = jumpLabel == name, label = name, onClick = { jumpLabel = name; jumpTarget = target to 11.6 })
+                }
+            }
             if (mapLoadFailed) {
                 Surface(Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.surfaceVariant) {
                     EmptyState(icon = Icons.Rounded.Map, title = "Map unavailable right now", body = "The restaurant list still works offline.")
@@ -1002,7 +1032,15 @@ private fun MapRestaurantPreview(
 }
 
 /** Round logo badge size for map pins: legible at a glance, small enough that dense blocks still cluster. */
-private const val MARKER_DIAMETER_DP = 34
+private const val MARKER_DIAMETER_DP = 44
+
+/** Where each borough's chip lands the camera: the borough's centre point. */
+private val BoroughJumps = listOf(
+    "Bronx" to LatLng(40.8448, -73.8648),
+    "Brooklyn" to LatLng(40.6782, -73.9442),
+    "Manhattan" to LatLng(40.7831, -73.9712),
+    "Queens" to LatLng(40.7282, -73.7949),
+)
 
 @Composable
 private fun RmpMap(
@@ -1014,6 +1052,7 @@ private fun RmpMap(
     onMapLoadSucceeded: () -> Unit,
     onRestaurantSelected: (String) -> Unit,
     onMapCleared: () -> Unit,
+    jumpTarget: Pair<LatLng, Double>? = null,
 ) {
     val dark = RmpTokens.dark
     val styleUrl = BuildConfig.MAP_STYLE_URL_OVERRIDE.ifBlank {
@@ -1139,6 +1178,14 @@ private fun RmpMap(
                 )
                 if (originLat != null && originLon != null) {
                     style.addSource(GeoJsonSource("user-location", Feature.fromGeometry(Point.fromLngLat(originLon, originLat))))
+                    // The ring that breathes outward from the dot; its radius and fade are driven below.
+                    style.addLayer(
+                        CircleLayer("user-location-pulse", "user-location").withProperties(
+                            circleColor(AndroidColor.parseColor("#1A73E8")),
+                            circleRadius(9f),
+                            circleOpacity(0.4f),
+                        ),
+                    )
                     style.addLayer(
                         CircleLayer("user-location-circle", "user-location").withProperties(
                             circleColor(AndroidColor.parseColor("#1A73E8")),
@@ -1159,6 +1206,26 @@ private fun RmpMap(
         if (originLat == null || originLon == null) return@LaunchedEffect
         mapView.getMapAsync { map ->
             map.cameraPosition = CameraPosition.Builder().target(LatLng(originLat, originLon)).zoom(12.8).build()
+        }
+    }
+    LaunchedEffect(jumpTarget) {
+        val (target, zoom) = jumpTarget ?: return@LaunchedEffect
+        mapView.getMapAsync { map -> map.animateCamera(CameraUpdateFactory.newLatLngZoom(target, zoom), 700) }
+    }
+    // "You are here" pulse: grow the ring from the dot and fade it out, on a loop.
+    LaunchedEffect(mapLibreMap, originLat, originLon) {
+        val map = mapLibreMap ?: return@LaunchedEffect
+        if (originLat == null || originLon == null) return@LaunchedEffect
+        var start = 0L
+        while (true) {
+            withFrameNanos { now ->
+                if (start == 0L) start = now
+                val t = ((now - start) / 1_800_000_000.0 % 1.0).toFloat()
+                (map.style?.getLayer("user-location-pulse") as? CircleLayer)?.setProperties(
+                    circleRadius(9f + 26f * t),
+                    circleOpacity(0.45f * (1f - t)),
+                )
+            }
         }
     }
 }
@@ -1206,6 +1273,13 @@ private fun RestaurantDetail(
                             // A soft light from the top-left so the block reads as a surface, not a flat fill.
                             .background(Brush.radialGradient(listOf(Color.White.copy(alpha = 0.22f), Color.Transparent), center = androidx.compose.ui.geometry.Offset(0f, 0f), radius = 900f)),
                     )
+                    // The brand mark, huge and ghosted, riding off the right edge so the
+                    // block reads as that restaurant's rather than an empty colour field.
+                    Box(Modifier.fillMaxWidth().height(250.dp), contentAlignment = Alignment.TopEnd) {
+                        Box(Modifier.offset(x = 70.dp, y = 30.dp).rotate(-10f).alpha(0.30f)) {
+                            BrandCircle(restaurant, logo, size = 230)
+                        }
+                    }
                     Column(Modifier.padding(top = 196.dp).padding(horizontal = 18.dp)) {
                         Surface(shape = RoundedCornerShape(28.dp), color = RmpTokens.Card, contentColor = RmpTokens.Ink, shadowElevation = 10.dp, modifier = Modifier.fillMaxWidth()) {
                             Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
