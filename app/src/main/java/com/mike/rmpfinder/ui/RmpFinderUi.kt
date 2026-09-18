@@ -52,6 +52,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.rounded.LocationOn
+import kotlinx.serialization.json.jsonPrimitive
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.Json
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -412,9 +417,9 @@ private val QuickCuisines = listOf(
 
 /** The warm ground every screen sits on: apricot at the top fading to cream. */
 @Composable
-private fun WarmGround(modifier: Modifier = Modifier, content: @Composable () -> Unit) {
+private fun WarmGround(modifier: Modifier = Modifier, underStatusBar: Boolean = false, content: @Composable () -> Unit) {
     Box(modifier.fillMaxSize().background(Brush.verticalGradient(listOf(RmpTokens.GroundTop, RmpTokens.Ground, RmpTokens.Ground)))) {
-        Box(Modifier.fillMaxSize().statusBarsPadding()) { content() }
+        Box(if (underStatusBar) Modifier.fillMaxSize() else Modifier.fillMaxSize().statusBarsPadding()) { content() }
     }
 }
 
@@ -781,8 +786,13 @@ private fun OpenCard(restaurant: RmpRestaurant, distanceMiles: Double?, now: Ins
     val interaction = remember { MutableInteractionSource() }
     Surface(onClick = { onClick(restaurant) }, interactionSource = interaction, shape = RoundedCornerShape(24.dp), color = RmpTokens.Card, contentColor = RmpTokens.Ink, shadowElevation = 8.dp, modifier = Modifier.width(168.dp).pressScale(interaction)) {
         Column(Modifier.padding(14.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            val photo = remember(restaurant.rmpKey) { RestaurantPhotos.forRestaurant(context, restaurant) }
             Box(Modifier.fillMaxWidth().height(96.dp).clip(RoundedCornerShape(18.dp)).background(Brush.linearGradient(listOf(brand.copy(alpha = 0.18f), brand.copy(alpha = 0.45f)))), contentAlignment = Alignment.Center) {
-                BrandCircle(restaurant, logo, size = 68)
+                if (photo != null) {
+                    Image(photo.bitmap, contentDescription = null, contentScale = ContentScale.Crop, modifier = Modifier.fillMaxSize())
+                    Box(Modifier.fillMaxSize().background(Color.Black.copy(alpha = 0.18f)))
+                }
+                BrandCircle(restaurant, logo, size = if (photo != null) 52 else 68)
                 distanceMiles?.let { miles ->
                     Surface(
                         modifier = Modifier.align(Alignment.TopEnd).padding(8.dp),
@@ -905,6 +915,7 @@ private fun StoreRow(restaurant: RmpRestaurant, distanceMiles: Double?, favorite
                 }
                 Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                     Text(restaurant.displayName, style = MaterialTheme.typography.titleMedium, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                    Text((restaurant.currentAddress ?: restaurant.officialAddress).line1, style = MaterialTheme.typography.bodySmall, color = RmpTokens.Ink, maxLines = 1, overflow = TextOverflow.Ellipsis)
                     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                         if (distanceMiles != null) { Text(formatMiles(distanceMiles), style = MaterialTheme.typography.labelMedium, color = RmpTokens.Ink); Dot() }
                         Text(restaurant.cuisineLabel, style = MaterialTheme.typography.bodySmall, color = RmpTokens.InkMuted, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f, fill = false))
@@ -1393,25 +1404,35 @@ private fun RestaurantDetail(
     // The headline numbers from whichever source answered first with a rating.
     val headline = (reviews as? ReviewsState.Loaded)?.summaries?.firstOrNull { it.rating != null }
 
-    WarmGround {
+    val photo = remember(restaurant.rmpKey) { RestaurantPhotos.forRestaurant(context, restaurant) }
+    WarmGround(underStatusBar = true) {
         LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(bottom = 40.dp)) {
             item {
-                // Hero: the brand's colour, with the storefront card riding up over it.
+                // Hero: the storefront photo when we have one (brand colour block if
+                // not), with the info card riding up over it.
                 Box(Modifier.fillMaxWidth()) {
-                    Box(
-                        Modifier.fillMaxWidth().height(250.dp)
-                            .background(Brush.linearGradient(listOf(brand, darken(brand, 0.45f))))
-                            // A soft light from the top-left so the block reads as a surface, not a flat fill.
-                            .background(Brush.radialGradient(listOf(Color.White.copy(alpha = 0.22f), Color.Transparent), center = androidx.compose.ui.geometry.Offset(0f, 0f), radius = 900f)),
-                    )
-                    // The brand mark, huge and ghosted, riding off the right edge so the
-                    // block reads as that restaurant's rather than an empty colour field.
-                    Box(Modifier.fillMaxWidth().height(250.dp), contentAlignment = Alignment.TopEnd) {
-                        Box(Modifier.offset(x = 70.dp, y = 30.dp).rotate(-10f).alpha(0.30f)) {
-                            BrandCircle(restaurant, logo, size = 230)
+                    if (photo != null) {
+                        Image(photo.bitmap, contentDescription = "${restaurant.displayName} photo", contentScale = ContentScale.Crop, modifier = Modifier.fillMaxWidth().height(300.dp))
+                        Box(Modifier.fillMaxWidth().height(300.dp).background(Brush.verticalGradient(0f to Color.Black.copy(alpha = 0.35f), 0.4f to Color.Transparent, 1f to Color.Black.copy(alpha = 0.45f))))
+                        if (photo.attribution.isNotBlank()) {
+                            Text(
+                                "Photo: ${photo.attribution}", style = MaterialTheme.typography.labelSmall, color = Color.White.copy(alpha = 0.8f), maxLines = 1, overflow = TextOverflow.Ellipsis,
+                                modifier = Modifier.align(Alignment.TopEnd).padding(top = 258.dp, end = 18.dp).widthIn(max = 220.dp),
+                            )
+                        }
+                    } else {
+                        Box(
+                            Modifier.fillMaxWidth().height(300.dp)
+                                .background(Brush.linearGradient(listOf(brand, darken(brand, 0.45f))))
+                                .background(Brush.radialGradient(listOf(Color.White.copy(alpha = 0.22f), Color.Transparent), center = androidx.compose.ui.geometry.Offset(0f, 0f), radius = 900f)),
+                        )
+                        Box(Modifier.fillMaxWidth().height(300.dp), contentAlignment = Alignment.TopEnd) {
+                            Box(Modifier.offset(x = 70.dp, y = 50.dp).rotate(-10f).alpha(0.30f)) {
+                                BrandCircle(restaurant, logo, size = 230)
+                            }
                         }
                     }
-                    Column(Modifier.padding(top = 196.dp).padding(horizontal = 18.dp)) {
+                    Column(Modifier.padding(top = 276.dp).padding(horizontal = 18.dp)) {
                         Surface(shape = RoundedCornerShape(28.dp), color = RmpTokens.Card, contentColor = RmpTokens.Ink, shadowElevation = 10.dp, modifier = Modifier.fillMaxWidth()) {
                             Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
                                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(14.dp)) {
@@ -1432,6 +1453,19 @@ private fun RestaurantDetail(
                                         }
                                     }
                                 }
+                                // The address, right up top: it is the first thing you need.
+                                Row(
+                                    Modifier.fillMaxWidth().clip(RoundedCornerShape(14.dp)).background(RmpTokens.Paper)
+                                        .clickable { openUrl(context, mapsSearchUrl(restaurant, whereItIs)) }.padding(horizontal = 12.dp, vertical = 10.dp),
+                                    verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp),
+                                ) {
+                                    Icon(Icons.Rounded.LocationOn, contentDescription = null, tint = RmpTokens.Accent, modifier = Modifier.size(20.dp))
+                                    Column(Modifier.weight(1f)) {
+                                        Text(listOfNotNull(whereItIs.line1, whereItIs.line2).joinToString(", "), style = MaterialTheme.typography.titleSmall)
+                                        Text("${whereItIs.city}, ${whereItIs.state} ${whereItIs.zip}", style = MaterialTheme.typography.bodySmall, color = RmpTokens.InkMuted)
+                                    }
+                                    Icon(Icons.Rounded.ChevronRight, contentDescription = null, tint = RmpTokens.InkFaint)
+                                }
                                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                                     Tag("10% off meals", Tone.BUTTER)
                                     if (availability != null) Tag(availability.long, availability.tone)
@@ -1451,7 +1485,6 @@ private fun RestaurantDetail(
                 }
             }
 
-            item { ReviewsCard(reviews, onOpen = { url -> openUrl(context, url) }, fallbackGoogle = mapsSearchUrl(restaurant, whereItIs)) }
             item {
                 DetailCard("Hours") {
                     val hours = restaurant.hours
@@ -1514,7 +1547,7 @@ private fun RestaurantDetail(
                 DetailCard("Location") {
                     // Where the business is today. The official RMP address stays in
                     // the dataset for the record but is not what you navigate to.
-                    Text(whereItIs.display(), style = MaterialTheme.typography.bodyLarge)
+                    Text(whereItIs.display(), style = MaterialTheme.typography.bodyMedium, color = RmpTokens.InkMuted)
                     ContactRow(Icons.Rounded.Map, "Open in Google Maps") { openUrl(context, mapsSearchUrl(restaurant, whereItIs)) }
                 }
             }
@@ -1530,6 +1563,7 @@ private fun RestaurantDetail(
                     }
                 }
             }
+            item { ReviewsCard(reviews, onOpen = { url -> openUrl(context, url) }, fallbackGoogle = mapsSearchUrl(restaurant, whereItIs)) }
         }
         // Floating controls over the banner
         Row(Modifier.fillMaxWidth().statusBarsPadding().padding(horizontal = 14.dp, vertical = 8.dp), horizontalArrangement = Arrangement.SpaceBetween) {
@@ -1964,6 +1998,36 @@ internal class BrandLogo(val bitmap: ImageBitmap, val fullBleed: Boolean, val br
  * 48dp to 96dp, so a full 512px source is also downsampled rather than held at
  * full resolution. The cache is bounded by the number of bundled assets.
  */
+/** One bundled storefront photo per restaurant, fetched at build time by tools/build_photos.py. */
+internal class RestaurantPhoto(val bitmap: ImageBitmap, val attribution: String)
+
+internal object RestaurantPhotos {
+    private const val MAP_ASSET = "restaurant-photo-map.json"
+    private const val DIRECTORY = "restaurant-photos"
+    private val cache = ConcurrentHashMap<String, Optional<RestaurantPhoto>>()
+    @Volatile private var mapping: Map<String, Pair<String, String>>? = null
+
+    fun forRestaurant(context: Context, restaurant: RmpRestaurant): RestaurantPhoto? {
+        val app = context.applicationContext
+        val entry = mapping(app)[restaurant.rmpKey] ?: return null
+        return cache.computeIfAbsent(restaurant.rmpKey) {
+            Optional.ofNullable(
+                runCatching {
+                    app.assets.open("$DIRECTORY/${entry.first}").use { BitmapFactory.decodeStream(it) }?.let { RestaurantPhoto(it.asImageBitmap(), entry.second) }
+                }.getOrNull(),
+            )
+        }.orElse(null)
+    }
+
+    private fun mapping(context: Context): Map<String, Pair<String, String>> = mapping ?: runCatching {
+        val root = Json.parseToJsonElement(context.assets.open(MAP_ASSET).bufferedReader().readText()).jsonObject
+        root.mapValues { (_, v) ->
+            val o = v.jsonObject
+            o["file"]!!.jsonPrimitive.content to (o["attribution"]?.jsonPrimitive?.content ?: "")
+        }
+    }.getOrDefault(emptyMap()).also { mapping = it }
+}
+
 internal object RestaurantLogos {
     private const val TARGET_PIXELS = 256
     private const val LOGO_MAP_ASSET = "restaurant-logo-map.json"
