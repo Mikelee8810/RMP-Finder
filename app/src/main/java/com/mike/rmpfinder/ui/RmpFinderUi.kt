@@ -1405,6 +1405,7 @@ private fun RestaurantDetail(
     val headline = (reviews as? ReviewsState.Loaded)?.summaries?.firstOrNull { it.rating != null }
 
     val photo = remember(restaurant.rmpKey) { RestaurantPhotos.forRestaurant(context, restaurant) }
+    val blurb = remember(restaurant.rmpKey) { RestaurantBlurbs.forRestaurant(context, restaurant) }
     WarmGround(underStatusBar = true) {
         LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(bottom = 40.dp)) {
             item {
@@ -1453,6 +1454,7 @@ private fun RestaurantDetail(
                                         }
                                     }
                                 }
+                                blurb?.let { Text(it, style = MaterialTheme.typography.bodyMedium, color = RmpTokens.InkMuted) }
                                 // The address, right up top: it is the first thing you need.
                                 Row(
                                     Modifier.fillMaxWidth().clip(RoundedCornerShape(14.dp)).background(RmpTokens.Paper)
@@ -2026,6 +2028,15 @@ internal object RestaurantPhotos {
             o["file"]!!.jsonPrimitive.content to (o["attribution"]?.jsonPrimitive?.content ?: "")
         }
     }.getOrDefault(emptyMap()).also { mapping = it }
+}
+
+/** Google's one-line description of each place, frozen by tools/build_blurbs.py. */
+internal object RestaurantBlurbs {
+    @Volatile private var map: Map<String, String>? = null
+    fun forRestaurant(context: Context, restaurant: RmpRestaurant): String? = (map ?: runCatching {
+        Json.parseToJsonElement(context.applicationContext.assets.open("restaurant-blurb-map.json").bufferedReader().readText()).jsonObject
+            .mapValues { it.value.jsonPrimitive.content }
+    }.getOrDefault(emptyMap()).also { map = it })[restaurant.rmpKey]
 }
 
 internal object RestaurantLogos {
