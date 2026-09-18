@@ -53,6 +53,8 @@ data class RmpUiState(
     val refreshMessage: String? = null,
     val appUpdateState: AppUpdateState = AppUpdateState.Idle,
     val ratings: Map<String, Rating> = emptyMap(),
+    /** The last few things typed into search, newest first. */
+    val recentSearches: List<String> = emptyList(),
 )
 
 private data class BaseData(
@@ -72,6 +74,8 @@ private data class Selection(
 class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val repository: RmpRepository = (application as RmpFinderApplication).repository
     private val filters = MutableStateFlow(BrowseFilters())
+    private val prefs = application.getSharedPreferences("rmp_prefs", android.content.Context.MODE_PRIVATE)
+    private val recentSearches = MutableStateFlow(prefs.getString(PREF_RECENTS, "").orEmpty().split('\n').filter { it.isNotBlank() })
     private val origin = MutableStateFlow<GeoPoint?>(null)
     private val refreshing = MutableStateFlow(false)
     private val refreshMessage = MutableStateFlow<String?>(null)
@@ -118,10 +122,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    val uiState: StateFlow<RmpUiState> = combine(baseData, selection, clock, ratingsStore.ratings) { base, selection, now, ratings ->
+    val uiState: StateFlow<RmpUiState> = combine(baseData, selection, clock, ratingsStore.ratings, recentSearches) { base, selection, now, ratings, recents ->
         val (visible, distances) = filterRestaurants(base.restaurants, base.favorites, selection.filters, selection.origin, now, ratings)
         RmpUiState(
             ratings = ratings,
+            recentSearches = recents,
             allRestaurants = base.restaurants,
             visibleRestaurants = visible,
             favoriteKeys = base.favorites,
@@ -145,6 +150,20 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun setMinRating(value: Double?) = filters.update { copy(minRating = if (minRating == value) null else value) }
     fun togglePriceLevel(level: Int) = filters.update { copy(priceLevels = if (level in priceLevels) priceLevels - level else priceLevels + level) }
     fun clearFilters() { filters.value = BrowseFilters() }
+
+    /** Remember what was searched so it can be tapped again next time. */
+    fun rememberSearch(raw: String) {
+        val term = raw.trim()
+        if (term.length < 2) return
+        val next = (listOf(term) + recentSearches.value.filterNot { it.equals(term, ignoreCase = true) }).take(MAX_RECENTS)
+        recentSearches.value = next
+        prefs.edit().putString(PREF_RECENTS, next.joinToString("\n")).apply()
+    }
+
+    fun clearRecentSearches() {
+        recentSearches.value = emptyList()
+        prefs.edit().remove(PREF_RECENTS).apply()
+    }
 
     fun setUserLocation(latitude: Double, longitude: Double) {
         origin.value = GeoPoint(latitude, longitude, "My location")
@@ -184,6 +203,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     companion object {
+        private const val PREF_RECENTS = "recent_searches"
+        private const val MAX_RECENTS = 6
         val BOROUGHS = listOf("Bronx", "Brooklyn", "Manhattan", "Queens", "Staten Island", "Westchester")
         internal val BOROUGH_ORDER = BOROUGHS.withIndex().associate { it.value to it.index }
     }

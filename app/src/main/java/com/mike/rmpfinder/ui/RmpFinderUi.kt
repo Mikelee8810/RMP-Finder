@@ -163,6 +163,15 @@ import androidx.compose.material.icons.rounded.Schedule
 import androidx.compose.material.icons.rounded.DirectionsWalk
 import androidx.compose.material.icons.rounded.ExpandMore
 import androidx.compose.material.icons.rounded.Favorite
+import androidx.compose.material.icons.outlined.FavoriteBorder
+import androidx.compose.material.icons.rounded.History
+import androidx.compose.material.icons.rounded.WifiOff
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.ui.text.input.ImeAction
+import android.net.ConnectivityManager
+import android.net.Network
+import android.net.NetworkCapabilities
 import androidx.compose.material.icons.rounded.FavoriteBorder
 import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.Language
@@ -200,7 +209,7 @@ import androidx.compose.material.icons.rounded.StarBorder
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.draw.shadow
 
-private enum class MainTab { HOME, MAP, INFO }
+private enum class MainTab { HOME, MAP, SAVED, INFO }
 
 // ---------------------------------------------------------------------------
 // Root
@@ -257,6 +266,7 @@ fun RmpFinderRoot(
         when (tab) {
             MainTab.HOME -> HomeScreen(state, viewModel, { selectedKey = it.rmpKey }, Modifier.padding(padding))
             MainTab.MAP -> MapScreen(state, viewModel, mapView, { selectedKey = it.rmpKey }, Modifier.padding(padding))
+            MainTab.SAVED -> SavedScreen(state, viewModel, { selectedKey = it.rmpKey }, Modifier.padding(padding))
             MainTab.INFO -> InfoScreen(state, viewModel::refreshData, viewModel::checkAppUpdate, darkMode, onToggleDarkMode, Modifier.padding(padding))
         }
     }
@@ -280,6 +290,7 @@ private fun RmpBottomNavigation(tab: MainTab, onTab: (MainTab) -> Unit) {
             Row(Modifier.fillMaxSize().padding(6.dp), verticalAlignment = Alignment.CenterVertically) {
                 NavItem(tab == MainTab.HOME, Icons.Rounded.Home, Icons.Outlined.Home, "Home") { onTab(MainTab.HOME) }
                 NavItem(tab == MainTab.MAP, Icons.Rounded.Map, Icons.Outlined.Map, "Map") { onTab(MainTab.MAP) }
+                NavItem(tab == MainTab.SAVED, Icons.Rounded.Favorite, Icons.Outlined.FavoriteBorder, "Saved") { onTab(MainTab.SAVED) }
                 NavItem(tab == MainTab.INFO, Icons.Rounded.Person, Icons.Outlined.Person, "Info") { onTab(MainTab.INFO) }
             }
         }
@@ -384,6 +395,9 @@ private fun HomeScreen(
     val openNearby = remember(state.visibleRestaurants, state.now, filtersActive) {
         if (filtersActive) emptyList() else state.visibleRestaurants.filter { OpenNow.isOpen(it, state.now) }.take(10)
     }
+    val online = isOnline()
+    // Opening a place from a search is the search paying off, so keep the term.
+    val open: (RmpRestaurant) -> Unit = { r -> if (filters.query.isNotBlank()) viewModel.rememberSearch(filters.query); onRestaurant(r) }
 
     WarmGround(modifier) {
         if (state.allRestaurants.isEmpty()) { LoadingList(); return@WarmGround }
@@ -414,7 +428,7 @@ private fun HomeScreen(
                         style = MaterialTheme.typography.displaySmall,
                     )
                     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                        Box(Modifier.weight(1f)) { SearchField(value = filters.query, onValueChange = viewModel::setQuery) }
+                        Box(Modifier.weight(1f)) { SearchField(value = filters.query, onValueChange = viewModel::setQuery, onSearch = { viewModel.rememberSearch(filters.query) }) }
                         Surface(
                             onClick = { showBoroughs = !showBoroughs },
                             shape = CircleShape,
@@ -424,6 +438,20 @@ private fun HomeScreen(
                         ) {
                             Box(contentAlignment = Alignment.Center) { Icon(Icons.Rounded.Tune, contentDescription = "Filters", tint = Color.White) }
                         }
+                    }
+                }
+                if (!online) {
+                    OfflineBanner(Modifier.padding(horizontal = 22.dp).padding(top = 12.dp))
+                }
+                if (filters.query.isBlank() && state.recentSearches.isNotEmpty()) {
+                    // What was searched before, one tap away.
+                    Row(
+                        Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()).padding(horizontal = 22.dp).padding(top = 12.dp),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        state.recentSearches.forEach { term -> FilterChipPill(selected = false, label = term, icon = Icons.Rounded.History, onClick = { viewModel.setQuery(term) }) }
+                        Text("Clear", style = MaterialTheme.typography.labelLarge, color = RmpTokens.InkMuted, modifier = Modifier.clip(RoundedCornerShape(50)).clickable { viewModel.clearRecentSearches() }.padding(horizontal = 8.dp, vertical = 8.dp))
                     }
                 }
                 AnimatedVisibility(visible = showBoroughs, enter = expandVertically() + fadeIn(), exit = shrinkVertically() + fadeOut()) {
@@ -455,7 +483,7 @@ private fun HomeScreen(
             }
             openNearby.firstOrNull()?.let { nearest ->
                 item {
-                    NearestOpenHero(nearest, state.distances[nearest.rmpKey], state.now, onRestaurant, modifier = Modifier.padding(horizontal = 22.dp).padding(top = 18.dp))
+                    NearestOpenHero(nearest, state.distances[nearest.rmpKey], state.now, open, modifier = Modifier.padding(horizontal = 22.dp).padding(top = 18.dp))
                 }
             }
             item {
@@ -477,7 +505,7 @@ private fun HomeScreen(
                         Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()).padding(horizontal = 22.dp).padding(bottom = 6.dp),
                         horizontalArrangement = Arrangement.spacedBy(12.dp),
                     ) {
-                        openNearby.forEach { r -> OpenCard(r, state.distances[r.rmpKey], state.now, onRestaurant, rating = state.ratings[r.rmpKey]) }
+                        openNearby.forEach { r -> OpenCard(r, state.distances[r.rmpKey], state.now, open, rating = state.ratings[r.rmpKey]) }
                     }
                 }
             }
@@ -502,7 +530,7 @@ private fun HomeScreen(
             } else {
                 items(state.visibleRestaurants, key = { it.rmpKey }) { restaurant ->
                     Box(Modifier.animateItem().padding(horizontal = 22.dp, vertical = 5.dp)) {
-                        StoreRow(restaurant, state.distances[restaurant.rmpKey], restaurant.rmpKey in state.favoriteKeys, state.now, onRestaurant, onFavorite = { viewModel.toggleFavorite(restaurant) }, rating = state.ratings[restaurant.rmpKey])
+                        StoreRow(restaurant, state.distances[restaurant.rmpKey], restaurant.rmpKey in state.favoriteKeys, state.now, open, onFavorite = { viewModel.toggleFavorite(restaurant) }, rating = state.ratings[restaurant.rmpKey])
                     }
                 }
             }
@@ -573,6 +601,69 @@ private fun NearestOpenHero(restaurant: RmpRestaurant, distanceMiles: Double?, n
     }
 }
 
+/** True while the phone has a network that can reach the internet. */
+@Composable
+private fun isOnline(): Boolean {
+    val context = LocalContext.current
+    val cm = remember(context) { context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager }
+    fun current() = cm.activeNetwork?.let { cm.getNetworkCapabilities(it) }?.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED) == true
+    var online by remember { mutableStateOf(current()) }
+    DisposableEffect(cm) {
+        val cb = object : ConnectivityManager.NetworkCallback() {
+            override fun onAvailable(network: Network) { online = current() }
+            override fun onLost(network: Network) { online = current() }
+            override fun onCapabilitiesChanged(network: Network, caps: NetworkCapabilities) { online = current() }
+        }
+        cm.registerDefaultNetworkCallback(cb)
+        onDispose { cm.unregisterNetworkCallback(cb) }
+    }
+    return online
+}
+
+@Composable
+private fun OfflineBanner(modifier: Modifier = Modifier) {
+    Surface(modifier = modifier.fillMaxWidth(), shape = RoundedCornerShape(16.dp), color = RmpTokens.WarnSoft, contentColor = RmpTokens.Warn) {
+        Row(Modifier.padding(horizontal = 14.dp, vertical = 10.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+            Icon(Icons.Rounded.WifiOff, contentDescription = null, modifier = Modifier.size(18.dp))
+            Text("You're offline · showing the saved list. Map and reviews need a connection.", style = MaterialTheme.typography.labelMedium)
+        }
+    }
+}
+
+/** Every saved place, closest first, as its own tab. */
+@Composable
+private fun SavedScreen(state: RmpUiState, viewModel: MainViewModel, onRestaurant: (RmpRestaurant) -> Unit, modifier: Modifier = Modifier) {
+    val saved = remember(state.allRestaurants, state.favoriteKeys, state.distances) {
+        state.allRestaurants.filter { it.rmpKey in state.favoriteKeys }
+            .sortedWith(compareBy<RmpRestaurant> { state.distances[it.rmpKey] ?: Double.MAX_VALUE }.thenBy { it.displayName.lowercase() })
+    }
+    val online = isOnline()
+    WarmGround(modifier) {
+        LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(bottom = 120.dp)) {
+            item {
+                Column(Modifier.padding(horizontal = 22.dp).padding(top = 18.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                    Text("Saved", style = MaterialTheme.typography.displaySmall)
+                    Text(
+                        if (saved.isEmpty()) "Tap the heart on any place to keep it here." else "${saved.size} place${if (saved.size == 1) "" else "s"} · closest first",
+                        style = MaterialTheme.typography.bodyLarge, color = RmpTokens.InkMuted,
+                    )
+                }
+                if (!online) OfflineBanner(Modifier.padding(horizontal = 22.dp).padding(top = 14.dp))
+                Spacer(Modifier.height(14.dp))
+            }
+            if (saved.isEmpty()) {
+                item { EmptyState(icon = Icons.Rounded.FavoriteBorder, title = "Nothing saved yet", body = "Your saved spots show up here, even without a connection.") }
+            } else {
+                items(saved, key = { it.rmpKey }) { restaurant ->
+                    Box(Modifier.animateItem().padding(horizontal = 22.dp, vertical = 5.dp)) {
+                        StoreRow(restaurant, state.distances[restaurant.rmpKey], true, state.now, onRestaurant, onFavorite = { viewModel.toggleFavorite(restaurant) }, rating = state.ratings[restaurant.rmpKey])
+                    }
+                }
+            }
+        }
+    }
+}
+
 @Composable
 private fun SectionHeader(title: String, modifier: Modifier = Modifier, trailing: String? = null, onTrailing: (() -> Unit)? = null) {
     Row(modifier.fillMaxWidth().padding(horizontal = 22.dp), verticalAlignment = Alignment.CenterVertically) {
@@ -602,7 +693,7 @@ private fun IconToggle(selected: Boolean, activeIcon: ImageVector, idleIcon: Ima
 }
 
 @Composable
-private fun SearchField(value: String, onValueChange: (String) -> Unit) {
+private fun SearchField(value: String, onValueChange: (String) -> Unit, onSearch: () -> Unit = {}) {
     Surface(shape = RoundedCornerShape(50), color = RmpTokens.Card, contentColor = RmpTokens.Ink, shadowElevation = 6.dp, modifier = Modifier.fillMaxWidth().height(50.dp)) {
         Row(Modifier.fillMaxSize().padding(horizontal = 16.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
             Icon(Icons.Rounded.Search, contentDescription = null, tint = RmpTokens.InkMuted, modifier = Modifier.size(22.dp))
@@ -612,6 +703,8 @@ private fun SearchField(value: String, onValueChange: (String) -> Unit) {
                     value = value, onValueChange = onValueChange, singleLine = true,
                     textStyle = MaterialTheme.typography.bodyLarge.copy(color = RmpTokens.Ink),
                     cursorBrush = SolidColor(RmpTokens.Accent),
+                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+                    keyboardActions = KeyboardActions(onSearch = { onSearch() }),
                     modifier = Modifier.fillMaxWidth().semantics { contentDescription = "Search restaurants" },
                 )
             }
