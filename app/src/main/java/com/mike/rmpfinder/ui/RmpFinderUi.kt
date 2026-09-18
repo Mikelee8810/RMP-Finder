@@ -249,7 +249,7 @@ private fun RmpBottomNavigation(tab: MainTab, onTab: (MainTab) -> Unit) {
         Surface(
             modifier = Modifier.fillMaxWidth().height(66.dp),
             shape = RoundedCornerShape(50),
-            color = RmpTokens.Ink.copy(alpha = 0.84f),
+            color = RmpTokens.Dock.copy(alpha = 0.88f),
             shadowElevation = 18.dp,
             border = BorderStroke(1.dp, Color.White.copy(alpha = 0.10f)),
         ) {
@@ -264,7 +264,7 @@ private fun RmpBottomNavigation(tab: MainTab, onTab: (MainTab) -> Unit) {
 
 @Composable
 private fun RowScope.NavItem(selected: Boolean, activeIcon: ImageVector, idleIcon: ImageVector, label: String, onClick: () -> Unit) {
-    val tint = if (selected) Color.White else RmpTokens.InkFaint
+    val tint = if (selected) Color.White else Color(0xFFB3998A)
     Row(
         modifier = Modifier.weight(1f).fillMaxHeight().clip(RoundedCornerShape(50))
             .background(if (selected) RmpTokens.Accent else Color.Transparent)
@@ -343,7 +343,7 @@ private val QuickCuisines = listOf(
 /** The warm ground every screen sits on: apricot at the top fading to cream. */
 @Composable
 private fun WarmGround(modifier: Modifier = Modifier, content: @Composable () -> Unit) {
-    Box(modifier.fillMaxSize().background(Brush.verticalGradient(listOf(Color(0xFFFFE4CC), Color(0xFFFFF6EA), Color(0xFFFFF6EA))))) { content() }
+    Box(modifier.fillMaxSize().background(Brush.verticalGradient(listOf(RmpTokens.GroundTop, RmpTokens.Ground, RmpTokens.Ground)))) { content() }
 }
 
 @Composable
@@ -508,7 +508,7 @@ private fun IconToggle(selected: Boolean, activeIcon: ImageVector, idleIcon: Ima
 
 @Composable
 private fun SearchField(value: String, onValueChange: (String) -> Unit) {
-    Surface(shape = RoundedCornerShape(50), color = Color.White, shadowElevation = 6.dp, modifier = Modifier.fillMaxWidth().height(50.dp)) {
+    Surface(shape = RoundedCornerShape(50), color = RmpTokens.Card, shadowElevation = 6.dp, modifier = Modifier.fillMaxWidth().height(50.dp)) {
         Row(Modifier.fillMaxSize().padding(horizontal = 16.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
             Icon(Icons.Rounded.Search, contentDescription = null, tint = RmpTokens.InkMuted, modifier = Modifier.size(22.dp))
             Box(Modifier.weight(1f)) {
@@ -536,7 +536,7 @@ private fun CuisineDisc(cuisine: Cuisine, selected: Boolean, onClick: () -> Unit
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        Surface(shape = CircleShape, color = if (selected) RmpTokens.Ink else Color.White, shadowElevation = if (selected) 0.dp else 4.dp, modifier = Modifier.size(62.dp)) {
+        Surface(shape = CircleShape, color = if (selected) RmpTokens.Ink else RmpTokens.Card, shadowElevation = if (selected) 0.dp else 4.dp, modifier = Modifier.size(62.dp)) {
             Box(contentAlignment = Alignment.Center) {
                 Text(cuisine.emoji, style = MaterialTheme.typography.headlineMedium.copy(fontFamily = null, letterSpacing = 0.sp), fontSize = 30.sp)
             }
@@ -552,7 +552,7 @@ private fun OpenCard(restaurant: RmpRestaurant, distanceMiles: Double?, now: Ins
     val logo = remember(restaurant.rmpKey) { RestaurantLogos.forRestaurant(context, restaurant) }
     val brand = logo?.brandColor ?: fallbackBrandColor(restaurant.displayName)
     val availability = availabilityOf(restaurant, now)
-    Surface(onClick = { onClick(restaurant) }, shape = RoundedCornerShape(24.dp), color = Color.White, shadowElevation = 8.dp, modifier = Modifier.width(168.dp)) {
+    Surface(onClick = { onClick(restaurant) }, shape = RoundedCornerShape(24.dp), color = RmpTokens.Card, shadowElevation = 8.dp, modifier = Modifier.width(168.dp)) {
         Column(Modifier.padding(14.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
             Box(Modifier.fillMaxWidth().height(96.dp).clip(RoundedCornerShape(18.dp)).background(Brush.linearGradient(listOf(brand.copy(alpha = 0.18f), brand.copy(alpha = 0.45f)))), contentAlignment = Alignment.Center) {
                 BrandCircle(restaurant, logo, size = 68)
@@ -560,7 +560,7 @@ private fun OpenCard(restaurant: RmpRestaurant, distanceMiles: Double?, now: Ins
                     Surface(
                         modifier = Modifier.align(Alignment.TopEnd).padding(8.dp),
                         shape = RoundedCornerShape(50),
-                        color = Color.White.copy(alpha = 0.92f),
+                        color = RmpTokens.Card.copy(alpha = 0.92f),
                         contentColor = RmpTokens.Ink,
                     ) {
                         Text(formatMiles(miles), style = MaterialTheme.typography.labelSmall, modifier = Modifier.padding(horizontal = 7.dp, vertical = 4.dp), maxLines = 1, softWrap = false)
@@ -615,8 +615,8 @@ private fun FilterChipPill(selected: Boolean, label: String, onClick: () -> Unit
     Surface(
         modifier = Modifier.selectable(selected = selected, onClick = onClick, role = Role.Checkbox),
         shape = RoundedCornerShape(50),
-        color = if (selected) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.surface,
-        contentColor = if (selected) RmpTokens.Ground else MaterialTheme.colorScheme.onSurface,
+        color = if (selected) MaterialTheme.colorScheme.onSurface else RmpTokens.Card,
+        contentColor = if (selected) RmpTokens.Card else MaterialTheme.colorScheme.onSurface,
         border = if (selected) null else BorderStroke(1.dp, RmpTokens.Hairline),
     ) {
         Row(Modifier.padding(start = 14.dp, end = if (trailing != null) 8.dp else 14.dp, top = 8.dp, bottom = 8.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(5.dp)) {
@@ -663,7 +663,7 @@ private fun StoreRow(restaurant: RmpRestaurant, distanceMiles: Double?, favorite
     val logo = remember(restaurant.rmpKey) { RestaurantLogos.forRestaurant(context, restaurant) }
     val availability = availabilityOf(restaurant, now)
     val brand = logo?.brandColor ?: fallbackBrandColor(restaurant.displayName)
-    Surface(onClick = { onClick(restaurant) }, shape = RoundedCornerShape(24.dp), color = Color.White, shadowElevation = 6.dp, modifier = Modifier.fillMaxWidth()) {
+    Surface(onClick = { onClick(restaurant) }, shape = RoundedCornerShape(24.dp), color = RmpTokens.Card, shadowElevation = 6.dp, modifier = Modifier.fillMaxWidth()) {
         Box(
             Modifier.background(
                 // A wash of the brand's colour bleeding in from the logo side, so the
@@ -889,7 +889,7 @@ private fun MapRestaurantPreview(
     Surface(
         onClick = onClick,
         shape = RoundedCornerShape(22.dp),
-        color = RmpTokens.Ink,
+        color = RmpTokens.Dock,
         contentColor = Color.White,
         shadowElevation = 12.dp,
         modifier = Modifier.fillMaxWidth(),
@@ -930,9 +930,13 @@ private fun RmpMap(
     onRestaurantSelected: (String) -> Unit,
     onMapCleared: () -> Unit,
 ) {
+    val dark = RmpTokens.dark
     val styleUrl = BuildConfig.MAP_STYLE_URL_OVERRIDE.ifBlank {
         if (BuildConfig.MAPTILER_KEY.isNotBlank()) {
             "https://api.maptiler.com/maps/streets-v4/style.json?key=${BuildConfig.MAPTILER_KEY}"
+        } else if (dark) {
+            // OpenFreeMap's dark style, so the map doesn't glare at night.
+            "https://tiles.openfreemap.org/styles/dark"
         } else {
             "https://tiles.openfreemap.org/styles/liberty"
         }
@@ -1114,7 +1118,7 @@ private fun RestaurantDetail(
                     Box(Modifier.fillMaxWidth().height(250.dp).background(Brush.linearGradient(listOf(brand, darken(brand, 0.35f)))))
                     Box(Modifier.align(Alignment.Center).padding(bottom = 60.dp).size(120.dp).clip(CircleShape).background(Color.White.copy(alpha = 0.12f)))
                     Column(Modifier.padding(top = 196.dp).padding(horizontal = 18.dp)) {
-                        Surface(shape = RoundedCornerShape(28.dp), color = Color.White, shadowElevation = 10.dp, modifier = Modifier.fillMaxWidth()) {
+                        Surface(shape = RoundedCornerShape(28.dp), color = RmpTokens.Card, shadowElevation = 10.dp, modifier = Modifier.fillMaxWidth()) {
                             Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
                                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(14.dp)) {
                                     BrandCircle(restaurant, logo, size = 72)
@@ -1174,7 +1178,7 @@ private fun RestaurantDetail(
                             DayOfWeek.entries.forEach { day ->
                                 val isToday = day == today
                                 Row(
-                                    Modifier.fillMaxWidth().clip(RoundedCornerShape(10.dp)).background(if (isToday) RmpTokens.Ground else Color.Transparent).padding(horizontal = 10.dp, vertical = 7.dp),
+                                    Modifier.fillMaxWidth().clip(RoundedCornerShape(10.dp)).background(if (isToday) RmpTokens.PaperDeep else Color.Transparent).padding(horizontal = 10.dp, vertical = 7.dp),
                                     verticalAlignment = Alignment.CenterVertically,
                                 ) {
                                     Text(day.getDisplayName(TextStyle.FULL, Locale.US), style = MaterialTheme.typography.bodyMedium, fontWeight = if (isToday) FontWeight.Bold else FontWeight.Medium, color = if (isToday) RmpTokens.Ink else RmpTokens.InkMuted, modifier = Modifier.width(104.dp))
@@ -1274,7 +1278,7 @@ private fun ReviewsCard(state: ReviewsState, onOpen: (String) -> Unit, fallbackG
                     summary.priceLevel?.let { Spacer(Modifier.weight(1f)); Text("$".repeat(it), style = MaterialTheme.typography.labelLarge, color = RmpTokens.Open) }
                 }
                 summary.reviews.take(2).forEach { review ->
-                    Surface(shape = RoundedCornerShape(14.dp), color = RmpTokens.Ground, modifier = Modifier.fillMaxWidth()) {
+                    Surface(shape = RoundedCornerShape(14.dp), color = RmpTokens.PaperDeep, modifier = Modifier.fillMaxWidth()) {
                         Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                                 Text(review.author, style = MaterialTheme.typography.labelLarge, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f, fill = false))
@@ -1302,14 +1306,15 @@ private fun LightStatusBarIcons() {
     DisposableEffect(view) {
         val window = (view.context as? Activity)?.window ?: return@DisposableEffect onDispose {}
         val controller = WindowCompat.getInsetsController(window, view)
+        val wasLight = controller.isAppearanceLightStatusBars
         controller.isAppearanceLightStatusBars = false
-        onDispose { controller.isAppearanceLightStatusBars = true }
+        onDispose { controller.isAppearanceLightStatusBars = wasLight }
     }
 }
 
 @Composable
 private fun DetailCard(title: String, content: @Composable ColumnScope.() -> Unit) {
-    Surface(shape = RoundedCornerShape(24.dp), color = Color.White, shadowElevation = 3.dp, modifier = Modifier.fillMaxWidth().padding(horizontal = 18.dp).padding(top = 14.dp)) {
+    Surface(shape = RoundedCornerShape(24.dp), color = RmpTokens.Card, shadowElevation = 3.dp, modifier = Modifier.fillMaxWidth().padding(horizontal = 18.dp).padding(top = 14.dp)) {
         Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
             Text(title, style = MaterialTheme.typography.titleLarge)
             content()
@@ -1319,7 +1324,7 @@ private fun DetailCard(title: String, content: @Composable ColumnScope.() -> Uni
 
 @Composable
 private fun FloatingCircleButton(icon: ImageVector, description: String, onClick: () -> Unit, tint: Color = MaterialTheme.colorScheme.onSurface) {
-    Surface(onClick = onClick, shape = CircleShape, color = Color.White, shadowElevation = 4.dp, modifier = Modifier.size(42.dp)) {
+    Surface(onClick = onClick, shape = CircleShape, color = RmpTokens.Card, shadowElevation = 4.dp, modifier = Modifier.size(42.dp)) {
         Box(contentAlignment = Alignment.Center) { Icon(icon, contentDescription = description, tint = tint, modifier = Modifier.size(22.dp)) }
     }
 }
@@ -1331,7 +1336,7 @@ private fun QuickAction(modifier: Modifier, icon: ImageVector, label: String, pr
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(6.dp),
     ) {
-        Surface(shape = CircleShape, color = if (primary) RmpTokens.Accent else Color.White, shadowElevation = 5.dp, modifier = Modifier.size(54.dp)) {
+        Surface(shape = CircleShape, color = if (primary) RmpTokens.Accent else RmpTokens.Card, shadowElevation = 5.dp, modifier = Modifier.size(54.dp)) {
             Box(contentAlignment = Alignment.Center) {
                 Icon(icon, contentDescription = null, modifier = Modifier.size(24.dp), tint = if (primary) Color.White else RmpTokens.Ink)
             }
@@ -1415,7 +1420,7 @@ private fun InfoScreen(
 
 @Composable
 private fun InfoCard(title: String, content: @Composable ColumnScope.() -> Unit) {
-    Surface(Modifier.fillMaxWidth(), shape = RoundedCornerShape(24.dp), color = Color.White, shadowElevation = 4.dp) {
+    Surface(Modifier.fillMaxWidth(), shape = RoundedCornerShape(24.dp), color = RmpTokens.Card, shadowElevation = 4.dp) {
         Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
             Text(title, style = MaterialTheme.typography.titleLarge)
             content()
@@ -1613,7 +1618,7 @@ private object RestaurantLogos {
         val ring = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             style = Paint.Style.STROKE
             strokeWidth = size * 0.045f
-            color = if (logo != null) RmpTokens.Hairline.toArgb() else AndroidColor.WHITE
+            color = if (logo != null) LightPalette.Hairline.toArgb() else AndroidColor.WHITE
         }
         canvas.drawCircle(center, center, radius - ring.strokeWidth / 2f, ring)
         return bitmap
@@ -1700,14 +1705,27 @@ private object RestaurantLogos {
 // Availability
 // ---------------------------------------------------------------------------
 
-private enum class Tone(val ink: Color, val container: Color) {
-    OPEN(RmpTokens.Open, RmpTokens.OpenSoft),
-    CLOSED_NOW(RmpTokens.InkMuted, RmpTokens.Paper),
-    CLOSED(RmpTokens.Accent, RmpTokens.AccentSoft),
-    WARN(RmpTokens.Warn, RmpTokens.WarnSoft),
-    NEUTRAL(RmpTokens.Ink, RmpTokens.Paper),
-    BUTTER(RmpTokens.ButterInk, RmpTokens.Butter),
-}
+private enum class Tone { OPEN, CLOSED_NOW, CLOSED, WARN, NEUTRAL, BUTTER }
+
+private val Tone.ink: Color
+    @Composable @androidx.compose.runtime.ReadOnlyComposable get() = when (this) {
+        Tone.OPEN -> RmpTokens.Open
+        Tone.CLOSED_NOW -> RmpTokens.InkMuted
+        Tone.CLOSED -> RmpTokens.Accent
+        Tone.WARN -> RmpTokens.Warn
+        Tone.NEUTRAL -> RmpTokens.Ink
+        Tone.BUTTER -> if (RmpTokens.dark) RmpTokens.Butter else RmpTokens.ButterInk
+    }
+
+private val Tone.container: Color
+    @Composable @androidx.compose.runtime.ReadOnlyComposable get() = when (this) {
+        Tone.OPEN -> RmpTokens.OpenSoft
+        Tone.CLOSED_NOW -> RmpTokens.PaperDeep
+        Tone.CLOSED -> RmpTokens.AccentSoft
+        Tone.WARN -> RmpTokens.WarnSoft
+        Tone.NEUTRAL -> RmpTokens.PaperDeep
+        Tone.BUTTER -> RmpTokens.ButterSoft
+    }
 
 /** [short] fits in a list row; [long] carries the extra word that removes ambiguity. */
 private data class Availability(val short: String, val long: String, val tone: Tone)

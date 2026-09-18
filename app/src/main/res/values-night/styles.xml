@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.RmpFinder" parent="android:style/Theme.Material.NoActionBar">
+        <item name="android:fontFamily">sans</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+        <item name="android:statusBarColor">#2B1810</item>
+        <item name="android:navigationBarColor">#1B100A</item>
+        <item name="android:windowBackground">#1B100A</item>
+        <item name="android:windowActionModeOverlay">true</item>
+    </style>
+</resources>
