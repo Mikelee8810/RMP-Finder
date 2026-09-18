@@ -17,7 +17,13 @@ import android.graphics.Typeface
 import android.net.Uri
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.MutableTransitionState
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.expandVertically
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkVertically
@@ -27,6 +33,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -56,6 +64,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -163,6 +172,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -366,6 +376,9 @@ private fun HomeScreen(
 
     WarmGround(modifier) {
         if (state.allRestaurants.isEmpty()) { LoadingList(); return@WarmGround }
+        // First paint fades up from the ground instead of popping in.
+        val shown = remember { MutableTransitionState(false).apply { targetState = true } }
+        AnimatedVisibility(visibleState = shown, enter = fadeIn(tween(350)) + slideInVertically(tween(350)) { it / 12 }) {
         LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(bottom = 120.dp)) {
             item {
                 Column(Modifier.padding(horizontal = 22.dp).padding(top = 10.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
@@ -429,6 +442,11 @@ private fun HomeScreen(
                     }
                 }
             }
+            openNearby.firstOrNull()?.let { nearest ->
+                item {
+                    NearestOpenHero(nearest, state.distances[nearest.rmpKey], state.now, onRestaurant, modifier = Modifier.padding(horizontal = 22.dp).padding(top = 18.dp))
+                }
+            }
             item {
                 // Cuisine rail: white discs on the warm ground.
                 Row(
@@ -472,8 +490,71 @@ private fun HomeScreen(
                 item { EmptyState(icon = Icons.Rounded.SearchOff, title = "No matches", body = "Try another name, cuisine, or borough.", action = "Reset filters", onAction = viewModel::clearFilters) }
             } else {
                 items(state.visibleRestaurants, key = { it.rmpKey }) { restaurant ->
-                    Box(Modifier.padding(horizontal = 22.dp, vertical = 5.dp)) {
+                    Box(Modifier.animateItem().padding(horizontal = 22.dp, vertical = 5.dp)) {
                         StoreRow(restaurant, state.distances[restaurant.rmpKey], restaurant.rmpKey in state.favoriteKeys, state.now, onRestaurant, onFavorite = { viewModel.toggleFavorite(restaurant) }, rating = state.ratings[restaurant.rmpKey])
+                    }
+                }
+            }
+        }
+        }
+    }
+}
+
+/** Squashes a tile slightly while the finger is down, so taps feel physical. */
+@Composable
+private fun Modifier.pressScale(interaction: MutableInteractionSource): Modifier {
+    val pressed by interaction.collectIsPressedAsState()
+    val scale by animateFloatAsState(if (pressed) 0.96f else 1f, spring(stiffness = 900f), label = "press")
+    return graphicsLayer { scaleX = scale; scaleY = scale }
+}
+
+/** The one card that answers "where can I eat right now": the closest open spot. */
+@Composable
+private fun NearestOpenHero(restaurant: RmpRestaurant, distanceMiles: Double?, now: Instant, onClick: (RmpRestaurant) -> Unit, modifier: Modifier = Modifier) {
+    val context = LocalContext.current
+    val logo = remember(restaurant.rmpKey) { RestaurantLogos.forRestaurant(context, restaurant) }
+    val brand = logo?.brandColor ?: fallbackBrandColor(restaurant.displayName)
+    val availability = availabilityOf(restaurant, now)
+    val destination = "${restaurant.latitude},${restaurant.longitude}"
+    val interaction = remember { MutableInteractionSource() }
+    Surface(
+        onClick = { onClick(restaurant) },
+        interactionSource = interaction,
+        shape = RoundedCornerShape(28.dp),
+        color = RmpTokens.Ink,
+        contentColor = if (RmpTokens.dark) RmpTokens.Ground else RmpTokens.Card,
+        shadowElevation = 12.dp,
+        modifier = modifier.fillMaxWidth().pressScale(interaction),
+    ) {
+        Box(Modifier.background(Brush.horizontalGradient(listOf(brand.copy(alpha = 0.55f), Color.Transparent)))) {
+            Column(Modifier.padding(18.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Box(Modifier.size(8.dp).clip(CircleShape).background(RmpTokens.Open))
+                    Text("NEAREST OPEN", style = MaterialTheme.typography.labelSmall, letterSpacing = 1.2.sp, color = LocalContentColor.current.copy(alpha = 0.75f))
+                }
+                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(14.dp)) {
+                    BrandCircle(restaurant, logo, size = 64)
+                    Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
+                        Text(restaurant.displayName, style = MaterialTheme.typography.titleLarge, maxLines = 2, overflow = TextOverflow.Ellipsis)
+                        Text(
+                            listOfNotNull(distanceMiles?.let(::formatMiles), availability?.short).joinToString(" · "),
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = LocalContentColor.current.copy(alpha = 0.8f),
+                            maxLines = 1,
+                        )
+                    }
+                }
+                Surface(
+                    onClick = { openDirections(context, destination, "transit") },
+                    shape = RoundedCornerShape(50),
+                    color = RmpTokens.Accent,
+                    contentColor = Color.White,
+                    modifier = Modifier.fillMaxWidth(),
+                ) {
+                    Row(Modifier.padding(vertical = 12.dp), horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
+                        Icon(Icons.Rounded.Directions, contentDescription = null, modifier = Modifier.size(18.dp))
+                        Spacer(Modifier.width(8.dp))
+                        Text("Take me there", style = MaterialTheme.typography.labelLarge)
                     }
                 }
             }
@@ -555,7 +636,8 @@ private fun OpenCard(restaurant: RmpRestaurant, distanceMiles: Double?, now: Ins
     val logo = remember(restaurant.rmpKey) { RestaurantLogos.forRestaurant(context, restaurant) }
     val brand = logo?.brandColor ?: fallbackBrandColor(restaurant.displayName)
     val availability = availabilityOf(restaurant, now)
-    Surface(onClick = { onClick(restaurant) }, shape = RoundedCornerShape(24.dp), color = RmpTokens.Card, contentColor = RmpTokens.Ink, shadowElevation = 8.dp, modifier = Modifier.width(168.dp)) {
+    val interaction = remember { MutableInteractionSource() }
+    Surface(onClick = { onClick(restaurant) }, interactionSource = interaction, shape = RoundedCornerShape(24.dp), color = RmpTokens.Card, contentColor = RmpTokens.Ink, shadowElevation = 8.dp, modifier = Modifier.width(168.dp).pressScale(interaction)) {
         Column(Modifier.padding(14.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
             Box(Modifier.fillMaxWidth().height(96.dp).clip(RoundedCornerShape(18.dp)).background(Brush.linearGradient(listOf(brand.copy(alpha = 0.18f), brand.copy(alpha = 0.45f)))), contentAlignment = Alignment.Center) {
                 BrandCircle(restaurant, logo, size = 68)
@@ -666,7 +748,8 @@ private fun StoreRow(restaurant: RmpRestaurant, distanceMiles: Double?, favorite
     val logo = remember(restaurant.rmpKey) { RestaurantLogos.forRestaurant(context, restaurant) }
     val availability = availabilityOf(restaurant, now)
     val brand = logo?.brandColor ?: fallbackBrandColor(restaurant.displayName)
-    Surface(onClick = { onClick(restaurant) }, shape = RoundedCornerShape(24.dp), color = RmpTokens.Card, contentColor = RmpTokens.Ink, shadowElevation = 6.dp, modifier = Modifier.fillMaxWidth()) {
+    val interaction = remember { MutableInteractionSource() }
+    Surface(onClick = { onClick(restaurant) }, interactionSource = interaction, shape = RoundedCornerShape(24.dp), color = RmpTokens.Card, contentColor = RmpTokens.Ink, shadowElevation = 6.dp, modifier = Modifier.fillMaxWidth().pressScale(interaction)) {
         Box(
             Modifier.background(
                 // A wash of the brand's colour bleeding in from the logo side, so the
@@ -842,8 +925,8 @@ private fun MapScreen(
             AnimatedVisibility(
                 visible = selectedMapRestaurant != null && !mapLoadFailed,
                 modifier = Modifier.align(Alignment.BottomCenter).padding(horizontal = 20.dp, vertical = 16.dp),
-                enter = expandVertically(expandFrom = Alignment.Bottom) + fadeIn(),
-                exit = shrinkVertically(shrinkTowards = Alignment.Bottom) + fadeOut(),
+                enter = slideInVertically(spring(dampingRatio = 0.8f, stiffness = 500f)) { it } + fadeIn(),
+                exit = slideOutVertically { it } + fadeOut(),
             ) {
                 selectedMapRestaurant?.let { restaurant ->
                     MapRestaurantPreview(
