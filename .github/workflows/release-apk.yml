@@ -90,6 +90,9 @@ jobs:
           java-version: '21'
 
       - uses: android-actions/setup-android@v3
+        with:
+          # Google removed the old 'tools' package; asking for it fails the run.
+          packages: platform-tools
 
       - uses: gradle/actions/setup-gradle@v4
 
