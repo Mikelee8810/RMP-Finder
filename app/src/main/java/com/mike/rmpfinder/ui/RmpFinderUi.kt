@@ -456,7 +456,7 @@ private fun HomeScreen(
                             }
                             Column {
                                 Text("Near you", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                                Text("Current location", style = MaterialTheme.typography.labelLarge)
+                                Text(state.origin?.source?.takeIf { it != "My location" } ?: "Current location", style = MaterialTheme.typography.labelLarge, maxLines = 1, overflow = TextOverflow.Ellipsis)
                             }
                         }
                         IconToggle(selected = filters.favoritesOnly, activeIcon = Icons.Rounded.Favorite, idleIcon = Icons.Rounded.FavoriteBorder, description = "Saved", onClick = viewModel::toggleFavoritesOnly)

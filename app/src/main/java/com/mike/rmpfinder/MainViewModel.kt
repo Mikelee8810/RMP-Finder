@@ -25,7 +25,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 data class GeoPoint(val latitude: Double, val longitude: Double, val source: String)
 
@@ -183,6 +185,26 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun setUserLocation(latitude: Double, longitude: Double) {
         origin.value = GeoPoint(latitude, longitude, "My location")
         viewModelScope.launch { NearbyWidget.refresh(getApplication(), latitude, longitude) }
+        // Turn the fix into a street name so you can see the GPS is right.
+        viewModelScope.launch {
+            val label = reverseGeocode(latitude, longitude) ?: return@launch
+            if (origin.value?.latitude == latitude && origin.value?.longitude == longitude) {
+                origin.value = GeoPoint(latitude, longitude, label)
+            }
+        }
+    }
+
+    /** "2366 Grand Concourse, Bronx" from Android's own address lookup; null when it has no answer. */
+    private suspend fun reverseGeocode(latitude: Double, longitude: Double): String? = withContext(Dispatchers.IO) {
+        runCatching {
+            val geocoder = android.location.Geocoder(getApplication(), java.util.Locale.US)
+            if (!android.location.Geocoder.isPresent()) return@runCatching null
+            @Suppress("DEPRECATION")
+            val address = geocoder.getFromLocation(latitude, longitude, 1)?.firstOrNull() ?: return@runCatching null
+            val street = listOfNotNull(address.subThoroughfare, address.thoroughfare).joinToString(" ").ifBlank { null }
+            val area = address.subLocality ?: address.locality
+            listOfNotNull(street, area).joinToString(", ").ifBlank { null }
+        }.getOrNull()
     }
 
     fun toggleFavorite(restaurant: RmpRestaurant) {
