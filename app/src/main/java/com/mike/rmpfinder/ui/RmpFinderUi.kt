@@ -567,7 +567,7 @@ private fun OpenCard(restaurant: RmpRestaurant, distanceMiles: Double?, now: Ins
                     }
                 }
             }
-            Text(restaurant.displayName, style = MaterialTheme.typography.titleSmall, maxLines = 1, overflow = TextOverflow.Ellipsis)
+            Text(restaurant.displayName, style = MaterialTheme.typography.titleSmall, minLines = 2, maxLines = 2, overflow = TextOverflow.Ellipsis)
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                 if (rating?.rating != null) {
                     Icon(Icons.Rounded.Star, contentDescription = null, tint = Color(0xFFE0A800), modifier = Modifier.size(13.dp))
@@ -806,10 +806,9 @@ private fun MapScreen(
                                         state.distances[restaurant.rmpKey]?.let { Text(formatMiles(it), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
                                         Dot()
                                         Text(restaurant.cuisineLabel, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f, fill = false))
-                                        if (availability != null) {
-                                            Dot()
-                                            Text(availability.short, style = MaterialTheme.typography.labelSmall, color = availability.tone.ink)
-                                        }
+                                    }
+                                    if (availability != null) {
+                                        Row(Modifier.padding(top = 2.dp)) { Tag(availability.short, availability.tone) }
                                     }
                                 }
                                 Icon(Icons.Rounded.ChevronRight, contentDescription = null, tint = RmpTokens.InkFaint)
@@ -935,8 +934,8 @@ private fun RmpMap(
         if (BuildConfig.MAPTILER_KEY.isNotBlank()) {
             "https://api.maptiler.com/maps/streets-v4/style.json?key=${BuildConfig.MAPTILER_KEY}"
         } else if (dark) {
-            // OpenFreeMap's dark style, so the map doesn't glare at night.
-            "https://tiles.openfreemap.org/styles/dark"
+            // OpenFreeMap Fiord: a dark map whose roads still read at night.
+            "https://tiles.openfreemap.org/styles/fiord"
         } else {
             "https://tiles.openfreemap.org/styles/liberty"
         }
@@ -1115,8 +1114,12 @@ private fun RestaurantDetail(
             item {
                 // Hero: the brand's colour, with the storefront card riding up over it.
                 Box(Modifier.fillMaxWidth()) {
-                    Box(Modifier.fillMaxWidth().height(250.dp).background(Brush.linearGradient(listOf(brand, darken(brand, 0.35f)))))
-                    Box(Modifier.align(Alignment.Center).padding(bottom = 60.dp).size(120.dp).clip(CircleShape).background(Color.White.copy(alpha = 0.12f)))
+                    Box(
+                        Modifier.fillMaxWidth().height(250.dp)
+                            .background(Brush.linearGradient(listOf(brand, darken(brand, 0.45f))))
+                            // A soft light from the top-left so the block reads as a surface, not a flat fill.
+                            .background(Brush.radialGradient(listOf(Color.White.copy(alpha = 0.22f), Color.Transparent), center = androidx.compose.ui.geometry.Offset(0f, 0f), radius = 900f)),
+                    )
                     Column(Modifier.padding(top = 196.dp).padding(horizontal = 18.dp)) {
                         Surface(shape = RoundedCornerShape(28.dp), color = RmpTokens.Card, shadowElevation = 10.dp, modifier = Modifier.fillMaxWidth()) {
                             Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
@@ -1221,11 +1224,7 @@ private fun RestaurantDetail(
                     // Where the business is today. The official RMP address stays in
                     // the dataset for the record but is not what you navigate to.
                     Text(whereItIs.display(), style = MaterialTheme.typography.bodyLarge)
-                    Row(Modifier.fillMaxWidth().padding(top = 4.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        QuickAction(Modifier.weight(1f), Icons.Rounded.Directions, "Transit", primary = true) { openDirections(context, destination, "transit") }
-                        QuickAction(Modifier.weight(1f), Icons.Rounded.DirectionsWalk, "Walk") { openDirections(context, destination, "walking") }
-                        QuickAction(Modifier.weight(1f), Icons.Rounded.Map, "Map") { openUrl(context, mapsSearchUrl(restaurant, whereItIs)) }
-                    }
+                    ContactRow(Icons.Rounded.Map, "Open in Google Maps") { openUrl(context, mapsSearchUrl(restaurant, whereItIs)) }
                 }
             }
             run {
@@ -1746,12 +1745,38 @@ private fun availabilityOf(restaurant: RmpRestaurant, now: Instant): Availabilit
                 Availability("24 hr", "Open 24 hours", Tone.OPEN)
             } else {
                 val until = closesAt(restaurant, now)
-                Availability("Open", if (until != null) "Open · until $until" else "Open now", Tone.OPEN)
+                val minutesLeft = minutesUntilClose(restaurant, now)
+                if (until != null && minutesLeft != null && minutesLeft <= CLOSING_SOON_MINUTES) {
+                    Availability("Closes $until", "Closing soon · $until", Tone.WARN)
+                } else {
+                    Availability("Open", if (until != null) "Open · until $until" else "Open now", Tone.OPEN)
+                }
             }
         }
         "Closed now" -> Availability("Closed now", "Closed right now", Tone.CLOSED_NOW)
         else -> null
     }
+}
+
+/** Under this many minutes to close, "Open" turns into an orange "Closes 9 PM" warning. */
+private const val CLOSING_SOON_MINUTES = 45
+
+/** Minutes until the current open period ends, or null when not open / open all day. */
+private fun minutesUntilClose(restaurant: RmpRestaurant, now: Instant): Int? {
+    val hours = restaurant.hours ?: return null
+    val zoned = now.atZone(ZoneId.of(hours.timezone))
+    if (isOpen24Hours(hours.periods(zoned.dayOfWeek))) return null
+    val minute = zoned.hour * 60 + zoned.minute
+    val period = hours.periods(zoned.dayOfWeek).firstOrNull { p ->
+        val end = if (p.close == "24:00") 24 * 60 else toMinutes(p.close)
+        minute in toMinutes(p.open) until end
+    } ?: return null
+    var end = if (period.close == "24:00") 24 * 60 else toMinutes(period.close)
+    if (period.close == "24:00") {
+        val stub = hours.periods(zoned.dayOfWeek.plus(1)).firstOrNull { it.open == "00:00" && it.close != "24:00" }
+        if (stub != null) end += toMinutes(stub.close)
+    }
+    return end - minute
 }
 
 private fun closesAt(restaurant: RmpRestaurant, now: Instant): String? {

@@ -93,7 +93,7 @@ val DarkPalette = RmpPalette(
     dark = true,
     // Warm near-black, not brown: the tomato and butter do the colouring.
     Ink = Color(0xFFF6F1EA),
-    InkMuted = Color(0xFFA9A098),
+    InkMuted = Color(0xFFBDB4AB),
     InkFaint = Color(0xFF6B635C),
     Ground = Color(0xFF0E0D0C),
     GroundTop = Color(0xFF191513),
@@ -112,7 +112,7 @@ val DarkPalette = RmpPalette(
     OpenSoft = Color(0xFF0F2A1A),
     Warn = Color(0xFFF5B75B),
     WarnSoft = Color(0xFF33240C),
-    Dock = Color(0xFF000000),
+    Dock = Color(0xFF2A2624),
 )
 
 val LocalRmpPalette = staticCompositionLocalOf { LightPalette }
