@@ -413,7 +413,7 @@ private val QuickCuisines = listOf(
     Cuisine("Halal", "Mediterranean & Halal", "\uD83E\uDD59"),
     Cuisine("Breakfast", "Breakfast & Diner", "\uD83E\uDD5E"),
     Cuisine("Deli", "Deli & Sandwiches", "\uD83E\uDD6A"),
-)
+).sortedBy { it.label }  // A to Z so a cuisine is always where you expect it
 
 /** The warm ground every screen sits on: apricot at the top fading to cream. */
 @Composable
