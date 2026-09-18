@@ -47,6 +47,11 @@ jobs:
         run: |
           python3 tools/sync_notion.py ${{ inputs.allow_removals == true && '--allow-removals' || '' }}
 
+      - name: Push photos, descriptions and place ids back into Notion
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+        run: python3 tools/push_notion_extras.py
+
       - name: Verify the dataset gate
         run: python3 tools/verify_data.py
 
