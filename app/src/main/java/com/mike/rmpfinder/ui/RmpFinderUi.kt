@@ -271,16 +271,16 @@ fun RmpFinderRoot(
     val promptOpen by viewModel.updatePromptOpen.collectAsStateWithLifecycle()
     if (promptOpen) UpdatePrompt(state.appUpdateState, viewModel::downloadAppUpdate, viewModel::dismissAppUpdate)
 
-    Scaffold(
-        containerColor = MaterialTheme.colorScheme.background,
-        bottomBar = { RmpBottomNavigation(tab = tab, onTab = { tab = it }) },
-    ) { padding ->
+    // Edge to edge: every screen paints under the status bar and under the
+    // floating dock, so there is no hard line at either end of the phone.
+    Box(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)) {
         when (tab) {
-            MainTab.HOME -> HomeScreen(state, viewModel, { selectedKey = it.rmpKey }, Modifier.padding(padding))
-            MainTab.MAP -> MapScreen(state, viewModel, mapView, { selectedKey = it.rmpKey }, Modifier.padding(padding))
-            MainTab.SAVED -> SavedScreen(state, viewModel, { selectedKey = it.rmpKey }, Modifier.padding(padding))
-            MainTab.INFO -> InfoScreen(state, viewModel::refreshData, viewModel::checkAppUpdate, viewModel::downloadAppUpdate, darkMode, onToggleDarkMode, Modifier.padding(padding))
+            MainTab.HOME -> HomeScreen(state, viewModel, { selectedKey = it.rmpKey })
+            MainTab.MAP -> MapScreen(state, viewModel, mapView, { selectedKey = it.rmpKey })
+            MainTab.SAVED -> SavedScreen(state, viewModel, { selectedKey = it.rmpKey })
+            MainTab.INFO -> InfoScreen(state, viewModel::refreshData, viewModel::checkAppUpdate, viewModel::downloadAppUpdate, darkMode, onToggleDarkMode)
         }
+        RmpBottomNavigation(tab = tab, onTab = { tab = it }, modifier = Modifier.align(Alignment.BottomCenter))
     }
 }
 
@@ -289,11 +289,11 @@ fun RmpFinderRoot(
 // ---------------------------------------------------------------------------
 
 @Composable
-private fun RmpBottomNavigation(tab: MainTab, onTab: (MainTab) -> Unit) {
+private fun RmpBottomNavigation(tab: MainTab, onTab: (MainTab) -> Unit, modifier: Modifier = Modifier) {
     // A floating crimson dock with a butter pill that slides to the active tab,
     // a glassy top highlight and a warm glow underneath so it floats.
     val tabs = MainTab.entries
-    Box(Modifier.fillMaxWidth().navigationBarsPadding().padding(start = 24.dp, end = 24.dp, bottom = 12.dp)) {
+    Box(modifier.fillMaxWidth().navigationBarsPadding().padding(start = 24.dp, end = 24.dp, bottom = 12.dp)) {
         Box(
             Modifier.matchParentSize().padding(horizontal = 22.dp).offset(y = 12.dp).blur(26.dp, BlurredEdgeTreatment.Unbounded)
                 .background(RmpTokens.Accent.copy(alpha = 0.55f), RoundedCornerShape(50)),
@@ -413,7 +413,9 @@ private val QuickCuisines = listOf(
 /** The warm ground every screen sits on: apricot at the top fading to cream. */
 @Composable
 private fun WarmGround(modifier: Modifier = Modifier, content: @Composable () -> Unit) {
-    Box(modifier.fillMaxSize().background(Brush.verticalGradient(listOf(RmpTokens.GroundTop, RmpTokens.Ground, RmpTokens.Ground)))) { content() }
+    Box(modifier.fillMaxSize().background(Brush.verticalGradient(listOf(RmpTokens.GroundTop, RmpTokens.Ground, RmpTokens.Ground)))) {
+        Box(Modifier.fillMaxSize().statusBarsPadding()) { content() }
+    }
 }
 
 @Composable
@@ -1063,7 +1065,7 @@ private fun MapScreen(
             )
             // Jump chips: hop the camera to a borough, or back to you, without scrolling.
             Row(
-                Modifier.align(Alignment.TopStart).fillMaxWidth().horizontalScroll(rememberScrollState()).padding(horizontal = 16.dp, vertical = 12.dp),
+                Modifier.align(Alignment.TopStart).fillMaxWidth().statusBarsPadding().horizontalScroll(rememberScrollState()).padding(horizontal = 16.dp, vertical = 12.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 FilterChipPill(selected = state.filters.openOnly, label = "Open now", icon = Icons.Rounded.Schedule, onClick = viewModel::toggleOpenOnly)
@@ -1598,10 +1600,11 @@ private fun SystemBarIcons(light: Boolean) {
         val controller = WindowCompat.getInsetsController(window, view)
         controller.isAppearanceLightStatusBars = light
         controller.isAppearanceLightNavigationBars = light
+        // Bars stay see-through so the screen's own colour runs edge to edge.
         @Suppress("DEPRECATION")
-        window.navigationBarColor = ground.toArgb()
+        window.navigationBarColor = android.graphics.Color.TRANSPARENT
         @Suppress("DEPRECATION")
-        window.statusBarColor = top.toArgb()
+        window.statusBarColor = android.graphics.Color.TRANSPARENT
         onDispose {}
     }
 }

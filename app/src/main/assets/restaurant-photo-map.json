@@ -1,0 +1,946 @@
+{
+  "bronx|a daughter and two sons|1807 archer street|10460": {
+    "attribution": "Saiyeed Samin",
+    "file": "bronx-a-daughter-and-two-sons-1807-archer-street-10460.jpg"
+  },
+  "bronx|bailey seafood & kuchifrito|146 west 231st street|10463": {
+    "attribution": "Jonathan Taveras",
+    "file": "bronx-bailey-seafood-kuchifrito-146-west-231st-street-10463.jpg"
+  },
+  "bronx|bites on valentine|239 east 203rd street|10458": {
+    "attribution": "Bites on Valentine",
+    "file": "bronx-bites-on-valentine-239-east-203rd-street-10458.jpg"
+  },
+  "bronx|bobo's crab shack|2450 grand concourse|10458": {
+    "attribution": "Bobo's Crab Shack (Fordham)",
+    "file": "bronx-bobo-s-crab-shack-2450-grand-concourse-10458.jpg"
+  },
+  "bronx|bobo's wing and seafood|25 east bedford park boulevard|10468": {
+    "attribution": "Bobo\u2019s Wing & Seafood (Jerome Park)",
+    "file": "bronx-bobo-s-wing-and-seafood-25-east-bedford-park-boulevard-10468.jpg"
+  },
+  "bronx|burger king/popeyes|60 metropolitan oval|10462": {
+    "attribution": "Michael Richardson",
+    "file": "bronx-burger-king-popeyes-60-metropolitan-oval-10462.jpg"
+  },
+  "bronx|burger king|3440 jerome avenue|10467": {
+    "attribution": "VOLODYMYR Odessitt",
+    "file": "bronx-burger-king-3440-jerome-avenue-10467.jpg"
+  },
+  "bronx|caribe restaurant|1762 crosby avenue|10461": {
+    "attribution": "Matt B",
+    "file": "bronx-caribe-restaurant-1762-crosby-avenue-10461.jpg"
+  },
+  "bronx|caridad retaurant express|18 east gun hill road|10467": {
+    "attribution": "Caridad Restaurant Express",
+    "file": "bronx-caridad-retaurant-express-18-east-gun-hill-road-10467.jpg"
+  },
+  "bronx|caridad seafood restaurant|410 east tremont street|10457": {
+    "attribution": "Caridad Seafood Restaurant",
+    "file": "bronx-caridad-seafood-restaurant-410-east-tremont-street-10457.jpg"
+  },
+  "bronx|churrasco del valle restaurant|255 east burnside avenue|10457": {
+    "attribution": "Churrasco Del Valle Restaurant",
+    "file": "bronx-churrasco-del-valle-restaurant-255-east-burnside-avenue-10457.jpg"
+  },
+  "bronx|dallas bbq|2160 bartow avenue|10475": {
+    "attribution": "a52",
+    "file": "bronx-dallas-bbq-2160-bartow-avenue-10475.jpg"
+  },
+  "bronx|dunkin donuts|2370 grand concourse road|10458": {
+    "attribution": "Chance Lee",
+    "file": "bronx-dunkin-donuts-2370-grand-concourse-road-10458.jpg"
+  },
+  "bronx|dunkin donuts|4 east fordham road|10468": {
+    "attribution": "Isamari Burgos",
+    "file": "bronx-dunkin-donuts-4-east-fordham-road-10468.jpg"
+  },
+  "bronx|dunkin donuts|4722 third avenue|10458": {
+    "attribution": "Dunkin'",
+    "file": "bronx-dunkin-donuts-4722-third-avenue-10458.jpg"
+  },
+  "bronx|el valle restaurant|3535 jerome avenue|10467": {
+    "attribution": "\u0f3a \u00d1\u00dbR\u00db\u0141 A\u0271\u03b9\u0273 \u0f3b",
+    "file": "bronx-el-valle-restaurant-3535-jerome-avenue-10467.jpg"
+  },
+  "bronx|flamez cuisine|3728 bronxwood avneue|10469": {
+    "attribution": "Mildred Small",
+    "file": "bronx-flamez-cuisine-3728-bronxwood-avneue-10469.jpg"
+  },
+  "bronx|jen's french toast|607 e 169th street|10456": {
+    "attribution": "Jen's French Toast Restaurant",
+    "file": "bronx-jen-s-french-toast-607-e-169th-street-10456.jpg"
+  },
+  "bronx|kentucky fried chicken|1731 webster avenue|10457": {
+    "attribution": "JUSTICE 4 ALL 1961",
+    "file": "bronx-kentucky-fried-chicken-1731-webster-avenue-10457.jpg"
+  },
+  "bronx|kentucky fried chicken|1959 bruckner boulevard|10472": {
+    "attribution": "Abdullah Shovan",
+    "file": "bronx-kentucky-fried-chicken-1959-bruckner-boulevard-10472.jpg"
+  },
+  "bronx|kentucky fried chicken|375 east 149th street|10455": {
+    "attribution": "Junito Punto Comm",
+    "file": "bronx-kentucky-fried-chicken-375-east-149th-street-10455.jpg"
+  },
+  "bronx|leche y miel restaurant|5761 broadway|10463": {
+    "attribution": "Leche y Miel Restaurant",
+    "file": "bronx-leche-y-miel-restaurant-5761-broadway-10463.jpg"
+  },
+  "bronx|lechonera don pancholo|2037 jerome avenue|10453": {
+    "attribution": "Shanya Bartee",
+    "file": "bronx-lechonera-don-pancholo-2037-jerome-avenue-10453.jpg"
+  },
+  "bronx|lins home chinese|2461 university avenue|10468": {
+    "attribution": "Lin Home",
+    "file": "bronx-lins-home-chinese-2461-university-avenue-10468.jpg"
+  },
+  "bronx|los amigos restaurant|674 east 180th street|10457": {
+    "attribution": "Los Amigos Restaurant",
+    "file": "bronx-los-amigos-restaurant-674-east-180th-street-10457.jpg"
+  },
+  "bronx|love & soul food|4 east gun hill road|10467": {
+    "attribution": "Veronica Ellis",
+    "file": "bronx-love-soul-food-4-east-gun-hill-road-10467.jpg"
+  },
+  "bronx|luna caf\u00e9|726 courtlandt avenue|10451": {
+    "attribution": "Luna Cafe",
+    "file": "bronx-luna-caf-726-courtlandt-avenue-10451.jpg"
+  },
+  "bronx|numero uno sabor latino restaurant|4120 white plains road|10466": {
+    "attribution": "#1 Sabor Latino Restaurant",
+    "file": "bronx-numero-uno-sabor-latino-restaurant-4120-white-plains-road-10466.jpg"
+  },
+  "bronx|pa' comer|104 e. 165th street|10452": {
+    "attribution": "Pa\u2019Comer",
+    "file": "bronx-pa-comer-104-e-165th-street-10452.jpg"
+  },
+  "bronx|popeye's|631 e tremont avenue|10457": {
+    "attribution": "Popeyes Louisiana Kitchen",
+    "file": "bronx-popeye-s-631-e-tremont-avenue-10457.jpg"
+  },
+  "bronx|popeye's|815 hutchinson parkway|10465": {
+    "attribution": "Popeyes Louisiana Kitchen",
+    "file": "bronx-popeye-s-815-hutchinson-parkway-10465.jpg"
+  },
+  "bronx|popeyes|1600 bruckner boulevard|10473": {
+    "attribution": "Popeyes Louisiana Kitchen",
+    "file": "bronx-popeyes-1600-bruckner-boulevard-10473.jpg"
+  },
+  "bronx|popeyes|1905 story avenue|10473": {
+    "attribution": "Popeyes Louisiana Kitchen",
+    "file": "bronx-popeyes-1905-story-avenue-10473.jpg"
+  },
+  "bronx|popeyes|2176-a white plains road|10462": {
+    "attribution": "Popeyes Louisiana Kitchen",
+    "file": "bronx-popeyes-2176-a-white-plains-road-10462.jpg"
+  },
+  "bronx|popeyes|2751 boston road|10469": {
+    "attribution": "Popeyes Louisiana Kitchen",
+    "file": "bronx-popeyes-2751-boston-road-10469.jpg"
+  },
+  "bronx|qdoba mexican eats|1 west fordham road|10468": {
+    "attribution": "QDOBA Mexican Eats",
+    "file": "bronx-qdoba-mexican-eats-1-west-fordham-road-10468.jpg"
+  },
+  "bronx|rocbody fitness caf\u00e9|2960 middletown road|10461": {
+    "attribution": "Rocbody Fitness Cafe - New Rochelle",
+    "file": "bronx-rocbody-fitness-caf-2960-middletown-road-10461.jpg"
+  },
+  "bronx|sante yallah keur aisha restaurant|1460 boston road|10460": {
+    "attribution": "Sante Yallah African Restaurant (Keur Aisha Restaurant CORP.)",
+    "file": "bronx-sante-yallah-keur-aisha-restaurant-1460-boston-road-10460.jpg"
+  },
+  "brooklyn|8 bit bites - 113 bistro|113 court street|11201": {
+    "attribution": "8-Bit Bites",
+    "file": "brooklyn-8-bit-bites-113-bistro-113-court-street-11201.jpg"
+  },
+  "brooklyn|8 bit bites - 881 bistro|881 lexington avenue|11221": {
+    "attribution": "Colt Roth",
+    "file": "brooklyn-8-bit-bites-881-bistro-881-lexington-avenue-11221.jpg"
+  },
+  "brooklyn|8 bit bites - brain food deli & salad bar|967 bedford avenue|11205": {
+    "attribution": "8-Bit Bites",
+    "file": "brooklyn-8-bit-bites-brain-food-deli-salad-bar-967-bedford-avenue-11205.jpg"
+  },
+  "brooklyn|atomic wings|66 willoughby street|11201": {
+    "attribution": "Atomic Wings - Downtown Brooklyn",
+    "file": "brooklyn-atomic-wings-66-willoughby-street-11201.jpg"
+  },
+  "brooklyn|bamboo seafood|5108 7th avenue|11220": {
+    "attribution": "Bamboo Seafood Restaurant \u8208\u65fa\u9910\u5ef3 (\u7cb5\u83dc)",
+    "file": "brooklyn-bamboo-seafood-5108-7th-avenue-11220.jpg"
+  },
+  "brooklyn|bojangles|5910 church avenue|11203": {
+    "attribution": "Bojangles",
+    "file": "brooklyn-bojangles-5910-church-avenue-11203.jpg"
+  },
+  "brooklyn|brain food deli & smart kitchen|111 court street|11201": {
+    "attribution": "Brain food the smart kitchen",
+    "file": "brooklyn-brain-food-deli-smart-kitchen-111-court-street-11201.jpg"
+  },
+  "brooklyn|bunnan - caton|2123 caton avenue|11226": {
+    "attribution": "Fabiola Zoxie Fontaine",
+    "file": "brooklyn-bunnan-caton-2123-caton-avenue-11226.jpg"
+  },
+  "brooklyn|bunnan - flatbush|1248 flatbush avenue|11226": {
+    "attribution": "BunNan",
+    "file": "brooklyn-bunnan-flatbush-1248-flatbush-avenue-11226.jpg"
+  },
+  "brooklyn|burger king/popeyes|2343 utica avenue|11234": {
+    "attribution": "Popeyes Louisiana Kitchen",
+    "file": "brooklyn-burger-king-popeyes-2343-utica-avenue-11234.jpg"
+  },
+  "brooklyn|burger king/popeyes|8516 5th avenue|11209": {
+    "attribution": "Popeyes Louisiana Kitchen",
+    "file": "brooklyn-burger-king-popeyes-8516-5th-avenue-11209.jpg"
+  },
+  "brooklyn|burger king|1297 fulton street|11216": {
+    "attribution": "Omar Brooklyn",
+    "file": "brooklyn-burger-king-1297-fulton-street-11216.jpg"
+  },
+  "brooklyn|burger king|1661 linden boulevard|11212": {
+    "attribution": "Helal M Rahman",
+    "file": "brooklyn-burger-king-1661-linden-boulevard-11212.jpg"
+  },
+  "brooklyn|burger king|3301 ft. hamilton parkway|11218": {
+    "attribution": "Bekzod Ahmedov",
+    "file": "brooklyn-burger-king-3301-ft-hamilton-parkway-11218.jpg"
+  },
+  "brooklyn|burger king|417-21 fulton street|11201": {
+    "attribution": "Maya Moltisanti",
+    "file": "brooklyn-burger-king-417-21-fulton-street-11201.jpg"
+  },
+  "brooklyn|burger king|524 fulton street|11216": {
+    "attribution": "Joshua",
+    "file": "brooklyn-burger-king-524-fulton-street-11216.jpg"
+  },
+  "brooklyn|burger king|624 south conduit avenue|11208": {
+    "attribution": "Ali Maleki",
+    "file": "brooklyn-burger-king-624-south-conduit-avenue-11208.jpg"
+  },
+  "brooklyn|burger king|971 flatbush avenue|11226": {
+    "attribution": "Sean Jacob",
+    "file": "brooklyn-burger-king-971-flatbush-avenue-11226.jpg"
+  },
+  "brooklyn|carnation restaurant|2310 86th street|11214": {
+    "attribution": "Carnation Restaurant \u5eb7\u4e43\u99a8",
+    "file": "brooklyn-carnation-restaurant-2310-86th-street-11214.jpg"
+  },
+  "brooklyn|carro caf\u00e9|3472 fulton street|11208": {
+    "attribution": "H.J. Reyes",
+    "file": "brooklyn-carro-caf-3472-fulton-street-11208.jpg"
+  },
+  "brooklyn|chaska chai|3680 nostrand avenue|11229": {
+    "attribution": "Hajveri Restaurant",
+    "file": "brooklyn-chaska-chai-3680-nostrand-avenue-11229.jpg"
+  },
+  "brooklyn|checkers|1801 church avenue|11226": {
+    "attribution": "William B",
+    "file": "brooklyn-checkers-1801-church-avenue-11226.jpg"
+  },
+  "brooklyn|cr\u00e8me of the island restaurant & juice bar|436 rockaway avenue|11212": {
+    "attribution": "J Ubiwa",
+    "file": "brooklyn-cr-me-of-the-island-restaurant-juice-bar-436-rockaway-avenue-11212.jpg"
+  },
+  "brooklyn|cuihua kitchen|2004 86th street|11214": {
+    "attribution": "Alan Moy",
+    "file": "brooklyn-cuihua-kitchen-2004-86th-street-11214.jpg"
+  },
+  "brooklyn|dagu rice noodle|8515 18th avenue|11214": {
+    "attribution": "Dagu Rice Noodle",
+    "file": "brooklyn-dagu-rice-noodle-8515-18th-avenue-11214.jpg"
+  },
+  "brooklyn|dallas bbq|180 livingston street|11201": {
+    "attribution": "Shaquana L",
+    "file": "brooklyn-dallas-bbq-180-livingston-street-11201.jpg"
+  },
+  "brooklyn|dexin yuan zai bing restaurant|712 60th street|11220": {
+    "attribution": "Dave Cook",
+    "file": "brooklyn-dexin-yuan-zai-bing-restaurant-712-60th-street-11220.jpg"
+  },
+  "brooklyn|dunkin donuts|1052 flushing avenue|11237": {
+    "attribution": "Kashmira wagh",
+    "file": "brooklyn-dunkin-donuts-1052-flushing-avenue-11237.jpg"
+  },
+  "brooklyn|fix-u-plate|1139 clarkson avenue|11212": {
+    "attribution": "shaun parker",
+    "file": "brooklyn-fix-u-plate-1139-clarkson-avenue-11212.jpg"
+  },
+  "brooklyn|fix-u-plate|1412 rockaway parkway|11236": {
+    "attribution": "Fabiola Zoxie Fontaine",
+    "file": "brooklyn-fix-u-plate-1412-rockaway-parkway-11236.jpg"
+  },
+  "brooklyn|golden \"z\" restaurant|1410 avenue u|11229": {
+    "attribution": "Lesha Orlov",
+    "file": "brooklyn-golden-z-restaurant-1410-avenue-u-11229.jpg"
+  },
+  "brooklyn|golden krust|1364 pennsylvania avenue|11239": {
+    "attribution": "Denise Fisher",
+    "file": "brooklyn-golden-krust-1364-pennsylvania-avenue-11239.jpg"
+  },
+  "brooklyn|gyro king express|1017 foster avenue|11230": {
+    "attribution": "Gyro King Express",
+    "file": "brooklyn-gyro-king-express-1017-foster-avenue-11230.jpg"
+  },
+  "brooklyn|halal gyro king|984 coney island avenue|11230": {
+    "attribution": "gyro king",
+    "file": "brooklyn-halal-gyro-king-984-coney-island-avenue-11230.jpg"
+  },
+  "brooklyn|halal munchies|474 myrtle avenue|11205": {
+    "attribution": "Halal Munchies",
+    "file": "brooklyn-halal-munchies-474-myrtle-avenue-11205.jpg"
+  },
+  "brooklyn|happy cuisine|6712 bay parkway|11204": {
+    "attribution": "Angela Zhong",
+    "file": "brooklyn-happy-cuisine-6712-bay-parkway-11204.jpg"
+  },
+  "brooklyn|hey rich roasted|6005 fort hamilton parkway|11219": {
+    "attribution": "Hey Rich Roasted",
+    "file": "brooklyn-hey-rich-roasted-6005-fort-hamilton-parkway-11219.jpg"
+  },
+  "brooklyn|hua yi jia restaurant|5616 7th avenue|11220": {
+    "attribution": "Dave Cook",
+    "file": "brooklyn-hua-yi-jia-restaurant-5616-7th-avenue-11220.jpg"
+  },
+  "brooklyn|ihop|1019 surf avenue|11224": {
+    "attribution": "TROKOTRO0880 BROOKLYNYC",
+    "file": "brooklyn-ihop-1019-surf-avenue-11224.jpg"
+  },
+  "brooklyn|irestaurant|5922 8th avenue|11220": {
+    "attribution": "Jinyu Li",
+    "file": "brooklyn-irestaurant-5922-8th-avenue-11220.jpg"
+  },
+  "brooklyn|jam it bistro|367 columbia street|11231": {
+    "attribution": "Jamit Bistro",
+    "file": "brooklyn-jam-it-bistro-367-columbia-street-11231.jpg"
+  },
+  "brooklyn|jamaican flavors|1397 rockaway parkway|11236": {
+    "attribution": "Rohan Wilson",
+    "file": "brooklyn-jamaican-flavors-1397-rockaway-parkway-11236.jpg"
+  },
+  "brooklyn|jamaican flavors|194 rockaway ave|11233": {
+    "attribution": "Rob Cooke",
+    "file": "brooklyn-jamaican-flavors-194-rockaway-ave-11233.jpg"
+  },
+  "brooklyn|jamaican flavors|295 utica avenue|11213": {
+    "attribution": "Chintan Desai",
+    "file": "brooklyn-jamaican-flavors-295-utica-avenue-11213.jpg"
+  },
+  "brooklyn|jamaican flavors|358 koscuiszko street|11221": {
+    "attribution": "Shaquana L",
+    "file": "brooklyn-jamaican-flavors-358-koscuiszko-street-11221.jpg"
+  },
+  "brooklyn|jamaican flavors|483 nostrand avenue|11216": {
+    "attribution": "Jamaican Flavors",
+    "file": "brooklyn-jamaican-flavors-483-nostrand-avenue-11216.jpg"
+  },
+  "brooklyn|jamaican flavors|4917 church avenue|11203": {
+    "attribution": "Jamaican Flavors",
+    "file": "brooklyn-jamaican-flavors-4917-church-avenue-11203.jpg"
+  },
+  "brooklyn|kairibbean island mix|393 new lots avenue|11207": {
+    "attribution": "Kairibbean Island Mix",
+    "file": "brooklyn-kairibbean-island-mix-393-new-lots-avenue-11207.jpg"
+  },
+  "brooklyn|kitchen 86|2306 86th street|11214": {
+    "attribution": "Kitchen 86",
+    "file": "brooklyn-kitchen-86-2306-86th-street-11214.jpg"
+  },
+  "brooklyn|lebron restaurant|1567 pitkin avenue|11212": {
+    "attribution": "Lebron",
+    "file": "brooklyn-lebron-restaurant-1567-pitkin-avenue-11212.jpg"
+  },
+  "brooklyn|loma no. 5|454 rockaway avenue|11212": {
+    "attribution": "Loma 5 Restaurant Rockaway Ave",
+    "file": "brooklyn-loma-no-5-454-rockaway-avenue-11212.jpg"
+  },
+  "brooklyn|mcdonald's|1275 fulton street|11236": {
+    "attribution": "Maxim Marbella",
+    "file": "brooklyn-mcdonald-s-1275-fulton-street-11236.jpg"
+  },
+  "brooklyn|mcdonald's|1380 broadway|11221": {
+    "attribution": "M H",
+    "file": "brooklyn-mcdonald-s-1380-broadway-11221.jpg"
+  },
+  "brooklyn|mcdonald's|180 parkside avenue|11226": {
+    "attribution": "Laszlo Varga",
+    "file": "brooklyn-mcdonald-s-180-parkside-avenue-11226.jpg"
+  },
+  "brooklyn|mcdonald's|204-11 hillside avenue|11423": {
+    "attribution": "Alex Marks",
+    "file": "brooklyn-mcdonald-s-204-11-hillside-avenue-11423.jpg"
+  },
+  "brooklyn|mcdonald's|2240 flatbush avenue|11234": {
+    "attribution": "Wilkie Joissaint",
+    "file": "brooklyn-mcdonald-s-2240-flatbush-avenue-11234.jpg"
+  },
+  "brooklyn|mcdonald's|2413 86th street|11214": {
+    "attribution": "Ivan",
+    "file": "brooklyn-mcdonald-s-2413-86th-street-11214.jpg"
+  },
+  "brooklyn|mcdonald's|267 broadway|11211": {
+    "attribution": "Hector Medina",
+    "file": "brooklyn-mcdonald-s-267-broadway-11211.jpg"
+  },
+  "brooklyn|mcdonald's|289 9th street|11215": {
+    "attribution": "Keith G",
+    "file": "brooklyn-mcdonald-s-289-9th-street-11215.jpg"
+  },
+  "brooklyn|mcdonald's|3540 nostrand avenue|11224": {
+    "attribution": "\u9ec4\u6069\u8363",
+    "file": "brooklyn-mcdonald-s-3540-nostrand-avenue-11224.jpg"
+  },
+  "brooklyn|mcdonald's|357 hamilton avenue|11231": {
+    "attribution": "Maxim Marbella",
+    "file": "brooklyn-mcdonald-s-357-hamilton-avenue-11231.jpg"
+  },
+  "brooklyn|mcdonald's|428 knickerbocker avenue|11237": {
+    "attribution": "RobloxLiterature",
+    "file": "brooklyn-mcdonald-s-428-knickerbocker-avenue-11237.jpg"
+  },
+  "brooklyn|mcdonald's|430 86th street|11209": {
+    "attribution": "Dominick Prince",
+    "file": "brooklyn-mcdonald-s-430-86th-street-11209.jpg"
+  },
+  "brooklyn|mcdonald's|652 meeker avenue|11222": {
+    "attribution": "Kin Tsui",
+    "file": "brooklyn-mcdonald-s-652-meeker-avenue-11222.jpg"
+  },
+  "brooklyn|mcdonald's|6620 bay parkway|11204": {
+    "attribution": "Arkady Utkin",
+    "file": "brooklyn-mcdonald-s-6620-bay-parkway-11204.jpg"
+  },
+  "brooklyn|mcdonald's|700 broadway|11206": {
+    "attribution": "Bekzod Ahmedov",
+    "file": "brooklyn-mcdonald-s-700-broadway-11206.jpg"
+  },
+  "brooklyn|mcdonald's|7124 3rd avenue|11209": {
+    "attribution": "Gordon Wells",
+    "file": "brooklyn-mcdonald-s-7124-3rd-avenue-11209.jpg"
+  },
+  "brooklyn|mcdonald's|741 grand street|11211": {
+    "attribution": "James Wagler",
+    "file": "brooklyn-mcdonald-s-741-grand-street-11211.jpg"
+  },
+  "brooklyn|mcdonald's|8520 20th avenue|11214": {
+    "attribution": "pif pif",
+    "file": "brooklyn-mcdonald-s-8520-20th-avenue-11214.jpg"
+  },
+  "brooklyn|mcdonald's|943 flatbush avenue|11226": {
+    "attribution": "Preston Mer\u00e7ant",
+    "file": "brooklyn-mcdonald-s-943-flatbush-avenue-11226.jpg"
+  },
+  "brooklyn|memphis seoul|569 lincoln place|11238": {
+    "attribution": "Memphis Seoul",
+    "file": "brooklyn-memphis-seoul-569-lincoln-place-11238.jpg"
+  },
+  "brooklyn|mi sabor restaurant|609 sutter avenue|11207": {
+    "attribution": "Mi Sabor Restaurant",
+    "file": "brooklyn-mi-sabor-restaurant-609-sutter-avenue-11207.jpg"
+  },
+  "brooklyn|momo's mediterranean grill|25 101 avenue|11208": {
+    "attribution": "Momo's",
+    "file": "brooklyn-momo-s-mediterranean-grill-25-101-avenue-11208.jpg"
+  },
+  "brooklyn|more than fries|1077 rutland road|11212": {
+    "attribution": "Julie Horn",
+    "file": "brooklyn-more-than-fries-1077-rutland-road-11212.jpg"
+  },
+  "brooklyn|new yee li|6619 fort hamilton parkway|11219": {
+    "attribution": "JIN HUA GAO",
+    "file": "brooklyn-new-yee-li-6619-fort-hamilton-parkway-11219.jpg"
+  },
+  "brooklyn|ng's kitchen|6012 8th avenue|11220": {
+    "attribution": "Kin Tsui",
+    "file": "brooklyn-ng-s-kitchen-6012-8th-avenue-11220.jpg"
+  },
+  "brooklyn|ocean eats|865 4th avenue|11232": {
+    "attribution": "Ocean Eats & Island Treats",
+    "file": "brooklyn-ocean-eats-865-4th-avenue-11232.jpg"
+  },
+  "brooklyn|peppas jerk chicken|791 prospect place|11216": {
+    "attribution": "Peppa's Jerk Chicken",
+    "file": "brooklyn-peppas-jerk-chicken-791-prospect-place-11216.jpg"
+  },
+  "brooklyn|popeye's|1052 flushing avenue|11237": {
+    "attribution": "Popeyes Louisiana Kitchen",
+    "file": "brooklyn-popeye-s-1052-flushing-avenue-11237.jpg"
+  },
+  "brooklyn|popeye's|1153 fulton street|11216": {
+    "attribution": "Popeyes Louisiana Kitchen",
+    "file": "brooklyn-popeye-s-1153-fulton-street-11216.jpg"
+  },
+  "brooklyn|popeye's|1159 utica avenue|11203": {
+    "attribution": "Popeyes Louisiana Kitchen",
+    "file": "brooklyn-popeye-s-1159-utica-avenue-11203.jpg"
+  },
+  "brooklyn|popeye's|1375 rockaway parkway|11236": {
+    "attribution": "Popeyes Louisiana Kitchen",
+    "file": "brooklyn-popeye-s-1375-rockaway-parkway-11236.jpg"
+  },
+  "brooklyn|popeye's|1465 myrtle avenue|11237": {
+    "attribution": "Popeyes Louisiana Kitchen",
+    "file": "brooklyn-popeye-s-1465-myrtle-avenue-11237.jpg"
+  },
+  "brooklyn|popeye's|2779 86th street|11223": {
+    "attribution": "Popeyes Louisiana Kitchen",
+    "file": "brooklyn-popeye-s-2779-86th-street-11223.jpg"
+  },
+  "brooklyn|popeye's|3342 fulton street|11208": {
+    "attribution": "Popeyes Louisiana Kitchen",
+    "file": "brooklyn-popeye-s-3342-fulton-street-11208.jpg"
+  },
+  "brooklyn|popeye's|3764 nostrand avenue|11235": {
+    "attribution": "Popeyes Louisiana Kitchen",
+    "file": "brooklyn-popeye-s-3764-nostrand-avenue-11235.jpg"
+  },
+  "brooklyn|popeye's|5100 kings plaza|11234": {
+    "attribution": "Popeyes Louisiana Kitchen",
+    "file": "brooklyn-popeye-s-5100-kings-plaza-11234.jpg"
+  },
+  "brooklyn|popeye's|709 brighton beach avenue|11235": {
+    "attribution": "Popeyes Louisiana Kitchen",
+    "file": "brooklyn-popeye-s-709-brighton-beach-avenue-11235.jpg"
+  },
+  "brooklyn|popeye's|918 manhattan avenue|11222": {
+    "attribution": "Popeyes Louisiana Kitchen",
+    "file": "brooklyn-popeye-s-918-manhattan-avenue-11222.jpg"
+  },
+  "brooklyn|popeyes|624 conduit boulevard|11208": {
+    "attribution": "Popeyes Louisiana Kitchen",
+    "file": "brooklyn-popeyes-624-conduit-boulevard-11208.jpg"
+  },
+  "brooklyn|rosa's steakhouse|567 wilson avenue|11207": {
+    "attribution": "Rosa\u2019s Steakhouse",
+    "file": "brooklyn-rosa-s-steakhouse-567-wilson-avenue-11207.jpg"
+  },
+  "brooklyn|roseli chinese restaurant|2322 86th street|11214": {
+    "attribution": "Roseli \u7470\u9e97 Chinese Restaurant",
+    "file": "brooklyn-roseli-chinese-restaurant-2322-86th-street-11214.jpg"
+  },
+  "brooklyn|season restaurant|1321 avenue u|11229": {
+    "attribution": "William Ip",
+    "file": "brooklyn-season-restaurant-1321-avenue-u-11229.jpg"
+  },
+  "brooklyn|sheep by baraksha|1223 avenue u|11229": {
+    "attribution": "SHEEP BY BARASHKA",
+    "file": "brooklyn-sheep-by-baraksha-1223-avenue-u-11229.jpg"
+  },
+  "brooklyn|sonic drive in|730 broadway|11206": {
+    "attribution": "Sonic Drive-In",
+    "file": "brooklyn-sonic-drive-in-730-broadway-11206.jpg"
+  },
+  "brooklyn|sonic drive in|805 pennsylvania avenue|11207": {
+    "attribution": "Sonic Drive-In",
+    "file": "brooklyn-sonic-drive-in-805-pennsylvania-avenue-11207.jpg"
+  },
+  "brooklyn|umi premium sushi & seafood buffet|3839 nostrand avenue|11235": {
+    "attribution": "Umi Premium Sushi & Seafood Buffet",
+    "file": "brooklyn-umi-premium-sushi-seafood-buffet-3839-nostrand-avenue-11235.jpg"
+  },
+  "brooklyn|uncle ng's recipe|5603 8th avenue|11220": {
+    "attribution": "Yat Sang Yan",
+    "file": "brooklyn-uncle-ng-s-recipe-5603-8th-avenue-11220.jpg"
+  },
+  "manhattan|109 pizzeria|1976 3rd avenue|10029": {
+    "attribution": "109 Pizzeria",
+    "file": "manhattan-109-pizzeria-1976-3rd-avenue-10029.jpg"
+  },
+  "manhattan|8 bit bites - 197 bistro|197 7th avenue|10012": {
+    "attribution": "UrbaNYte",
+    "file": "manhattan-8-bit-bites-197-bistro-197-7th-avenue-10012.jpg"
+  },
+  "manhattan|burger king|200 east 125th street|10035": {
+    "attribution": "Stephen McBride",
+    "file": "manhattan-burger-king-200-east-125th-street-10035.jpg"
+  },
+  "manhattan|caf\u00e9 tabu|227-229 dyckman street|10034": {
+    "attribution": "Tab\u00fa Restaurant",
+    "file": "manhattan-caf-tabu-227-229-dyckman-street-10034.jpg"
+  },
+  "manhattan|caridad restaurant|3533 broadway|10031": {
+    "attribution": "Caridad Restaurant",
+    "file": "manhattan-caridad-restaurant-3533-broadway-10031.jpg"
+  },
+  "manhattan|dallas bbq|241 west 42nd street|10036": {
+    "attribution": "ce J",
+    "file": "manhattan-dallas-bbq-241-west-42nd-street-10036.jpg"
+  },
+  "manhattan|dallas bbq|261 8th avenue|10011": {
+    "attribution": "Dallas BBQ Chelsea",
+    "file": "manhattan-dallas-bbq-261-8th-avenue-10011.jpg"
+  },
+  "manhattan|dallas bbq|3956 broadway|10032": {
+    "attribution": "Indoorfish",
+    "file": "manhattan-dallas-bbq-3956-broadway-10032.jpg"
+  },
+  "manhattan|dim sum sam|80 bowery|10013": {
+    "attribution": "Dim Sum Sam\uff0d\u91d1\u6ee1\u5ead\u7ca4\u83dc\u9910\u5385\uff1abest;chinese;cantonese;food;cuisine;dishes;dim sum;fast food;restaurant;palace;noodle;soup;dumpling",
+    "file": "manhattan-dim-sum-sam-80-bowery-10013.jpg"
+  },
+  "manhattan|el capri iii|3379 broadway|10031": {
+    "attribution": "Darwin Suriel",
+    "file": "manhattan-el-capri-iii-3379-broadway-10031.jpg"
+  },
+  "manhattan|el nuevo capri ii restaurant|1497 saint nicholas avenue|10033": {
+    "attribution": "EL PUMA POL\u00cdTICO",
+    "file": "manhattan-el-nuevo-capri-ii-restaurant-1497-saint-nicholas-avenue-10033.jpg"
+  },
+  "manhattan|el nuevo capri restaurant|1340 saint nicholas avenue|10033": {
+    "attribution": "Ray Perez",
+    "file": "manhattan-el-nuevo-capri-restaurant-1340-saint-nicholas-avenue-10033.jpg"
+  },
+  "manhattan|el nuevo valle seafood|231 sherman street|10034": {
+    "attribution": "El nuevo valle seafood Restaurant",
+    "file": "manhattan-el-nuevo-valle-seafood-231-sherman-street-10034.jpg"
+  },
+  "manhattan|flaco's pizza|3876 broadway|10032": {
+    "attribution": "Flaco's Pizza",
+    "file": "manhattan-flaco-s-pizza-3876-broadway-10032.jpg"
+  },
+  "manhattan|fok noodles|5 catherine street|10038": {
+    "attribution": "mcLa twofivesix",
+    "file": "manhattan-fok-noodles-5-catherine-street-10038.jpg"
+  },
+  "manhattan|green garden village restaurant|216 grand street|10013": {
+    "attribution": "Sunny Simantov",
+    "file": "manhattan-green-garden-village-restaurant-216-grand-street-10013.jpg"
+  },
+  "manhattan|jojo duck|131 walker street|10013": {
+    "attribution": "mcLa twofivesix",
+    "file": "manhattan-jojo-duck-131-walker-street-10013.jpg"
+  },
+  "manhattan|justino's pizzeria|77 pearl street|10004": {
+    "attribution": "Justino's Pizza",
+    "file": "manhattan-justino-s-pizzeria-77-pearl-street-10004.jpg"
+  },
+  "manhattan|justino's pizzeria|881 10th avenue|10019": {
+    "attribution": "Justino's Pizza",
+    "file": "manhattan-justino-s-pizzeria-881-10th-avenue-10019.jpg"
+  },
+  "manhattan|la barca|3892 broadway|10032": {
+    "attribution": "Rob Brink",
+    "file": "manhattan-la-barca-3892-broadway-10032.jpg"
+  },
+  "manhattan|lady chow kitchen|171 hester street|10013": {
+    "attribution": "Lady Chow Kitchen",
+    "file": "manhattan-lady-chow-kitchen-171-hester-street-10013.jpg"
+  },
+  "manhattan|lava shawarma|57 clinton street|10002": {
+    "attribution": "Lava Shawarma",
+    "file": "manhattan-lava-shawarma-57-clinton-street-10002.jpg"
+  },
+  "manhattan|mcdonald's|102 1st avenue|10009": {
+    "attribution": "Jennifer Johnson",
+    "file": "manhattan-mcdonald-s-102-1st-avenue-10009.jpg"
+  },
+  "manhattan|mcdonald's|114 delancy street|10002": {
+    "attribution": "Mark Pabst",
+    "file": "manhattan-mcdonald-s-114-delancy-street-10002.jpg"
+  },
+  "manhattan|mcdonald's|1528 broadway|10036": {
+    "attribution": "GHD_1109",
+    "file": "manhattan-mcdonald-s-1528-broadway-10036.jpg"
+  },
+  "manhattan|mcdonald's|160 broadway|10038": {
+    "attribution": "Sadman Ahmed",
+    "file": "manhattan-mcdonald-s-160-broadway-10038.jpg"
+  },
+  "manhattan|mcdonald's|1651 broadway|10019": {
+    "attribution": "Sini\u0161a Ple\u0161a",
+    "file": "manhattan-mcdonald-s-1651-broadway-10019.jpg"
+  },
+  "manhattan|mcdonald's|26 east 23rd street|10010": {
+    "attribution": "Jerry H",
+    "file": "manhattan-mcdonald-s-26-east-23rd-street-10010.jpg"
+  },
+  "manhattan|mcdonald's|336 east 23rd street|10010": {
+    "attribution": "Gans Krown",
+    "file": "manhattan-mcdonald-s-336-east-23rd-street-10010.jpg"
+  },
+  "manhattan|mcdonald's|401 park avenue south|10016": {
+    "attribution": "Sukrut Rao",
+    "file": "manhattan-mcdonald-s-401-park-avenue-south-10016.jpg"
+  },
+  "manhattan|mcdonald's|429 7th avenue|10001": {
+    "attribution": "Kades Mode",
+    "file": "manhattan-mcdonald-s-429-7th-avenue-10001.jpg"
+  },
+  "manhattan|mcdonald's|480 3rd avenue|10016": {
+    "attribution": "Chris Martin",
+    "file": "manhattan-mcdonald-s-480-3rd-avenue-10016.jpg"
+  },
+  "manhattan|mcdonald's|541 6th avenue|10011": {
+    "attribution": "Sergej Krawzow",
+    "file": "manhattan-mcdonald-s-541-6th-avenue-10011.jpg"
+  },
+  "manhattan|mcdonald's|556 7th avenue|10018": {
+    "attribution": "John McEvoy",
+    "file": "manhattan-mcdonald-s-556-7th-avenue-10018.jpg"
+  },
+  "manhattan|mcdonald's|661 8th avenue|10036": {
+    "attribution": "Mark Pabst",
+    "file": "manhattan-mcdonald-s-661-8th-avenue-10036.jpg"
+  },
+  "manhattan|mcdonald's|686 6th avenue|10010": {
+    "attribution": "Kirtiman Paul",
+    "file": "manhattan-mcdonald-s-686-6th-avenue-10010.jpg"
+  },
+  "manhattan|mcdonald's|946 8th avenue|10019": {
+    "attribution": "\u5415\u6d2a\u6765",
+    "file": "manhattan-mcdonald-s-946-8th-avenue-10019.jpg"
+  },
+  "manhattan|mcdonald's|966 3rd avenue|10022": {
+    "attribution": "Derek Villorente",
+    "file": "manhattan-mcdonald-s-966-3rd-avenue-10022.jpg"
+  },
+  "manhattan|mofongo del valle|3340 broadway|10031": {
+    "attribution": "Devon NRG",
+    "file": "manhattan-mofongo-del-valle-3340-broadway-10031.jpg"
+  },
+  "manhattan|mott street eatery|98 mott street|10013": {
+    "attribution": "Jiang Ren",
+    "file": "manhattan-mott-street-eatery-98-mott-street-10013.jpg"
+  },
+  "manhattan|nomas restaurant|3855 10th avenue|10034": {
+    "attribution": "Equis pica pollo",
+    "file": "manhattan-nomas-restaurant-3855-10th-avenue-10034.jpg"
+  },
+  "manhattan|popeye's|101 delancy street|10002": {
+    "attribution": "Popeyes Louisiana Kitchen",
+    "file": "manhattan-popeye-s-101-delancy-street-10002.jpg"
+  },
+  "manhattan|popeye's|1572 3rd avenue|10128": {
+    "attribution": "Popeyes Louisiana Kitchen",
+    "file": "manhattan-popeye-s-1572-3rd-avenue-10128.jpg"
+  },
+  "manhattan|ray's pizza bar|2048 amsterdam avenue|10032": {
+    "attribution": "N&M's Pizza Bar",
+    "file": "manhattan-ray-s-pizza-bar-2048-amsterdam-avenue-10032.jpg"
+  },
+  "manhattan|sanmiwago|90 bowery|10013": {
+    "attribution": "K.",
+    "file": "manhattan-sanmiwago-90-bowery-10013.jpg"
+  },
+  "manhattan|sapoara restaurant|2262 1st avenue|10035": {
+    "attribution": "Caleb Smith",
+    "file": "manhattan-sapoara-restaurant-2262-1st-avenue-10035.jpg"
+  },
+  "manhattan|sun hong wong seafood restaurant|100 bowery|10013": {
+    "attribution": "Dave Cook",
+    "file": "manhattan-sun-hong-wong-seafood-restaurant-100-bowery-10013.jpg"
+  },
+  "manhattan|tu sabor latino restaurant|3881 broadway|10032": {
+    "attribution": "Tu Sabor Latino Restaurant",
+    "file": "manhattan-tu-sabor-latino-restaurant-3881-broadway-10032.jpg"
+  },
+  "manhattan|yummy thai|4959 broadway|10034": {
+    "attribution": "Randy Simon",
+    "file": "manhattan-yummy-thai-4959-broadway-10034.jpg"
+  },
+  "queens|876 caribbean eatery|15341 rockaway boulevard|11434": {
+    "attribution": "Ray R",
+    "file": "queens-876-caribbean-eatery-15341-rockaway-boulevard-11434.jpg"
+  },
+  "queens|atomic wings|159-23 hillside avenue|11432": {
+    "attribution": "Atomic Wings",
+    "file": "queens-atomic-wings-159-23-hillside-avenue-11432.jpg"
+  },
+  "queens|blaze 718|109-10 guy r brewer boulevard|11413": {
+    "attribution": "Masud Bhuyan",
+    "file": "queens-blaze-718-109-10-guy-r-brewer-boulevard-11413.jpg"
+  },
+  "queens|burger king/popeye's|16150 cross bay boulevard|11414": {
+    "attribution": "Popeyes Louisiana Kitchen",
+    "file": "queens-burger-king-popeye-s-16150-cross-bay-boulevard-11414.jpg"
+  },
+  "queens|burger king/popeyes|161 cross bay boulevard|11414": {
+    "attribution": "Burger King",
+    "file": "queens-burger-king-popeyes-161-cross-bay-boulevard-11414.jpg"
+  },
+  "queens|burger king/popeyes|164-17 union turnpike|11366": {
+    "attribution": "Popeyes Louisiana Kitchen",
+    "file": "queens-burger-king-popeyes-164-17-union-turnpike-11366.jpg"
+  },
+  "queens|burger king|6259 fresh pond road|11365": {
+    "attribution": "Popeyes Louisiana Kitchen",
+    "file": "queens-burger-king-6259-fresh-pond-road-11365.jpg"
+  },
+  "queens|dhakaya restaurant|3944 21st street|11101": {
+    "attribution": "Dhakaya Restaurant",
+    "file": "queens-dhakaya-restaurant-3944-21st-street-11101.jpg"
+  },
+  "queens|evelia's tamales|96-09 northern boulevard|11368": {
+    "attribution": "jkaw",
+    "file": "queens-evelia-s-tamales-96-09-northern-boulevard-11368.jpg"
+  },
+  "queens|gyro qila|10503 crossbay boulevard|11417": {
+    "attribution": "Gyro Qila",
+    "file": "queens-gyro-qila-10503-crossbay-boulevard-11417.jpg"
+  },
+  "queens|jamaican flavors|134-41 springfield boulevard|11413": {
+    "attribution": "Rob Cooke",
+    "file": "queens-jamaican-flavors-134-41-springfield-boulevard-11413.jpg"
+  },
+  "queens|jamaican flavors|162-02 jamaica avenue|11432": {
+    "attribution": "Jim Ryan",
+    "file": "queens-jamaican-flavors-162-02-jamaica-avenue-11432.jpg"
+  },
+  "queens|jamaican flavors|164-17 jamaica avenue|11432": {
+    "attribution": "Jim Ryan",
+    "file": "queens-jamaican-flavors-164-17-jamaica-avenue-11432.jpg"
+  },
+  "queens|kentucky fried chicken|39-21 103rd street|11368": {
+    "attribution": "Ana C",
+    "file": "queens-kentucky-fried-chicken-39-21-103rd-street-11368.jpg"
+  },
+  "queens|lao yu yuan dumpling house|42-35 main street|11355": {
+    "attribution": "Alexander Milberger",
+    "file": "queens-lao-yu-yuan-dumpling-house-42-35-main-street-11355.jpg"
+  },
+  "queens|maspeth diner|6535 grand avenue|11378": {
+    "attribution": "Maspeth Diner inc",
+    "file": "queens-maspeth-diner-6535-grand-avenue-11378.jpg"
+  },
+  "queens|mcdonald's|106-15 71st street|11375": {
+    "attribution": "Hephzibah Premkumar",
+    "file": "queens-mcdonald-s-106-15-71st-street-11375.jpg"
+  },
+  "queens|mcdonald's|159-40 cross bay boulevard|11414": {
+    "attribution": "Sadman Ahmed",
+    "file": "queens-mcdonald-s-159-40-cross-bay-boulevard-11414.jpg"
+  },
+  "queens|mcdonald's|204-11 hillside avenue|11423": {
+    "attribution": "Alex Marks",
+    "file": "queens-mcdonald-s-204-11-hillside-avenue-11423.jpg"
+  },
+  "queens|mcdonald's|216-07 linden boulevard|11411": {
+    "attribution": "Beautiful to Go",
+    "file": "queens-mcdonald-s-216-07-linden-boulevard-11411.jpg"
+  },
+  "queens|mcdonald's|22-14 31st avenue|11105": {
+    "attribution": "Kien Quan",
+    "file": "queens-mcdonald-s-22-14-31st-avenue-11105.jpg"
+  },
+  "queens|mcdonald's|244-10 merrick boulevard|11422": {
+    "attribution": "Anthony Taylor",
+    "file": "queens-mcdonald-s-244-10-merrick-boulevard-11422.jpg"
+  },
+  "queens|mcdonald's|3146 21st street|11106": {
+    "attribution": "Hassan Nasir",
+    "file": "queens-mcdonald-s-3146-21st-street-11106.jpg"
+  },
+  "queens|mcdonald's|3255 31st street|11106": {
+    "attribution": "Hubert Mandeville",
+    "file": "queens-mcdonald-s-3255-31st-street-11106.jpg"
+  },
+  "queens|mcdonald's|3802 queens boulevard|11101": {
+    "attribution": "Gustavo Amaya",
+    "file": "queens-mcdonald-s-3802-queens-boulevard-11101.jpg"
+  },
+  "queens|mcdonald's|5960 55th road|11378": {
+    "attribution": "Juan Pablo Sandoval",
+    "file": "queens-mcdonald-s-5960-55th-road-11378.jpg"
+  },
+  "queens|mcdonald's|72-69 kissena boulevard|11367": {
+    "attribution": "Alexander Mejia",
+    "file": "queens-mcdonald-s-72-69-kissena-boulevard-11367.jpg"
+  },
+  "queens|mcdonald's|75-50 101st street|11416": {
+    "attribution": "rashawn ince",
+    "file": "queens-mcdonald-s-75-50-101st-street-11416.jpg"
+  },
+  "queens|mcdonald's|88-14 springfield boulevard|11427": {
+    "attribution": "Greg Warner",
+    "file": "queens-mcdonald-s-88-14-springfield-boulevard-11427.jpg"
+  },
+  "queens|nyaminz & jaminz caribbean restaurant|108-10 guy r brewer boulevard|11433": {
+    "attribution": "NYAMINZ & JAMINZ CARIBBEAN KITCHEN",
+    "file": "queens-nyaminz-jaminz-caribbean-restaurant-108-10-guy-r-brewer-boulevard-11433.jpg"
+  },
+  "queens|on & on 168|40-46 main street|11354": {
+    "attribution": "Robert Blackburn",
+    "file": "queens-on-on-168-40-46-main-street-11354.jpg"
+  },
+  "queens|pablo peppa jerk chicken|226-08 merrick boulevard|11413": {
+    "attribution": "Raymond Ronald",
+    "file": "queens-pablo-peppa-jerk-chicken-226-08-merrick-boulevard-11413.jpg"
+  },
+  "queens|papa john's pizza|4919 30th avenue|11377": {
+    "attribution": "mtandiz",
+    "file": "queens-papa-john-s-pizza-4919-30th-avenue-11377.jpg"
+  },
+  "queens|peter's grill|7511 rockaway|11421": {
+    "attribution": "Ray Moncada",
+    "file": "queens-peter-s-grill-7511-rockaway-11421.jpg"
+  },
+  "queens|popeye's|1426 cornaga avenue|11691": {
+    "attribution": "Popeyes Louisiana Kitchen",
+    "file": "queens-popeye-s-1426-cornaga-avenue-11691.jpg"
+  },
+  "queens|popeye's|25225 union turnpike|11426": {
+    "attribution": "Popeyes Louisiana Kitchen",
+    "file": "queens-popeye-s-25225-union-turnpike-11426.jpg"
+  },
+  "queens|popeye's|4006 main street|11354": {
+    "attribution": "Popeyes Louisiana Kitchen",
+    "file": "queens-popeye-s-4006-main-street-11354.jpg"
+  },
+  "queens|popeye's|8324 woodhaven boulevard|11385": {
+    "attribution": "Popeyes Louisiana Kitchen",
+    "file": "queens-popeye-s-8324-woodhaven-boulevard-11385.jpg"
+  },
+  "queens|sabor caf\u00e9 @ queens public library|8911 merrick boulevard|11432": {
+    "attribution": "\u79fb\u6c11\u706b\u661f",
+    "file": "queens-sabor-caf-queens-public-library-8911-merrick-boulevard-11432.jpg"
+  },
+  "queens|sabor restaurant & bakery|15-20 college point boulevard|11356": {
+    "attribution": "Sabor Restaurant & Bakery",
+    "file": "queens-sabor-restaurant-bakery-15-20-college-point-boulevard-11356.jpg"
+  },
+  "queens|sea and sky feast buffet|133-38 sanford avenue|11355": {
+    "attribution": "Anna Lo",
+    "file": "queens-sea-and-sky-feast-buffet-133-38-sanford-avenue-11355.jpg"
+  },
+  "queens|tasty & co|9419 63rd drive|11374": {
+    "attribution": "Peter",
+    "file": "queens-tasty-co-9419-63rd-drive-11374.jpg"
+  },
+  "queens|the artisan crepe|177-07 union turnpike|11366": {
+    "attribution": "The Artisan Crepe",
+    "file": "queens-the-artisan-crepe-177-07-union-turnpike-11366.jpg"
+  },
+  "staten island|burger king|2363 forest avenue|10303": {
+    "attribution": "Jon",
+    "file": "staten-island-burger-king-2363-forest-avenue-10303.jpg"
+  },
+  "staten island|justino's pizzeria|89 guyon street|10306": {
+    "attribution": "Sree",
+    "file": "staten-island-justino-s-pizzeria-89-guyon-street-10306.jpg"
+  },
+  "staten island|kentucky fried chicken|1453 forest avenue|10302": {
+    "attribution": "panda w",
+    "file": "staten-island-kentucky-fried-chicken-1453-forest-avenue-10302.jpg"
+  },
+  "staten island|nago caf\u00e9|416a jersey street|10301": {
+    "attribution": "Nago Cafe",
+    "file": "staten-island-nago-caf-416a-jersey-street-10301.jpg"
+  },
+  "staten island|popeye's|2506 hylan boulevard|10306": {
+    "attribution": "Popeyes Louisiana Kitchen",
+    "file": "staten-island-popeye-s-2506-hylan-boulevard-10306.jpg"
+  },
+  "westchester|k & p lounge|911 south street|10566": {
+    "attribution": "K&P Lounge",
+    "file": "westchester-k-p-lounge-911-south-street-10566.jpg"
+  },
+  "westchester|off the hook of yonkers|47 north broadway|10701": {
+    "attribution": "Off the Hook of Yonkers",
+    "file": "westchester-off-the-hook-of-yonkers-47-north-broadway-10701.jpg"
+  },
+  "westchester|unk's fish & chips|31 john street|10701": {
+    "attribution": "Unk's Fish & Chips",
+    "file": "westchester-unk-s-fish-chips-31-john-street-10701.jpg"
+  }
+}
