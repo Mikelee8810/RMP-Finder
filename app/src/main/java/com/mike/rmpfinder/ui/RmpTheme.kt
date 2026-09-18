@@ -1,6 +1,5 @@
 package com.mike.rmpfinder.ui
 
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Shapes
@@ -94,7 +93,7 @@ val DarkPalette = RmpPalette(
     // Warm near-black, not brown: the tomato and butter do the colouring.
     Ink = Color(0xFFF6F1EA),
     InkMuted = Color(0xFFBDB4AB),
-    InkFaint = Color(0xFF6B635C),
+    InkFaint = Color(0xFF8A817A),
     Ground = Color(0xFF0E0D0C),
     GroundTop = Color(0xFF191513),
     Card = Color(0xFF1C1A18),
@@ -196,7 +195,7 @@ private val RmpShapes = Shapes(
 )
 
 @Composable
-fun RmpFinderTheme(dark: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
+fun RmpFinderTheme(dark: Boolean = false, content: @Composable () -> Unit) {
     val palette = if (dark) DarkPalette else LightPalette
     CompositionLocalProvider(LocalRmpPalette provides palette) {
         MaterialTheme(colorScheme = colorSchemeFor(palette), typography = RmpTypography, shapes = RmpShapes, content = content)

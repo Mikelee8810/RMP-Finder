@@ -32,6 +32,11 @@ class MainActivity : ComponentActivity() {
     // launch's GPS fix has come back.
     private var locationGranted by mutableStateOf(false)
 
+    // Appearance is a manual switch on the Info tab. Light is the default; the
+    // choice persists across launches and does not follow the system setting.
+    private val prefs by lazy { getSharedPreferences("rmp_prefs", MODE_PRIVATE) }
+    private var darkMode by mutableStateOf(false)
+
     private val locationPermission = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { grants ->
         if (grants[Manifest.permission.ACCESS_FINE_LOCATION] == true || grants[Manifest.permission.ACCESS_COARSE_LOCATION] == true) {
             locationGranted = true
@@ -45,12 +50,18 @@ class MainActivity : ComponentActivity() {
         mapView = MapView(this)
         mapView.onCreate(savedInstanceState)
         locationGranted = hasLocationPermission()
+        darkMode = prefs.getBoolean(PREF_DARK_MODE, false)
         setContent {
-            RmpFinderTheme {
+            RmpFinderTheme(dark = darkMode) {
                 RmpFinderRoot(
                     viewModel = viewModel,
                     mapView = mapView,
                     locationGranted = locationGranted,
+                    darkMode = darkMode,
+                    onToggleDarkMode = {
+                        darkMode = !darkMode
+                        prefs.edit().putBoolean(PREF_DARK_MODE, darkMode).apply()
+                    },
                     onRequestLocation = ::requestLocation,
                     onOpenLocationSettings = ::openLocationSettings,
                 )
@@ -105,3 +116,5 @@ class MainActivity : ComponentActivity() {
     override fun onDestroy() { mapView.onDestroy(); super.onDestroy() }
     override fun onSaveInstanceState(outState: Bundle) { super.onSaveInstanceState(outState); mapView.onSaveInstanceState(outState) }
 }
+
+private const val PREF_DARK_MODE = "dark_mode"

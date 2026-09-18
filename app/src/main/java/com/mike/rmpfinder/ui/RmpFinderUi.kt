@@ -192,8 +192,11 @@ fun RmpFinderRoot(
     locationGranted: Boolean,
     onRequestLocation: () -> Unit,
     onOpenLocationSettings: () -> Unit,
+    darkMode: Boolean = false,
+    onToggleDarkMode: () -> Unit = {},
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
+    SystemBarIcons(light = !darkMode)
     var tab by rememberSaveable { mutableStateOf(MainTab.HOME) }
     var selectedKey by rememberSaveable { mutableStateOf<String?>(null) }
     val selected = state.allRestaurants.firstOrNull { it.rmpKey == selectedKey }
@@ -233,7 +236,7 @@ fun RmpFinderRoot(
         when (tab) {
             MainTab.HOME -> HomeScreen(state, viewModel, { selectedKey = it.rmpKey }, Modifier.padding(padding))
             MainTab.MAP -> MapScreen(state, mapView, { selectedKey = it.rmpKey }, Modifier.padding(padding))
-            MainTab.INFO -> InfoScreen(state, viewModel::refreshData, viewModel::checkAppUpdate, Modifier.padding(padding))
+            MainTab.INFO -> InfoScreen(state, viewModel::refreshData, viewModel::checkAppUpdate, darkMode, onToggleDarkMode, Modifier.padding(padding))
         }
     }
 }
@@ -508,7 +511,7 @@ private fun IconToggle(selected: Boolean, activeIcon: ImageVector, idleIcon: Ima
 
 @Composable
 private fun SearchField(value: String, onValueChange: (String) -> Unit) {
-    Surface(shape = RoundedCornerShape(50), color = RmpTokens.Card, shadowElevation = 6.dp, modifier = Modifier.fillMaxWidth().height(50.dp)) {
+    Surface(shape = RoundedCornerShape(50), color = RmpTokens.Card, contentColor = RmpTokens.Ink, shadowElevation = 6.dp, modifier = Modifier.fillMaxWidth().height(50.dp)) {
         Row(Modifier.fillMaxSize().padding(horizontal = 16.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
             Icon(Icons.Rounded.Search, contentDescription = null, tint = RmpTokens.InkMuted, modifier = Modifier.size(22.dp))
             Box(Modifier.weight(1f)) {
@@ -536,7 +539,7 @@ private fun CuisineDisc(cuisine: Cuisine, selected: Boolean, onClick: () -> Unit
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        Surface(shape = CircleShape, color = if (selected) RmpTokens.Ink else RmpTokens.Card, shadowElevation = if (selected) 0.dp else 4.dp, modifier = Modifier.size(62.dp)) {
+        Surface(shape = CircleShape, color = if (selected) RmpTokens.Ink else RmpTokens.Card, contentColor = if (selected) RmpTokens.Card else RmpTokens.Ink, shadowElevation = if (selected) 0.dp else 4.dp, modifier = Modifier.size(62.dp)) {
             Box(contentAlignment = Alignment.Center) {
                 Text(cuisine.emoji, style = MaterialTheme.typography.headlineMedium.copy(fontFamily = null, letterSpacing = 0.sp), fontSize = 30.sp)
             }
@@ -552,7 +555,7 @@ private fun OpenCard(restaurant: RmpRestaurant, distanceMiles: Double?, now: Ins
     val logo = remember(restaurant.rmpKey) { RestaurantLogos.forRestaurant(context, restaurant) }
     val brand = logo?.brandColor ?: fallbackBrandColor(restaurant.displayName)
     val availability = availabilityOf(restaurant, now)
-    Surface(onClick = { onClick(restaurant) }, shape = RoundedCornerShape(24.dp), color = RmpTokens.Card, shadowElevation = 8.dp, modifier = Modifier.width(168.dp)) {
+    Surface(onClick = { onClick(restaurant) }, shape = RoundedCornerShape(24.dp), color = RmpTokens.Card, contentColor = RmpTokens.Ink, shadowElevation = 8.dp, modifier = Modifier.width(168.dp)) {
         Column(Modifier.padding(14.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
             Box(Modifier.fillMaxWidth().height(96.dp).clip(RoundedCornerShape(18.dp)).background(Brush.linearGradient(listOf(brand.copy(alpha = 0.18f), brand.copy(alpha = 0.45f)))), contentAlignment = Alignment.Center) {
                 BrandCircle(restaurant, logo, size = 68)
@@ -663,7 +666,7 @@ private fun StoreRow(restaurant: RmpRestaurant, distanceMiles: Double?, favorite
     val logo = remember(restaurant.rmpKey) { RestaurantLogos.forRestaurant(context, restaurant) }
     val availability = availabilityOf(restaurant, now)
     val brand = logo?.brandColor ?: fallbackBrandColor(restaurant.displayName)
-    Surface(onClick = { onClick(restaurant) }, shape = RoundedCornerShape(24.dp), color = RmpTokens.Card, shadowElevation = 6.dp, modifier = Modifier.fillMaxWidth()) {
+    Surface(onClick = { onClick(restaurant) }, shape = RoundedCornerShape(24.dp), color = RmpTokens.Card, contentColor = RmpTokens.Ink, shadowElevation = 6.dp, modifier = Modifier.fillMaxWidth()) {
         Box(
             Modifier.background(
                 // A wash of the brand's colour bleeding in from the logo side, so the
@@ -1121,7 +1124,7 @@ private fun RestaurantDetail(
                             .background(Brush.radialGradient(listOf(Color.White.copy(alpha = 0.22f), Color.Transparent), center = androidx.compose.ui.geometry.Offset(0f, 0f), radius = 900f)),
                     )
                     Column(Modifier.padding(top = 196.dp).padding(horizontal = 18.dp)) {
-                        Surface(shape = RoundedCornerShape(28.dp), color = RmpTokens.Card, shadowElevation = 10.dp, modifier = Modifier.fillMaxWidth()) {
+                        Surface(shape = RoundedCornerShape(28.dp), color = RmpTokens.Card, contentColor = RmpTokens.Ink, shadowElevation = 10.dp, modifier = Modifier.fillMaxWidth()) {
                             Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
                                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(14.dp)) {
                                     BrandCircle(restaurant, logo, size = 72)
@@ -1298,6 +1301,25 @@ private fun ReviewsCard(state: ReviewsState, onOpen: (String) -> Unit, fallbackG
     }
 }
 
+/** Status and nav bar icons follow the theme: dark icons on the cream ground, light icons on the near-black one. */
+@Composable
+private fun SystemBarIcons(light: Boolean) {
+    val view = LocalView.current
+    val ground = RmpTokens.Ground
+    val top = RmpTokens.GroundTop
+    DisposableEffect(view, light, ground, top) {
+        val window = (view.context as? Activity)?.window ?: return@DisposableEffect onDispose {}
+        val controller = WindowCompat.getInsetsController(window, view)
+        controller.isAppearanceLightStatusBars = light
+        controller.isAppearanceLightNavigationBars = light
+        @Suppress("DEPRECATION")
+        window.navigationBarColor = ground.toArgb()
+        @Suppress("DEPRECATION")
+        window.statusBarColor = top.toArgb()
+        onDispose {}
+    }
+}
+
 /** Flip status-bar icons to light while this composable is on screen (the hero behind them is dark). */
 @Composable
 private fun LightStatusBarIcons() {
@@ -1313,7 +1335,7 @@ private fun LightStatusBarIcons() {
 
 @Composable
 private fun DetailCard(title: String, content: @Composable ColumnScope.() -> Unit) {
-    Surface(shape = RoundedCornerShape(24.dp), color = RmpTokens.Card, shadowElevation = 3.dp, modifier = Modifier.fillMaxWidth().padding(horizontal = 18.dp).padding(top = 14.dp)) {
+    Surface(shape = RoundedCornerShape(24.dp), color = RmpTokens.Card, contentColor = RmpTokens.Ink, shadowElevation = 3.dp, modifier = Modifier.fillMaxWidth().padding(horizontal = 18.dp).padding(top = 14.dp)) {
         Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
             Text(title, style = MaterialTheme.typography.titleLarge)
             content()
@@ -1323,7 +1345,7 @@ private fun DetailCard(title: String, content: @Composable ColumnScope.() -> Uni
 
 @Composable
 private fun FloatingCircleButton(icon: ImageVector, description: String, onClick: () -> Unit, tint: Color = MaterialTheme.colorScheme.onSurface) {
-    Surface(onClick = onClick, shape = CircleShape, color = RmpTokens.Card, shadowElevation = 4.dp, modifier = Modifier.size(42.dp)) {
+    Surface(onClick = onClick, shape = CircleShape, color = RmpTokens.Card, contentColor = RmpTokens.Ink, shadowElevation = 4.dp, modifier = Modifier.size(42.dp)) {
         Box(contentAlignment = Alignment.Center) { Icon(icon, contentDescription = description, tint = tint, modifier = Modifier.size(22.dp)) }
     }
 }
@@ -1335,7 +1357,7 @@ private fun QuickAction(modifier: Modifier, icon: ImageVector, label: String, pr
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(6.dp),
     ) {
-        Surface(shape = CircleShape, color = if (primary) RmpTokens.Accent else RmpTokens.Card, shadowElevation = 5.dp, modifier = Modifier.size(54.dp)) {
+        Surface(shape = CircleShape, color = if (primary) RmpTokens.Accent else RmpTokens.Card, contentColor = if (primary) Color.White else RmpTokens.Ink, shadowElevation = 5.dp, modifier = Modifier.size(54.dp)) {
             Box(contentAlignment = Alignment.Center) {
                 Icon(icon, contentDescription = null, modifier = Modifier.size(24.dp), tint = if (primary) Color.White else RmpTokens.Ink)
             }
@@ -1366,6 +1388,8 @@ private fun InfoScreen(
     state: RmpUiState,
     onRefreshData: () -> Unit,
     onCheckAppUpdate: () -> Unit,
+    darkMode: Boolean,
+    onToggleDarkMode: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val context = LocalContext.current
@@ -1408,6 +1432,24 @@ private fun InfoScreen(
             }
         }
         item {
+            InfoCard(title = "Appearance") {
+                Row(
+                    Modifier.fillMaxWidth().clip(MaterialTheme.shapes.small).clickable(role = Role.Switch, onClick = onToggleDarkMode).padding(vertical = 4.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Column(Modifier.weight(1f)) {
+                        Text("Dark mode", style = MaterialTheme.typography.bodyLarge)
+                        Text(if (darkMode) "On" else "Off · light is the default", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    }
+                    androidx.compose.material3.Switch(
+                        checked = darkMode,
+                        onCheckedChange = { onToggleDarkMode() },
+                        colors = androidx.compose.material3.SwitchDefaults.colors(checkedTrackColor = RmpTokens.Accent, checkedThumbColor = Color.White),
+                    )
+                }
+            }
+        }
+        item {
             InfoCard(title = "How it works") {
                 InfoLine("Restaurants are sorted by distance from where you are.")
                 InfoLine("Every listing is on the official NY Restaurant Meals Program directory and gives 10% off meals.")
@@ -1419,7 +1461,7 @@ private fun InfoScreen(
 
 @Composable
 private fun InfoCard(title: String, content: @Composable ColumnScope.() -> Unit) {
-    Surface(Modifier.fillMaxWidth(), shape = RoundedCornerShape(24.dp), color = RmpTokens.Card, shadowElevation = 4.dp) {
+    Surface(Modifier.fillMaxWidth(), shape = RoundedCornerShape(24.dp), color = RmpTokens.Card, contentColor = RmpTokens.Ink, shadowElevation = 4.dp) {
         Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
             Text(title, style = MaterialTheme.typography.titleLarge)
             content()
