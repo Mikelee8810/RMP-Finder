@@ -1,0 +1,86 @@
+name: Backfill from Google Places
+
+# Asks Google once per restaurant and caches the answer in Notion, which is
+# the editing workspace the dataset is built from. The app reads those cached
+# values and never calls Google itself.
+#
+# This is deliberately manual. Google bills a Places request at the highest
+# tier any requested field belongs to, and this run asks for reviews, which is
+# the priciest tier with the smallest monthly free allowance. 241 rows once a
+# month sits inside it; a schedule that drifted faster would not. Run it when
+# you mean to.
+#
+# Start with dry_run to see what would change without writing a single cell.
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Print what would change without writing to Notion'
+        type: boolean
+        default: true
+      limit:
+        description: 'Only process the first N rows (0 = all of them)'
+        type: string
+        default: '5'
+      only_missing:
+        description: 'Skip rows that already have a Google Checked date'
+        type: boolean
+        default: false
+      refresh_cache:
+        description: 'Ask Google again even for places already cached on disk'
+        type: boolean
+        default: false
+
+concurrency:
+  group: backfill-google
+  cancel-in-progress: false
+
+jobs:
+  backfill:
+    name: Ask Google once, write the answers into Notion
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: python3 -m pip install --quiet --upgrade certifi requests jsonschema
+
+      - name: Run the backfill
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          GOOGLE_PLACES_KEY: ${{ secrets.GOOGLE_PLACES_KEY }}
+        run: |
+          if [ -z "$GOOGLE_PLACES_KEY" ]; then
+            echo "::error::GOOGLE_PLACES_KEY is not set; nothing to ask Google with."
+            exit 1
+          fi
+          python3 tools/backfill_google.py \
+            ${{ inputs.dry_run == true && '--dry-run' || '' }} \
+            ${{ inputs.only_missing == true && '--only-missing' || '' }} \
+            ${{ inputs.refresh_cache == true && '--refresh-cache' || '' }} \
+            --limit "${{ inputs.limit }}"
+
+      - name: Commit the response cache if it changed
+        if: ${{ inputs.dry_run != true }}
+        run: |
+          if git diff --quiet -- data/source/; then
+            echo "No cache changes."
+            exit 0
+          fi
+          git config user.name "rmp-finder-bot"
+          git config user.email "noreply@users.noreply.github.com"
+          git add data/source/
+          git commit -F - <<'MSG'
+          Cache the Google Places responses from the backfill run
+
+          Automated: tools/backfill_google.py stores each place's raw response
+          so a re-run after a failure costs no additional API calls.
+          MSG
+          git push
