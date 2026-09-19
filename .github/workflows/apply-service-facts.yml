@@ -1,0 +1,33 @@
+name: Apply service facts patch
+
+on:
+  push:
+    branches: ['claude/finish-google-service-facts']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: apply-service-facts
+  cancel-in-progress: false
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Apply patch
+        run: python3 tools/apply_service_facts_patch.py
+      - name: Commit generated changes
+        run: |
+          if git diff --quiet; then
+            echo "Patch already applied."
+            exit 0
+          fi
+          git config user.name "rmp-finder-bot"
+          git config user.email "noreply@users.noreply.github.com"
+          git add tools/backfill_google.py tools/sync_notion.py data/restaurant.schema.json app/src/main/java/com/mike/rmpfinder/data/RmpModels.kt app/src/main/java/com/mike/rmpfinder/data/DatasetCodec.kt app/src/main/java/com/mike/rmpfinder/ui/RmpFinderUi.kt
+          git commit -m "Finish Google service facts pipeline"
+          git push
