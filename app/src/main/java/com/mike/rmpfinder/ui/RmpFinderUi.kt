@@ -110,6 +110,7 @@ import com.mike.rmpfinder.data.TimePeriod
 import com.mike.rmpfinder.data.WeeklyHours
 import com.mike.rmpfinder.update.AppUpdateChecker
 import com.mike.rmpfinder.update.AppUpdateState
+import com.mike.rmpfinder.reviews.CachedReviews
 import com.mike.rmpfinder.reviews.ReviewsState
 import com.mike.rmpfinder.reviews.Rating
 import java.net.URLEncoder
@@ -1143,13 +1144,18 @@ private fun MapRestaurantPreview(
     val context = LocalContext.current
     val logo = remember(restaurant.rmpKey) { RestaurantLogos.forRestaurant(context, restaurant) }
     val availability = availabilityOf(restaurant, now)
+    // A restaurant Google reports shut stays exactly where it is in the list
+    // and stays tappable: the state's RMP roster, not Google, decides who
+    // takes the benefit, and hiding a place that is actually trading would
+    // strand someone. It is dimmed and labelled instead of moved or removed.
+    val outOfBusiness = restaurant.businessStatus in OUT_OF_BUSINESS
     Surface(
         onClick = onClick,
         shape = RoundedCornerShape(22.dp),
         color = RmpTokens.Dock,
         contentColor = Color.White,
         shadowElevation = 12.dp,
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth().alpha(if (outOfBusiness) 0.55f else 1f),
     ) {
         Row(
             Modifier.padding(start = 12.dp, end = 16.dp, top = 12.dp, bottom = 12.dp),
@@ -2188,6 +2194,13 @@ internal object RestaurantLogos {
 // Availability
 // ---------------------------------------------------------------------------
 
+/**
+ * Statuses that mean the business itself is not trading, as opposed to being
+ * shut for the night. Rows in these states are dimmed in the list but keep
+ * their place and stay tappable.
+ */
+private val OUT_OF_BUSINESS = setOf("closed", "likely_closed", "temporarily_closed", "moved")
+
 private enum class Tone { OPEN, CLOSED_NOW, CLOSED, WARN, NEUTRAL, BUTTER }
 
 private val Tone.ink: Color
@@ -2343,9 +2356,14 @@ private fun openObtainium(context: Context) {
 
 private const val GOOGLE_MAPS_PACKAGE = "com.google.android.apps.maps"
 
-/** Google Maps place search: opens the listing with its rating, reviews and price level. */
+/**
+ * Google Maps place search: opens the listing with its rating, every review
+ * and its price level. The cards in this app show a sample, frozen at the last
+ * refresh; the full and current listing lives here, in Google's own app, which
+ * costs this project nothing to send someone to.
+ */
 private fun mapsSearchUrl(restaurant: RmpRestaurant, address: RmpAddress): String =
-    "https://www.google.com/maps/search/?api=1&query=" + URLEncoder.encode("${restaurant.displayName} ${address.display()}", StandardCharsets.UTF_8.toString())
+    CachedReviews.mapsListingUrl(restaurant, address)
 
 private fun openDirections(context: Context, destination: String, mode: String) {
     val encoded = URLEncoder.encode(destination, StandardCharsets.UTF_8.toString())
