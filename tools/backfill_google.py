@@ -71,6 +71,7 @@ PLACES_SEARCH = "https://places.googleapis.com/v1/places:searchText"
 DETAIL_FIELDS = ",".join([
     "id", "displayName", "formattedAddress", "location", "businessStatus",
     "regularOpeningHours", "websiteUri", "priceLevel", "takeout", "dineIn",
+    "accessibilityOptions", "restroom", "servesBreakfast", "servesLunch", "servesDinner",
     "nationalPhoneNumber", "rating", "userRatingCount", "reviews", "googleMapsUri",
 ])
 SEARCH_FIELDS = ",".join(f"places.{f}" for f in DETAIL_FIELDS.split(","))
@@ -316,9 +317,28 @@ def notion_updates(place: dict, prior_status: str | None) -> dict:
     if level:
         props["Price Level"] = {"select": {"name": PRICE_LABELS[level]}}
 
-    for field, column in (("takeout", "Takeout"), ("dineIn", "Dine In")):
+    service_columns = (
+        ("takeout", "Takeout"),
+        ("dineIn", "Dine In"),
+        ("restroom", "Restroom"),
+        ("servesBreakfast", "Serves Breakfast"),
+        ("servesLunch", "Serves Lunch"),
+        ("servesDinner", "Serves Dinner"),
+    )
+    for field, column in service_columns:
         if isinstance(place.get(field), bool):
             props[column] = {"select": {"name": "Yes" if place[field] else "No"}}
+
+    accessibility = place.get("accessibilityOptions") or {}
+    accessibility_columns = (
+        ("wheelchairAccessibleEntrance", "Wheelchair Entrance"),
+        ("wheelchairAccessibleRestroom", "Wheelchair Restroom"),
+        ("wheelchairAccessibleSeating", "Wheelchair Seating"),
+        ("wheelchairAccessibleParking", "Wheelchair Parking"),
+    )
+    for field, column in accessibility_columns:
+        if isinstance(accessibility.get(field), bool):
+            props[column] = {"select": {"name": "Yes" if accessibility[field] else "No"}}
 
     # Review text is deliberately NOT written to Notion. Notion is the human
     # editing workspace: every column there is something a person might sit

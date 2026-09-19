@@ -182,6 +182,14 @@
         "null"
       ]
     },
+    "wheelchairAccessibleEntrance": { "type": ["boolean", "null"] },
+    "wheelchairAccessibleRestroom": { "type": ["boolean", "null"] },
+    "wheelchairAccessibleSeating": { "type": ["boolean", "null"] },
+    "wheelchairAccessibleParking": { "type": ["boolean", "null"] },
+    "restroom": { "type": ["boolean", "null"] },
+    "servesBreakfast": { "type": ["boolean", "null"] },
+    "servesLunch": { "type": ["boolean", "null"] },
+    "servesDinner": { "type": ["boolean", "null"] },
     "reviews": {
       "type": "array",
       "maxItems": 5,
