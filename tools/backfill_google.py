@@ -236,6 +236,12 @@ def clock(point: dict) -> str:
     return f"{display}:{minute:02d} {suffix}"
 
 
+# A review card in the app is a card, not an essay, and the longest reviews
+# Google returns run well past a thousand characters. Cut them where a reader
+# would stop anyway; the full text is one tap away on the Maps listing.
+REVIEW_TEXT_LIMIT = 400
+
+
 def reviews_of(place: dict) -> list[dict]:
     out = []
     for review in (place.get("reviews") or [])[:5]:
@@ -243,6 +249,9 @@ def reviews_of(place: dict) -> list[dict]:
         rating = review.get("rating")
         if not text or not isinstance(rating, int) or not 1 <= rating <= 5:
             continue
+        if len(text) > REVIEW_TEXT_LIMIT:
+            cut = text[:REVIEW_TEXT_LIMIT].rsplit(" ", 1)[0].rstrip(" ,.;:—-")
+            text = f"{cut}…"
         out.append({
             "author": ((review.get("authorAttribution") or {}).get("displayName") or "Google user").strip(),
             "rating": rating,
@@ -252,8 +261,18 @@ def reviews_of(place: dict) -> list[dict]:
     return out
 
 
+# Notion caps a single rich-text run at 2000 characters but allows many runs
+# per property, and reading a cell concatenates them. The reviews blob runs
+# past 5000 characters on a chatty restaurant, so it has to be split rather
+# than trimmed: a trimmed JSON blob is not shorter JSON, it is broken JSON,
+# and the app would then show no reviews at all for exactly the places that
+# have the most.
+NOTION_RUN_LIMIT = 2000
+
+
 def rich(value: str) -> dict:
-    return {"rich_text": [{"type": "text", "text": {"content": value[:1900]}}]}
+    runs = [value[i:i + NOTION_RUN_LIMIT] for i in range(0, len(value), NOTION_RUN_LIMIT)] or [""]
+    return {"rich_text": [{"type": "text", "text": {"content": run}} for run in runs]}
 
 
 def notion_updates(place: dict, prior_status: str | None) -> dict:
@@ -301,9 +320,13 @@ def notion_updates(place: dict, prior_status: str | None) -> dict:
         if isinstance(place.get(field), bool):
             props[column] = {"select": {"name": "Yes" if place[field] else "No"}}
 
-    reviews = reviews_of(place)
-    if reviews:
-        props["Reviews"] = rich(json.dumps(reviews, ensure_ascii=False))
+    # Review text is deliberately NOT written to Notion. Notion is the human
+    # editing workspace: every column there is something a person might sit
+    # down and change. Nobody hand-edits five reviews as a JSON blob in a
+    # spreadsheet cell, and storing it that way is one bad escape away from
+    # the app showing no reviews at all. The full responses are committed to
+    # data/source/google-places-cache.json instead, and sync_notion.py reads
+    # the reviews from there.
 
     return props
 

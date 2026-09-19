@@ -69,6 +69,42 @@ OTDA = "https://otda.ny.gov/programs/rmp/participating-restaurants/default.asp"
 CENSUS_ONE_LINE = "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress"
 TODAY = datetime.now(ZoneInfo("America/New_York")).date().isoformat()
 
+# The Notion columns the Google backfill fills, mapped back to what the
+# dataset stores. Notion keeps the human-readable label; the app wants the
+# number or the boolean.
+PRICE_LEVELS = {"$": 1, "$$": 2, "$$$": 3, "$$$$": 4}
+GOOGLE_CACHE = ROOT / "data/source/google-places-cache.json"
+
+
+def yes_no(label: str | None, fallback: bool | None) -> bool | None:
+    """A Yes/No select as a boolean. "Unknown" and a blank cell mean we do not
+    know, which is not the same as No, so both keep whatever we had."""
+    if label == "Yes":
+        return True
+    if label == "No":
+        return False
+    return fallback
+
+
+def load_cached_reviews() -> dict[str, list[dict]]:
+    """Review text from the backfill's committed response cache.
+
+    Notion holds what a person might edit; this holds what they would not.
+    A missing or unreadable cache is not an error - it just means no reviews
+    are available this run, and previously stored ones are kept.
+    """
+    if not GOOGLE_CACHE.exists():
+        return {}
+    try:
+        raw = json.loads(GOOGLE_CACHE.read_text())
+    except (json.JSONDecodeError, OSError) as err:
+        print(f"Ignoring unreadable Google cache: {err}", file=sys.stderr)
+        return {}
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from backfill_google import reviews_of  # noqa: PLC0415  (optional dependency)
+    return {key: reviews_of(place) for key, place in raw.items() if isinstance(place, dict)}
+
+
 VALID_BUSINESS_STATUS = {
     "likely_open", "likely_closed", "closed", "temporarily_closed",
     "rebranded", "moved", "conflicting", "unknown",
@@ -138,6 +174,12 @@ def parse_row(page: dict) -> dict:
         "website": prop_text(props, "Website"),
         "menuUrl": prop_text(props, "Menu URL"),
         "googlePlaceId": prop_text(props, "Google Place ID"),
+        "rating": prop_text(props, "Rating"),
+        "ratingCount": prop_text(props, "Rating Count"),
+        "priceLevel": prop_text(props, "Price Level"),
+        "takeout": prop_text(props, "Takeout"),
+        "dineIn": prop_text(props, "Dine In"),
+        "googleChecked": prop_text(props, "Google Checked"),
         "hours": prop_text(props, "Hours"),
         "hoursStatus": prop_text(props, "Hours Status"),
         "hoursVerified": prop_text(props, "Hours Verified"),
@@ -199,6 +241,7 @@ def build_records(rows: list[dict], existing: dict[str, dict], token: str, write
     records: list[dict] = []
     new_keys: list[str] = []
     geocoded_keys: list[str] = []
+    cached_reviews = load_cached_reviews()
 
     for row in rows:
         key = row["rmpKey"]
@@ -297,16 +340,20 @@ def build_records(rows: list[dict], existing: dict[str, dict], token: str, write
             "businessStatus": business_status,
             "hoursStatus": hours_status,
             "hours": hours,
-            # Filled by the Google backfill and carried forward untouched here:
-            # a Notion edit never clears what that run cached.
+            # Notion holds what a person might sit down and edit, so the
+            # rating, price and service flags come from its columns. Review
+            # text is bulk data nobody hand-edits, so it is read from the
+            # backfill's committed response cache instead. Either way a
+            # previously cached value survives when the new source is silent.
             "googlePlaceId": row["googlePlaceId"] or (prior.get("googlePlaceId") if prior else None),
-            "rating": prior.get("rating") if prior else None,
-            "ratingCount": prior.get("ratingCount") if prior else None,
-            "priceLevel": prior.get("priceLevel") if prior else None,
-            "takeout": prior.get("takeout") if prior else None,
-            "dineIn": prior.get("dineIn") if prior else None,
-            "reviews": prior.get("reviews", []) if prior else [],
-            "googleCheckedAt": prior.get("googleCheckedAt") if prior else None,
+            "rating": row["rating"] if row["rating"] is not None else (prior.get("rating") if prior else None),
+            "ratingCount": (int(row["ratingCount"]) if row["ratingCount"] is not None
+                            else (prior.get("ratingCount") if prior else None)),
+            "priceLevel": PRICE_LEVELS.get(row["priceLevel"] or "", prior.get("priceLevel") if prior else None),
+            "takeout": yes_no(row["takeout"], prior.get("takeout") if prior else None),
+            "dineIn": yes_no(row["dineIn"], prior.get("dineIn") if prior else None),
+            "reviews": cached_reviews.get(key) or (prior.get("reviews", []) if prior else []),
+            "googleCheckedAt": row["googleChecked"] or (prior.get("googleCheckedAt") if prior else None),
             "rmpVerifiedAt": row["rmpVerified"] or (prior["rmpVerifiedAt"] if prior else TODAY),
             "businessCheckedAt": row["hoursVerified"] or (prior["businessCheckedAt"] if prior else TODAY),
             "conflictFlags": prior["conflictFlags"] if prior else [],
