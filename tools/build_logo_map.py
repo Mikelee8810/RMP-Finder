@@ -45,12 +45,22 @@ def expected_mapping() -> dict[str, str]:
     standard = {path.name for path in STANDARD_ASSETS.glob("*.png")}
     custom = {path.name for path in CUSTOM_ASSETS.glob("*.png")}
     generated = custom_mapping()
+    # restaurant-logo-map.json is curated and already passed the asset/evidence
+    # gate. Keep a verified mapping stable when an enrichment refresh changes a
+    # website URL; a new ordering or location URL must not make a known logo
+    # disappear. Custom evidence still wins, then the curated mapping, then a
+    # domain-derived mapping for genuinely new keys.
+    curated = json.loads(MAP.read_text()) if MAP.exists() else {}
     mapping: dict[str, str] = {}
     missing: list[str] = []
 
     for row in rows:
         key = row["rmpKey"]
         filename = generated.get(key)
+        if filename is None:
+            existing = curated.get(key)
+            if existing in standard | custom:
+                filename = existing
         if filename is None:
             domain = domain_for(row.get("website"))
             if domain in STANDARD_DOMAIN_ALIASES:

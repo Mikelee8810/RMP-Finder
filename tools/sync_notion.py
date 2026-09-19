@@ -307,7 +307,7 @@ def build_records(rows: list[dict], existing: dict[str, dict], token: str, write
             coords = {
                 "latitude": row["latitude"], "longitude": row["longitude"],
                 "addressRole": "official_rmp", "provider": "Notion (reviewed)",
-                "matchQuality": "manual", "precision": "reviewed",
+                "matchQuality": "manual", "precision": "unknown",
                 "checkedAt": TODAY, "matchedAddress": None,
             }
         elif prior is not None:
