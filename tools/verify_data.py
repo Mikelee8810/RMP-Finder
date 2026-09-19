@@ -18,7 +18,9 @@ import hashlib
 import json
 import re
 from collections import Counter
+from datetime import datetime
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 from jsonschema import Draft202012Validator, FormatChecker
 
@@ -31,6 +33,16 @@ VALID_BUSINESS_STATUS = {
 }
 VALID_HOURS_STATUS = {"usable", "partial", "stale", "conflicting", "unknown"}
 CLOSED_LIKE = {"closed", "temporarily_closed", "moved", "conflicting"}
+TODAY = datetime.now(ZoneInfo("America/New_York")).date().isoformat()
+
+# The tripwire for the failure that started this work. Hours were written into
+# Notion as prose the parser could not read, so the app showed none - quietly,
+# for 59 of 241 restaurants, for months. Nothing about that was visible in a
+# diff. So the coverage floor is written down here: if a change drops the
+# number of restaurants with usable hours below it, the build fails and says
+# so. Raise it when a backfill genuinely raises coverage; never lower it to
+# make a red build go green.
+USABLE_HOURS_FLOOR = 180
 
 
 def load(path):
@@ -84,6 +96,17 @@ def main():
         if row["businessStatus"] in CLOSED_LIKE:
             assert row["hoursStatus"] != "usable", key
 
+        # Google-sourced facts have to hang together. A rating with no count
+        # behind it is a number with no weight, and reviews with no Place ID
+        # did not come from a lookup we can point at.
+        if row.get("rating") is not None:
+            assert row.get("ratingCount"), f"{key}: rating with no ratingCount"
+        if row.get("reviews"):
+            assert row.get("googlePlaceId"), f"{key}: reviews with no googlePlaceId"
+            assert row.get("googleCheckedAt"), f"{key}: reviews with no googleCheckedAt"
+        if row.get("googleCheckedAt"):
+            assert row["googleCheckedAt"] <= TODAY, f"{key}: googleCheckedAt is in the future"
+
         # The two facts the whole app is built to keep apart.
         if row["currentName"] is not None:
             assert row["currentName"] != row["officialName"], key
@@ -99,11 +122,19 @@ def main():
     assert manifest["datasetUrl"] == "https://raw.githubusercontent.com/Mikelee8810/RMP-Finder/main/data/restaurants.json"
     assert manifest["programPolicy"]["rmpDiscountPercent"] == 10
 
+    usable = sum(row["hoursStatus"] == "usable" for row in rows)
+    assert usable >= USABLE_HOURS_FLOOR, (
+        f"hours coverage dropped to {usable}, below the floor of {USABLE_HOURS_FLOOR}. "
+        "Something stopped hours reaching the app. Find out what before touching this number; "
+        "the floor is only ever raised."
+    )
+
+    checked = sum(1 for row in rows if row.get("googleCheckedAt"))
     print(f"records={len(rows)} unique_keys={len(set(keys))} schema_errors=0 manifest_errors=0")
     print(f"qualities={dict(Counter(row['coordinates']['matchQuality'] for row in rows))}")
-    print(f"usable_hours={sum(row['hoursStatus'] == 'usable' for row in rows)}")
+    print(f"usable_hours={usable} (floor {USABLE_HOURS_FLOOR}) google_checked={checked}")
     print(f"sha256={digest} manifest_match=PASS")
-    print("schema=PASS uniqueness=PASS truth_separation=PASS open_now_inputs=PASS")
+    print("schema=PASS uniqueness=PASS truth_separation=PASS open_now_inputs=PASS hours_floor=PASS")
 
 
 if __name__ == "__main__":

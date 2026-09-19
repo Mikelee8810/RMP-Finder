@@ -236,6 +236,29 @@ def addrs_differ(a: dict | None, b: dict) -> bool:
     return (a["line1"].strip().lower(), a["zip"]) != (b["line1"].strip().lower(), b["zip"])
 
 
+def report_unreadable_hours(rows: list[dict]) -> list[tuple[str, str]]:
+    """Rows whose Hours cell has text in it that the app will never see.
+
+    This is the failure that started all of this, and it is silent by design:
+    an Hours cell full of prose looks filled in to anyone reading Notion, the
+    parser quietly declines it, and the app shows nothing. It went unnoticed
+    across 59 of 241 restaurants. Nothing here prevents a human writing prose
+    into that cell - so instead, say so loudly on every sync.
+    """
+    bad = [(row["rmpKey"] or "(no key)", row["hours"])
+           for row in rows
+           if row["hours"] and not parse_hours(row["hours"])]
+    if not bad:
+        return bad
+    print(f"\n{len(bad)} row(s) have Hours text the app cannot read, so they will show no hours:")
+    for key, text in bad:
+        print(f"  ! {key}")
+        print(f"      {text}")
+    print("\n  Fix: run the Google backfill, which writes hours in a format the parser reads,")
+    print("  or rewrite the cell as e.g. \"Mon 9:00 AM-5:00 PM; Tue closed; ...\".")
+    return bad
+
+
 def build_records(rows: list[dict], existing: dict[str, dict], token: str, write_back: bool) -> tuple[list[dict], list[str], list[str]]:
     """Returns (records, new_keys, geocoded_keys)."""
     records: list[dict] = []
@@ -390,6 +413,8 @@ def main() -> int:
     print(f"  {len(rows)} rows")
 
     records, new_keys, geocoded_keys = build_records(rows, existing, token, write_back=not args.dry_run)
+
+    unreadable = report_unreadable_hours(rows)
 
     new_keys_set = {r["rmpKey"] for r in records}
     missing = sorted(set(existing) - new_keys_set)
