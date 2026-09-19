@@ -12,10 +12,9 @@ import com.mike.rmpfinder.update.AppUpdateChecker
 import com.mike.rmpfinder.update.AppUpdateInstaller
 import com.mike.rmpfinder.widget.NearbyWidget
 import com.mike.rmpfinder.update.AppUpdateState
-import com.mike.rmpfinder.reviews.ReviewsFetcher
+import com.mike.rmpfinder.reviews.CachedReviews
 import com.mike.rmpfinder.reviews.ReviewsState
 import com.mike.rmpfinder.reviews.Rating
-import com.mike.rmpfinder.reviews.RatingsStore
 import com.mike.rmpfinder.data.RmpAddress
 import java.time.Instant
 import kotlinx.coroutines.delay
@@ -23,6 +22,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.Dispatchers
@@ -89,21 +89,17 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     /** True while the "there's an update" pop-up should be on screen. */
     val updatePromptOpen: StateFlow<Boolean> get() = updatePrompt
     private val updatePrompt = MutableStateFlow(false)
-    private val reviewsFetcher = ReviewsFetcher()
-    private val ratingsStore = RatingsStore(application, reviewsFetcher)
     private val reviewsByKey = MutableStateFlow<Map<String, ReviewsState>>(emptyMap())
-    /** Reviews for whichever restaurant is open; keyed so going back and forth never refetches. */
+    /** Reviews for whichever restaurant is open. They ship with the dataset, so this never waits on a network call. */
     val reviews: StateFlow<Map<String, ReviewsState>> = reviewsByKey
-    val reviewsConfigured: Boolean get() = reviewsFetcher.isConfigured
+    /** Reviews are part of the dataset now, so they are always available to read. */
+    val reviewsConfigured: Boolean get() = true
 
     fun loadReviews(restaurant: RmpRestaurant, address: RmpAddress) {
-        if (!reviewsFetcher.isConfigured) return
         if (reviewsByKey.value[restaurant.rmpKey] is ReviewsState.Loaded) return
-        reviewsByKey.value = reviewsByKey.value + (restaurant.rmpKey to ReviewsState.Loading)
-        viewModelScope.launch {
-            val summaries = reviewsFetcher.fetch(restaurant, address)
-            reviewsByKey.value = reviewsByKey.value + (restaurant.rmpKey to if (summaries.isEmpty()) ReviewsState.Unavailable else ReviewsState.Loaded(summaries))
-        }
+        val summaries = CachedReviews.summaries(restaurant, address)
+        reviewsByKey.value = reviewsByKey.value +
+            (restaurant.rmpKey to if (summaries.isEmpty()) ReviewsState.Unavailable else ReviewsState.Loaded(summaries))
     }
     private val clock = flow {
         while (true) {
@@ -130,16 +126,16 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 if (prefs.getString(PREF_UPDATE_DISMISSED, null) != result.version) updatePrompt.value = true
             }
         }
-        // Ratings for the whole list, once, in the background; the list shows
-        // them as they land and the filters start working when they are in.
-        viewModelScope.launch {
-            repository.restaurants.collect { restaurants ->
-                if (restaurants.isNotEmpty()) { ratingsStore.fill(restaurants); return@collect }
-            }
-        }
     }
 
-    val uiState: StateFlow<RmpUiState> = combine(baseData, selection, clock, ratingsStore.ratings, recentSearches) { base, selection, now, ratings, recents ->
+    /**
+     * Ratings for the whole list, read from the dataset rather than fetched.
+     * Every phone used to ask Google about all 241 restaurants on install and
+     * again weekly; now the numbers are already here when the list draws.
+     */
+    private val ratings = repository.restaurants.map(CachedReviews::ratings)
+
+    val uiState: StateFlow<RmpUiState> = combine(baseData, selection, clock, ratings, recentSearches) { base, selection, now, ratings, recents ->
         val (visible, distances) = filterRestaurants(base.restaurants, base.favorites, selection.filters, selection.origin, now, ratings)
         RmpUiState(
             ratings = ratings,

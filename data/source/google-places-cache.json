@@ -1,0 +1,969 @@
+{
+  "bronx|churrasco del valle restaurant|255 east burnside avenue|10457": {
+    "businessStatus": "CLOSED_PERMANENTLY",
+    "dineIn": true,
+    "displayName": {
+      "languageCode": "en",
+      "text": "Churrasco Del Valle Restaurant"
+    },
+    "formattedAddress": "255 E Burnside Ave, Bronx, NY 10457, USA",
+    "googleMapsUri": "https://maps.google.com/?cid=8530276592397490657&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAIYBCAA",
+    "id": "ChIJoba_QnP1wokR4ZmujV2hYXY",
+    "location": {
+      "latitude": 40.851793099999995,
+      "longitude": -73.90233479999999
+    },
+    "nationalPhoneNumber": "(917) 473-6880",
+    "priceLevel": "PRICE_LEVEL_MODERATE",
+    "rating": 4.6,
+    "reviews": [
+      {
+        "authorAttribution": {
+          "displayName": "Devika Shivpersaud",
+          "photoUri": "https://lh3.googleusercontent.com/a-/ALV-UjXOXar6ZincDz4mcDWS7daIOsVhiQvKzpdCSs378dMPpzZvoQolkg=s128-c0x00000000-cc-rp-mo-ba4",
+          "uri": "https://www.google.com/maps/contrib/109609331815060029218/reviews"
+        },
+        "flagContentUri": "https://www.google.com/local/content/rap/report?postId=ChZDSUhNMG9nS0VJQ0FnSURWeThLd1JBEAE&d=17924085&t=1",
+        "googleMapsUri": "https://www.google.com/maps/reviews/data=!4m6!14m5!1m4!2m3!1sChZDSUhNMG9nS0VJQ0FnSURWeThLd1JBEAE!2m1!1s0x89c2f57342bfb6a1:0x7661a15d8dae99e1",
+        "name": "places/ChIJoba_QnP1wokR4ZmujV2hYXY/reviews/ChZDSUhNMG9nS0VJQ0FnSURWeThLd1JBEAE",
+        "originalText": {
+          "languageCode": "en",
+          "text": "Stopped by for the first time and got the stew chicken with yellow rice and beans. The staff behind the counter was very welcoming and answered all of my questions. The food was hot, fresh and delicious. The menu is extensive and the restaurant is close to home so looking forward to dining in and trying new things on the menu. This side of Burnside has been lacking a local Dominican spot and I'm glad one has arrived!"
+        },
+        "publishTime": "2023-12-16T02:03:55.117200Z",
+        "rating": 5,
+        "relativePublishTimeDescription": "2 years ago",
+        "text": {
+          "languageCode": "en",
+          "text": "Stopped by for the first time and got the stew chicken with yellow rice and beans. The staff behind the counter was very welcoming and answered all of my questions. The food was hot, fresh and delicious. The menu is extensive and the restaurant is close to home so looking forward to dining in and trying new things on the menu. This side of Burnside has been lacking a local Dominican spot and I'm glad one has arrived!"
+        }
+      },
+      {
+        "authorAttribution": {
+          "displayName": "Jonathan Rodriguez",
+          "photoUri": "https://lh3.googleusercontent.com/a/ACg8ocJ3TZH-wkW3ibzZAN9QCBWfo9EujNbEFz_TILSvK3j6we7Z6R0=s128-c0x00000000-cc-rp-mo-ba3",
+          "uri": "https://www.google.com/maps/contrib/107909425504521030655/reviews"
+        },
+        "flagContentUri": "https://www.google.com/local/content/rap/report?postId=ChZDSUhNMG9nS0VJQ0FnSUMxc2F5MUlnEAE&d=17924085&t=1",
+        "googleMapsUri": "https://www.google.com/maps/reviews/data=!4m6!14m5!1m4!2m3!1sChZDSUhNMG9nS0VJQ0FnSUMxc2F5MUlnEAE!2m1!1s0x89c2f57342bfb6a1:0x7661a15d8dae99e1",
+        "name": "places/ChIJoba_QnP1wokR4ZmujV2hYXY/reviews/ChZDSUhNMG9nS0VJQ0FnSUMxc2F5MUlnEAE",
+        "originalText": {
+          "languageCode": "en",
+          "text": "I recently ate here and the experience was nothing short of delightful. The warm ambiance and rustic decor created a welcoming atmosphere. The staff was friendly and attentive, providing excellent service throughout the meal.\n\nNow, let’s talk about the star of the show—the Spanish chicken. The menu boasted a variety of flavorful dishes, each showcasing the chef’s expertise in combining traditional Spanish flavors with a modern twist. The chicken was perfectly cooked, tender on the inside with a crispy, golden exterior that left my taste buds dancing.\n\nThe appetizers were equally impressive, with options ranging from patatas bravas to chorizo croquettes. Each bite was a burst of Spanish authenticity. The chef’s commitment to using high-quality ingredients was evident, enhancing the overall dining experience.\n\nThe drink menu featured a well-curated selection of Spanish wines and cocktails that complemented the meal superbly. The sangria, in particular, was a refreshing choice that added to the festive atmosphere of the restaurant.\n\nWhat truly stood out was the attention to detail in presentation. Each dish was a work of art on the plate, showcasing the chef’s dedication to not only taste but also aesthetics.\n\nAs for the dessert, the churros were a delightful way to end the meal. Crispy on the outside, soft on the inside, and accompanied by rich chocolate dipping sauce—a sweet ending to a savory journey.\n\nIn summary, this Spanish chicken restaurant exceeded my expectations. From the inviting ambiance to the delectable dishes, every aspect of the dining experience was carefully crafted. I highly recommend this establishment to anyone seeking an authentic taste of Spain with a modern flair. ¡Delicioso!"
+        },
+        "publishTime": "2023-12-31T16:12:49.411313Z",
+        "rating": 5,
+        "relativePublishTimeDescription": "2 years ago",
+        "text": {
+          "languageCode": "en",
+          "text": "I recently ate here and the experience was nothing short of delightful. The warm ambiance and rustic decor created a welcoming atmosphere. The staff was friendly and attentive, providing excellent service throughout the meal.\n\nNow, let’s talk about the star of the show—the Spanish chicken. The menu boasted a variety of flavorful dishes, each showcasing the chef’s expertise in combining traditional Spanish flavors with a modern twist. The chicken was perfectly cooked, tender on the inside with a crispy, golden exterior that left my taste buds dancing.\n\nThe appetizers were equally impressive, with options ranging from patatas bravas to chorizo croquettes. Each bite was a burst of Spanish authenticity. The chef’s commitment to using high-quality ingredients was evident, enhancing the overall dining experience.\n\nThe drink menu featured a well-curated selection of Spanish wines and cocktails that complemented the meal superbly. The sangria, in particular, was a refreshing choice that added to the festive atmosphere of the restaurant.\n\nWhat truly stood out was the attention to detail in presentation. Each dish was a work of art on the plate, showcasing the chef’s dedication to not only taste but also aesthetics.\n\nAs for the dessert, the churros were a delightful way to end the meal. Crispy on the outside, soft on the inside, and accompanied by rich chocolate dipping sauce—a sweet ending to a savory journey.\n\nIn summary, this Spanish chicken restaurant exceeded my expectations. From the inviting ambiance to the delectable dishes, every aspect of the dining experience was carefully crafted. I highly recommend this establishment to anyone seeking an authentic taste of Spain with a modern flair. ¡Delicioso!"
+        }
+      },
+      {
+        "authorAttribution": {
+          "displayName": "Slicing Angel",
+          "photoUri": "https://lh3.googleusercontent.com/a-/ALV-UjV5eRoAJ0YsbII7u9wJem1gKTfLZyYEWyONDUJ7ZlunCFUSGHh1=s128-c0x00000000-cc-rp-mo-ba2",
+          "uri": "https://www.google.com/maps/contrib/116636507656926066089/reviews"
+        },
+        "flagContentUri": "https://www.google.com/local/content/rap/report?postId=ChZDSUhNMG9nS0VJQ0FnSUMxblAyaWVREAE&d=17924085&t=1",
+        "googleMapsUri": "https://www.google.com/maps/reviews/data=!4m6!14m5!1m4!2m3!1sChZDSUhNMG9nS0VJQ0FnSUMxblAyaWVREAE!2m1!1s0x89c2f57342bfb6a1:0x7661a15d8dae99e1",
+        "name": "places/ChIJoba_QnP1wokR4ZmujV2hYXY/reviews/ChZDSUhNMG9nS0VJQ0FnSUMxblAyaWVREAE",
+        "originalText": {
+          "languageCode": "en",
+          "text": "I tried the lunch special with the rice, beans and codfish. It was delicious! and the portion is generous. Additionally, the staff was very nice."
+        },
+        "publishTime": "2023-12-25T04:03:34.704437Z",
+        "rating": 5,
+        "relativePublishTimeDescription": "2 years ago",
+        "text": {
+          "languageCode": "en",
+          "text": "I tried the lunch special with the rice, beans and codfish. It was delicious! and the portion is generous. Additionally, the staff was very nice."
+        }
+      },
+      {
+        "authorAttribution": {
+          "displayName": "Saul",
+          "photoUri": "https://lh3.googleusercontent.com/a/ACg8ocIUvXPtxXRkXIkD-uVdTX6IuOQvIiRJw2hHG06lditUcao0Ut8=s128-c0x00000000-cc-rp-mo-ba2",
+          "uri": "https://www.google.com/maps/contrib/105840373487582984956/reviews"
+        },
+        "flagContentUri": "https://www.google.com/local/content/rap/report?postId=ChZDSUhNMG9nS0VJQ0FnSUNmM2ZqeFlBEAE&d=17924085&t=1",
+        "googleMapsUri": "https://www.google.com/maps/reviews/data=!4m6!14m5!1m4!2m3!1sChZDSUhNMG9nS0VJQ0FnSUNmM2ZqeFlBEAE!2m1!1s0x89c2f57342bfb6a1:0x7661a15d8dae99e1",
+        "name": "places/ChIJoba_QnP1wokR4ZmujV2hYXY/reviews/ChZDSUhNMG9nS0VJQ0FnSUNmM2ZqeFlBEAE",
+        "originalText": {
+          "languageCode": "en",
+          "text": "Good food, good prices and the staff is friendly"
+        },
+        "publishTime": "2024-12-31T20:10:49.703585Z",
+        "rating": 5,
+        "relativePublishTimeDescription": "a year ago",
+        "text": {
+          "languageCode": "en",
+          "text": "Good food, good prices and the staff is friendly"
+        }
+      },
+      {
+        "authorAttribution": {
+          "displayName": "Lourdes Chavez",
+          "photoUri": "https://lh3.googleusercontent.com/a-/ALV-UjUd1A6sVwCa1dHSca8gFsVwmt6O8MgLi-5gZ3YaAed-j6PE0zg=s128-c0x00000000-cc-rp-mo",
+          "uri": "https://www.google.com/maps/contrib/109087743656459409532/reviews"
+        },
+        "flagContentUri": "https://www.google.com/local/content/rap/report?postId=ChdDSUhNMG9nS0VJQ0FnSURYMHNqWWdRRRAB&d=17924085&t=1",
+        "googleMapsUri": "https://www.google.com/maps/reviews/data=!4m6!14m5!1m4!2m3!1sChdDSUhNMG9nS0VJQ0FnSURYMHNqWWdRRRAB!2m1!1s0x89c2f57342bfb6a1:0x7661a15d8dae99e1",
+        "name": "places/ChIJoba_QnP1wokR4ZmujV2hYXY/reviews/ChdDSUhNMG9nS0VJQ0FnSURYMHNqWWdRRRAB",
+        "originalText": {
+          "languageCode": "es",
+          "text": "Excelente comida, de lo mejor de la zona.\nSus combos familiares muy económicos y muy buena comida."
+        },
+        "publishTime": "2024-11-13T21:41:11.639586Z",
+        "rating": 5,
+        "relativePublishTimeDescription": "a year ago",
+        "text": {
+          "languageCode": "es",
+          "text": "Excelente comida, de lo mejor de la zona.\nSus combos familiares muy económicos y muy buena comida."
+        }
+      }
+    ],
+    "takeout": true,
+    "userRatingCount": 9
+  },
+  "bronx|lechonera don pancholo|2037 jerome avenue|10453": {
+    "businessStatus": "CLOSED_TEMPORARILY",
+    "displayName": {
+      "languageCode": "en",
+      "text": "Don Pancholo Lechonera Restaurant"
+    },
+    "formattedAddress": "2037 Jerome Ave, Bronx, NY 10453, USA",
+    "googleMapsUri": "https://maps.google.com/?cid=861859246793756508&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAIYBCAA",
+    "id": "ChIJJc0ujG30wokRXA-HK2vw9Qs",
+    "location": {
+      "latitude": 40.853664699999996,
+      "longitude": -73.907856
+    },
+    "nationalPhoneNumber": "(718) 583-2979",
+    "rating": 3.8,
+    "reviews": [
+      {
+        "authorAttribution": {
+          "displayName": "Jazmine Perez",
+          "photoUri": "https://lh3.googleusercontent.com/a-/ALV-UjW568qPeWE-DDGe8ZpXAF-keEasyewyOKYa9xulMpPaDS7Qiv4akQ=s128-c0x00000000-cc-rp-mo-ba5",
+          "uri": "https://www.google.com/maps/contrib/106386679858318200931/reviews"
+        },
+        "flagContentUri": "https://www.google.com/local/content/rap/report?postId=ChdDSUhNMG9nS0VJQ0FnSUNRaXBUcHNnRRAB&d=17924085&t=1",
+        "googleMapsUri": "https://www.google.com/maps/reviews/data=!4m6!14m5!1m4!2m3!1sChdDSUhNMG9nS0VJQ0FnSUNRaXBUcHNnRRAB!2m1!1s0x89c2f46d8c2ecd25:0xbf5f06b2b870f5c",
+        "name": "places/ChIJJc0ujG30wokRXA-HK2vw9Qs/reviews/ChdDSUhNMG9nS0VJQ0FnSUNRaXBUcHNnRRAB",
+        "originalText": {
+          "languageCode": "en",
+          "text": "The service takes FOREVER sometimes! But the food is great and inexpensive!\n\nUPDATE 5/13/18 THEY ARE SLOW AF!!!! It's incredible how slow they are! I've been here twice now and waited more than 15 minutes on line for them to tell me they don't have any chicken ready. Just for that, I took a star away. I can't wait for Caridad to open on Burnside Avenue already."
+        },
+        "publishTime": "2018-05-13T20:38:31.187Z",
+        "rating": 3,
+        "relativePublishTimeDescription": "8 years ago",
+        "text": {
+          "languageCode": "en",
+          "text": "The service takes FOREVER sometimes! But the food is great and inexpensive!\n\nUPDATE 5/13/18 THEY ARE SLOW AF!!!! It's incredible how slow they are! I've been here twice now and waited more than 15 minutes on line for them to tell me they don't have any chicken ready. Just for that, I took a star away. I can't wait for Caridad to open on Burnside Avenue already."
+        }
+      },
+      {
+        "authorAttribution": {
+          "displayName": "Shanya Bartee",
+          "photoUri": "https://lh3.googleusercontent.com/a-/ALV-UjVPpzHuCtKxPqeYORVGIG9ohELMJPZZiLQiPfEMMyvriIFE8Qfw=s128-c0x00000000-cc-rp-mo-ba2",
+          "uri": "https://www.google.com/maps/contrib/112633475522596850988/reviews"
+        },
+        "flagContentUri": "https://www.google.com/local/content/rap/report?postId=ChZDSUhNMG9nS0VJQ0FnSURab3BmWVBnEAE&d=17924085&t=1",
+        "googleMapsUri": "https://www.google.com/maps/reviews/data=!4m6!14m5!1m4!2m3!1sChZDSUhNMG9nS0VJQ0FnSURab3BmWVBnEAE!2m1!1s0x89c2f46d8c2ecd25:0xbf5f06b2b870f5c",
+        "name": "places/ChIJJc0ujG30wokRXA-HK2vw9Qs/reviews/ChZDSUhNMG9nS0VJQ0FnSURab3BmWVBnEAE",
+        "originalText": {
+          "languageCode": "en",
+          "text": "They are only respectful to they're own kind.. The food isn't prepared with love and appreciation someday fresh other days in the bathroom... only wish equality exist all ways.. disappointed highly.."
+        },
+        "publishTime": "2023-09-27T12:04:42.436539Z",
+        "rating": 1,
+        "relativePublishTimeDescription": "2 years ago",
+        "text": {
+          "languageCode": "en",
+          "text": "They are only respectful to they're own kind.. The food isn't prepared with love and appreciation someday fresh other days in the bathroom... only wish equality exist all ways.. disappointed highly.."
+        }
+      },
+      {
+        "authorAttribution": {
+          "displayName": "Ronald Seminara",
+          "photoUri": "https://lh3.googleusercontent.com/a/ACg8ocK3T4b6gdHQl2TFITpsrADfCelTWbU01MNLqkho-RGTtVAARg=s128-c0x00000000-cc-rp-mo",
+          "uri": "https://www.google.com/maps/contrib/109361053071638292903/reviews"
+        },
+        "flagContentUri": "https://www.google.com/local/content/rap/report?postId=ChdDSUhNMG9nS0VJQ0FnTUNRNGItcTZ3RRAB&d=17924085&t=1",
+        "googleMapsUri": "https://www.google.com/maps/reviews/data=!4m6!14m5!1m4!2m3!1sChdDSUhNMG9nS0VJQ0FnTUNRNGItcTZ3RRAB!2m1!1s0x89c2f46d8c2ecd25:0xbf5f06b2b870f5c",
+        "name": "places/ChIJJc0ujG30wokRXA-HK2vw9Qs/reviews/ChdDSUhNMG9nS0VJQ0FnTUNRNGItcTZ3RRAB",
+        "originalText": {
+          "languageCode": "en",
+          "text": "On Tuesday 03/04/25, at approximately 8:50pm, the lady named Lissi (Server 28) serving at the food counter was extremely rude. She pointed her finger at my face and looked at me with an aggressive and unwelcoming look. When I asked if I can get a side, she started shouting and screaming at me. When I gave her feedback that she needs to smile more, she snatched my money from my hand and ignored me pretending I was not there. This is the second time it has happened. All in all, if I could give zero stars, I would. She just lost a good customer."
+        },
+        "publishTime": "2025-03-05T02:42:19.787665Z",
+        "rating": 1,
+        "relativePublishTimeDescription": "a year ago",
+        "text": {
+          "languageCode": "en",
+          "text": "On Tuesday 03/04/25, at approximately 8:50pm, the lady named Lissi (Server 28) serving at the food counter was extremely rude. She pointed her finger at my face and looked at me with an aggressive and unwelcoming look. When I asked if I can get a side, she started shouting and screaming at me. When I gave her feedback that she needs to smile more, she snatched my money from my hand and ignored me pretending I was not there. This is the second time it has happened. All in all, if I could give zero stars, I would. She just lost a good customer."
+        }
+      },
+      {
+        "authorAttribution": {
+          "displayName": "Victor Batlle",
+          "photoUri": "https://lh3.googleusercontent.com/a-/ALV-UjV9nMr7ZfiFOGOyJg1VC6UMrlqcY0C-Ebudcs_SEfnTS8dEEY98Bw=s128-c0x00000000-cc-rp-mo-ba3",
+          "uri": "https://www.google.com/maps/contrib/101066800870996267809/reviews"
+        },
+        "flagContentUri": "https://www.google.com/local/content/rap/report?postId=ChZDSUhNMG9nS0VJQ0FnSURmbC16U0FREAE&d=17924085&t=1",
+        "googleMapsUri": "https://www.google.com/maps/reviews/data=!4m6!14m5!1m4!2m3!1sChZDSUhNMG9nS0VJQ0FnSURmbC16U0FREAE!2m1!1s0x89c2f46d8c2ecd25:0xbf5f06b2b870f5c",
+        "name": "places/ChIJJc0ujG30wokRXA-HK2vw9Qs/reviews/ChZDSUhNMG9nS0VJQ0FnSURmbC16U0FREAE",
+        "originalText": {
+          "languageCode": "en",
+          "text": "Workers talk too damn much. They Ignore the line and take random walk ins while you have 10 people waiting to be serviced waiting on a line! Used to love this place. Lost a life long customer."
+        },
+        "publishTime": "2025-01-10T20:09:33.179110Z",
+        "rating": 1,
+        "relativePublishTimeDescription": "a year ago",
+        "text": {
+          "languageCode": "en",
+          "text": "Workers talk too damn much. They Ignore the line and take random walk ins while you have 10 people waiting to be serviced waiting on a line! Used to love this place. Lost a life long customer."
+        }
+      },
+      {
+        "authorAttribution": {
+          "displayName": "Kayla Ortiz",
+          "photoUri": "https://lh3.googleusercontent.com/a-/ALV-UjW2tbno4vP9-dSTgM3jfFauTmQnlAmjnV6P3vWVmlq3MZM8rvgyxA=s128-c0x00000000-cc-rp-mo-ba2",
+          "uri": "https://www.google.com/maps/contrib/117788007232996153233/reviews"
+        },
+        "flagContentUri": "https://www.google.com/local/content/rap/report?postId=ChdDSUhNMG9nS0VJQ0FnSURwNy1YYzJnRRAB&d=17924085&t=1",
+        "googleMapsUri": "https://www.google.com/maps/reviews/data=!4m6!14m5!1m4!2m3!1sChdDSUhNMG9nS0VJQ0FnSURwNy1YYzJnRRAB!2m1!1s0x89c2f46d8c2ecd25:0xbf5f06b2b870f5c",
+        "name": "places/ChIJJc0ujG30wokRXA-HK2vw9Qs/reviews/ChdDSUhNMG9nS0VJQ0FnSURwNy1YYzJnRRAB",
+        "originalText": {
+          "languageCode": "en",
+          "text": "My first time going there in years and the service is very slow! Nobody speaks English, they only take your order if you speak Spanish or look like it, slow and lack of payment options, they just don't care and it shows. I literally ordered two things and the lady made my food and then stop just to make someone else's order and they haven't even ordered yet! It's so bad don't come unless you want to wait for a really long time! 😮‍💨😑😖🤬"
+        },
+        "publishTime": "2023-08-31T23:17:34.121079Z",
+        "rating": 1,
+        "relativePublishTimeDescription": "3 years ago",
+        "text": {
+          "languageCode": "en",
+          "text": "My first time going there in years and the service is very slow! Nobody speaks English, they only take your order if you speak Spanish or look like it, slow and lack of payment options, they just don't care and it shows. I literally ordered two things and the lady made my food and then stop just to make someone else's order and they haven't even ordered yet! It's so bad don't come unless you want to wait for a really long time! 😮‍💨😑😖🤬"
+        }
+      }
+    ],
+    "takeout": true,
+    "userRatingCount": 124
+  },
+  "bronx|numero uno sabor latino restaurant|4120 white plains road|10466": {
+    "businessStatus": "CLOSED_TEMPORARILY",
+    "dineIn": true,
+    "displayName": {
+      "languageCode": "en",
+      "text": "#1 Sabor Latino Restaurant"
+    },
+    "formattedAddress": "4120 White Plains Rd, Bronx, NY 10466, USA",
+    "googleMapsUri": "https://maps.google.com/?cid=7416372976855332579&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAIYBCAA",
+    "id": "ChIJo4cYeifzwokR47ZEx-0_7GY",
+    "location": {
+      "latitude": 40.8911996,
+      "longitude": -73.8584068
+    },
+    "nationalPhoneNumber": "(718) 653-2222",
+    "priceLevel": "PRICE_LEVEL_INEXPENSIVE",
+    "rating": 3.9,
+    "reviews": [
+      {
+        "authorAttribution": {
+          "displayName": "Tierra M",
+          "photoUri": "https://lh3.googleusercontent.com/a-/ALV-UjXhqg6RVE6gsch7jIUGODFDvxlPKQFeOkdCrUmyO7jbWqrj7cs=s128-c0x00000000-cc-rp-mo",
+          "uri": "https://www.google.com/maps/contrib/116774857115849391558/reviews"
+        },
+        "flagContentUri": "https://www.google.com/local/content/rap/report?postId=Ci9DQUlRQUNvZENodHljRjlvT25wdGMwZzNiQzEwZDE4M05rVnpSMU5sTUZKM1FYYxAB&d=17924085&t=1",
+        "googleMapsUri": "https://www.google.com/maps/reviews/data=!4m6!14m5!1m4!2m3!1sCi9DQUlRQUNvZENodHljRjlvT25wdGMwZzNiQzEwZDE4M05rVnpSMU5sTUZKM1FYYxAB!2m1!1s0x89c2f3277a1887a3:0x66ec3fedc744b6e3",
+        "name": "places/ChIJo4cYeifzwokR47ZEx-0_7GY/reviews/Ci9DQUlRQUNvZENodHljRjlvT25wdGMwZzNiQzEwZDE4M05rVnpSMU5sTUZKM1FYYxAB",
+        "originalText": {
+          "languageCode": "en",
+          "text": "Black consumer beware! I know ppl have been going to this restaurant for as long as it’s been around, but the community really needs to reconsider. I went in after not going for some time, (literally more than a year+ - and only by invitation by my mother) and I was reminded why I NEVER GO IN HERE. I asked for the chicken with rice and beans. This used to just be a simple lunch special type order. You would have thought I asked for mountains to be moved and for heaven to be brought down to earth. The server, one who apparently spoke no English, I guess put the wrong type of rice because when I said I want beans, she got the nastiest attitude and asked if I wanted a side order of beans. I said no. I just want the beans that come with my meal. Chicken. Rice. Beans. I didn’t understand the problem. But then, it became clear. She was supposed to add the white rice. And becasue she didn’t, she was not going to give me beans. Like, what?!? She proceeds to speak in Spanish and speak to another server there to very obviously complain and curse me out. The other server was actually apologetic to me, but clearly couldn’t control the first one. I wasn’t even upset until the first server continued to act like I was  inconveniencing her because she needed to change the rice. Lady, just put the beans on the rice! There were literally two Spanish people that ordered before me and one - a Puerto Rican friend of mine from the neighborhood ORDERED THE SAME THING, and there was no issue. No rudeness. When she was serving me, everything changed. I absolutely should have walked out as she carried on too afraid to speak English or just not able to.  I did not walk out because I had already come from across the street where the food looked a bit dry. I just wanted to have a a quick delicious Spanish style lunch. While the one server was nice enough, I just said this is the second time at this location that I have been treated like this and I think it’s because I am black and I don’t speak Spanish. My mother always goes there, but she absolutely looks Puerto Rican so she never has an issue, but I am BLACK! Very BLACK! I will NEVER PATRONIZE THIS PLACE AGAIN. MY (OUR) PRESENCE AND MONEY IS NOT VALUED! I was standing at the counter paying for my food and the server was STILL being horrible. For the life of me, I can’t understand why black folks continuously patronize businesses by other cultures that would NEVER patronize theirs. I NEVER SEE ASIAN OR HISPANIC OR INDIAN PPL IN ANY BLACK OR AFRICAN BUSINESS. I’ve been very good about avoiding certain businesses and I cook a lot at home. But every now and again I just want to dip my toe back out to test the waters. I get bitten every time. Lesson Learned. PS. The food was NOT EVEN GOOD. And I’m not saying that to be petty. It was NOT GOOD. SMH. Chicken dry, beans bland. I had to add my own Goya beans when I got home.\n\nEdit: Do yourself a favor and read through the lowest ratings. I read after posting and ppl have been experiencing this and other terrible things for years. Nothing has changed. And then do yourself another favor and avoid if you are black (unless you speak Spanish)."
+        },
+        "publishTime": "2026-04-24T01:53:38.764229226Z",
+        "rating": 1,
+        "relativePublishTimeDescription": "4 months ago",
+        "text": {
+          "languageCode": "en",
+          "text": "Black consumer beware! I know ppl have been going to this restaurant for as long as it’s been around, but the community really needs to reconsider. I went in after not going for some time, (literally more than a year+ - and only by invitation by my mother) and I was reminded why I NEVER GO IN HERE. I asked for the chicken with rice and beans. This used to just be a simple lunch special type order. You would have thought I asked for mountains to be moved and for heaven to be brought down to earth. The server, one who apparently spoke no English, I guess put the wrong type of rice because when I said I want beans, she got the nastiest attitude and asked if I wanted a side order of beans. I said no. I just want the beans that come with my meal. Chicken. Rice. Beans. I didn’t understand the problem. But then, it became clear. She was supposed to add the white rice. And becasue she didn’t, she was not going to give me beans. Like, what?!? She proceeds to speak in Spanish and speak to another server there to very obviously complain and curse me out. The other server was actually apologetic to me, but clearly couldn’t control the first one. I wasn’t even upset until the first server continued to act like I was  inconveniencing her because she needed to change the rice. Lady, just put the beans on the rice! There were literally two Spanish people that ordered before me and one - a Puerto Rican friend of mine from the neighborhood ORDERED THE SAME THING, and there was no issue. No rudeness. When she was serving me, everything changed. I absolutely should have walked out as she carried on too afraid to speak English or just not able to.  I did not walk out because I had already come from across the street where the food looked a bit dry. I just wanted to have a a quick delicious Spanish style lunch. While the one server was nice enough, I just said this is the second time at this location that I have been treated like this and I think it’s because I am black and I don’t speak Spanish. My mother always goes there, but she absolutely looks Puerto Rican so she never has an issue, but I am BLACK! Very BLACK! I will NEVER PATRONIZE THIS PLACE AGAIN. MY (OUR) PRESENCE AND MONEY IS NOT VALUED! I was standing at the counter paying for my food and the server was STILL being horrible. For the life of me, I can’t understand why black folks continuously patronize businesses by other cultures that would NEVER patronize theirs. I NEVER SEE ASIAN OR HISPANIC OR INDIAN PPL IN ANY BLACK OR AFRICAN BUSINESS. I’ve been very good about avoiding certain businesses and I cook a lot at home. But every now and again I just want to dip my toe back out to test the waters. I get bitten every time. Lesson Learned. PS. The food was NOT EVEN GOOD. And I’m not saying that to be petty. It was NOT GOOD. SMH. Chicken dry, beans bland. I had to add my own Goya beans when I got home.\n\nEdit: Do yourself a favor and read through the lowest ratings. I read after posting and ppl have been experiencing this and other terrible things for years. Nothing has changed. And then do yourself another favor and avoid if you are black (unless you speak Spanish)."
+        }
+      },
+      {
+        "authorAttribution": {
+          "displayName": "Katherine",
+          "photoUri": "https://lh3.googleusercontent.com/a/ACg8ocLerjxnn9gUGs4Yd6rUvaMvqXaRWe_TWwpINHS8yCBUXaeeSA=s128-c0x00000000-cc-rp-mo-ba3",
+          "uri": "https://www.google.com/maps/contrib/105525535924225816721/reviews"
+        },
+        "flagContentUri": "https://www.google.com/local/content/rap/report?postId=Ci9DQUlRQUNvZENodHljRjlvT2sxUmVHOW9hblF5ZUhOM1VURXdZbTlQTW1vMFJXYxAB&d=17924085&t=1",
+        "googleMapsUri": "https://www.google.com/maps/reviews/data=!4m6!14m5!1m4!2m3!1sCi9DQUlRQUNvZENodHljRjlvT2sxUmVHOW9hblF5ZUhOM1VURXdZbTlQTW1vMFJXYxAB!2m1!1s0x89c2f3277a1887a3:0x66ec3fedc744b6e3",
+        "name": "places/ChIJo4cYeifzwokR47ZEx-0_7GY/reviews/Ci9DQUlRQUNvZENodHljRjlvT2sxUmVHOW9hblF5ZUhOM1VURXdZbTlQTW1vMFJXYxAB",
+        "originalText": {
+          "languageCode": "en",
+          "text": "Very disappointed with this place. The food was overpriced and portions were extremely small. I paid $18 for barely any rice and a tiny piece of meat. Definitely not worth the money. The quality didn’t make up for the portion size either. Unfortunately, I won’t be coming back."
+        },
+        "publishTime": "2026-05-25T01:17:19.829024272Z",
+        "rating": 1,
+        "relativePublishTimeDescription": "3 months ago",
+        "text": {
+          "languageCode": "en",
+          "text": "Very disappointed with this place. The food was overpriced and portions were extremely small. I paid $18 for barely any rice and a tiny piece of meat. Definitely not worth the money. The quality didn’t make up for the portion size either. Unfortunately, I won’t be coming back."
+        }
+      },
+      {
+        "authorAttribution": {
+          "displayName": "Dr. Nowzaradan",
+          "photoUri": "https://lh3.googleusercontent.com/a-/ALV-UjXye3i40h8pLoMcGRZBDRZRTwYnqfjEFRVdn95O-24Lz5rDqIht=s128-c0x00000000-cc-rp-mo-ba2",
+          "uri": "https://www.google.com/maps/contrib/117029166542109139424/reviews"
+        },
+        "flagContentUri": "https://www.google.com/local/content/rap/report?postId=ChZDSUhNMG9nS0VJQ0FnSURRNk1YZ2RBEAE&d=17924085&t=1",
+        "googleMapsUri": "https://www.google.com/maps/reviews/data=!4m6!14m5!1m4!2m3!1sChZDSUhNMG9nS0VJQ0FnSURRNk1YZ2RBEAE!2m1!1s0x89c2f3277a1887a3:0x66ec3fedc744b6e3",
+        "name": "places/ChIJo4cYeifzwokR47ZEx-0_7GY/reviews/ChZDSUhNMG9nS0VJQ0FnSURRNk1YZ2RBEAE",
+        "originalText": {
+          "languageCode": "en",
+          "text": "Just ordered from this place (via grub hub) about a hour ago and felt the need to write this review about my experience immediately. Fried chicken chucks were hard as rocks, the chicken was clearly old and refried. Stew chicken had a pungent smell and tasted as if it been sitting out all day. My fiance had the Fried Chicken Chunks and shes seems to be fine, i had the stew chicken and I'm currently on the toilet suffering serious stomach pains. My fiance contacted grub hub and the representative didnt seem to care much. He kept offering a $10.00 credit to put toward our next order, we spent  $40.00 and gave the delivery guy a $5.00 tip (wasn't his fault they gave us old/bad food) we will NEVER order from this place or grub hub again."
+        },
+        "publishTime": "2018-01-07T23:41:05.979Z",
+        "rating": 1,
+        "relativePublishTimeDescription": "8 years ago",
+        "text": {
+          "languageCode": "en",
+          "text": "Just ordered from this place (via grub hub) about a hour ago and felt the need to write this review about my experience immediately. Fried chicken chucks were hard as rocks, the chicken was clearly old and refried. Stew chicken had a pungent smell and tasted as if it been sitting out all day. My fiance had the Fried Chicken Chunks and shes seems to be fine, i had the stew chicken and I'm currently on the toilet suffering serious stomach pains. My fiance contacted grub hub and the representative didnt seem to care much. He kept offering a $10.00 credit to put toward our next order, we spent  $40.00 and gave the delivery guy a $5.00 tip (wasn't his fault they gave us old/bad food) we will NEVER order from this place or grub hub again."
+        }
+      },
+      {
+        "authorAttribution": {
+          "displayName": "Jully Gómez-Morales",
+          "photoUri": "https://lh3.googleusercontent.com/a/ACg8ocJXrz2WZO7EE2LL9V5FEmhSyEVAd6K-TlPdXvTJvAxrSS9M_A=s128-c0x00000000-cc-rp-mo-ba3",
+          "uri": "https://www.google.com/maps/contrib/116903912937919055992/reviews"
+        },
+        "flagContentUri": "https://www.google.com/local/content/rap/report?postId=Ci9DQUlRQUNvZENodHljRjlvT2w5cU1XaHVkRUl4Y0ZwV1pEVlpjVlJMY0ZCS2RuYxAB&d=17924085&t=1",
+        "googleMapsUri": "https://www.google.com/maps/reviews/data=!4m6!14m5!1m4!2m3!1sCi9DQUlRQUNvZENodHljRjlvT2w5cU1XaHVkRUl4Y0ZwV1pEVlpjVlJMY0ZCS2RuYxAB!2m1!1s0x89c2f3277a1887a3:0x66ec3fedc744b6e3",
+        "name": "places/ChIJo4cYeifzwokR47ZEx-0_7GY/reviews/Ci9DQUlRQUNvZENodHljRjlvT2w5cU1XaHVkRUl4Y0ZwV1pEVlpjVlJMY0ZCS2RuYxAB",
+        "originalText": {
+          "languageCode": "en",
+          "text": "Loveeeee this place always go there for comfort food!! It’s great and the customer service is amazing"
+        },
+        "publishTime": "2026-05-30T15:06:22.344139466Z",
+        "rating": 5,
+        "relativePublishTimeDescription": "3 months ago",
+        "text": {
+          "languageCode": "en",
+          "text": "Loveeeee this place always go there for comfort food!! It’s great and the customer service is amazing"
+        }
+      },
+      {
+        "authorAttribution": {
+          "displayName": "Mz. Marvelous",
+          "photoUri": "https://lh3.googleusercontent.com/a-/ALV-UjUSnAOBQLjryi0inuH8M3DKV1riMS5T3F9GkfY3cC2OlU1hOrk=s128-c0x00000000-cc-rp-mo-ba5",
+          "uri": "https://www.google.com/maps/contrib/108512828780471756869/reviews"
+        },
+        "flagContentUri": "https://www.google.com/local/content/rap/report?postId=ChZDSUhNMG9nS0VJQ0FnSURBemNYZ0pnEAE&d=17924085&t=1",
+        "googleMapsUri": "https://www.google.com/maps/reviews/data=!4m6!14m5!1m4!2m3!1sChZDSUhNMG9nS0VJQ0FnSURBemNYZ0pnEAE!2m1!1s0x89c2f3277a1887a3:0x66ec3fedc744b6e3",
+        "name": "places/ChIJo4cYeifzwokR47ZEx-0_7GY/reviews/ChZDSUhNMG9nS0VJQ0FnSURBemNYZ0pnEAE",
+        "originalText": {
+          "languageCode": "en",
+          "text": "Ordered through grubhub today and it came quickly, hot and the super cool & friendly delivery guy even came to my door!! The portions was great and delicious for the price.. I'm glad I don't always listen to other miserable reviewers .. it's a hole in the wall Puerto Rican  restaurant in the BX what kinda 4star treatment and food y'all expecting! .......\n\nUpdate: I went in the very next day to get some more of that delicious fried pork.. I'm not Latin I don't know what it's called and how it's served so I said I want it however the Puerto Rican's eat it (some how I thought i saw somewhere that it was a PR restaurant). The old maid behind the counter says \"firstly were Dominican, second when u know what u want let me know\". I was so heartbroken and disappointed after such a pleasurable experience the day before then dealing with this today.. I just walked out!"
+        },
+        "publishTime": "2017-05-11T22:51:19.390Z",
+        "rating": 2,
+        "relativePublishTimeDescription": "9 years ago",
+        "text": {
+          "languageCode": "en",
+          "text": "Ordered through grubhub today and it came quickly, hot and the super cool & friendly delivery guy even came to my door!! The portions was great and delicious for the price.. I'm glad I don't always listen to other miserable reviewers .. it's a hole in the wall Puerto Rican  restaurant in the BX what kinda 4star treatment and food y'all expecting! .......\n\nUpdate: I went in the very next day to get some more of that delicious fried pork.. I'm not Latin I don't know what it's called and how it's served so I said I want it however the Puerto Rican's eat it (some how I thought i saw somewhere that it was a PR restaurant). The old maid behind the counter says \"firstly were Dominican, second when u know what u want let me know\". I was so heartbroken and disappointed after such a pleasurable experience the day before then dealing with this today.. I just walked out!"
+        }
+      }
+    ],
+    "takeout": true,
+    "userRatingCount": 386,
+    "websiteUri": "http://1saborlatino.com/"
+  },
+  "brooklyn|roseli chinese restaurant|2322 86th street|11214": {
+    "businessStatus": "CLOSED_PERMANENTLY",
+    "dineIn": true,
+    "displayName": {
+      "languageCode": "en",
+      "text": "Roseli 瑰麗 Chinese Restaurant"
+    },
+    "formattedAddress": "228 Duffield St, Brooklyn, NY 11201, USA",
+    "googleMapsUri": "https://maps.google.com/?cid=5930977396643349466&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAIYBCAA",
+    "id": "ChIJ9zdPCkpbwokR2kPMwYQQT1I",
+    "location": {
+      "latitude": 40.691500399999995,
+      "longitude": -73.9846554
+    },
+    "priceLevel": "PRICE_LEVEL_INEXPENSIVE",
+    "rating": 4.1,
+    "reviews": [
+      {
+        "authorAttribution": {
+          "displayName": "Bryan Pan",
+          "photoUri": "https://lh3.googleusercontent.com/a-/ALV-UjUl6Tdl-IVM2hkUeOkUqF0Z17tv8Tn4iYC9WxKceiU15cR3uM206A=s128-c0x00000000-cc-rp-mo-ba2",
+          "uri": "https://www.google.com/maps/contrib/118353446653748955008/reviews"
+        },
+        "flagContentUri": "https://www.google.com/local/content/rap/report?postId=ChdDSUhNMG9nS0VJQ0FnSURQckkyVTBnRRAB&d=17924085&t=1",
+        "googleMapsUri": "https://www.google.com/maps/reviews/data=!4m6!14m5!1m4!2m3!1sChdDSUhNMG9nS0VJQ0FnSURQckkyVTBnRRAB!2m1!1s0x89c25b4a0a4f37f7:0x524f1084c1cc43da",
+        "name": "places/ChIJ9zdPCkpbwokR2kPMwYQQT1I/reviews/ChdDSUhNMG9nS0VJQ0FnSURQckkyVTBnRRAB",
+        "originalText": {
+          "languageCode": "en",
+          "text": "Hidden gem. Roseli is high quality Cantonese, as good as any in Flushing or Chinatown or Sunset Park.\n\nThe food is spectacular. Their pork dishes, fish dishes, veggies, tofu, and noodle dishes were all amazing. Perfect amount of flavor, without being heavy or greasy. The crispy noodles were executed with precision. The fried fish was so tender and crazy. The saucy pork chops explodes with savory flavor.\n\nThe service is top notch. Billy is attentive and cares so much about the food and experience. We feel blessed to find places like this in the neighborhood.\n\nCan’t wait to come back for dim sum and watch a game at the bar!"
+        },
+        "publishTime": "2024-11-29T21:30:05.247206Z",
+        "rating": 5,
+        "relativePublishTimeDescription": "a year ago",
+        "text": {
+          "languageCode": "en",
+          "text": "Hidden gem. Roseli is high quality Cantonese, as good as any in Flushing or Chinatown or Sunset Park.\n\nThe food is spectacular. Their pork dishes, fish dishes, veggies, tofu, and noodle dishes were all amazing. Perfect amount of flavor, without being heavy or greasy. The crispy noodles were executed with precision. The fried fish was so tender and crazy. The saucy pork chops explodes with savory flavor.\n\nThe service is top notch. Billy is attentive and cares so much about the food and experience. We feel blessed to find places like this in the neighborhood.\n\nCan’t wait to come back for dim sum and watch a game at the bar!"
+        }
+      },
+      {
+        "authorAttribution": {
+          "displayName": "Benjamin Perez",
+          "photoUri": "https://lh3.googleusercontent.com/a/ACg8ocKAxYoO-BYU480qKvHhCP9K_k8RuH-Q9UA7MnPYvaYKImuNaA=s128-c0x00000000-cc-rp-mo",
+          "uri": "https://www.google.com/maps/contrib/102071987971783477107/reviews"
+        },
+        "flagContentUri": "https://www.google.com/local/content/rap/report?postId=ChdDSUhNMG9nS0VJQ0FnSUN2NGMteXRRRRAB&d=17924085&t=1",
+        "googleMapsUri": "https://www.google.com/maps/reviews/data=!4m6!14m5!1m4!2m3!1sChdDSUhNMG9nS0VJQ0FnSUN2NGMteXRRRRAB!2m1!1s0x89c25b4a0a4f37f7:0x524f1084c1cc43da",
+        "name": "places/ChIJ9zdPCkpbwokR2kPMwYQQT1I/reviews/ChdDSUhNMG9nS0VJQ0FnSUN2NGMteXRRRRAB",
+        "originalText": {
+          "languageCode": "en",
+          "text": "Ordered the General TSOs Chicken with Egg Drop Soup and Spring Rolls. I absolutely loved it. Great meal, atmosphere was quite likely because I was eating closer to late afternoon versus dinner. Highly recommend if you are in the area."
+        },
+        "publishTime": "2024-12-11T22:23:01.024501Z",
+        "rating": 5,
+        "relativePublishTimeDescription": "a year ago",
+        "text": {
+          "languageCode": "en",
+          "text": "Ordered the General TSOs Chicken with Egg Drop Soup and Spring Rolls. I absolutely loved it. Great meal, atmosphere was quite likely because I was eating closer to late afternoon versus dinner. Highly recommend if you are in the area."
+        }
+      },
+      {
+        "authorAttribution": {
+          "displayName": "Jackie Gordon Singing Chef",
+          "photoUri": "https://lh3.googleusercontent.com/a-/ALV-UjXX_sVp4qd7jkINn0A86z7rBeUtCB-pAV3jzT8dcPc3tSRl7739=s128-c0x00000000-cc-rp-mo-ba8",
+          "uri": "https://www.google.com/maps/contrib/109673791694826464177/reviews"
+        },
+        "flagContentUri": "https://www.google.com/local/content/rap/report?postId=ChZDSUhNMG9nS0VJQ0FnSURuc2Z1TFpBEAE&d=17924085&t=1",
+        "googleMapsUri": "https://www.google.com/maps/reviews/data=!4m6!14m5!1m4!2m3!1sChZDSUhNMG9nS0VJQ0FnSURuc2Z1TFpBEAE!2m1!1s0x89c25b4a0a4f37f7:0x524f1084c1cc43da",
+        "name": "places/ChIJ9zdPCkpbwokR2kPMwYQQT1I/reviews/ChZDSUhNMG9nS0VJQ0FnSURuc2Z1TFpBEAE",
+        "originalText": {
+          "languageCode": "en",
+          "text": "After getting a very generous takeout lunch special I went back. It's an odd spot in the Sheraton hotel, but some of the food is very good.\n\nWe enjoyed our dinner. The best dish was the Peking pork chops and the weakest dishes was the young chow fried rice and the wonton soup. The dim sum and the dumplings were very good.\n\nWould go back!\n\nWonton Soup\nHar Gow\nPork Shumai\nPan fried pork dumplings\nBarbecue ribs\nPeking Pork Chops\nSauteed Snow Pea Leaves\nBeef Chen Cun Fun Noodles\nFried Chicken Stuffed With Shrimp Paste\nYoung Chow Fried Rice"
+        },
+        "publishTime": "2024-10-07T02:21:47.846908Z",
+        "rating": 4,
+        "relativePublishTimeDescription": "a year ago",
+        "text": {
+          "languageCode": "en",
+          "text": "After getting a very generous takeout lunch special I went back. It's an odd spot in the Sheraton hotel, but some of the food is very good.\n\nWe enjoyed our dinner. The best dish was the Peking pork chops and the weakest dishes was the young chow fried rice and the wonton soup. The dim sum and the dumplings were very good.\n\nWould go back!\n\nWonton Soup\nHar Gow\nPork Shumai\nPan fried pork dumplings\nBarbecue ribs\nPeking Pork Chops\nSauteed Snow Pea Leaves\nBeef Chen Cun Fun Noodles\nFried Chicken Stuffed With Shrimp Paste\nYoung Chow Fried Rice"
+        }
+      },
+      {
+        "authorAttribution": {
+          "displayName": "Wilbur Lo",
+          "photoUri": "https://lh3.googleusercontent.com/a-/ALV-UjWmplCU86x86nGPk5JedB_w8519igopMQfUZAPc9f9M6cMNze-4=s128-c0x00000000-cc-rp-mo-ba6",
+          "uri": "https://www.google.com/maps/contrib/116881931301246952790/reviews"
+        },
+        "flagContentUri": "https://www.google.com/local/content/rap/report?postId=ChdDSUhNMG9nS0VJQ0FnSUNyLTZxZzh3RRAB&d=17924085&t=1",
+        "googleMapsUri": "https://www.google.com/maps/reviews/data=!4m6!14m5!1m4!2m3!1sChdDSUhNMG9nS0VJQ0FnSUNyLTZxZzh3RRAB!2m1!1s0x89c25b4a0a4f37f7:0x524f1084c1cc43da",
+        "name": "places/ChIJ9zdPCkpbwokR2kPMwYQQT1I/reviews/ChdDSUhNMG9nS0VJQ0FnSUNyLTZxZzh3RRAB",
+        "originalText": {
+          "languageCode": "en",
+          "text": "It is extremely unusual to have a authentic Chinese restaurant in the Marriott hotel in North America\n\nThe staff is extremely friendly and I was able to speak with the chef who is from TaiShan Guangdong about his experience as dim sum chef also his uncle who used to have the most famous restaurant in China Town Manhattan…\n\nTherefore we came back to the hotel a bit earlier one night of our five nights stay specially to try what the chef recommended..\n\nLobster with sticky rice: very tasty and this is excellent dish … priced USD 53? it doesn’t sound very expensive but it comes with a very small lobster… sad\n\nSteamed spareribs is very good and they have us a bowl of steamed rice too…\n\nVeggie- as our request how to make it …\n\nIt was very rush late dinner! Since we ate something before that, thus why we didn’t order a lot … the whole purpose is to try the Lobster 🦞 with sticky rice 🍚\n\n👍👍👍"
+        },
+        "publishTime": "2024-07-11T15:23:14.226981Z",
+        "rating": 4,
+        "relativePublishTimeDescription": "2 years ago",
+        "text": {
+          "languageCode": "en",
+          "text": "It is extremely unusual to have a authentic Chinese restaurant in the Marriott hotel in North America\n\nThe staff is extremely friendly and I was able to speak with the chef who is from TaiShan Guangdong about his experience as dim sum chef also his uncle who used to have the most famous restaurant in China Town Manhattan…\n\nTherefore we came back to the hotel a bit earlier one night of our five nights stay specially to try what the chef recommended..\n\nLobster with sticky rice: very tasty and this is excellent dish … priced USD 53? it doesn’t sound very expensive but it comes with a very small lobster… sad\n\nSteamed spareribs is very good and they have us a bowl of steamed rice too…\n\nVeggie- as our request how to make it …\n\nIt was very rush late dinner! Since we ate something before that, thus why we didn’t order a lot … the whole purpose is to try the Lobster 🦞 with sticky rice 🍚\n\n👍👍👍"
+        }
+      },
+      {
+        "authorAttribution": {
+          "displayName": "Casspina Chan",
+          "photoUri": "https://lh3.googleusercontent.com/a/ACg8ocIhsAPzL57pDqfPtumOn5qIggtJ5TvfkT583w-VNbavcQOKhw=s128-c0x00000000-cc-rp-mo",
+          "uri": "https://www.google.com/maps/contrib/107529582150410657569/reviews"
+        },
+        "flagContentUri": "https://www.google.com/local/content/rap/report?postId=ChdDSUhNMG9nS0VJQ0FnSUNQaUttWF93RRAB&d=17924085&t=1",
+        "googleMapsUri": "https://www.google.com/maps/reviews/data=!4m6!14m5!1m4!2m3!1sChdDSUhNMG9nS0VJQ0FnSUNQaUttWF93RRAB!2m1!1s0x89c25b4a0a4f37f7:0x524f1084c1cc43da",
+        "name": "places/ChIJ9zdPCkpbwokR2kPMwYQQT1I/reviews/ChdDSUhNMG9nS0VJQ0FnSUNQaUttWF93RRAB",
+        "originalText": {
+          "languageCode": "en",
+          "text": "I hardly write a review but I have to because I got the To Go order - Chen Cun Fun tonight for my dinner after work,  I had this dish before in Asia and China-Town in Manhattan however, they do not have the exact ones I usually have ordered so I decide to give it a try on XO sauce with shrimp. I barely tasted XO sauce and can’t find the chinese authenticity in this dish, the taste is okay but not similar to how I had it before😭\n\nAtmosphere is nice and staffs are very friendly, helpful!!!🥺"
+        },
+        "publishTime": "2024-11-21T02:05:46.566908Z",
+        "rating": 2,
+        "relativePublishTimeDescription": "a year ago",
+        "text": {
+          "languageCode": "en",
+          "text": "I hardly write a review but I have to because I got the To Go order - Chen Cun Fun tonight for my dinner after work,  I had this dish before in Asia and China-Town in Manhattan however, they do not have the exact ones I usually have ordered so I decide to give it a try on XO sauce with shrimp. I barely tasted XO sauce and can’t find the chinese authenticity in this dish, the taste is okay but not similar to how I had it before😭\n\nAtmosphere is nice and staffs are very friendly, helpful!!!🥺"
+        }
+      }
+    ],
+    "takeout": true,
+    "userRatingCount": 63
+  },
+  "brooklyn|tonel to go|1407 flatbush avenue|11210": {
+    "businessStatus": "OPERATIONAL",
+    "dineIn": true,
+    "displayName": {
+      "languageCode": "en",
+      "text": "Anba Tonel"
+    },
+    "formattedAddress": "1407 Flatbush Ave, Brooklyn, NY 11210, USA",
+    "googleMapsUri": "https://maps.google.com/?cid=7271082260584426996&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAIYBCAA",
+    "id": "ChIJ4zVqky9bwokR9G3HysoS6GQ",
+    "location": {
+      "latitude": 40.6365775,
+      "longitude": -73.9511825
+    },
+    "nationalPhoneNumber": "(347) 240-1166",
+    "rating": 5,
+    "reviews": [
+      {
+        "authorAttribution": {
+          "displayName": "Mongle Destine",
+          "photoUri": "https://lh3.googleusercontent.com/a-/ALV-UjUbqt57K6qQJdozx8nfgmRDlGkdP11EQEd4GvoytZ6SOfbYzz6t1Q=s128-c0x00000000-cc-rp-mo",
+          "uri": "https://www.google.com/maps/contrib/112377121406117553277/reviews"
+        },
+        "flagContentUri": "https://www.google.com/local/content/rap/report?postId=ChZDSUhNMG9nS0VJQ0FnSUQ3eHRhelZ3EAE&d=17924085&t=1",
+        "googleMapsUri": "https://www.google.com/maps/reviews/data=!4m6!14m5!1m4!2m3!1sChZDSUhNMG9nS0VJQ0FnSUQ3eHRhelZ3EAE!2m1!1s0x89c25b2f936a35e3:0x64e812cacac76df4",
+        "name": "places/ChIJ4zVqky9bwokR9G3HysoS6GQ/reviews/ChZDSUhNMG9nS0VJQ0FnSUQ3eHRhelZ3EAE",
+        "publishTime": "2024-08-23T21:50:01.300187Z",
+        "rating": 5,
+        "relativePublishTimeDescription": "2 years ago"
+      }
+    ],
+    "userRatingCount": 1
+  },
+  "manhattan|el nuevo capri restaurant|1340 saint nicholas avenue|10033": {
+    "businessStatus": "OPERATIONAL",
+    "dineIn": true,
+    "displayName": {
+      "languageCode": "en",
+      "text": "El Nuevo Capri Restaurant"
+    },
+    "formattedAddress": "1340 St Nicholas Ave, New York, NY 10033, USA",
+    "googleMapsUri": "https://maps.google.com/?cid=11186379810514673845&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAIYBCAA",
+    "id": "ChIJPSl7AyD0wokRtSBUcCsBPps",
+    "location": {
+      "latitude": 40.846708,
+      "longitude": -73.93521799999999
+    },
+    "nationalPhoneNumber": "(212) 740-3110",
+    "priceLevel": "PRICE_LEVEL_MODERATE",
+    "rating": 3.9,
+    "regularOpeningHours": {
+      "nextCloseTime": "2026-09-20T04:00:00Z",
+      "openNow": true,
+      "periods": [
+        {
+          "close": {
+            "day": 1,
+            "hour": 0,
+            "minute": 0
+          },
+          "open": {
+            "day": 0,
+            "hour": 6,
+            "minute": 0
+          }
+        },
+        {
+          "close": {
+            "day": 2,
+            "hour": 0,
+            "minute": 0
+          },
+          "open": {
+            "day": 1,
+            "hour": 6,
+            "minute": 0
+          }
+        },
+        {
+          "close": {
+            "day": 3,
+            "hour": 0,
+            "minute": 0
+          },
+          "open": {
+            "day": 2,
+            "hour": 6,
+            "minute": 0
+          }
+        },
+        {
+          "close": {
+            "day": 4,
+            "hour": 0,
+            "minute": 0
+          },
+          "open": {
+            "day": 3,
+            "hour": 6,
+            "minute": 0
+          }
+        },
+        {
+          "close": {
+            "day": 5,
+            "hour": 0,
+            "minute": 0
+          },
+          "open": {
+            "day": 4,
+            "hour": 6,
+            "minute": 0
+          }
+        },
+        {
+          "close": {
+            "day": 6,
+            "hour": 0,
+            "minute": 0
+          },
+          "open": {
+            "day": 5,
+            "hour": 6,
+            "minute": 0
+          }
+        },
+        {
+          "close": {
+            "day": 0,
+            "hour": 0,
+            "minute": 0
+          },
+          "open": {
+            "day": 6,
+            "hour": 6,
+            "minute": 0
+          }
+        }
+      ],
+      "weekdayDescriptions": [
+        "Monday: 6:00 AM – 12:00 AM",
+        "Tuesday: 6:00 AM – 12:00 AM",
+        "Wednesday: 6:00 AM – 12:00 AM",
+        "Thursday: 6:00 AM – 12:00 AM",
+        "Friday: 6:00 AM – 12:00 AM",
+        "Saturday: 6:00 AM – 12:00 AM",
+        "Sunday: 6:00 AM – 12:00 AM"
+      ]
+    },
+    "reviews": [
+      {
+        "authorAttribution": {
+          "displayName": "Vilma Rivas",
+          "photoUri": "https://lh3.googleusercontent.com/a/ACg8ocIMgS14vk9WpjiSLj1pO9UxgpTVTudYrHdQhWBRBv8st1NT3g=s128-c0x00000000-cc-rp-mo-ba2",
+          "uri": "https://www.google.com/maps/contrib/100750779457141597542/reviews"
+        },
+        "flagContentUri": "https://www.google.com/local/content/rap/report?postId=Ci9DQUlRQUNvZENodHljRjlvT25ad2EyaGxiR2x0VW5aNlMxUlBhWEV5UVhJM1NGRRAB&d=17924085&t=1",
+        "googleMapsUri": "https://www.google.com/maps/reviews/data=!4m6!14m5!1m4!2m3!1sCi9DQUlRQUNvZENodHljRjlvT25ad2EyaGxiR2x0VW5aNlMxUlBhWEV5UVhJM1NGRRAB!2m1!1s0x89c2f420037b293d:0x9b3e012b705420b5",
+        "name": "places/ChIJPSl7AyD0wokRtSBUcCsBPps/reviews/Ci9DQUlRQUNvZENodHljRjlvT25ad2EyaGxiR2x0VW5aNlMxUlBhWEV5UVhJM1NGRRAB",
+        "originalText": {
+          "languageCode": "en",
+          "text": "Terrible I said I want a Cuban sandwich and they gave me a sandwich that has nothing similar with a Cuban sandwich and it tasted so so bad omg I will never come to this place never again"
+        },
+        "publishTime": "2026-08-04T20:43:37.678645678Z",
+        "rating": 1,
+        "relativePublishTimeDescription": "a month ago",
+        "text": {
+          "languageCode": "en",
+          "text": "Terrible I said I want a Cuban sandwich and they gave me a sandwich that has nothing similar with a Cuban sandwich and it tasted so so bad omg I will never come to this place never again"
+        }
+      },
+      {
+        "authorAttribution": {
+          "displayName": "Elizabeth Hernandez",
+          "photoUri": "https://lh3.googleusercontent.com/a/ACg8ocKmvAvPCA899pMOVoJDGRFZqqcbWHF6Vc21faSenHBGe3X7-A=s128-c0x00000000-cc-rp-mo-ba5",
+          "uri": "https://www.google.com/maps/contrib/102983870971831457178/reviews"
+        },
+        "flagContentUri": "https://www.google.com/local/content/rap/report?postId=Ci9DQUlRQUNvZENodHljRjlvT2kxaWVGUTBPRE01ZEZCYWJVd3RRVFZVYUhwemJrRRAB&d=17924085&t=1",
+        "googleMapsUri": "https://www.google.com/maps/reviews/data=!4m6!14m5!1m4!2m3!1sCi9DQUlRQUNvZENodHljRjlvT2kxaWVGUTBPRE01ZEZCYWJVd3RRVFZVYUhwemJrRRAB!2m1!1s0x89c2f420037b293d:0x9b3e012b705420b5",
+        "name": "places/ChIJPSl7AyD0wokRtSBUcCsBPps/reviews/Ci9DQUlRQUNvZENodHljRjlvT2kxaWVGUTBPRE01ZEZCYWJVd3RRVFZVYUhwemJrRRAB",
+        "originalText": {
+          "languageCode": "en",
+          "text": "Was happy with this place up until today. I see now what other customers complained about. I order something for delivery and they forgot my chimichurri sauce that I paid for, the girl on the phone is gonna say it's not their fault the chef couldn't make it because he was busy (how is that my problem?)then continues on to say that they at least gave me mojito, which mind you comes included in the platter I ordered. Quick to keep customers money, bad business.  No more ordering from there, they are dishonest! No apologies no nothing just brush off."
+        },
+        "publishTime": "2025-11-07T22:27:58.916260646Z",
+        "rating": 1,
+        "relativePublishTimeDescription": "10 months ago",
+        "text": {
+          "languageCode": "en",
+          "text": "Was happy with this place up until today. I see now what other customers complained about. I order something for delivery and they forgot my chimichurri sauce that I paid for, the girl on the phone is gonna say it's not their fault the chef couldn't make it because he was busy (how is that my problem?)then continues on to say that they at least gave me mojito, which mind you comes included in the platter I ordered. Quick to keep customers money, bad business.  No more ordering from there, they are dishonest! No apologies no nothing just brush off."
+        }
+      },
+      {
+        "authorAttribution": {
+          "displayName": "Wanda Collado",
+          "photoUri": "https://lh3.googleusercontent.com/a-/ALV-UjUAHOa0yvgvXpq2nVi1RpsQvalcosJHlNy5ofsi3uP0Y7AyH_o=s128-c0x00000000-cc-rp-mo-ba3",
+          "uri": "https://www.google.com/maps/contrib/114914783469129308286/reviews"
+        },
+        "flagContentUri": "https://www.google.com/local/content/rap/report?postId=ChZDSUhNMG9nS0VJQ0FnSUMydl92VlFREAE&d=17924085&t=1",
+        "googleMapsUri": "https://www.google.com/maps/reviews/data=!4m6!14m5!1m4!2m3!1sChZDSUhNMG9nS0VJQ0FnSUMydl92VlFREAE!2m1!1s0x89c2f420037b293d:0x9b3e012b705420b5",
+        "name": "places/ChIJPSl7AyD0wokRtSBUcCsBPps/reviews/ChZDSUhNMG9nS0VJQ0FnSUMydl92VlFREAE",
+        "originalText": {
+          "languageCode": "en",
+          "text": "Two star rating for the amount of food given compared to the cost. My order consist of large soup, tostones, sin huezo ( boneless chicken). Quite honestly 26 dollars was a bit much, given the amount of food was so little. Barely two ppl can eat from the plate of boneless chicken not to mention they were so tiny. However, food was good, arrived quickly ! This place has always been a favorite, but I am very disappointed at the service provided today. I don’t mind paying the price , if the amount is RIGHT !"
+        },
+        "publishTime": "2022-05-02T17:17:25.041272Z",
+        "rating": 2,
+        "relativePublishTimeDescription": "4 years ago",
+        "text": {
+          "languageCode": "en",
+          "text": "Two star rating for the amount of food given compared to the cost. My order consist of large soup, tostones, sin huezo ( boneless chicken). Quite honestly 26 dollars was a bit much, given the amount of food was so little. Barely two ppl can eat from the plate of boneless chicken not to mention they were so tiny. However, food was good, arrived quickly ! This place has always been a favorite, but I am very disappointed at the service provided today. I don’t mind paying the price , if the amount is RIGHT !"
+        }
+      },
+      {
+        "authorAttribution": {
+          "displayName": "V",
+          "photoUri": "https://lh3.googleusercontent.com/a-/ALV-UjVyZFlRHCYj7ermOhntmCz5yP0W7L5KWozsqEbKexwYtrgird-j=s128-c0x00000000-cc-rp-mo-ba4",
+          "uri": "https://www.google.com/maps/contrib/106060304641699661980/reviews"
+        },
+        "flagContentUri": "https://www.google.com/local/content/rap/report?postId=ChdDSUhNMG9nS0VJQ0FnSUNjaC1fYl9RRRAB&d=17924085&t=1",
+        "googleMapsUri": "https://www.google.com/maps/reviews/data=!4m6!14m5!1m4!2m3!1sChdDSUhNMG9nS0VJQ0FnSUNjaC1fYl9RRRAB!2m1!1s0x89c2f420037b293d:0x9b3e012b705420b5",
+        "name": "places/ChIJPSl7AyD0wokRtSBUcCsBPps/reviews/ChdDSUhNMG9nS0VJQ0FnSUNjaC1fYl9RRRAB",
+        "originalText": {
+          "languageCode": "en",
+          "text": "This is my absolute go-to spot when I used to live in the Washington Heights for three years. Yes they don't speak a lot of English, but the food is bomb AF and you get so much food for what you pay for. Whenever the owner is there, she does speak English so you'll be fine. Otherwise, just point in the menu and you'll be fine. Don't let that hinder you from having a fantastic home-cooked meal! What I usually get are the stewed oxtail, stewed goat, red snapper (if I feel a little spend-y), tripe soup, and Dominican soup. AMAZING every time."
+        },
+        "publishTime": "2020-04-20T03:58:35.917749Z",
+        "rating": 5,
+        "relativePublishTimeDescription": "6 years ago",
+        "text": {
+          "languageCode": "en",
+          "text": "This is my absolute go-to spot when I used to live in the Washington Heights for three years. Yes they don't speak a lot of English, but the food is bomb AF and you get so much food for what you pay for. Whenever the owner is there, she does speak English so you'll be fine. Otherwise, just point in the menu and you'll be fine. Don't let that hinder you from having a fantastic home-cooked meal! What I usually get are the stewed oxtail, stewed goat, red snapper (if I feel a little spend-y), tripe soup, and Dominican soup. AMAZING every time."
+        }
+      },
+      {
+        "authorAttribution": {
+          "displayName": "Joan sosa",
+          "photoUri": "https://lh3.googleusercontent.com/a-/ALV-UjXPYFNrzkNgqWyPbo2REPtkku3wg4GCBuoB-MSoDrpIjz2RPRJ7UQ=s128-c0x00000000-cc-rp-mo-ba4",
+          "uri": "https://www.google.com/maps/contrib/117574957454325481286/reviews"
+        },
+        "flagContentUri": "https://www.google.com/local/content/rap/report?postId=Ci9DQUlRQUNvZENodHljRjlvT2w4NVZHVklNSEpWVDFsdVNXVkJTRWQwUkV0MFNXYxAB&d=17924085&t=1",
+        "googleMapsUri": "https://www.google.com/maps/reviews/data=!4m6!14m5!1m4!2m3!1sCi9DQUlRQUNvZENodHljRjlvT2w4NVZHVklNSEpWVDFsdVNXVkJTRWQwUkV0MFNXYxAB!2m1!1s0x89c2f420037b293d:0x9b3e012b705420b5",
+        "name": "places/ChIJPSl7AyD0wokRtSBUcCsBPps/reviews/Ci9DQUlRQUNvZENodHljRjlvT2w4NVZHVklNSEpWVDFsdVNXVkJTRWQwUkV0MFNXYxAB",
+        "originalText": {
+          "languageCode": "en",
+          "text": "the dominican republic have some fame with its foods specially rice beans and meat in this case chiken, it seams that dominican restaurant owners forget how to cook as soo as they arrive to the united states, this place sells the most tasteless food that i have eaten,  its making me hate food it was souless and tasteless, shame on them for cooking this horrendous food, their roasted chiken is horrible too, no sazon no gusto"
+        },
+        "publishTime": "2026-02-10T01:27:53.371142349Z",
+        "rating": 1,
+        "relativePublishTimeDescription": "7 months ago",
+        "text": {
+          "languageCode": "en",
+          "text": "the dominican republic have some fame with its foods specially rice beans and meat in this case chiken, it seams that dominican restaurant owners forget how to cook as soo as they arrive to the united states, this place sells the most tasteless food that i have eaten,  its making me hate food it was souless and tasteless, shame on them for cooking this horrendous food, their roasted chiken is horrible too, no sazon no gusto"
+        }
+      }
+    ],
+    "takeout": true,
+    "userRatingCount": 322
+  },
+  "manhattan|mcdonald's|102 1st avenue|10009": {
+    "businessStatus": "OPERATIONAL",
+    "dineIn": true,
+    "displayName": {
+      "languageCode": "en",
+      "text": "McDonald's"
+    },
+    "formattedAddress": "102 1st Ave, New York, NY 10009, USA",
+    "googleMapsUri": "https://maps.google.com/?cid=14608386640287082249&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAIYBCAA",
+    "id": "ChIJcWEq7nVZwokRCaffM0Bqu8o",
+    "location": {
+      "latitude": 40.7265241,
+      "longitude": -73.98576369999999
+    },
+    "nationalPhoneNumber": "(212) 477-9171",
+    "rating": 3.5,
+    "regularOpeningHours": {
+      "nextCloseTime": "2026-09-20T04:00:00Z",
+      "openNow": true,
+      "periods": [
+        {
+          "close": {
+            "day": 1,
+            "hour": 0,
+            "minute": 0
+          },
+          "open": {
+            "day": 0,
+            "hour": 5,
+            "minute": 0
+          }
+        },
+        {
+          "close": {
+            "day": 2,
+            "hour": 0,
+            "minute": 0
+          },
+          "open": {
+            "day": 1,
+            "hour": 7,
+            "minute": 0
+          }
+        },
+        {
+          "close": {
+            "day": 3,
+            "hour": 0,
+            "minute": 0
+          },
+          "open": {
+            "day": 2,
+            "hour": 7,
+            "minute": 0
+          }
+        },
+        {
+          "close": {
+            "day": 4,
+            "hour": 0,
+            "minute": 0
+          },
+          "open": {
+            "day": 3,
+            "hour": 7,
+            "minute": 0
+          }
+        },
+        {
+          "close": {
+            "day": 0,
+            "hour": 0,
+            "minute": 0
+          },
+          "open": {
+            "day": 4,
+            "hour": 7,
+            "minute": 0
+          }
+        }
+      ],
+      "weekdayDescriptions": [
+        "Monday: 7:00 AM – 12:00 AM",
+        "Tuesday: 7:00 AM – 12:00 AM",
+        "Wednesday: 7:00 AM – 12:00 AM",
+        "Thursday: 7:00 AM – 12:00 AM",
+        "Friday: Open 24 hours",
+        "Saturday: Open 24 hours",
+        "Sunday: 5:00 AM – 12:00 AM"
+      ]
+    },
+    "reviews": [
+      {
+        "authorAttribution": {
+          "displayName": "Maria R",
+          "photoUri": "https://lh3.googleusercontent.com/a/ACg8ocJ54XjrhmTBmJ8ntQAVh4R0GTouenxs67qXx__lpTATZXcC5g=s128-c0x00000000-cc-rp-mo-ba5",
+          "uri": "https://www.google.com/maps/contrib/103669450744870738101/reviews"
+        },
+        "flagContentUri": "https://www.google.com/local/content/rap/report?postId=Ci9DQUlRQUNvZENodHljRjlvT205WE4wTkhlRTVqVG1GaFFtTkJRbmhWYTJkeU4yYxAB&d=17924085&t=1",
+        "googleMapsUri": "https://www.google.com/maps/reviews/data=!4m6!14m5!1m4!2m3!1sCi9DQUlRQUNvZENodHljRjlvT205WE4wTkhlRTVqVG1GaFFtTkJRbmhWYTJkeU4yYxAB!2m1!1s0x89c25975ee2a6171:0xcabb6a4033dfa709",
+        "name": "places/ChIJcWEq7nVZwokRCaffM0Bqu8o/reviews/Ci9DQUlRQUNvZENodHljRjlvT205WE4wTkhlRTVqVG1GaFFtTkJRbmhWYTJkeU4yYxAB",
+        "originalText": {
+          "languageCode": "en",
+          "text": "I stopped going to McDonald's months ago but the new drinks looked interesting so I wanted to try them and they are so cheap with the cold foam its sad its not worth $4 for a medium when they basically just give you sprite even the raspberry flavor was light and it took forever when all I ordered was the drink on the app."
+        },
+        "publishTime": "2026-05-08T01:51:14.807656210Z",
+        "rating": 1,
+        "relativePublishTimeDescription": "4 months ago",
+        "text": {
+          "languageCode": "en",
+          "text": "I stopped going to McDonald's months ago but the new drinks looked interesting so I wanted to try them and they are so cheap with the cold foam its sad its not worth $4 for a medium when they basically just give you sprite even the raspberry flavor was light and it took forever when all I ordered was the drink on the app."
+        }
+      },
+      {
+        "authorAttribution": {
+          "displayName": "Kelly Chattem",
+          "photoUri": "https://lh3.googleusercontent.com/a-/ALV-UjV6gbW-wCImrY-pGIuEZZKaqE7H8IdmChU3hu_7N3b4wW6UAc0U=s128-c0x00000000-cc-rp-mo-ba3",
+          "uri": "https://www.google.com/maps/contrib/115763205640468529827/reviews"
+        },
+        "flagContentUri": "https://www.google.com/local/content/rap/report?postId=Ci9DQUlRQUNvZENodHljRjlvT25ZNWJubDROM2xrZG5GSlNtbEpWa05yVTAxRFdVRRAB&d=17924085&t=1",
+        "googleMapsUri": "https://www.google.com/maps/reviews/data=!4m6!14m5!1m4!2m3!1sCi9DQUlRQUNvZENodHljRjlvT25ZNWJubDROM2xrZG5GSlNtbEpWa05yVTAxRFdVRRAB!2m1!1s0x89c25975ee2a6171:0xcabb6a4033dfa709",
+        "name": "places/ChIJcWEq7nVZwokRCaffM0Bqu8o/reviews/Ci9DQUlRQUNvZENodHljRjlvT25ZNWJubDROM2xrZG5GSlNtbEpWa05yVTAxRFdVRRAB",
+        "originalText": {
+          "languageCode": "en",
+          "text": "This was a good McDonald’s. Small seating area but still good and clean. My order came fast. The food was good temperature."
+        },
+        "publishTime": "2026-04-07T20:38:55.924257419Z",
+        "rating": 5,
+        "relativePublishTimeDescription": "5 months ago",
+        "text": {
+          "languageCode": "en",
+          "text": "This was a good McDonald’s. Small seating area but still good and clean. My order came fast. The food was good temperature."
+        }
+      },
+      {
+        "authorAttribution": {
+          "displayName": "Kara Saunders",
+          "photoUri": "https://lh3.googleusercontent.com/a-/ALV-UjXhDieGC7bV_-l1KMrVF0tpp-XRMrw78_AVbkD2GeIjTwuEGVvlpg=s128-c0x00000000-cc-rp-mo-ba2",
+          "uri": "https://www.google.com/maps/contrib/117991132358638791138/reviews"
+        },
+        "flagContentUri": "https://www.google.com/local/content/rap/report?postId=Ci9DQUlRQUNvZENodHljRjlvT25saU5rNVJZMjEwV1ZCTmIxWlpWbUZJTkU5UVNYYxAB&d=17924085&t=1",
+        "googleMapsUri": "https://www.google.com/maps/reviews/data=!4m6!14m5!1m4!2m3!1sCi9DQUlRQUNvZENodHljRjlvT25saU5rNVJZMjEwV1ZCTmIxWlpWbUZJTkU5UVNYYxAB!2m1!1s0x89c25975ee2a6171:0xcabb6a4033dfa709",
+        "name": "places/ChIJcWEq7nVZwokRCaffM0Bqu8o/reviews/Ci9DQUlRQUNvZENodHljRjlvT25saU5rNVJZMjEwV1ZCTmIxWlpWbUZJTkU5UVNYYxAB",
+        "originalText": {
+          "languageCode": "en",
+          "text": "Probably one of the best McDonald’s experiences we have ever had. Served our order on a cart to the table. Really friendly staff!\n\nOnly thing that could be improved is cleaning off tables between customers."
+        },
+        "publishTime": "2025-11-02T12:37:08.776879856Z",
+        "rating": 5,
+        "relativePublishTimeDescription": "10 months ago",
+        "text": {
+          "languageCode": "en",
+          "text": "Probably one of the best McDonald’s experiences we have ever had. Served our order on a cart to the table. Really friendly staff!\n\nOnly thing that could be improved is cleaning off tables between customers."
+        }
+      },
+      {
+        "authorAttribution": {
+          "displayName": "James Vaught",
+          "photoUri": "https://lh3.googleusercontent.com/a/ACg8ocJqEny0Dj8F94rFcpmdepe5MuKyIGCuGQNH6VPdVu2GSN12tAY=s128-c0x00000000-cc-rp-mo",
+          "uri": "https://www.google.com/maps/contrib/100312024933624011995/reviews"
+        },
+        "flagContentUri": "https://www.google.com/local/content/rap/report?postId=Ci9DQUlRQUNvZENodHljRjlvT20xZmVsUklaM0JPVUhGNGMyUkZXRFpHZVhkSFNGRRAB&d=17924085&t=1",
+        "googleMapsUri": "https://www.google.com/maps/reviews/data=!4m6!14m5!1m4!2m3!1sCi9DQUlRQUNvZENodHljRjlvT20xZmVsUklaM0JPVUhGNGMyUkZXRFpHZVhkSFNGRRAB!2m1!1s0x89c25975ee2a6171:0xcabb6a4033dfa709",
+        "name": "places/ChIJcWEq7nVZwokRCaffM0Bqu8o/reviews/Ci9DQUlRQUNvZENodHljRjlvT20xZmVsUklaM0JPVUhGNGMyUkZXRFpHZVhkSFNGRRAB",
+        "originalText": {
+          "languageCode": "en",
+          "text": "Awful place. They can't get even the simplest orders right. Don't waste your money at this location."
+        },
+        "publishTime": "2026-07-09T23:42:29.371155047Z",
+        "rating": 1,
+        "relativePublishTimeDescription": "2 months ago",
+        "text": {
+          "languageCode": "en",
+          "text": "Awful place. They can't get even the simplest orders right. Don't waste your money at this location."
+        }
+      },
+      {
+        "authorAttribution": {
+          "displayName": "albert",
+          "photoUri": "https://lh3.googleusercontent.com/a/ACg8ocId5XTB81iY3k_HooN7kCui6WWAdY_zAOq5_taUmLQCE6ExwA=s128-c0x00000000-cc-rp-mo-ba6",
+          "uri": "https://www.google.com/maps/contrib/103630853357592318569/reviews"
+        },
+        "flagContentUri": "https://www.google.com/local/content/rap/report?postId=ChdDSUhNMG9nS0VJQ0FnSUNkeHRtUHdRRRAB&d=17924085&t=1",
+        "googleMapsUri": "https://www.google.com/maps/reviews/data=!4m6!14m5!1m4!2m3!1sChdDSUhNMG9nS0VJQ0FnSUNkeHRtUHdRRRAB!2m1!1s0x89c25975ee2a6171:0xcabb6a4033dfa709",
+        "name": "places/ChIJcWEq7nVZwokRCaffM0Bqu8o/reviews/ChdDSUhNMG9nS0VJQ0FnSUNkeHRtUHdRRRAB",
+        "originalText": {
+          "languageCode": "en",
+          "text": "The faster the better. Tastes like everywhere around the world. Simplicity is its own flag and it works. If you are in New York, it's obliged to go at McDonald's at least once. Very crowded. Clean. Restroom. Cheaper than others."
+        },
+        "publishTime": "2024-02-14T21:39:45.518350Z",
+        "rating": 3,
+        "relativePublishTimeDescription": "2 years ago",
+        "text": {
+          "languageCode": "en",
+          "text": "The faster the better. Tastes like everywhere around the world. Simplicity is its own flag and it works. If you are in New York, it's obliged to go at McDonald's at least once. Very crowded. Clean. Restroom. Cheaper than others."
+        }
+      }
+    ],
+    "takeout": true,
+    "userRatingCount": 1133,
+    "websiteUri": "https://www.mcdonalds.com/us/en-us/location/NY/NEW-YORK/102-106-1ST-AVE--5TH-STREET/4020.html?cid=RF:YXT:GMB::Clicks"
+  }
+}

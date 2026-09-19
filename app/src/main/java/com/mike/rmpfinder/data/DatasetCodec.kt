@@ -26,7 +26,7 @@ object DatasetCodec {
     private val businessStatuses = setOf("open", "likely_open", "temporarily_closed", "likely_closed", "closed", "moved", "rebranded", "conflicting", "unknown")
     private val hoursStatuses = setOf("verified", "usable", "stale", "partial", "conflicting", "unknown")
     private val conflictFlags = setOf("name_mismatch", "address_mismatch", "moved", "rebranded", "hours_conflict", "status_conflict", "phone_conflict")
-    private val restaurantKeys = setOf("rmpKey", "officialName", "currentName", "aliases", "officialAddress", "currentAddress", "borough", "zip", "coordinates", "phone", "website", "menuUrl", "imageUrl", "imageAttribution", "businessStatus", "hoursStatus", "hours", "rmpVerifiedAt", "businessCheckedAt", "conflictFlags", "sources")
+    private val restaurantKeys = setOf("rmpKey", "officialName", "currentName", "aliases", "officialAddress", "currentAddress", "borough", "zip", "coordinates", "phone", "website", "menuUrl", "imageUrl", "imageAttribution", "businessStatus", "hoursStatus", "hours", "googlePlaceId", "rating", "ratingCount", "priceLevel", "takeout", "dineIn", "reviews", "googleCheckedAt", "rmpVerifiedAt", "businessCheckedAt", "conflictFlags", "sources")
     private val requiredRestaurantKeys = setOf("rmpKey", "officialName", "officialAddress", "borough", "zip", "coordinates", "rmpVerifiedAt", "businessStatus", "hoursStatus")
 
     fun parseDataset(bytes: ByteArray): List<RmpRestaurant> {
@@ -145,6 +145,14 @@ object DatasetCodec {
         val businessStatus = obj.string("businessStatus").also { require(it in businessStatuses) }
         val hoursStatus = obj.string("hoursStatus").also { require(it in hoursStatuses) }
         val hours = obj["hours"].let { value -> if (value == null || value is JsonNull) null else parseHours(value.jsonObject) }
+        val googlePlaceId = obj.nullableString("googlePlaceId")?.also { require(it.isNotBlank()) }
+        val rating = obj.nullableDouble("rating")?.also { require(it in 0.0..5.0) }
+        val ratingCount = obj.nullableInt("ratingCount")?.also { require(it >= 0) }
+        val priceLevel = obj.nullableInt("priceLevel")?.also { require(it in 1..4) }
+        val takeout = obj.nullableBoolean("takeout")
+        val dineIn = obj.nullableBoolean("dineIn")
+        val reviews = parseReviews(obj.arrayOrEmpty("reviews"))
+        val googleCheckedAt = obj.nullableString("googleCheckedAt")?.also { LocalDate.parse(it) }
         val rmpVerifiedAt = obj.string("rmpVerifiedAt").also { LocalDate.parse(it) }
         val businessCheckedAt = obj.nullableString("businessCheckedAt")?.also { LocalDate.parse(it) }
         val flags = obj.arrayOrEmpty("conflictFlags").map { it.jsonPrimitive.content }.also { values -> require(values.all { it in conflictFlags } && values.distinct().size == values.size) }
@@ -152,8 +160,22 @@ object DatasetCodec {
         return RmpRestaurant(
             rmpKey, officialName, currentName, aliases, officialAddress, currentAddress, borough, zip,
             latitude, longitude, phone, website, menuUrl, imageUrl, businessStatus, hoursStatus, hours,
+            googlePlaceId, rating, ratingCount, priceLevel, takeout, dineIn, reviews, googleCheckedAt,
             rmpVerifiedAt, businessCheckedAt, flags, sources,
         )
+    }
+
+    private fun parseReviews(values: JsonArray): List<RmpReview> {
+        require(values.size <= 5) { "At most five reviews per restaurant" }
+        return values.map { element ->
+            val obj = element.jsonObject
+            requireAllowed(obj, setOf("author", "rating", "text", "when"), setOf("author", "rating", "text", "when"))
+            val author = obj.string("author").also { require(it.isNotBlank()) }
+            val rating = obj.int("rating").also { require(it in 1..5) }
+            val text = obj.string("text").also { require(it.isNotBlank()) }
+            val when_ = obj.string("when").also { require(it.isNotBlank()) }
+            RmpReview(author, rating, text, when_)
+        }
     }
 
     private fun parseAddress(obj: JsonObject): RmpAddress {
@@ -187,7 +209,7 @@ object DatasetCodec {
     }
 
     private fun parseSources(values: JsonArray): List<RmpSource> {
-        val roles = setOf("rmp_eligibility", "business_status", "hours", "phone", "website", "address", "coordinates", "image")
+        val roles = setOf("rmp_eligibility", "business_status", "hours", "phone", "website", "address", "coordinates", "image", "rating", "reviews")
         return values.map { element ->
             val obj = element.jsonObject
             requireAllowed(obj, setOf("kind", "role", "url", "checkedAt"), setOf("kind", "role", "checkedAt"))
@@ -211,6 +233,9 @@ object DatasetCodec {
     private fun JsonObject.string(key: String): String = this[key]?.jsonPrimitive?.contentOrNull ?: error("Missing string: $key")
     private fun JsonObject.nullableString(key: String): String? = this[key].let { if (it == null || it is JsonNull) null else it.jsonPrimitive.contentOrNull }
     private fun JsonObject.int(key: String): Int = this[key]?.jsonPrimitive?.intOrNull ?: error("Missing integer: $key")
+    private fun JsonObject.nullableInt(key: String): Int? = this[key].let { if (it == null || it is JsonNull) null else it.jsonPrimitive.intOrNull ?: error("Not an integer: $key") }
+    private fun JsonObject.nullableDouble(key: String): Double? = this[key].let { if (it == null || it is JsonNull) null else it.jsonPrimitive.doubleOrNull ?: error("Not a number: $key") }
+    private fun JsonObject.nullableBoolean(key: String): Boolean? = this[key].let { if (it == null || it is JsonNull) null else it.jsonPrimitive.booleanOrNull ?: error("Not a boolean: $key") }
     private fun JsonObject.double(key: String): Double = this[key]?.jsonPrimitive?.doubleOrNull ?: error("Missing number: $key")
     private fun JsonObject.objectValue(key: String): JsonObject = this[key]?.jsonObject ?: error("Missing object: $key")
     private fun JsonObject.array(key: String): JsonArray = this[key]?.jsonArray ?: error("Missing array: $key")

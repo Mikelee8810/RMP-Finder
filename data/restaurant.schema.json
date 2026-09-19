@@ -140,6 +140,70 @@
         "sunday": { "$ref": "#/$defs/dayPeriods" }
       }
     },
+    "googlePlaceId": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    },
+    "rating": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 5
+    },
+    "ratingCount": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "priceLevel": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1,
+      "maximum": 4
+    },
+    "takeout": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "dineIn": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "reviews": {
+      "type": "array",
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["author", "rating", "text", "when"],
+        "properties": {
+          "author": { "type": "string", "minLength": 1 },
+          "rating": { "type": "integer", "minimum": 1, "maximum": 5 },
+          "text": { "type": "string", "minLength": 1 },
+          "when": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "googleCheckedAt": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date"
+    },
     "rmpVerifiedAt": {
       "type": "string",
       "format": "date"
@@ -183,7 +247,7 @@
           },
           "role": {
             "type": "string",
-            "enum": ["rmp_eligibility", "business_status", "hours", "phone", "website", "address", "coordinates", "image"]
+            "enum": ["rmp_eligibility", "business_status", "hours", "phone", "website", "address", "coordinates", "image", "rating", "reviews"]
           },
           "url": {
             "type": [

@@ -44,6 +44,14 @@ data class RmpSource(
     val checkedAt: String,
 )
 
+/** One public review, frozen into the dataset at build time. */
+data class RmpReview(
+    val author: String,
+    val rating: Int,
+    val text: String,
+    val when_: String,
+)
+
 data class RmpRestaurant(
     val rmpKey: String,
     val officialName: String,
@@ -62,6 +70,16 @@ data class RmpRestaurant(
     val businessStatus: String,
     val hoursStatus: String,
     val hours: WeeklyHours?,
+    val googlePlaceId: String?,
+    val rating: Double?,
+    val ratingCount: Int?,
+    /** 1–4, shown as $ to $$$$; null when Google does not publish one. */
+    val priceLevel: Int?,
+    val takeout: Boolean?,
+    val dineIn: Boolean?,
+    /** Up to five reviews, frozen at the last refresh. The app never fetches its own. */
+    val reviews: List<RmpReview>,
+    val googleCheckedAt: String?,
     val rmpVerifiedAt: String,
     val businessCheckedAt: String?,
     val conflictFlags: List<String>,
