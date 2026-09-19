@@ -109,22 +109,43 @@ def google_request(url: str, key: str, fields: str, body: dict | None = None) ->
         raise RuntimeError(f"Places {url} -> {e.code}: {e.read().decode()[:400]}") from e
 
 
-def lookup(place_id: str | None, name: str, address: str, key: str) -> dict | None:
-    """One place, by ID where we have one (cheaper and exact), else by search."""
+def lookup(place_id: str | None, name: str, address: str, zip_code: str | None, key: str) -> dict | None:
+    """One place, by ID where we have one (cheaper and exact), else by search.
+
+    A stored Place ID is an identity, so it is trusted. A text search is a
+    guess: Google answers with its best match whether or not that match is the
+    right restaurant, and the wrong one would be written into Notion as fact.
+    So a searched result has to land in the ZIP we were looking in, or it is
+    reported as unmatched and the row is left exactly as it was.
+    """
     if place_id:
         return google_request(PLACES_DETAILS + urllib.parse.quote(place_id), key, DETAIL_FIELDS)
     body = {"textQuery": f"{name} {address}", "maxResultCount": 1}
     found = google_request(PLACES_SEARCH, key, SEARCH_FIELDS, body).get("places") or []
-    return found[0] if found else None
+    if not found:
+        return None
+    candidate = found[0]
+    if zip_code and zip_code not in (candidate.get("formattedAddress") or ""):
+        return None
+    return candidate
+
+
+WEEK_MINUTES = 7 * 24 * 60
 
 
 def hours_text(place: dict) -> str | None:
     """Google's opening periods as the semicolon format parse_hours reads.
 
+    A period is a span between two points in the week, not a statement about
+    one day. A Friday-and-Saturday 24-hour McDonald's arrives as a single
+    period opening Thursday 7am and closing Sunday midnight, so reading only
+    each period's opening day reports Friday and Saturday closed -- confident,
+    wrong, and exactly the sort of thing someone would walk across a borough
+    on. So paint the minutes each period actually covers onto the week, then
+    read each day's spans back off that.
+
     Returns None rather than a partial string when the week cannot be stated
-    unambiguously, because a half-written Hours cell is worse than an empty
-    one: the app would show confident wrong hours to someone deciding whether
-    to walk there.
+    unambiguously: a blank Hours cell is honest, a half-written one is not.
     """
     hours = place.get("regularOpeningHours")
     if not hours:
@@ -137,28 +158,75 @@ def hours_text(place: dict) -> str | None:
     if len(periods) == 1 and "close" not in periods[0]:
         return "Open 24 hours daily"
 
-    by_day: dict[int, list[str]] = {d: [] for d in range(7)}
+    covered = bytearray(WEEK_MINUTES)
     for period in periods:
         start, end = period.get("open"), period.get("close")
         if not start or not end:
             return None  # an unpaired period means we cannot state the week
-        day = start.get("day")
-        if day is None:
+        try:
+            begin = minute_of_week(start)
+            finish = minute_of_week(end)
+        except (TypeError, ValueError):
             return None
-        by_day[day].append(f"{clock(start)}-{clock(end)}")
+        # A close at or before the open wraps past the end of the week.
+        length = (finish - begin) % WEEK_MINUTES or WEEK_MINUTES
+        for offset in range(length):
+            covered[(begin + offset) % WEEK_MINUTES] = 1
+
+    if not any(covered):
+        return None
+    if all(covered):
+        return "Open 24 hours daily"
 
     segments = []
     for day in WRITE_ORDER:
-        spans = by_day[day]
+        spans = day_spans(covered, day)
         if not spans:
             segments.append(f"{DAY_NAMES[day]} closed")
-        elif len(spans) == 1:
-            segments.append(f"{DAY_NAMES[day]} {spans[0]}")
-        else:
-            # parse_hours takes one span per day segment; a split day (lunch
-            # and dinner) needs its own segment per span.
-            segments.extend(f"{DAY_NAMES[day]} {span}" for span in spans)
+            continue
+        if len(spans) == 1 and spans[0] == (0, 1440):
+            segments.append(f"{DAY_NAMES[day]} open 24 hours")
+            continue
+        # parse_hours takes one span per day segment, so a split day (lunch
+        # and dinner) gets a segment per span.
+        for begin, finish in spans:
+            # "12:00 AM" as a close reads as the start of the day and makes the
+            # parser roll the span into the next day, leaving an empty
+            # midnight-to-midnight slot behind. "midnight" closes the day.
+            close = "midnight" if finish == 1440 else hhmm(finish)
+            segments.append(f"{DAY_NAMES[day]} {hhmm(begin)}-{close}")
     return "; ".join(segments)
+
+
+def minute_of_week(point: dict) -> int:
+    day, hour, minute = point["day"], point.get("hour", 0), point.get("minute", 0)
+    if not 0 <= day <= 6 or not 0 <= hour <= 24 or not 0 <= minute <= 59:
+        raise ValueError(f"Out-of-range time point: {point}")
+    return (day * 24 * 60 + hour * 60 + minute) % WEEK_MINUTES
+
+
+def day_spans(covered: bytearray, day: int) -> list[tuple[int, int]]:
+    """The open spans inside one day, as minutes from that day's midnight."""
+    base = day * 24 * 60
+    spans: list[tuple[int, int]] = []
+    begin = None
+    for minute in range(1440):
+        if covered[base + minute]:
+            if begin is None:
+                begin = minute
+        elif begin is not None:
+            spans.append((begin, minute))
+            begin = None
+    if begin is not None:
+        spans.append((begin, 1440))
+    return spans
+
+
+def hhmm(minutes: int) -> str:
+    """Minutes past midnight as "7:00 AM"; 1440 is written as midnight."""
+    hour, minute = divmod(minutes % 1440, 60)
+    suffix = "AM" if hour < 12 else "PM"
+    return f"{hour % 12 or 12}:{minute:02d} {suffix}"
 
 
 def clock(point: dict) -> str:
@@ -295,7 +363,7 @@ def main() -> int:
             skipped += 1
         else:
             try:
-                place = lookup(place_id, name, address, key)
+                place = lookup(place_id, name, address, prop_text(props, "ZIP"), key)
             except RuntimeError as err:
                 print(f"  ! {rmp_key}: {err}", file=sys.stderr)
                 continue
