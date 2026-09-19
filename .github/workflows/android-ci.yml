@@ -34,6 +34,9 @@ jobs:
           python3 -m pip install --quiet --upgrade jsonschema
           python3 tools/verify_data.py
 
+      - name: Python service-fact tests
+        run: python3 -m unittest discover -s tools/tests -p 'test_*.py'
+
       - name: Check bundled logo assets against the quality gate
         run: |
           # requests comes in because the gate is imported from the curator, so the
