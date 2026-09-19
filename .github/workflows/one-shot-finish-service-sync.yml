@@ -1,0 +1,82 @@
+name: One-shot finish service facts sync
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/one-shot-finish-service-sync.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: one-shot-finish-service-sync
+  cancel-in-progress: false
+
+jobs:
+  finish:
+    name: Fix gates, sync, verify, clean helpers
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: python3 -m pip install --quiet --upgrade certifi pillow requests jsonschema
+
+      - name: Fix reviewed-coordinate precision and keep curated logo mappings stable
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          sync = Path('tools/sync_notion.py')
+          text = sync.read_text()
+          old = '"matchQuality": "manual", "precision": "reviewed",'
+          new = '"matchQuality": "manual", "precision": "unknown",'
+          if old not in text:
+              raise SystemExit('expected coordinate precision anchor not found')
+          sync.write_text(text.replace(old, new, 1))
+
+          logos = Path('tools/build_logo_map.py')
+          text = logos.read_text()
+          old = '''    generated = custom_mapping()\n    mapping: dict[str, str] = {}\n    missing: list[str] = []\n\n    for row in rows:\n        key = row["rmpKey"]\n        filename = generated.get(key)\n        if filename is None:\n            domain = domain_for(row.get("website"))\n'''
+          new = '''    generated = custom_mapping()\n    # restaurant-logo-map.json is curated and already passed the asset/evidence\n    # gate. Keep a verified mapping stable when an enrichment refresh changes a\n    # website URL; a new ordering or location URL must not make a known logo\n    # disappear. Custom evidence still wins, then the curated mapping, then a\n    # domain-derived mapping for genuinely new keys.\n    curated = json.loads(MAP.read_text()) if MAP.exists() else {}\n    mapping: dict[str, str] = {}\n    missing: list[str] = []\n\n    for row in rows:\n        key = row["rmpKey"]\n        filename = generated.get(key)\n        if filename is None:\n            existing = curated.get(key)\n            if existing in standard | custom:\n                filename = existing\n        if filename is None:\n            domain = domain_for(row.get("website"))\n'''
+          if old not in text:
+              raise SystemExit('expected logo mapping anchor not found')
+          logos.write_text(text.replace(old, new, 1))
+          PY
+
+      - name: Rebuild dataset from refreshed Notion data
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+        run: python3 tools/sync_notion.py
+
+      - name: Verify dataset, service facts, and logo coverage
+        run: |
+          python3 tools/verify_data.py
+          python3 -m unittest discover -s tools/tests -p 'test_*.py'
+          python3 tools/check_logo_coverage.py
+          python3 tools/check_logo_assets.py
+
+      - name: Remove temporary one-shot workflows
+        run: |
+          rm -f .github/workflows/one-shot-refresh-service-facts.yml
+          rm -f .github/workflows/one-shot-fix-coordinate-precision.yml
+          rm -f .github/workflows/one-shot-finish-service-sync.yml
+
+      - name: Commit permanent fixes and rebuilt dataset
+        run: |
+          git config user.name "rmp-finder-bot"
+          git config user.email "noreply@users.noreply.github.com"
+          git add -A tools/sync_notion.py tools/build_logo_map.py data/ app/src/main/assets/ .github/workflows/
+          if git diff --cached --quiet; then
+            echo "Nothing changed."
+            exit 0
+          fi
+          git commit -m "Finish refreshed service facts dataset"
+          git push
