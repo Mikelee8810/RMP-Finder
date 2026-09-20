@@ -1,0 +1,60 @@
+name: Normalize failing amenity PNGs
+
+on:
+  push:
+    branches: ['ui/amenities-phase-4']
+
+permissions:
+  contents: write
+
+jobs:
+  normalize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ui/amenities-phase-4
+          fetch-depth: 0
+
+      - name: Re-encode the three AAPT2-failing PNGs without changing pixels
+        run: |
+          python3 -m pip install --quiet --upgrade pillow
+          python3 - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+          import hashlib
+
+          names = [
+              'amenity_dine_in.png',
+              'amenity_accessible_restroom.png',
+              'amenity_accessible_seating.png',
+          ]
+          root = Path('app/src/main/res/drawable')
+          for name in names:
+              p = root / name
+              with Image.open(p) as im:
+                  im.load()
+                  before_mode = im.mode
+                  before_size = im.size
+                  rgba = im.convert('RGBA')
+                  pixels = rgba.tobytes()
+                  pixel_hash = hashlib.sha256(pixels).hexdigest()
+                  rgba.save(p, format='PNG', optimize=False, compress_level=6)
+              with Image.open(p) as check:
+                  check.load()
+                  after = check.convert('RGBA')
+                  assert check.size == before_size, (name, before_size, check.size)
+                  assert after.tobytes() == pixels, f'pixel mismatch after re-encode: {name}'
+                  print(f'{name}: {before_mode} {before_size} -> {check.mode} {check.size}; RGBA sha256={pixel_hash}')
+          PY
+
+      - name: Commit normalized resources and remove temporary workflow
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add app/src/main/res/drawable/amenity_dine_in.png \
+                  app/src/main/res/drawable/amenity_accessible_restroom.png \
+                  app/src/main/res/drawable/amenity_accessible_seating.png
+          git rm .github/workflows/normalize-amenity-pngs.yml
+          git commit -m "Normalize amenity PNGs for release AAPT2"
+          git push origin HEAD:ui/amenities-phase-4
