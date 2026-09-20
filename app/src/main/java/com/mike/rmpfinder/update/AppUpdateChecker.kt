@@ -25,6 +25,8 @@ sealed interface AppUpdateState {
     data class DownloadFailed(val available: Available) : AppUpdateState
 }
 
+internal data class ReleaseAsset(val name: String, val url: String)
+
 class AppUpdateChecker {
     suspend fun check(currentVersion: String = BuildConfig.VERSION_NAME): AppUpdateState = withContext(Dispatchers.IO) {
         try {
@@ -54,24 +56,39 @@ class AppUpdateChecker {
 
         internal fun evaluateRelease(currentVersion: String, release: JSONObject): AppUpdateState {
             val tag = release.getString("tag_name")
+            val releaseUrl = release.getString("html_url")
+            val assets = release.getJSONArray("assets")
+            val releaseAssets = buildList {
+                for (index in 0 until assets.length()) {
+                    val asset = assets.getJSONObject(index)
+                    add(ReleaseAsset(asset.getString("name"), asset.getString("browser_download_url")))
+                }
+            }
+            return evaluateRelease(currentVersion, tag, releaseUrl, releaseAssets)
+        }
+
+        internal fun evaluateRelease(
+            currentVersion: String,
+            tag: String,
+            releaseUrl: String,
+            assets: List<ReleaseAsset>,
+        ): AppUpdateState {
             val latestVersion = tag.removePrefix("v")
             if (compareVersions(latestVersion, currentVersion) <= 0) {
                 return AppUpdateState.Current(currentVersion)
             }
 
-            val releaseUrl = release.getString("html_url")
-            val assets = release.getJSONArray("assets")
             var apkUrl: String? = null
-            for (index in 0 until assets.length()) {
-                val asset = assets.getJSONObject(index)
-                if (asset.getString("name").endsWith(".apk", ignoreCase = true)) {
-                    apkUrl = asset.getString("browser_download_url")
+            for (asset in assets) {
+                if (asset.name.endsWith(".apk", ignoreCase = true)) {
+                    apkUrl = asset.url
                     break
                 }
             }
+            if (apkUrl == null) return AppUpdateState.Failed
             return AppUpdateState.Available(
                 version = latestVersion,
-                downloadUrl = apkUrl ?: releaseUrl,
+                downloadUrl = apkUrl,
                 releaseUrl = releaseUrl,
             )
         }

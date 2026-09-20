@@ -29,10 +29,11 @@ jobs:
 
       - uses: gradle/actions/setup-gradle@v4
 
-      - name: Verify the 241-record dataset gate
+      - name: Verify the current dataset gate
         run: |
           python3 -m pip install --quiet --upgrade jsonschema
           python3 tools/verify_data.py
+          python3 tools/audit_service_facts.py
 
       - name: Python service-fact tests
         run: python3 -m unittest discover -s tools/tests -p 'test_*.py'

@@ -232,9 +232,6 @@ private enum class MainTab { HOME, MAP, SAVED, INFO }
 fun RmpFinderRoot(
     viewModel: MainViewModel,
     mapView: MapView,
-    locationGranted: Boolean,
-    onRequestLocation: () -> Unit,
-    onOpenLocationSettings: () -> Unit,
     darkMode: Boolean = false,
     onToggleDarkMode: () -> Unit = {},
     initialKey: String? = null,
@@ -248,15 +245,6 @@ fun RmpFinderRoot(
 
     BackHandler(enabled = selected != null || tab != MainTab.HOME) {
         if (selected != null) selectedKey = null else tab = MainTab.HOME
-    }
-
-    // The prompt is about permission, not about a fix having landed yet: once
-    // location is granted the app opens straight to Home (sorted by borough
-    // until GPS answers, same as with no location at all) instead of
-    // re-showing "Turn on location" on every cold start while GPS warms up.
-    if (!locationGranted) {
-        LocationRequiredScreen(onRequestLocation, onOpenLocationSettings)
-        return
     }
 
     if (selected != null) {
@@ -351,46 +339,6 @@ private fun RowScope.NavItem(selected: Boolean, activeIcon: ImageVector, idleIco
         )
         AnimatedVisibility(visible = selected) {
             Text(label, style = MaterialTheme.typography.labelLarge, color = tint, modifier = Modifier.padding(start = 6.dp))
-        }
-    }
-}
-
-// ---------------------------------------------------------------------------
-// First run: location
-// ---------------------------------------------------------------------------
-
-@Composable
-private fun LocationRequiredScreen(onRequestLocation: () -> Unit, onOpenLocationSettings: () -> Unit) {
-    Surface(Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.primary) {
-        Column(
-            Modifier.fillMaxSize().statusBarsPadding().navigationBarsPadding().padding(horizontal = 28.dp, vertical = 28.dp),
-            verticalArrangement = Arrangement.SpaceBetween,
-        ) {
-            Text("RMP Finder", style = MaterialTheme.typography.titleLarge, color = Color.White)
-            Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                Icon(Icons.Default.LocationOn, contentDescription = null, modifier = Modifier.size(64.dp), tint = Color.White)
-                Text("Food near you,\n10% off.", style = MaterialTheme.typography.displayLarge, color = Color.White)
-                Text(
-                    "240 restaurants on the NY Restaurant Meals Program. Turn on location to sort them by distance. It never leaves your phone.",
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = Color.White.copy(alpha = 0.85f),
-                )
-            }
-            Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                Button(
-                    onClick = onRequestLocation,
-                    modifier = Modifier.fillMaxWidth().height(54.dp),
-                    shape = RoundedCornerShape(50),
-                    colors = ButtonDefaults.buttonColors(containerColor = Color.White, contentColor = MaterialTheme.colorScheme.primary),
-                ) { Text("Turn on location", style = MaterialTheme.typography.labelLarge) }
-                Text(
-                    "Open app settings",
-                    style = MaterialTheme.typography.labelLarge,
-                    color = Color.White,
-                    modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(50)).clickable(role = Role.Button, onClick = onOpenLocationSettings).padding(14.dp),
-                    textAlign = TextAlign.Center,
-                )
-            }
         }
     }
 }
@@ -1024,8 +972,20 @@ private fun MapScreen(
         sheetContent = {
             Column(Modifier.fillMaxWidth().fillMaxHeight(0.62f)) {
                 Row(Modifier.padding(horizontal = 20.dp, vertical = 6.dp), verticalAlignment = Alignment.CenterVertically) {
-                    Text(if (filtersActive) "Matching places" else "Closest to you", style = MaterialTheme.typography.headlineSmall, modifier = Modifier.weight(1f))
-                    Text("${nearby.size} ${if (filtersActive) "shown" else "nearby"}", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Text(
+                        when {
+                            filtersActive -> "Matching places"
+                            state.origin != null -> "Closest to you"
+                            else -> "Nearby list · Bronx-first"
+                        },
+                        style = MaterialTheme.typography.headlineSmall,
+                        modifier = Modifier.weight(1f),
+                    )
+                    Text(
+                        "${nearby.size} ${if (filtersActive || state.origin == null) "shown" else "nearby"}",
+                        style = MaterialTheme.typography.labelLarge,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
                 }
                 LazyColumn(contentPadding = PaddingValues(start = 20.dp, end = 20.dp, bottom = 120.dp)) {
                     if (nearby.isEmpty()) {

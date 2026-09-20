@@ -43,7 +43,7 @@ def main() -> int:
         if missing or ambiguous:
             raise ValueError(f"APK logo resolution failure; missing={missing}, ambiguous={ambiguous}")
 
-    print(f"APK logo gate PASS: {len(source_mapping)}/241 mapped RMP records have bundled assets in {args.apk.name}")
+    print(f"APK logo gate PASS: all {len(source_mapping)} mapped RMP records have bundled assets in {args.apk.name}")
     return 0
 
 

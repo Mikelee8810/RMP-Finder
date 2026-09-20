@@ -33,7 +33,7 @@ class AppAcceptanceTest {
             ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION),
         )
         waitForDirectory()
-        composeRule.onNodeWithText("241 of 241 RMP locations").assertIsDisplayed()
+        composeRule.onNodeWithText("240 of 240 RMP locations").assertIsDisplayed()
         composeRule.onNodeWithText("Map").performClick()
         composeRule.onNodeWithText("Nearby list · Bronx-first").assertIsDisplayed()
         composeRule.onNodeWithText("The restaurant list still works offline.").assertIsDisplayed()
@@ -113,7 +113,7 @@ class AppAcceptanceTest {
 
     private fun waitForDirectory() {
         composeRule.waitUntil(15_000) {
-            composeRule.onAllNodesWithText("241 of 241 RMP locations").fetchSemanticsNodes().isNotEmpty()
+            composeRule.onAllNodesWithText("240 of 240 RMP locations").fetchSemanticsNodes().isNotEmpty()
         }
     }
 }

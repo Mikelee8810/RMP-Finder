@@ -33,19 +33,19 @@ class OfflineFirstLaunchAcceptanceTest {
         val airplaneMode = Settings.Global.getInt(context.contentResolver, Settings.Global.AIRPLANE_MODE_ON, 0)
         assumeTrue("Run this acceptance test with airplane mode enabled", airplaneMode == 1)
 
-        waitForText("241 of 241 RMP locations")
+        waitForText("240 of 240 RMP locations")
 
         val search = composeRule.onNode(hasSetTextAction())
         search.performTextInput("2370 Grand Concourse")
         waitForText("Dunkin Donuts")
         composeRule.onNodeWithText("Dunkin Donuts").assertIsDisplayed()
         search.performTextClearance()
-        waitForText("241 of 241 RMP locations")
+        waitForText("240 of 240 RMP locations")
 
         composeRule.onNodeWithText("Bronx").performClick().assertIsSelected()
-        waitForText("38 of 241 RMP locations")
+        waitForText("38 of 240 RMP locations")
         composeRule.onNodeWithText("All").performClick().assertIsSelected()
-        waitForText("241 of 241 RMP locations")
+        waitForText("240 of 240 RMP locations")
 
         val openNowChip = composeRule.onNode(
             hasText("Open now") and SemanticsMatcher.expectValue(SemanticsProperties.Role, Role.Checkbox),
@@ -55,7 +55,7 @@ class OfflineFirstLaunchAcceptanceTest {
 
         composeRule.onNodeWithText("Status notes").performClick().assertIsSelected()
         composeRule.waitUntil(5_000) {
-            composeRule.onAllNodesWithText("241 of 241 RMP locations").fetchSemanticsNodes().isEmpty()
+            composeRule.onAllNodesWithText("240 of 240 RMP locations").fetchSemanticsNodes().isEmpty()
         }
         check(composeRule.onAllNodesWithText("⚠ Check details before traveling").fetchSemanticsNodes().isEmpty())
         composeRule.onNodeWithText("Status notes").performClick()
@@ -66,10 +66,10 @@ class OfflineFirstLaunchAcceptanceTest {
         composeRule.onNodeWithContentDescription("Favorite").performClick()
         composeRule.onNodeWithContentDescription("Back").performClick()
         search.performTextClearance()
-        waitForText("241 of 241 RMP locations")
+        waitForText("240 of 240 RMP locations")
 
         composeRule.onNodeWithText("Favorites").performClick().assertIsSelected()
-        waitForText("1 of 241 RMP locations")
+        waitForText("1 of 240 RMP locations")
         composeRule.onNodeWithText("A Daughter and Two Sons").assertIsDisplayed()
     }
 

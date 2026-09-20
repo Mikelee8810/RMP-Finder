@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify deterministic bundled-logo coverage for all 241 RMP records."""
+"""Verify deterministic bundled-logo coverage for the complete RMP dataset."""
 
 from __future__ import annotations
 
@@ -21,7 +21,7 @@ CUSTOM_EVIDENCE = (
     ROOT / "data" / "source" / "generated-custom-logo-evidence-2026-09-11.json",
     ROOT / "data" / "source" / "generated-website-custom-logo-evidence-2026-09-11.json",
 )
-EXPECTED_RECORDS = 241
+EXPECTED_RECORDS = 240
 
 
 def load_map() -> dict[str, str]:

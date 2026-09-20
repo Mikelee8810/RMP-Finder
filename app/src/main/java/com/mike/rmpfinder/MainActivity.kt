@@ -3,9 +3,7 @@ package com.mike.rmpfinder
 import android.Manifest
 import android.content.pm.PackageManager
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.provider.Settings
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -73,14 +71,11 @@ class MainActivity : ComponentActivity() {
                     viewModel = viewModel,
                     initialKey = openKey,
                     mapView = mapView,
-                    locationGranted = locationGranted,
                     darkMode = darkMode,
                     onToggleDarkMode = {
                         darkMode = !darkMode
                         prefs.edit().putBoolean(PREF_DARK_MODE, darkMode).apply()
                     },
-                    onRequestLocation = ::requestLocation,
-                    onOpenLocationSettings = ::openLocationSettings,
                 )
             }
         }
@@ -112,10 +107,6 @@ class MainActivity : ComponentActivity() {
             .addOnSuccessListener { location ->
                 location?.let { viewModel.setUserLocation(it.latitude, it.longitude) }
             }
-    }
-
-    private fun openLocationSettings() {
-        startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:$packageName")))
     }
 
     override fun onStart() { super.onStart(); mapView.onStart() }

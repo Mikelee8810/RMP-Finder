@@ -95,4 +95,4 @@ if [ -n "$CRASH" ]; then
 fi
 echo "none"
 
-printf '\nInstalled and launched successfully. Check by hand: the list shows 241 of 241 RMP locations, a detail screen shows its logo or fallback tile, Transit and Walk open Google Maps, and the "Where this comes from" section lists sources.\n'
+printf '\nInstalled and launched successfully. Check by hand: the list shows the manifest record count, a detail screen shows its logo or fallback tile, Transit and Walk open Google Maps, and the "Where this comes from" section lists sources.\n'

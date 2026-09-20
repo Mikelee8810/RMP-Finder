@@ -17,7 +17,7 @@ RMP Finder is built around a curated, versioned static directory rather than OTD
 
 ## Current directory readiness
 
-- 241 restaurants loaded
+- 240 restaurants loaded from the current official roster
 - 0 duplicate RMP keys
 - 0 missing addresses or ZIPs
 - 0 missing RMP verification dates
@@ -31,7 +31,7 @@ The incomplete fields are represented as explicit unknown or conflict states. Th
 
 ## Repository status
 
-The pre-build data gate and Android v1 acceptance gate are complete. The repository contains the validated 241-location export, manifest, source snapshot, geocoding evidence/review, schemas, generation script, verification script, Android app source, and acceptance tests.
+The pre-build data gate and Android acceptance gate are complete. The repository contains the validated current-roster export, manifest, source snapshot, geocoding evidence/review, schemas, generation script, verification script, Android app source, and acceptance tests.
 
 Run `python3 tools/build_data.py` followed by `python3 tools/verify_data.py` to regenerate and verify the static dataset.
 

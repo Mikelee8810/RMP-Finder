@@ -287,6 +287,19 @@
     "websiteUrl": "https://eveliastamales.com/",
     "width": 268
   },
+  "fatimas-grill.com": {
+    "assetFile": "fatimas-grill.com.png",
+    "checkedAt": "2026-09-20",
+    "credit": "Official Fatima's Grill favicon published on fatimas-grill.com; nearest-neighbor enlarged for Android display",
+    "format": "png",
+    "height": 512,
+    "imageSourceUrl": "https://www.fatimas-grill.com/images/6751da22d9c9ddb67d82a7f5_favicon__2__201.png",
+    "license": null,
+    "resolvedWebsiteUrl": "https://www.fatimas-grill.com/",
+    "sha256": "a938ff80c2e115f7571d33b0bd86d10194ad72e104f6199c592160c76b8129d2",
+    "websiteUrl": "https://www.fatimas-grill.com/",
+    "width": 512
+  },
   "fixuplate.com": {
     "assetFile": null,
     "checkedAt": "2026-09-10",

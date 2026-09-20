@@ -21,7 +21,7 @@ class RepositoryAcceptanceTest {
         try {
             val repository = RmpRepository(database, context.assets)
             repository.ensureBundledData()
-            assertEquals(241, database.dao().restaurantCount())
+            assertEquals(240, database.dao().restaurantCount())
             val beforeKeys = database.dao().restaurantKeys().toSet()
             val manifest = context.assets.open("manifest.json").use { it.readBytes() }
             val corrupted = context.assets.open("restaurants.json").use { it.readBytes() } + byteArrayOf('\n'.code.toByte())
@@ -29,7 +29,7 @@ class RepositoryAcceptanceTest {
             val failure = runCatching { repository.installDownloadedUpdate(manifest, corrupted) }.exceptionOrNull()
 
             assertTrue(failure?.message?.contains("checksum") == true)
-            assertEquals(241, database.dao().restaurantCount())
+            assertEquals(240, database.dao().restaurantCount())
             assertEquals(beforeKeys, database.dao().restaurantKeys().toSet())
         } finally {
             database.close()
@@ -48,7 +48,7 @@ class RepositoryAcceptanceTest {
 
             repository.ensureBundledData()
 
-            assertEquals(241, database.dao().restaurantCount())
+            assertEquals(240, database.dao().restaurantCount())
             assertEquals("2", database.dao().metadataValue(RmpRepository.KEY_DATASET_VERSION))
             assertTrue(savedKey in database.dao().observeFavoriteKeys().first())
         } finally {
