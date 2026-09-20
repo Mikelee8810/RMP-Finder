@@ -1,5 +1,6 @@
 package com.mike.rmpfinder.data
 
+import com.mike.rmpfinder.BuildConfig
 import com.mike.rmpfinder.BrowseFilters
 import com.mike.rmpfinder.GeoPoint
 import com.mike.rmpfinder.filterRestaurants
@@ -18,7 +19,7 @@ class DatasetAcceptanceTest {
 
     @Test
     fun bundledDatasetPassesRuntimeGate() {
-        val validated = DatasetValidator.validate(manifestBytes, datasetBytes, appVersion = 1)
+        val validated = DatasetValidator.validate(manifestBytes, datasetBytes, appVersion = BuildConfig.VERSION_CODE)
         assertEquals(241, validated.restaurants.size)
         assertEquals(241, validated.restaurants.map { it.rmpKey }.toSet().size)
         assertEquals(241, validated.manifest.recordCount)
@@ -28,7 +29,7 @@ class DatasetAcceptanceTest {
     @Test
     fun checksumMismatchIsRejectedBeforeImport() {
         val corrupted = datasetBytes + byteArrayOf('\n'.code.toByte())
-        val error = runCatching { DatasetValidator.validate(manifestBytes, corrupted, appVersion = 1) }.exceptionOrNull()
+        val error = runCatching { DatasetValidator.validate(manifestBytes, corrupted, appVersion = BuildConfig.VERSION_CODE) }.exceptionOrNull()
         assertTrue(error?.message?.contains("checksum") == true)
     }
 
@@ -36,7 +37,7 @@ class DatasetAcceptanceTest {
     fun recordCountMismatchIsRejected() {
         val original = manifestBytes.decodeToString()
         val wrongManifest = original.replace("\"recordCount\": 241", "\"recordCount\": 240").encodeToByteArray()
-        val error = runCatching { DatasetValidator.validate(wrongManifest, datasetBytes, appVersion = 1) }.exceptionOrNull()
+        val error = runCatching { DatasetValidator.validate(wrongManifest, datasetBytes, appVersion = BuildConfig.VERSION_CODE) }.exceptionOrNull()
         assertTrue(error?.message?.contains("record count") == true)
     }
 
@@ -71,7 +72,7 @@ class DatasetAcceptanceTest {
     fun disappearedExistingKeyIsHeldForReview() {
         val allKeys = restaurants.map { it.rmpKey }.toSet()
         val syntheticOldKey = "bronx|removed test location|1 test street|10451"
-        val validated = DatasetValidator.validate(manifestBytes, datasetBytes, appVersion = 1, existingKeys = allKeys + syntheticOldKey)
+        val validated = DatasetValidator.validate(manifestBytes, datasetBytes, appVersion = BuildConfig.VERSION_CODE, existingKeys = allKeys + syntheticOldKey)
         assertEquals(listOf(syntheticOldKey), validated.missingExistingKeys)
     }
 
