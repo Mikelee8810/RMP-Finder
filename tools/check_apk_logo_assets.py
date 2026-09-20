@@ -19,7 +19,10 @@ def main() -> int:
     parser.add_argument("apk", type=Path)
     args = parser.parse_args()
 
-    source_mapping = json.loads(SOURCE_MAP.read_text())
+    # JSON assets are UTF-8.  Relying on the Windows process locale corrupts
+    # accented restaurant names during comparison (for example, "café") and
+    # produces a false packaging failure even when the APK bytes are exact.
+    source_mapping = json.loads(SOURCE_MAP.read_text(encoding="utf-8"))
     with zipfile.ZipFile(args.apk) as archive:
         names = set(archive.namelist())
         if APK_MAP_ENTRY not in names:
