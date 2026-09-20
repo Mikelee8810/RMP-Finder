@@ -133,18 +133,50 @@ def lookup(place_id: str | None, name: str, address: str, zip_code: str | None, 
 
 
 def address_matches(requested: str, zip_code: str | None, candidate: str | None) -> bool:
-    """Require the same NYC house number and ZIP before trusting a listing."""
+    """Require the same house number and street before trusting a listing.
+
+    Google occasionally assigns the wrong adjacent ZIP to a correct NYC street
+    address. A ZIP match is useful corroboration, but never a substitute for a
+    street match and never grounds to reject an otherwise exact address.
+    """
     if not candidate:
         return False
-    if zip_code and not re.search(rf"\b{re.escape(zip_code)}(?:-\d{{4}})?\b", candidate):
-        return False
-    requested_number = re.search(r"\b\d+(?:-\d+)?\b", requested)
-    candidate_number = re.search(r"\b\d+(?:-\d+)?\b", candidate)
+    requested_number = re.search(r"\b\d+(?:-\d+)?[a-z]?\b", requested, re.I)
+    candidate_number = re.search(r"\b\d+(?:-\d+)?[a-z]?\b", candidate, re.I)
     if not requested_number or not candidate_number:
         return False
     # Google may render the same Queens address as either 6259 or 62-59.
-    normalize = lambda value: value.replace("-", "").lstrip("0")
-    return normalize(requested_number.group()) == normalize(candidate_number.group())
+    def number_matches(left: str, right: str) -> bool:
+        digits = lambda value: int(re.match(r"\d+", value).group())
+        compact = lambda value: re.sub(r"\D", "", value)
+        if compact(left) == compact(right):
+            return True
+        right_value = digits(right.replace("-", ""))
+        if "-" in left:
+            start, end = (int(part) for part in left.lower().rstrip("abcdefghijklmnopqrstuvwxyz").split("-"))
+            return start < end and start <= right_value <= end
+        return digits(left.replace("-", "")) == right_value
+
+    if not number_matches(requested_number.group(), candidate_number.group()):
+        return False
+
+    suffixes = {"avenue", "ave", "av", "road", "rd", "street", "st", "boulevard", "blvd", "parkway", "pkwy", "drive", "dr", "place", "pl", "turnpike", "tpke"}
+    aliases = {"ft": "fort", "third": "3rd", "first": "1st", "seventh": "7th", "fashion": "7th", "delancy": "delancey"}
+    def street_tokens(value: str, number: re.Match) -> list[str]:
+        line = value[number.end():].split(",", 1)[0]
+        words = re.findall(r"[a-z0-9]+", line.lower())
+        if words and words[-1] in suffixes:
+            words.pop()
+        return [aliases.get(word, word) for word in words]
+
+    requested_street = street_tokens(requested, requested_number)
+    candidate_street = street_tokens(candidate, candidate_number)
+    if not requested_street or not candidate_street:
+        return False
+    return any(
+        left == right or (len(left) >= 5 and len(right) >= 5 and __import__("difflib").SequenceMatcher(None, left, right).ratio() >= .8)
+        for left in requested_street for right in candidate_street
+    )
 
 
 WEEK_MINUTES = 7 * 24 * 60

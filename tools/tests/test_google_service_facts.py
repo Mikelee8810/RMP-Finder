@@ -16,7 +16,7 @@ UNKNOWN = {"type": "select", "select": {"name": "Unknown"}}
 
 
 class GoogleServiceFactsTest(unittest.TestCase):
-    def test_address_match_requires_house_number_and_zip(self):
+    def test_address_match_requires_house_number_and_street(self):
         self.assertTrue(backfill_google.address_matches(
             "162-02 Jamaica Avenue Jamaica NY 11432", "11432",
             "162-02 Jamaica Ave, Jamaica, NY 11432, USA",
@@ -29,9 +29,25 @@ class GoogleServiceFactsTest(unittest.TestCase):
             "162-02 Jamaica Avenue Jamaica NY 11432", "11432",
             "164-17 Jamaica Ave, Jamaica, NY 11432, USA",
         ))
-        self.assertFalse(backfill_google.address_matches(
+        self.assertTrue(backfill_google.address_matches(
             "6259 Fresh Pond Road Queens NY 11365", "11365",
             "62-59 Fresh Pond Rd, Ridgewood, NY 11385, USA",
+        ))
+        self.assertFalse(backfill_google.address_matches(
+            "6259 Fresh Pond Road Queens NY 11385", "11385",
+            "62-59 Metropolitan Ave, Ridgewood, NY 11385, USA",
+        ))
+        self.assertTrue(backfill_google.address_matches(
+            "4 East Gun Hill Road Bronx NY 10467", "10467",
+            "4 E Gun Hill Rd, Bronx, NY 10469, USA",
+        ))
+        self.assertTrue(backfill_google.address_matches(
+            "1397 Rockaway Parkway Brooklyn NY 11236", "11236",
+            "THE JERRY BUILDING, 1397 Rockaway Pkwy, Brooklyn, NY 11236, USA",
+        ))
+        self.assertTrue(backfill_google.address_matches(
+            "907-911 South Street Peekskill NY 10566", "10566",
+            "907-911 South St, Peekskill, NY 10566, USA",
         ))
 
     @patch("backfill_google.google_request")

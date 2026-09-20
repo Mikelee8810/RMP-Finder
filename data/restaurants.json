@@ -7661,104 +7661,31 @@
     "menuUrl": null,
     "imageUrl": null,
     "imageAttribution": null,
-    "businessStatus": "likely_open",
-    "hoursStatus": "usable",
-    "hours": {
-      "timezone": "America/New_York",
-      "monday": [
-        {
-          "open": "10:30",
-          "close": "23:00"
-        }
-      ],
-      "tuesday": [
-        {
-          "open": "10:30",
-          "close": "23:00"
-        }
-      ],
-      "wednesday": [
-        {
-          "open": "10:30",
-          "close": "23:00"
-        }
-      ],
-      "thursday": [
-        {
-          "open": "10:30",
-          "close": "23:00"
-        }
-      ],
-      "friday": [
-        {
-          "open": "10:30",
-          "close": "23:00"
-        }
-      ],
-      "saturday": [
-        {
-          "open": "10:30",
-          "close": "23:00"
-        }
-      ],
-      "sunday": [
-        {
-          "open": "10:30",
-          "close": "23:00"
-        }
-      ]
-    },
-    "googlePlaceId": "ChIJ_2aukWBFwokRcU9QK4L3cSM",
-    "rating": 3.7,
-    "ratingCount": 791,
-    "priceLevel": 1,
-    "takeout": true,
-    "dineIn": true,
-    "wheelchairAccessibleEntrance": true,
-    "wheelchairAccessibleRestroom": true,
-    "wheelchairAccessibleSeating": true,
-    "wheelchairAccessibleParking": false,
-    "hasParking": true,
-    "restroom": true,
+    "businessStatus": "unknown",
+    "hoursStatus": "unknown",
+    "hours": null,
+    "googlePlaceId": null,
+    "rating": null,
+    "ratingCount": null,
+    "priceLevel": null,
+    "takeout": null,
+    "dineIn": null,
+    "wheelchairAccessibleEntrance": null,
+    "wheelchairAccessibleRestroom": null,
+    "wheelchairAccessibleSeating": null,
+    "wheelchairAccessibleParking": null,
+    "hasParking": null,
+    "restroom": null,
     "servesBreakfast": null,
-    "servesLunch": true,
-    "servesDinner": true,
-    "reviews": [
-      {
-        "author": "miriam",
-        "rating": 5,
-        "text": "came here a while ago for the One Piece meal, very good 👍",
-        "when": "2 months ago"
-      },
-      {
-        "author": "Nycgirl",
-        "rating": 5,
-        "text": "Me and my bf just tried the new one peice meal for 15.99 each and my lord I didn't expect to have a big smile on my face after this lol. You guys will see reviews on YouTube saying the cake taste like Pepto or just isn't great but don't listen to them they got to hate sweets because this tasted a little like strawberry but not overwhelming it's like really good I can't describe it in words. The…",
-        "when": "5 months ago"
-      },
-      {
-        "author": "Z Margj",
-        "rating": 1,
-        "text": "Ordered door dash today for myself and my coworker, ordered 2 meals, they charged me for 2 meals they brought 1. Tried calling them, no answer.  I sent the missing items via door-dash app. No refund, they didn’t bring the missing items either. Never ordering with them again. By the way only their french fries had taste, the biscuit too dry and too oily.",
-        "when": "4 months ago"
-      },
-      {
-        "author": "Mohsen Mohsen",
-        "rating": 1,
-        "text": "This store is absolutely disgusting. It always filthy no matter the time of day. I reluctantly ordered online because my son loves Popeyes and we needed a quick meal. When I arrived to pick up the order the cashier told me someone had taken my order already. That’s it, I had to leave or order again and dispute the charge with Popeyes corporate.",
-        "when": "4 years ago"
-      },
-      {
-        "author": "Erik Pinzon",
-        "rating": 5,
-        "text": "The Popeyes has ample amounts of space to relax and pass time with friends. The chicken is great, and im always looking forward to eating. Easy to use the kiosk to order! Very friendly security guard makes sure the place is safe and enjoyable.",
-        "when": "a year ago"
-      }
-    ],
-    "googleCheckedAt": "2026-09-19",
+    "servesLunch": null,
+    "servesDinner": null,
+    "reviews": [],
+    "googleCheckedAt": null,
     "rmpVerifiedAt": "2026-09-09",
-    "businessCheckedAt": "2026-09-19",
-    "conflictFlags": [],
+    "businessCheckedAt": null,
+    "conflictFlags": [
+      "address_mismatch"
+    ],
     "sources": [
       {
         "kind": "NYS OTDA Restaurant Meals Program",
@@ -24439,12 +24366,7 @@
       "state": "NY",
       "zip": "10033"
     },
-    "currentAddress": {
-      "line1": "1342 Saint Nicholas Avenue",
-      "city": "New York",
-      "state": "NY",
-      "zip": "10033"
-    },
+    "currentAddress": null,
     "borough": "Manhattan",
     "zip": "10033",
     "coordinates": {
@@ -24559,9 +24481,7 @@
     "googleCheckedAt": "2026-09-19",
     "rmpVerifiedAt": "2026-09-09",
     "businessCheckedAt": "2026-09-19",
-    "conflictFlags": [
-      "address_mismatch"
-    ],
+    "conflictFlags": [],
     "sources": [
       {
         "kind": "NYS OTDA Restaurant Meals Program",
@@ -38303,7 +38223,12 @@
       "state": "NY",
       "zip": "10566"
     },
-    "currentAddress": null,
+    "currentAddress": {
+      "line1": "907-911 South Street",
+      "city": "Peekskill",
+      "state": "NY",
+      "zip": "10566"
+    },
     "borough": "Westchester",
     "zip": "10566",
     "coordinates": {
