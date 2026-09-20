@@ -7,6 +7,7 @@ sys.path.insert(0, str(TOOLS))
 
 import backfill_google  # noqa: E402
 import sync_notion  # noqa: E402
+from unittest.mock import patch  # noqa: E402
 
 
 YES = {"type": "select", "select": {"name": "Yes"}}
@@ -15,6 +16,38 @@ UNKNOWN = {"type": "select", "select": {"name": "Unknown"}}
 
 
 class GoogleServiceFactsTest(unittest.TestCase):
+    def test_address_match_requires_house_number_and_zip(self):
+        self.assertTrue(backfill_google.address_matches(
+            "162-02 Jamaica Avenue Jamaica NY 11432", "11432",
+            "162-02 Jamaica Ave, Jamaica, NY 11432, USA",
+        ))
+        self.assertTrue(backfill_google.address_matches(
+            "6259 Fresh Pond Road Queens NY 11385", "11385",
+            "62-59 Fresh Pond Rd, Ridgewood, NY 11385, USA",
+        ))
+        self.assertFalse(backfill_google.address_matches(
+            "162-02 Jamaica Avenue Jamaica NY 11432", "11432",
+            "164-17 Jamaica Ave, Jamaica, NY 11432, USA",
+        ))
+        self.assertFalse(backfill_google.address_matches(
+            "6259 Fresh Pond Road Queens NY 11365", "11365",
+            "62-59 Fresh Pond Rd, Ridgewood, NY 11385, USA",
+        ))
+
+    @patch("backfill_google.google_request")
+    def test_lookup_rechecks_stored_id_and_rejects_wrong_search_result(self, request):
+        request.side_effect = [
+            {"id": "wrong", "formattedAddress": "164-17 Jamaica Ave, Jamaica, NY 11432, USA"},
+            {"places": [{"id": "still-wrong", "formattedAddress": "164-17 Jamaica Ave, Jamaica, NY 11432, USA"}]},
+        ]
+
+        result = backfill_google.lookup(
+            "wrong", "Jamaican Flavors", "162-02 Jamaica Avenue Jamaica NY 11432", "11432", "key"
+        )
+
+        self.assertIsNone(result)
+        self.assertEqual(2, request.call_count)
+
     def test_field_mask_requests_accessibility_restroom_and_meals(self):
         requested = set(backfill_google.DETAIL_FIELDS.split(","))
         self.assertTrue({
@@ -40,7 +73,7 @@ class GoogleServiceFactsTest(unittest.TestCase):
             "dineIn": True,
         }
 
-        props = backfill_google.notion_updates(place, None)
+        props = backfill_google.notion_updates(place)
 
         self.assertEqual("Yes", props["Wheelchair Entrance"]["select"]["name"])
         self.assertEqual("No", props["Wheelchair Restroom"]["select"]["name"])
@@ -51,6 +84,40 @@ class GoogleServiceFactsTest(unittest.TestCase):
         self.assertEqual("No", props["Serves Lunch"]["select"]["name"])
         self.assertEqual("Yes", props["Serves Dinner"]["select"]["name"])
         self.assertEqual("Yes", props["Dine In"]["select"]["name"])
+
+    def test_notion_updates_preserves_human_reviewed_service_facts(self):
+        place = {
+            "takeout": False,
+            "dineIn": False,
+            "restroom": False,
+            "servesBreakfast": False,
+            "servesLunch": False,
+            "servesDinner": False,
+            "accessibilityOptions": {"wheelchairAccessibleEntrance": False},
+            "parkingOptions": {"freeStreetParking": False},
+        }
+        prior = {
+            "Takeout": "Yes",
+            "Dine In": "Yes",
+            "Restroom": "Yes",
+            "Serves Breakfast": "Yes",
+            "Serves Lunch": "Yes",
+            "Serves Dinner": "Yes",
+            "Wheelchair Entrance": "Yes",
+            "Parking": "Yes",
+        }
+
+        props = backfill_google.notion_updates(place, prior)
+
+        for column in prior:
+            self.assertNotIn(column, props)
+
+    def test_notion_updates_fills_only_unknown_service_facts(self):
+        place = {"dineIn": True, "restroom": False}
+        props = backfill_google.notion_updates(place, {"Dine In": "Unknown", "Restroom": "Yes"})
+
+        self.assertEqual("Yes", props["Dine In"]["select"]["name"])
+        self.assertNotIn("Restroom", props)
 
     def test_parse_row_reads_new_notion_columns(self):
         page = {

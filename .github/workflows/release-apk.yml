@@ -102,8 +102,25 @@ jobs:
           python3 tools/verify_data.py
           python3 tools/check_logo_assets.py
 
+      - name: Refuse an app version older than the dataset requires
+        run: |
+          MINIMUM_APP_VERSION="$(python3 -c 'import json; print(json.load(open("data/manifest.json"))["minimumAppVersion"])')"
+          if [ "$VERSION_CODE" -lt "$MINIMUM_APP_VERSION" ]; then
+            echo "::error::Version code $VERSION_CODE cannot read dataset version requiring $MINIMUM_APP_VERSION or newer."
+            exit 1
+          fi
+
+      - name: Python service-fact tests
+        run: python3 -m unittest discover -s tools/tests -p 'test_*.py'
+
+      - name: Verify every RMP record resolves to a bundled logo
+        run: python3 tools/check_logo_coverage.py
+
       - name: Unit tests
         run: ./gradlew --no-daemon :app:testDebugUnitTest
+
+      - name: Android lint
+        run: ./gradlew --no-daemon :app:lintDebug
 
       - name: Decode the signing keystore
         env:

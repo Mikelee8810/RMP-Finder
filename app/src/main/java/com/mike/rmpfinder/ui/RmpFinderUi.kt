@@ -371,7 +371,7 @@ private fun LocationRequiredScreen(onRequestLocation: () -> Unit, onOpenLocation
                 Icon(Icons.Default.LocationOn, contentDescription = null, modifier = Modifier.size(64.dp), tint = Color.White)
                 Text("Food near you,\n10% off.", style = MaterialTheme.typography.displayLarge, color = Color.White)
                 Text(
-                    "241 restaurants on the NY Restaurant Meals Program. Turn on location to sort them by distance. It never leaves your phone.",
+                    "240 restaurants on the NY Restaurant Meals Program. Turn on location to sort them by distance. It never leaves your phone.",
                     style = MaterialTheme.typography.bodyLarge,
                     color = Color.White.copy(alpha = 0.85f),
                 )
@@ -597,7 +597,7 @@ private fun NearestOpenHero(restaurant: RmpRestaurant, distanceMiles: Double?, n
     val logo = remember(restaurant.rmpKey) { RestaurantLogos.forRestaurant(context, restaurant) }
     val brand = logo?.brandColor ?: fallbackBrandColor(restaurant.displayName)
     val availability = availabilityOf(restaurant, now)
-    val destination = "${restaurant.latitude},${restaurant.longitude}"
+    val destinationAddress = restaurant.currentAddress ?: restaurant.officialAddress
     val interaction = remember { MutableInteractionSource() }
     Surface(
         onClick = { onClick(restaurant) },
@@ -628,7 +628,7 @@ private fun NearestOpenHero(restaurant: RmpRestaurant, distanceMiles: Double?, n
                     }
                 }
                 Surface(
-                    onClick = { openDirections(context, destination, "transit") },
+                    onClick = { openDirections(context, restaurant, destinationAddress, "transit") },
                     shape = RoundedCornerShape(50),
                     color = RmpTokens.Butter,
                     contentColor = RmpTokens.ButterInk,
@@ -1401,10 +1401,7 @@ private fun RestaurantDetail(
     val availability = availabilityOf(restaurant, now)
     val logo = remember(restaurant.rmpKey) { RestaurantLogos.forRestaurant(context, restaurant) }
     val brand = logo?.brandColor ?: fallbackBrandColor(restaurant.displayName)
-    // A business that moved is routed by its current address text: the geocode
-    // on the record belongs to the official RMP location.
     val whereItIs = restaurant.currentAddress ?: restaurant.officialAddress
-    val destination = if (restaurant.currentAddress != null && restaurant.currentAddress != restaurant.officialAddress) whereItIs.display() else "${restaurant.latitude},${restaurant.longitude}"
     LightStatusBarIcons()
     LaunchedEffect(restaurant.rmpKey) { onLoadReviews(whereItIs) }
     // The headline numbers from whichever source answered first with a rating.
@@ -1486,8 +1483,8 @@ private fun RestaurantDetail(
                                 }
                                 Hairline(Modifier.padding(vertical = 4.dp))
                                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                                    QuickAction(Modifier.weight(1f), Icons.Rounded.Directions, "Transit", primary = true) { openDirections(context, destination, "transit") }
-                                    QuickAction(Modifier.weight(1f), Icons.Rounded.DirectionsWalk, "Walk") { openDirections(context, destination, "walking") }
+                                    QuickAction(Modifier.weight(1f), Icons.Rounded.Directions, "Transit", primary = true) { openDirections(context, restaurant, whereItIs, "transit") }
+                                    QuickAction(Modifier.weight(1f), Icons.Rounded.DirectionsWalk, "Walk") { openDirections(context, restaurant, whereItIs, "walking") }
                                     restaurant.phone?.let { phone -> QuickAction(Modifier.weight(1f), Icons.Rounded.Call, "Call") { openIntent(context, Intent(Intent.ACTION_DIAL, Uri.parse("tel:$phone"))) } }
                                     (restaurant.menuUrl ?: restaurant.website)?.let { url ->
                                         QuickAction(Modifier.weight(1f), if (restaurant.menuUrl != null) Icons.Rounded.MenuBook else Icons.Rounded.Language, if (restaurant.menuUrl != null) "Menu" else "Site") { openUrl(context, url) }
@@ -2015,7 +2012,7 @@ internal class BrandLogo(val bitmap: ImageBitmap, val fullBleed: Boolean, val br
 /**
  * Bundled brand marks, decoded once and shared by every row that shows them.
  *
- * Browse is a 241-row list over at most a few dozen distinct logos, so decoding
+ * Browse is a small list over at most a few dozen distinct logos, so decoding
  * per row would repeat the same work on every scroll pass. Marks are drawn at
  * 48dp to 96dp, so a full 512px source is also downsampled rather than held at
  * full resolution. The cache is bounded by the number of bundled assets.
@@ -2379,9 +2376,8 @@ private const val GOOGLE_MAPS_PACKAGE = "com.google.android.apps.maps"
 private fun mapsSearchUrl(restaurant: RmpRestaurant, address: RmpAddress): String =
     CachedReviews.mapsListingUrl(restaurant, address)
 
-private fun openDirections(context: Context, destination: String, mode: String) {
-    val encoded = URLEncoder.encode(destination, StandardCharsets.UTF_8.toString())
-    val uri = Uri.parse("https://www.google.com/maps/dir/?api=1&destination=$encoded&travelmode=$mode")
+private fun openDirections(context: Context, restaurant: RmpRestaurant, address: RmpAddress, mode: String) {
+    val uri = Uri.parse(CachedReviews.mapsDirectionsUrl(restaurant, address, mode))
     // Address the Google Maps app directly so directions open there rather than
     // in a browser tab or an app chooser, and fall back to any other handler
     // when Maps is not installed.

@@ -1902,7 +1902,7 @@
     "restroom": true,
     "servesBreakfast": true,
     "servesLunch": true,
-    "servesDinner": true,
+    "servesDinner": false,
     "reviews": [
       {
         "author": "Amanda Pacheco",
@@ -2070,7 +2070,7 @@
     "restroom": false,
     "servesBreakfast": true,
     "servesLunch": true,
-    "servesDinner": true,
+    "servesDinner": false,
     "reviews": [
       {
         "author": "Evi",
@@ -5639,14 +5639,14 @@
     "borough": "Bronx",
     "zip": "10461",
     "coordinates": {
-      "latitude": 40.9229645,
-      "longitude": -73.7880131,
+      "latitude": 40.843702986469,
+      "longitude": -73.830994423339,
       "addressRole": "official_rmp",
-      "provider": "Notion (reviewed)",
-      "matchQuality": "manual",
-      "precision": "unknown",
-      "checkedAt": "2026-09-19",
-      "matchedAddress": null
+      "provider": "U.S. Census Geocoder",
+      "matchQuality": "exact",
+      "precision": "interpolated",
+      "checkedAt": "2026-09-09",
+      "matchedAddress": "2960 MIDDLETOWN RD, BRONX, NY, 10461"
     },
     "phone": "718-822-2500",
     "website": "http://www.rocbodyfitnesscafe.com/",
@@ -5695,54 +5695,23 @@
       ],
       "sunday": []
     },
-    "googlePlaceId": "ChIJccR5yoaNwokRRryzdiZCwCc",
-    "rating": 4.1,
-    "ratingCount": 95,
+    "googlePlaceId": null,
+    "rating": null,
+    "ratingCount": null,
     "priceLevel": null,
-    "takeout": true,
-    "dineIn": true,
-    "wheelchairAccessibleEntrance": true,
-    "wheelchairAccessibleRestroom": true,
+    "takeout": null,
+    "dineIn": null,
+    "wheelchairAccessibleEntrance": null,
+    "wheelchairAccessibleRestroom": null,
     "wheelchairAccessibleSeating": null,
     "wheelchairAccessibleParking": null,
     "hasParking": null,
-    "restroom": true,
-    "servesBreakfast": true,
-    "servesLunch": true,
-    "servesDinner": true,
-    "reviews": [
-      {
-        "author": "Joey",
-        "rating": 3,
-        "text": "I'm in the Bronx ans love the BX location. It was my go to for food. I'm heartbroken that it closed. Ordering from this location in all honesty sucks. Orders literally take 1.5-2 hours for deliveries and half the time arrive cold and I'm like 15 minutes drive away. I've had Google eats refund me a good 8 times already.  Other than that when the food does arrive hot it's very good",
-        "when": "a year ago"
-      },
-      {
-        "author": "MEJ LLC",
-        "rating": 1,
-        "text": "Staff member openly coughed multiple times over the food prep station, then wiped his nose with his hand. I complained that I was concerned about his unsanitary and unprofessional behavior as I was waiting for my food, and asked to speak to the manager. He then claimed he was the manager, told me to leave, and threatened to call the police.\nNote that a quick search online with NYS Health…",
-        "when": "a year ago"
-      },
-      {
-        "author": "Doug",
-        "rating": 4,
-        "text": "Healthy food alternatives here which is awesome but the food like other reviewers have stated is very bland.",
-        "when": "3 years ago"
-      },
-      {
-        "author": "Morgan Antonazzo",
-        "rating": 2,
-        "text": "honestly was super disappointed. It’s always nice to have a macro friendly option that is on the faster side.\n\nThe options are endless which I appreciated. I was told 15 minutes and waited 30 which was fine but was disappointed when I realized my food was sitting there and the girl just didn’t notify me it was ready.\n\nOverall quality of food was disappointing. The chicken was rubbery and the…",
-        "when": "2 years ago"
-      },
-      {
-        "author": "V M",
-        "rating": 5,
-        "text": "This place is by far the best health food restaurant. And if you are looking for a meal prep menu. Look no further.  I looooooooooove Rocbody Fitness Cafe. I give it 10 ⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐",
-        "when": "5 years ago"
-      }
-    ],
-    "googleCheckedAt": "2026-09-19",
+    "restroom": null,
+    "servesBreakfast": null,
+    "servesLunch": null,
+    "servesDinner": null,
+    "reviews": [],
+    "googleCheckedAt": null,
     "rmpVerifiedAt": "2026-09-09",
     "businessCheckedAt": "2026-09-19",
     "conflictFlags": [],
@@ -8658,174 +8627,6 @@
     ]
   },
   {
-    "rmpKey": "brooklyn|burger king|624 south conduit avenue|11208",
-    "officialName": "Burger King",
-    "currentName": null,
-    "aliases": [],
-    "officialAddress": {
-      "line1": "624 South Conduit Avenue",
-      "city": "Brooklyn",
-      "state": "NY",
-      "zip": "11208"
-    },
-    "currentAddress": null,
-    "borough": "Brooklyn",
-    "zip": "11208",
-    "coordinates": {
-      "latitude": 40.6757225,
-      "longitude": -73.8668192,
-      "addressRole": "official_rmp",
-      "provider": "Notion (reviewed)",
-      "matchQuality": "manual",
-      "precision": "unknown",
-      "checkedAt": "2026-09-19",
-      "matchedAddress": null
-    },
-    "phone": "718-348-9517",
-    "website": "https://burgerking.com/store-locator/store/939",
-    "menuUrl": null,
-    "imageUrl": null,
-    "imageAttribution": null,
-    "businessStatus": "likely_open",
-    "hoursStatus": "usable",
-    "hours": {
-      "timezone": "America/New_York",
-      "monday": [
-        {
-          "open": "07:00",
-          "close": "24:00"
-        }
-      ],
-      "tuesday": [
-        {
-          "open": "07:00",
-          "close": "24:00"
-        }
-      ],
-      "wednesday": [
-        {
-          "open": "07:00",
-          "close": "24:00"
-        }
-      ],
-      "thursday": [
-        {
-          "open": "07:00",
-          "close": "24:00"
-        }
-      ],
-      "friday": [
-        {
-          "open": "07:00",
-          "close": "24:00"
-        }
-      ],
-      "saturday": [
-        {
-          "open": "00:00",
-          "close": "01:00"
-        },
-        {
-          "open": "07:00",
-          "close": "24:00"
-        }
-      ],
-      "sunday": [
-        {
-          "open": "00:00",
-          "close": "01:00"
-        },
-        {
-          "open": "07:00",
-          "close": "24:00"
-        }
-      ]
-    },
-    "googlePlaceId": "ChIJzb4jOb5dwokRLIxmBuOArC8",
-    "rating": 3.5,
-    "ratingCount": 997,
-    "priceLevel": 1,
-    "takeout": true,
-    "dineIn": true,
-    "wheelchairAccessibleEntrance": true,
-    "wheelchairAccessibleRestroom": true,
-    "wheelchairAccessibleSeating": null,
-    "wheelchairAccessibleParking": true,
-    "hasParking": true,
-    "restroom": true,
-    "servesBreakfast": true,
-    "servesLunch": true,
-    "servesDinner": true,
-    "reviews": [
-      {
-        "author": "Mike Barrett (Myq)",
-        "rating": 5,
-        "text": "Very nice staff at this location, the place is clean, the food is clean and good. What makes me more happy is that the cashiers do not have a nasty attitude here. They aren't rude and angry with you for no reason. If I come on the day or night I never have a bad experience or vibes.\n\nThe area is a bit weird, because there's a shelter nearby. A-lot of crazies running around. Also I hope the…",
-        "when": "3 months ago"
-      },
-      {
-        "author": "Nostalgia Kid",
-        "rating": 1,
-        "text": "If i could give negative stats I would. The staff is very rude and dismissive whenever asked a question or take with doing something. Service is always slow even with the store empty. Literally saw a worker drop a tray of pies on the floor and proceed to put up front for sale.",
-        "when": "3 months ago"
-      },
-      {
-        "author": "a ds",
-        "rating": 1,
-        "text": "I order food Friday(6/12)night's visit was extremely disappointing. The restaurant seemed completely overwhelmed, with employees struggling to keep up while the manager loudly shouted instructions and criticisms in front of customers. I waited over half an hour for my food, and several customers appeared upset and impatient due to the delays. A more organized and professional management approach…",
-        "when": "3 months ago"
-      },
-      {
-        "author": "Camila Tavarez",
-        "rating": 1,
-        "text": "My mom had ordered a number 2 double whopper the meal and chicken nuggets and a strawberry lemonade the lady had switched the meal drink when nobody told her to the strawberry drink was separate and we told her that so then we called her manager who also had a nasty attitude and instead of giving us the drink he took the food back when he was not supposed to do that bc we already ate off of it…",
-        "when": "2 months ago"
-      },
-      {
-        "author": "Marty Seiler",
-        "rating": 5,
-        "text": "I haven't even gotten to the food yet, but I needed to drop 5 stars for the service I got from Erick at the front counter. An asset to the spot. Some of the best fast food service I've ever gotten, easily.\nFood was good. No complaints.",
-        "when": "2 years ago"
-      }
-    ],
-    "googleCheckedAt": "2026-09-19",
-    "rmpVerifiedAt": "2026-09-09",
-    "businessCheckedAt": "2026-09-19",
-    "conflictFlags": [],
-    "sources": [
-      {
-        "kind": "NYS OTDA Restaurant Meals Program",
-        "role": "rmp_eligibility",
-        "url": "https://otda.ny.gov/programs/rmp/participating-restaurants/default.asp",
-        "checkedAt": "2026-09-09"
-      },
-      {
-        "kind": "U.S. Census Geocoder",
-        "role": "coordinates",
-        "url": "https://geocoding.geo.census.gov/geocoder/",
-        "checkedAt": "2026-09-09"
-      },
-      {
-        "kind": "reviewed business enrichment snapshot",
-        "role": "hours",
-        "url": "https://www.bk.com/",
-        "checkedAt": "2026-09-09"
-      },
-      {
-        "kind": "reviewed business enrichment snapshot",
-        "role": "phone",
-        "url": "https://www.bk.com/",
-        "checkedAt": "2026-09-09"
-      },
-      {
-        "kind": "reviewed business enrichment snapshot",
-        "role": "website",
-        "url": "https://www.bk.com/",
-        "checkedAt": "2026-09-09"
-      }
-    ]
-  },
-  {
     "rmpKey": "brooklyn|burger king|971 flatbush avenue|11226",
     "officialName": "Burger King",
     "currentName": null,
@@ -9601,7 +9402,7 @@
     "wheelchairAccessibleParking": false,
     "hasParking": true,
     "restroom": null,
-    "servesBreakfast": false,
+    "servesBreakfast": true,
     "servesLunch": true,
     "servesDinner": true,
     "reviews": [
@@ -10548,7 +10349,7 @@
     "restroom": true,
     "servesBreakfast": true,
     "servesLunch": true,
-    "servesDinner": true,
+    "servesDinner": false,
     "reviews": [
       {
         "author": "Hakeem Banks",
@@ -10615,6 +10416,141 @@
         "role": "website",
         "url": "https://www.dunkindonuts.com/",
         "checkedAt": "2026-09-09"
+      }
+    ]
+  },
+  {
+    "rmpKey": "brooklyn|fatima's grill|964 coney island avenue|11230",
+    "officialName": "Fatima's Grill",
+    "currentName": null,
+    "aliases": [],
+    "officialAddress": {
+      "line1": "964 Coney Island Avenue",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zip": "11230"
+    },
+    "currentAddress": null,
+    "borough": "Brooklyn",
+    "zip": "11230",
+    "coordinates": {
+      "latitude": 40.633897,
+      "longitude": -73.9675186,
+      "addressRole": "official_rmp",
+      "provider": "Google Places (address verified)",
+      "matchQuality": "manual",
+      "precision": "rooftop",
+      "checkedAt": "2026-09-20",
+      "matchedAddress": "964 Coney Island Ave, Brooklyn, NY 11230, USA"
+    },
+    "phone": "929-234-3198",
+    "website": "https://www.fatimas-grill.com/",
+    "menuUrl": null,
+    "imageUrl": null,
+    "imageAttribution": null,
+    "businessStatus": "likely_open",
+    "hoursStatus": "usable",
+    "hours": {
+      "timezone": "America/New_York",
+      "monday": [
+        {
+          "open": "11:00",
+          "close": "01:30"
+        }
+      ],
+      "tuesday": [
+        {
+          "open": "11:00",
+          "close": "01:30"
+        }
+      ],
+      "wednesday": [
+        {
+          "open": "11:00",
+          "close": "01:30"
+        }
+      ],
+      "thursday": [
+        {
+          "open": "11:00",
+          "close": "01:30"
+        }
+      ],
+      "friday": [
+        {
+          "open": "11:00",
+          "close": "02:30"
+        }
+      ],
+      "saturday": [
+        {
+          "open": "11:00",
+          "close": "02:30"
+        }
+      ],
+      "sunday": [
+        {
+          "open": "11:00",
+          "close": "01:30"
+        }
+      ]
+    },
+    "googlePlaceId": "ChIJz8kJI0xFwokRnZWd2ZWoGOw",
+    "rating": 4.6,
+    "ratingCount": 733,
+    "priceLevel": 2,
+    "takeout": true,
+    "dineIn": true,
+    "wheelchairAccessibleEntrance": true,
+    "wheelchairAccessibleRestroom": null,
+    "wheelchairAccessibleSeating": null,
+    "wheelchairAccessibleParking": false,
+    "hasParking": true,
+    "restroom": true,
+    "servesBreakfast": null,
+    "servesLunch": true,
+    "servesDinner": true,
+    "reviews": [],
+    "googleCheckedAt": "2026-09-20",
+    "rmpVerifiedAt": "2026-09-20",
+    "businessCheckedAt": "2026-09-20",
+    "conflictFlags": [],
+    "sources": [
+      {
+        "kind": "NYS OTDA Restaurant Meals Program",
+        "role": "rmp_eligibility",
+        "url": "https://otda.ny.gov/programs/rmp/participating-restaurants/default.asp?county=5",
+        "checkedAt": "2026-09-20"
+      },
+      {
+        "kind": "Google Places",
+        "role": "coordinates",
+        "url": null,
+        "checkedAt": "2026-09-20"
+      },
+      {
+        "kind": "Google Places",
+        "role": "hours",
+        "url": null,
+        "checkedAt": "2026-09-20"
+      },
+      {
+        "kind": "Google Places",
+        "role": "phone",
+        "url": null,
+        "checkedAt": "2026-09-20"
+      },
+      {
+        "kind": "Google Places",
+        "role": "website",
+        "url": null,
+        "checkedAt": "2026-09-20"
+      },
+      {
+        "kind": "Google Places",
+        "role": "rating",
+        "url": null,
+        "checkedAt": "2026-09-20"
       }
     ]
   },
@@ -19322,7 +19258,7 @@
     "ratingCount": 107,
     "priceLevel": 1,
     "takeout": true,
-    "dineIn": false,
+    "dineIn": true,
     "wheelchairAccessibleEntrance": true,
     "wheelchairAccessibleRestroom": true,
     "wheelchairAccessibleSeating": true,
@@ -21217,14 +21153,14 @@
     "borough": "Brooklyn",
     "zip": "11214",
     "coordinates": {
-      "latitude": 40.6915004,
-      "longitude": -73.9846554,
+      "latitude": 40.600227004101,
+      "longitude": -73.991136481368,
       "addressRole": "official_rmp",
-      "provider": "Notion (reviewed)",
-      "matchQuality": "manual",
-      "precision": "unknown",
-      "checkedAt": "2026-09-19",
-      "matchedAddress": null
+      "provider": "U.S. Census Geocoder",
+      "matchQuality": "exact",
+      "precision": "interpolated",
+      "checkedAt": "2026-09-09",
+      "matchedAddress": "2322 86TH ST, BROOKLYN, NY, 11214"
     },
     "phone": "929-387-8200",
     "website": null,
@@ -21234,54 +21170,23 @@
     "businessStatus": "closed",
     "hoursStatus": "unknown",
     "hours": null,
-    "googlePlaceId": "ChIJ9zdPCkpbwokR2kPMwYQQT1I",
-    "rating": 4.1,
-    "ratingCount": 63,
-    "priceLevel": 1,
-    "takeout": true,
-    "dineIn": true,
-    "wheelchairAccessibleEntrance": true,
-    "wheelchairAccessibleRestroom": true,
-    "wheelchairAccessibleSeating": true,
-    "wheelchairAccessibleParking": true,
-    "hasParking": true,
-    "restroom": true,
-    "servesBreakfast": true,
-    "servesLunch": true,
-    "servesDinner": true,
-    "reviews": [
-      {
-        "author": "Bryan Pan",
-        "rating": 5,
-        "text": "Hidden gem. Roseli is high quality Cantonese, as good as any in Flushing or Chinatown or Sunset Park.\n\nThe food is spectacular. Their pork dishes, fish dishes, veggies, tofu, and noodle dishes were all amazing. Perfect amount of flavor, without being heavy or greasy. The crispy noodles were executed with precision. The fried fish was so tender and crazy. The saucy pork chops explodes with savory…",
-        "when": "a year ago"
-      },
-      {
-        "author": "Benjamin Perez",
-        "rating": 5,
-        "text": "Ordered the General TSOs Chicken with Egg Drop Soup and Spring Rolls. I absolutely loved it. Great meal, atmosphere was quite likely because I was eating closer to late afternoon versus dinner. Highly recommend if you are in the area.",
-        "when": "a year ago"
-      },
-      {
-        "author": "Jackie Gordon Singing Chef",
-        "rating": 4,
-        "text": "After getting a very generous takeout lunch special I went back. It's an odd spot in the Sheraton hotel, but some of the food is very good.\n\nWe enjoyed our dinner. The best dish was the Peking pork chops and the weakest dishes was the young chow fried rice and the wonton soup. The dim sum and the dumplings were very good.\n\nWould go back!\n\nWonton Soup\nHar Gow\nPork Shumai\nPan fried pork…",
-        "when": "a year ago"
-      },
-      {
-        "author": "Wilbur Lo",
-        "rating": 4,
-        "text": "It is extremely unusual to have a authentic Chinese restaurant in the Marriott hotel in North America\n\nThe staff is extremely friendly and I was able to speak with the chef who is from TaiShan Guangdong about his experience as dim sum chef also his uncle who used to have the most famous restaurant in China Town Manhattan…\n\nTherefore we came back to the hotel a bit earlier one night of our five…",
-        "when": "2 years ago"
-      },
-      {
-        "author": "Casspina Chan",
-        "rating": 2,
-        "text": "I hardly write a review but I have to because I got the To Go order - Chen Cun Fun tonight for my dinner after work,  I had this dish before in Asia and China-Town in Manhattan however, they do not have the exact ones I usually have ordered so I decide to give it a try on XO sauce with shrimp. I barely tasted XO sauce and can’t find the chinese authenticity in this dish, the taste is okay but not…",
-        "when": "a year ago"
-      }
-    ],
-    "googleCheckedAt": "2026-09-19",
+    "googlePlaceId": null,
+    "rating": null,
+    "ratingCount": null,
+    "priceLevel": null,
+    "takeout": null,
+    "dineIn": null,
+    "wheelchairAccessibleEntrance": null,
+    "wheelchairAccessibleRestroom": null,
+    "wheelchairAccessibleSeating": null,
+    "wheelchairAccessibleParking": null,
+    "hasParking": null,
+    "restroom": null,
+    "servesBreakfast": null,
+    "servesLunch": null,
+    "servesDinner": null,
+    "reviews": [],
+    "googleCheckedAt": null,
     "rmpVerifiedAt": "2026-09-09",
     "businessCheckedAt": "2026-09-10",
     "conflictFlags": [
@@ -31270,8 +31175,11 @@
   {
     "rmpKey": "queens|burger king/popeye's|16150 cross bay boulevard|11414",
     "officialName": "Burger King/Popeye's",
-    "currentName": "Popeyes",
-    "aliases": [],
+    "currentName": null,
+    "aliases": [
+      "Burger King",
+      "Popeyes"
+    ],
     "officialAddress": {
       "line1": "16150 Cross Bay Boulevard",
       "city": "Howard Beach",
@@ -31348,228 +31256,23 @@
         }
       ]
     },
-    "googlePlaceId": "ChIJJ-fINYBnwokRHD_FY8H2Hj0",
-    "rating": 3.7,
-    "ratingCount": 572,
-    "priceLevel": 1,
-    "takeout": true,
-    "dineIn": true,
-    "wheelchairAccessibleEntrance": true,
-    "wheelchairAccessibleRestroom": true,
-    "wheelchairAccessibleSeating": true,
-    "wheelchairAccessibleParking": true,
-    "hasParking": true,
-    "restroom": true,
-    "servesBreakfast": null,
-    "servesLunch": true,
-    "servesDinner": true,
-    "reviews": [
-      {
-        "author": "Keshan Sewnarain",
-        "rating": 1,
-        "text": "Worst Popeyes location they never have chicken alway got to wait 15-20 min …yall need to do better ,also check your order b4 leaving I order breast and thighs and they mix it with legs n wings",
-        "when": "2 months ago"
-      },
-      {
-        "author": "Lorena Pineda",
-        "rating": 1,
-        "text": "I just need some sides so\nI walk in, and I’m just stared at as I’m waiting for someone to take my order, so I ask who’s taking orders and the guy with glasses told me I have to order through the Kiosk. When there’s clearly a register open for a reason.\nI believe if there’s a register, the customer should be able to order on the register, with one of the employees.",
-        "when": "8 months ago"
-      },
-      {
-        "author": "Annalisa Abdul",
-        "rating": 1,
-        "text": "Ok I had an issue with Burger King but now Popeyes is just as bad as Burger King. I was not expecting to get a 2 inches chicken pieces after paying so much!! This is ridiculous. Every other Popeyes makes bigger chicken than that. These two fast food locations at this address on cross bay is not professional and not doing their job properly.",
-        "when": "4 years ago"
-      },
-      {
-        "author": "noel joe",
-        "rating": 1,
-        "text": "Me and my wife orderd from the popeyes app and on the app we ordered a ten peice and put institutions to add hot suace packets and ketchup packets when we got our food the biscuit were hard and taste old the fries taste old like they made it the day before and the chicken peices we ask for it was soppsed to be 10 they gave us 9 im very upset I bought this food for family and we love popeys but…",
-        "when": "6 months ago"
-      },
-      {
-        "author": "Joseph Messano",
-        "rating": 2,
-        "text": "Very slow. When there's more than a few people in front of me in line, I walk out.",
-        "when": "2 months ago"
-      }
-    ],
-    "googleCheckedAt": "2026-09-19",
-    "rmpVerifiedAt": "2026-09-09",
-    "businessCheckedAt": "2026-09-19",
-    "conflictFlags": [
-      "address_mismatch",
-      "name_mismatch"
-    ],
-    "sources": [
-      {
-        "kind": "NYS OTDA Restaurant Meals Program",
-        "role": "rmp_eligibility",
-        "url": "https://otda.ny.gov/programs/rmp/participating-restaurants/default.asp",
-        "checkedAt": "2026-09-09"
-      },
-      {
-        "kind": "U.S. Census Geocoder",
-        "role": "coordinates",
-        "url": "https://geocoding.geo.census.gov/geocoder/",
-        "checkedAt": "2026-09-09"
-      },
-      {
-        "kind": "reviewed business enrichment snapshot",
-        "role": "hours",
-        "url": "https://www.popeyes.com",
-        "checkedAt": "2026-09-09"
-      },
-      {
-        "kind": "reviewed business enrichment snapshot",
-        "role": "address",
-        "url": "https://www.popeyes.com",
-        "checkedAt": "2026-09-09"
-      },
-      {
-        "kind": "reviewed business enrichment snapshot",
-        "role": "phone",
-        "url": "https://www.popeyes.com",
-        "checkedAt": "2026-09-09"
-      },
-      {
-        "kind": "reviewed business enrichment snapshot",
-        "role": "website",
-        "url": "https://www.popeyes.com",
-        "checkedAt": "2026-09-09"
-      }
-    ]
-  },
-  {
-    "rmpKey": "queens|burger king/popeyes|161 cross bay boulevard|11414",
-    "officialName": "Burger King/Popeyes",
-    "currentName": "Burger King",
-    "aliases": [],
-    "officialAddress": {
-      "line1": "161 Cross Bay Boulevard",
-      "city": "Howard Beach",
-      "state": "NY",
-      "zip": "11414"
-    },
-    "currentAddress": {
-      "line1": "161-50 Cross Bay Boulevard",
-      "city": "Howard Beach",
-      "state": "NY",
-      "zip": "11414"
-    },
-    "borough": "Queens",
-    "zip": "11414",
-    "coordinates": {
-      "latitude": 40.654485,
-      "longitude": -73.8391703,
-      "addressRole": "official_rmp",
-      "provider": "Notion (reviewed)",
-      "matchQuality": "manual",
-      "precision": "unknown",
-      "checkedAt": "2026-09-19",
-      "matchedAddress": null
-    },
-    "phone": "718-845-3008",
-    "website": "https://burgerking.com/store-locator/store/9956",
-    "menuUrl": null,
-    "imageUrl": null,
-    "imageAttribution": null,
-    "businessStatus": "likely_open",
-    "hoursStatus": "usable",
-    "hours": {
-      "timezone": "America/New_York",
-      "monday": [
-        {
-          "open": "07:00",
-          "close": "23:00"
-        }
-      ],
-      "tuesday": [
-        {
-          "open": "07:00",
-          "close": "23:00"
-        }
-      ],
-      "wednesday": [
-        {
-          "open": "07:00",
-          "close": "23:00"
-        }
-      ],
-      "thursday": [
-        {
-          "open": "07:00",
-          "close": "23:00"
-        }
-      ],
-      "friday": [
-        {
-          "open": "07:00",
-          "close": "24:00"
-        }
-      ],
-      "saturday": [
-        {
-          "open": "07:00",
-          "close": "24:00"
-        }
-      ],
-      "sunday": [
-        {
-          "open": "07:00",
-          "close": "23:00"
-        }
-      ]
-    },
-    "googlePlaceId": "ChIJpelpSI9nwokRwF0LTcOYxgs",
-    "rating": 3.3,
-    "ratingCount": 511,
-    "priceLevel": 1,
-    "takeout": true,
-    "dineIn": true,
-    "wheelchairAccessibleEntrance": true,
-    "wheelchairAccessibleRestroom": true,
+    "googlePlaceId": null,
+    "rating": null,
+    "ratingCount": null,
+    "priceLevel": null,
+    "takeout": null,
+    "dineIn": null,
+    "wheelchairAccessibleEntrance": null,
+    "wheelchairAccessibleRestroom": null,
     "wheelchairAccessibleSeating": null,
-    "wheelchairAccessibleParking": true,
-    "hasParking": true,
-    "restroom": true,
-    "servesBreakfast": true,
-    "servesLunch": true,
-    "servesDinner": true,
-    "reviews": [
-      {
-        "author": "Ari Stern",
-        "rating": 1,
-        "text": "Ordered impossible whopper with crispy onions and jalapeño. Burger came without sauce, without jalapeños and the burger was completely burnt. Worse yet is that there is no survey code on receipt so I can’t give feedback to Burger King. Have to write this review instead.",
-        "when": "2 months ago"
-      },
-      {
-        "author": "Schuyler Williams",
-        "rating": 1,
-        "text": "I ordered a hamburger and drove all the way home to discover that the edges have melted cheese as if the cheese was scraped off of the burger.. I’m disgusted and don’t live in the area to drive back. What a lazy way to handle orders especially when there was only one other customer at the time.",
-        "when": "3 months ago"
-      },
-      {
-        "author": "G Q",
-        "rating": 1,
-        "text": "One of the slowest locations in the city. Average time is 10 mins per car and I’m not exaggerating. So if you see a line, avoid at all cost. Ordering online ahead of time doesn’t help either. Probably severely understaffed, so I don’t blame the workers, but it is sooooooo slow.\n\nAlso make sure they give you sauces for the nuggets. They will NEVER give you sauces unless you ask at the window. It’s…",
-        "when": "7 months ago"
-      },
-      {
-        "author": "A Blass",
-        "rating": 1,
-        "text": "Absolutely RUDE!!! The man could not understand what I was asking for at the drive through.  Okay fine. He tells me to come to the window and order okay fine. Im asking for meals he's asking if I want meals. I ask for thr meal by menu number he still rings up what he wants. I asked for ketchup he said \"you need to move I have line\". Sir you asked me to come to the window and order. You are the…",
-        "when": "8 months ago"
-      },
-      {
-        "author": "Moh A",
-        "rating": 1,
-        "text": "This location is also a Popeyes location. Today I saw a box for 5.99 deal at the window, which has chicken and few other side orders. While I was trying to order that $5.99 deal with the attending cashier and trying to explain what I need, another person (smarty pants) jump in and started explaining what is in it (I did not ask for any explanation). He did not even trying to listen to me as to…",
-        "when": "5 months ago"
-      }
-    ],
-    "googleCheckedAt": "2026-09-19",
+    "wheelchairAccessibleParking": null,
+    "hasParking": null,
+    "restroom": null,
+    "servesBreakfast": null,
+    "servesLunch": null,
+    "servesDinner": null,
+    "reviews": [],
+    "googleCheckedAt": null,
     "rmpVerifiedAt": "2026-09-09",
     "businessCheckedAt": "2026-09-19",
     "conflictFlags": [
@@ -31592,25 +31295,25 @@
       {
         "kind": "reviewed business enrichment snapshot",
         "role": "hours",
-        "url": "https://www.bk.com",
+        "url": "https://www.popeyes.com",
         "checkedAt": "2026-09-09"
       },
       {
         "kind": "reviewed business enrichment snapshot",
         "role": "address",
-        "url": "https://www.bk.com",
+        "url": "https://www.popeyes.com",
         "checkedAt": "2026-09-09"
       },
       {
         "kind": "reviewed business enrichment snapshot",
         "role": "phone",
-        "url": "https://www.bk.com",
+        "url": "https://www.popeyes.com",
         "checkedAt": "2026-09-09"
       },
       {
         "kind": "reviewed business enrichment snapshot",
         "role": "website",
-        "url": "https://www.bk.com",
+        "url": "https://www.popeyes.com",
         "checkedAt": "2026-09-09"
       }
     ]
@@ -31797,14 +31500,14 @@
     "borough": "Queens",
     "zip": "11365",
     "coordinates": {
-      "latitude": 40.7123182,
-      "longitude": -73.9001493,
+      "latitude": 40.712665301587,
+      "longitude": -73.90049812637,
       "addressRole": "official_rmp",
-      "provider": "Notion (reviewed)",
+      "provider": "U.S. Census Geocoder",
       "matchQuality": "manual",
-      "precision": "unknown",
-      "checkedAt": "2026-09-19",
-      "matchedAddress": null
+      "precision": "interpolated",
+      "checkedAt": "2026-09-09",
+      "matchedAddress": "62-59 FRESH POND RD, RIDGEWOOD, NY, 11385"
     },
     "phone": "347-889-5100",
     "website": "https://www.popeyes.com/store-locator/store/restaurant_240833",
@@ -31886,54 +31589,23 @@
         }
       ]
     },
-    "googlePlaceId": "ChIJRb3YQglfwokRuxcqv0mcMmY",
-    "rating": 3.8,
-    "ratingCount": 202,
-    "priceLevel": 1,
-    "takeout": true,
-    "dineIn": true,
-    "wheelchairAccessibleEntrance": true,
-    "wheelchairAccessibleRestroom": true,
-    "wheelchairAccessibleSeating": true,
+    "googlePlaceId": null,
+    "rating": null,
+    "ratingCount": null,
+    "priceLevel": null,
+    "takeout": null,
+    "dineIn": null,
+    "wheelchairAccessibleEntrance": null,
+    "wheelchairAccessibleRestroom": null,
+    "wheelchairAccessibleSeating": null,
     "wheelchairAccessibleParking": null,
-    "hasParking": true,
-    "restroom": true,
+    "hasParking": null,
+    "restroom": null,
     "servesBreakfast": null,
-    "servesLunch": true,
-    "servesDinner": true,
-    "reviews": [
-      {
-        "author": "Hakeem Banks",
-        "rating": 4,
-        "text": "Ordered takeout from here twice via Uber Eats.\n\nOrder came correct each time. The lemon pepper boneless wings were good. Well coated and the mustard sauce was good as well.\n\nGreat deals at the moment BOGO wings and chicken sandwiches.",
-        "when": "8 months ago"
-      },
-      {
-        "author": "Nadia Afrose",
-        "rating": 5,
-        "text": "I think they have best Popeyes in queens.\nFood was so really fresh and I love their service quality. They have parking too, cherry on top.",
-        "when": "11 months ago"
-      },
-      {
-        "author": "Youssef Hana",
-        "rating": 1,
-        "text": "Bad service and the chick we didn't add and I advise you didn't go there",
-        "when": "2 months ago"
-      },
-      {
-        "author": "Oleg P.",
-        "rating": 5,
-        "text": "First time trying Popeyes! Manager Abir was super helpful and attentive to first comers questions, the sandwich was excellent, chicken tenders were great, and the place is nice and clean enough to bring the kid for a quick bite .",
-        "when": "6 months ago"
-      },
-      {
-        "author": "John Rodriguez",
-        "rating": 5,
-        "text": "This is my favorite Popeyes. The staff are quick, friendly and the food is always fresh. I haven't had one bad experience yet and I go a lot.",
-        "when": "6 months ago"
-      }
-    ],
-    "googleCheckedAt": "2026-09-19",
+    "servesLunch": null,
+    "servesDinner": null,
+    "reviews": [],
+    "googleCheckedAt": null,
     "rmpVerifiedAt": "2026-09-09",
     "businessCheckedAt": "2026-09-19",
     "conflictFlags": [
@@ -32662,14 +32334,14 @@
     "borough": "Queens",
     "zip": "11432",
     "coordinates": {
-      "latitude": 40.7056066,
-      "longitude": -73.7950835,
+      "latitude": 40.704210559496,
+      "longitude": -73.797826260025,
       "addressRole": "official_rmp",
-      "provider": "Notion (reviewed)",
-      "matchQuality": "manual",
-      "precision": "unknown",
-      "checkedAt": "2026-09-19",
-      "matchedAddress": null
+      "provider": "U.S. Census Geocoder",
+      "matchQuality": "exact",
+      "precision": "interpolated",
+      "checkedAt": "2026-09-09",
+      "matchedAddress": "162-02 JAMAICA AVE, JAMAICA, NY, 11432"
     },
     "phone": null,
     "website": "https://www.jamaicanflavors.com/",
@@ -32723,54 +32395,23 @@
         }
       ]
     },
-    "googlePlaceId": "ChIJZVlgfN9gwokRV7a6CHKjbiQ",
-    "rating": 4.2,
-    "ratingCount": 524,
-    "priceLevel": 2,
-    "takeout": true,
-    "dineIn": true,
+    "googlePlaceId": null,
+    "rating": null,
+    "ratingCount": null,
+    "priceLevel": null,
+    "takeout": null,
+    "dineIn": null,
     "wheelchairAccessibleEntrance": null,
     "wheelchairAccessibleRestroom": null,
     "wheelchairAccessibleSeating": null,
     "wheelchairAccessibleParking": null,
-    "hasParking": true,
-    "restroom": false,
-    "servesBreakfast": true,
-    "servesLunch": true,
+    "hasParking": null,
+    "restroom": null,
+    "servesBreakfast": null,
+    "servesLunch": null,
     "servesDinner": null,
-    "reviews": [
-      {
-        "author": "Prince Randy",
-        "rating": 4,
-        "text": "First time trying this spot and I went back the second day because the patties were very delicious. I definitely recommend this spot.",
-        "when": "3 months ago"
-      },
-      {
-        "author": "Rudy R",
-        "rating": 5,
-        "text": "Always happy to know I can get my lunch/dinner from them. Each patty is filled and I can't get enough of their jerk chicken sandwich.",
-        "when": "6 months ago"
-      },
-      {
-        "author": "Toni",
-        "rating": 3,
-        "text": "The vegetable patty was my favorite! I like that it’s made with whole and not minced up vegetables. Flavorful and well baked.\n\nUnfortunately part of my order was wrong & I didn’t get to try their chickpea patty. On the other hand, the BBQ chicken patty was better than I expected. My friend tried their Ackee patty and it was her first and last time trying it. The coco bread seemed uncooked…",
-        "when": "2 years ago"
-      },
-      {
-        "author": "Nyah Mays",
-        "rating": 2,
-        "text": "I started going to this shop in the Brooklyn locations. Came to the one here in Jamaica and was very disappointed. The Folks behind the counter couldn’t tell folks there was two lines and then gave me the wrong Pattie’s (fun fact you can’t tell the contents of the Pattie’s without touching them or breaking them open)…while allowing someone to skip me while taking my order. This doesn’t happen at…",
-        "when": "6 months ago"
-      },
-      {
-        "author": "Lowcoolant",
-        "rating": 5,
-        "text": "This is a compliant but I gave all 5 stars cause I love this place from young. Bought 6 spicy beef & 2 jerk chicken Pattie’s this morning (June 5th 2025). In this photo you see plastic. I bit this piece of plastic out of my patty, I thought it might’ve been some hard lettuce but yea it’s plastic.",
-        "when": "a year ago"
-      }
-    ],
-    "googleCheckedAt": "2026-09-19",
+    "reviews": [],
+    "googleCheckedAt": null,
     "rmpVerifiedAt": "2026-09-09",
     "businessCheckedAt": "2026-09-19",
     "conflictFlags": [],
@@ -32807,7 +32448,7 @@
     "currentName": null,
     "aliases": [],
     "officialAddress": {
-      "line1": "164-17D Jamaica Avenue",
+      "line1": "164-17 Jamaica Avenue",
       "city": "Jamaica",
       "state": "NY",
       "zip": "11432"
@@ -34061,23 +33702,18 @@
       "state": "NY",
       "zip": "11105"
     },
-    "currentAddress": {
-      "line1": "22-50 31st Street",
-      "city": "Astoria",
-      "state": "NY",
-      "zip": "11105"
-    },
+    "currentAddress": null,
     "borough": "Queens",
     "zip": "11105",
     "coordinates": {
-      "latitude": 40.7752148,
-      "longitude": -73.912176,
+      "latitude": 40.767170036469,
+      "longitude": -73.929663314984,
       "addressRole": "official_rmp",
-      "provider": "Notion (reviewed)",
+      "provider": "U.S. Census Geocoder",
       "matchQuality": "manual",
-      "precision": "unknown",
-      "checkedAt": "2026-09-19",
-      "matchedAddress": null
+      "precision": "interpolated",
+      "checkedAt": "2026-09-09",
+      "matchedAddress": "22-14 31ST AVE, ASTORIA, NY, 11106"
     },
     "phone": "718-932-8690",
     "website": "https://www.mcdonalds.com/us/en-us/location/NY/ASTORIA/22-50-31ST-ST/2892.html?cid=RF:YXT:GMB::Clicks",
@@ -34131,59 +33767,26 @@
         }
       ]
     },
-    "googlePlaceId": "ChIJXa3m-2dfwokRVdWnDh-3OMc",
-    "rating": 3.6,
-    "ratingCount": 700,
+    "googlePlaceId": null,
+    "rating": null,
+    "ratingCount": null,
     "priceLevel": null,
-    "takeout": true,
-    "dineIn": true,
-    "wheelchairAccessibleEntrance": true,
-    "wheelchairAccessibleRestroom": true,
-    "wheelchairAccessibleSeating": true,
-    "wheelchairAccessibleParking": false,
-    "hasParking": true,
+    "takeout": null,
+    "dineIn": null,
+    "wheelchairAccessibleEntrance": null,
+    "wheelchairAccessibleRestroom": null,
+    "wheelchairAccessibleSeating": null,
+    "wheelchairAccessibleParking": null,
+    "hasParking": null,
     "restroom": null,
-    "servesBreakfast": true,
-    "servesLunch": true,
-    "servesDinner": true,
-    "reviews": [
-      {
-        "author": "luna Patricia",
-        "rating": 1,
-        "text": "Order two doubles with only onions. I received two doubles with no onions, ketchup, and pickles.\nThis is the third time Ive had to submit this claim on the same exact order. I have not received a follow up email or text about this.",
-        "when": "4 months ago"
-      },
-      {
-        "author": "John",
-        "rating": 1,
-        "text": "The workers sigh and disrespect when you make your order, the place is loud and dirty. The kiosks make you pay right there with card or otherwise you have to say your order to the workers which seem like they could care more about an ant's life more than my order. My nugget was smaller than my fingernail.",
-        "when": "2 months ago"
-      },
-      {
-        "author": "Asim Hussain (The Reviewer)",
-        "rating": 1,
-        "text": "Don't even know where to start from!\n\nOrdered using the device. Ask the order taker that will my food be served on the table? She said yes.\n\nWaited 20 mins and inquired, she had forgotten to bring it over. No ketchup provided and I had to get it.\n\nThe fries were good but the burger was very disappointing.\n\nNever again....they are much better in Pakistan.",
-        "when": "2 years ago"
-      },
-      {
-        "author": "sophia a",
-        "rating": 1,
-        "text": "Go to a different McDonald’s. This location never fails to mess up my order in some way, shape, or form. Every single time I have placed a mobile order, it has gotten cancelled the second I walk inside with absolutely no explanation. Probably because the workers don’t want to make my order. It’s ridiculous and makes me waste even more time putting it into the kiosk and waiting for it to be made…",
-        "when": "3 months ago"
-      },
-      {
-        "author": "Madeline Motieram Perez",
-        "rating": 3,
-        "text": "I made my order at the drive through windows and unfortunately the driver through service forgot to give us our apple pies. The server cramed the order in one bag,   so l when I checked the bag I figured that the pies were in the bottom of the bag. This is the second time this happens at this location.",
-        "when": "3 months ago"
-      }
-    ],
-    "googleCheckedAt": "2026-09-19",
+    "servesBreakfast": null,
+    "servesLunch": null,
+    "servesDinner": null,
+    "reviews": [],
+    "googleCheckedAt": null,
     "rmpVerifiedAt": "2026-09-09",
     "businessCheckedAt": "2026-09-19",
-    "conflictFlags": [
-      "address_mismatch"
-    ],
+    "conflictFlags": [],
     "sources": [
       {
         "kind": "NYS OTDA Restaurant Meals Program",
@@ -35199,7 +34802,7 @@
       "zip": "11416"
     },
     "currentAddress": {
-      "line1": "75-50 101st Avenue",
+      "line1": "75-50 Liberty Avenue",
       "city": "Ozone Park",
       "state": "NY",
       "zip": "11416"
@@ -36145,7 +35748,7 @@
     "ratingCount": 254,
     "priceLevel": null,
     "takeout": true,
-    "dineIn": false,
+    "dineIn": true,
     "wheelchairAccessibleEntrance": null,
     "wheelchairAccessibleRestroom": null,
     "wheelchairAccessibleSeating": false,

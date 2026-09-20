@@ -45,8 +45,8 @@ val releaseSigningReady = releaseKeystore?.isFile == true &&
 // cut from; a plain local build keeps the defaults. The release workflow derives
 // the version code from the version name as major * 10000 + minor * 100 + patch,
 // so the defaults below follow the same scheme to stay consistent with it.
-val appVersionName = buildInput("RMP_VERSION_NAME", "1.2.7")
-val appVersionCode = buildInput("RMP_VERSION_CODE", "10207").let {
+val appVersionName = buildInput("RMP_VERSION_NAME", "1.2.8")
+val appVersionCode = buildInput("RMP_VERSION_CODE", "10208").let {
     it.toIntOrNull() ?: error("RMP_VERSION_CODE must be an integer, but was \"$it\"")
 }
 

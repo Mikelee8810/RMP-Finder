@@ -40,6 +40,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import sys
 import time
 import urllib.error
@@ -113,22 +114,37 @@ def google_request(url: str, key: str, fields: str, body: dict | None = None) ->
 def lookup(place_id: str | None, name: str, address: str, zip_code: str | None, key: str) -> dict | None:
     """One place, by ID where we have one (cheaper and exact), else by search.
 
-    A stored Place ID is an identity, so it is trusted. A text search is a
-    guess: Google answers with its best match whether or not that match is the
-    right restaurant, and the wrong one would be written into Notion as fact.
-    So a searched result has to land in the ZIP we were looking in, or it is
-    reported as unmatched and the row is left exactly as it was.
+    A stored Place ID can go stale or be wrong, so its returned address must
+    still match the requested street number and ZIP. A text search is also a
+    guess and is held to the same gate before anything is written as fact.
     """
     if place_id:
-        return google_request(PLACES_DETAILS + urllib.parse.quote(place_id), key, DETAIL_FIELDS)
+        stored = google_request(PLACES_DETAILS + urllib.parse.quote(place_id), key, DETAIL_FIELDS)
+        if address_matches(address, zip_code, stored.get("formattedAddress")):
+            return stored
     body = {"textQuery": f"{name} {address}", "maxResultCount": 1}
     found = google_request(PLACES_SEARCH, key, SEARCH_FIELDS, body).get("places") or []
     if not found:
         return None
     candidate = found[0]
-    if zip_code and zip_code not in (candidate.get("formattedAddress") or ""):
+    if not address_matches(address, zip_code, candidate.get("formattedAddress")):
         return None
     return candidate
+
+
+def address_matches(requested: str, zip_code: str | None, candidate: str | None) -> bool:
+    """Require the same NYC house number and ZIP before trusting a listing."""
+    if not candidate:
+        return False
+    if zip_code and not re.search(rf"\b{re.escape(zip_code)}(?:-\d{{4}})?\b", candidate):
+        return False
+    requested_number = re.search(r"\b\d+(?:-\d+)?\b", requested)
+    candidate_number = re.search(r"\b\d+(?:-\d+)?\b", candidate)
+    if not requested_number or not candidate_number:
+        return False
+    # Google may render the same Queens address as either 6259 or 62-59.
+    normalize = lambda value: value.replace("-", "").lstrip("0")
+    return normalize(requested_number.group()) == normalize(candidate_number.group())
 
 
 WEEK_MINUTES = 7 * 24 * 60
@@ -276,13 +292,15 @@ def rich(value: str) -> dict:
     return {"rich_text": [{"type": "text", "text": {"content": run}} for run in runs]}
 
 
-def notion_updates(place: dict, prior_status: str | None) -> dict:
+def notion_updates(place: dict, prior_values: dict[str, str | None] | None = None) -> dict:
     """The Notion cells this place's answer should set.
 
     Google wins on hours and coordinates by explicit decision. It does not win
     on business status: it only ever moves a row to a state it states plainly,
     so a human's "conflicting" or "rebranded" survives a bland OPERATIONAL.
     """
+    prior_values = prior_values or {}
+    prior_status = prior_values.get("Business Status")
     props: dict = {"Google Checked": {"date": {"start": TODAY}}}
 
     if place.get("id"):
@@ -326,7 +344,7 @@ def notion_updates(place: dict, prior_status: str | None) -> dict:
         ("servesDinner", "Serves Dinner"),
     )
     for field, column in service_columns:
-        if isinstance(place.get(field), bool):
+        if isinstance(place.get(field), bool) and prior_values.get(column) in (None, "", "Unknown"):
             props[column] = {"select": {"name": "Yes" if place[field] else "No"}}
 
     accessibility = place.get("accessibilityOptions") or {}
@@ -337,7 +355,7 @@ def notion_updates(place: dict, prior_status: str | None) -> dict:
         ("wheelchairAccessibleParking", "Wheelchair Parking"),
     )
     for field, column in accessibility_columns:
-        if isinstance(accessibility.get(field), bool):
+        if isinstance(accessibility.get(field), bool) and prior_values.get(column) in (None, "", "Unknown"):
             props[column] = {"select": {"name": "Yes" if accessibility[field] else "No"}}
 
     parking_options = place.get("parkingOptions") or {}
@@ -345,7 +363,8 @@ def notion_updates(place: dict, prior_status: str | None) -> dict:
         "freeParkingLot", "paidParkingLot", "freeStreetParking", "paidStreetParking",
         "valetParking", "freeGarageParking", "paidGarageParking",
     )
-    if any(isinstance(parking_options.get(f), bool) for f in parking_fields):
+    if (prior_values.get("Parking") in (None, "", "Unknown")
+            and any(isinstance(parking_options.get(f), bool) for f in parking_fields)):
         has_parking = any(parking_options.get(f) is True for f in parking_fields)
         props["Parking"] = {"select": {"name": "Yes" if has_parking else "No"}}
 
@@ -430,7 +449,13 @@ def main() -> int:
             print(f"  ? {rmp_key}: Google returned no match")
             continue
 
-        updates = notion_updates(place, prop_text(props, "Business Status"))
+        protected_columns = (
+            "Business Status", "Takeout", "Dine In", "Restroom",
+            "Serves Breakfast", "Serves Lunch", "Serves Dinner",
+            "Wheelchair Entrance", "Wheelchair Restroom", "Wheelchair Seating",
+            "Wheelchair Parking", "Parking",
+        )
+        updates = notion_updates(place, {column: prop_text(props, column) for column in protected_columns})
         summary = ", ".join(sorted(updates))
         if args.dry_run:
             print(f"  · {rmp_key}: would set {summary}")

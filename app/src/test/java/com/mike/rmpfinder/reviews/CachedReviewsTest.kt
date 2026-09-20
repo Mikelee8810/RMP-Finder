@@ -113,4 +113,21 @@ class CachedReviewsTest {
         assertTrue(url, url.startsWith("https://www.google.com/maps/search/?api=1&query="))
         assertTrue(url, !url.contains("query_place_id"))
     }
+
+    @Test
+    fun directionsUseAddressAndStoredPlaceId() {
+        val url = CachedReviews.mapsDirectionsUrl(restaurant(placeId = "ChIJ_test_123"), address, "transit")
+
+        assertTrue(url, url.contains("destination=1+Example+Street%2C+Brooklyn%2C+NY+11201"))
+        assertTrue(url, url.contains("destination_place_id=ChIJ_test_123"))
+        assertTrue(url, url.contains("travelmode=transit"))
+    }
+
+    @Test
+    fun directionsWithoutPlaceIdStillUseAddress() {
+        val url = CachedReviews.mapsDirectionsUrl(restaurant(), address, "walking")
+
+        assertTrue(url, url.contains("destination=1+Example+Street%2C+Brooklyn%2C+NY+11201"))
+        assertTrue(url, !url.contains("destination_place_id"))
+    }
 }

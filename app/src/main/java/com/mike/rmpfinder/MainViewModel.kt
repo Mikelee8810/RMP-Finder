@@ -130,7 +130,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     /**
      * Ratings for the whole list, read from the dataset rather than fetched.
-     * Every phone used to ask Google about all 241 restaurants on install and
+     * Every phone used to ask Google about every restaurant on install and
      * again weekly; now the numbers are already here when the list draws.
      */
     private val ratings = repository.restaurants.map(CachedReviews::ratings)

@@ -39,7 +39,7 @@ data class Rating(val rating: Double?, val ratingCount: Int?, val priceLevel: In
  * Ratings and reviews, read straight out of the dataset.
  *
  * These used to be fetched from Google Places on the device: every install
- * asked about all 241 restaurants on first launch and again every week, and
+ * asked about every restaurant on first launch and again every week, and
  * opening a restaurant asked again for its reviews. That is the same answer
  * bought once per phone per week instead of once for everybody, on Google's
  * priciest tier, and it grew with every new user.
@@ -93,6 +93,17 @@ object CachedReviews {
         } else {
             "https://www.google.com/maps/search/?api=1&query=$query&query_place_id=${encode(placeId)}"
         }
+    }
+
+    /**
+     * Directions to the restaurant's actual address. A stored Place ID keeps
+     * Maps pinned to the reviewed listing instead of a nearby coordinate.
+     */
+    fun mapsDirectionsUrl(restaurant: RmpRestaurant, address: RmpAddress, mode: String): String {
+        val destination = encode(address.display())
+        val placeId = restaurant.googlePlaceId
+        val exactPlace = if (placeId.isNullOrBlank()) "" else "&destination_place_id=${encode(placeId)}"
+        return "https://www.google.com/maps/dir/?api=1&destination=$destination$exactPlace&travelmode=${encode(mode)}"
     }
 
     private fun encode(value: String): String = URLEncoder.encode(value, StandardCharsets.UTF_8.toString())

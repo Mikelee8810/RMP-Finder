@@ -69,6 +69,13 @@ OTDA = "https://otda.ny.gov/programs/rmp/participating-restaurants/default.asp"
 CENSUS_ONE_LINE = "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress"
 TODAY = datetime.now(ZoneInfo("America/New_York")).date().isoformat()
 
+# Notion can lag behind the live OTDA roster. These rows were confirmed absent
+# from OTDA's county page and must not be silently reintroduced by a sync.
+OTDA_RETIRED_KEYS = {
+    "brooklyn|burger king|624 south conduit avenue|11208",
+    "queens|burger king/popeyes|161 cross bay boulevard|11414",
+}
+
 # The Notion columns the Google backfill fills, mapped back to what the
 # dataset stores. Notion keeps the human-readable label; the app wants the
 # number or the boolean.
@@ -279,6 +286,8 @@ def build_records(rows: list[dict], existing: dict[str, dict], token: str, write
         key = row["rmpKey"]
         if not key:
             continue  # a placeholder row with no key yet; nothing to sync
+        if key in OTDA_RETIRED_KEYS:
+            continue
         prior = existing.get(key)
         notion_addr = addr(row["address"] or "", row["city"] or "", row["zip"] or "")
 

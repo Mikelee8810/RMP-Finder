@@ -20,9 +20,9 @@ class DatasetAcceptanceTest {
     @Test
     fun bundledDatasetPassesRuntimeGate() {
         val validated = DatasetValidator.validate(manifestBytes, datasetBytes, appVersion = BuildConfig.VERSION_CODE)
-        assertEquals(241, validated.restaurants.size)
-        assertEquals(241, validated.restaurants.map { it.rmpKey }.toSet().size)
-        assertEquals(241, validated.manifest.recordCount)
+        assertEquals(240, validated.restaurants.size)
+        assertEquals(240, validated.restaurants.map { it.rmpKey }.toSet().size)
+        assertEquals(240, validated.manifest.recordCount)
         assertTrue(validated.missingExistingKeys.isEmpty())
     }
 
@@ -36,7 +36,7 @@ class DatasetAcceptanceTest {
     @Test
     fun recordCountMismatchIsRejected() {
         val original = manifestBytes.decodeToString()
-        val wrongManifest = original.replace("\"recordCount\": 241", "\"recordCount\": 240").encodeToByteArray()
+        val wrongManifest = original.replace("\"recordCount\": 240", "\"recordCount\": 239").encodeToByteArray()
         val error = runCatching { DatasetValidator.validate(wrongManifest, datasetBytes, appVersion = BuildConfig.VERSION_CODE) }.exceptionOrNull()
         assertTrue(error?.message?.contains("record count") == true)
     }
@@ -63,7 +63,7 @@ class DatasetAcceptanceTest {
 
         // A role the schema allows must never appear under a different spelling,
         // or the detail screen would fall back to showing the raw enum value.
-        val known = setOf("rmp_eligibility", "business_status", "hours", "phone", "website", "address", "coordinates", "image")
+        val known = setOf("rmp_eligibility", "business_status", "hours", "phone", "website", "address", "coordinates", "image", "rating", "reviews")
         assertTrue(restaurants.flatMap { it.sources }.all { it.role in known })
         assertTrue(restaurants.flatMap { it.sources }.none { it.kind.isBlank() })
     }
