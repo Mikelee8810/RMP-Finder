@@ -186,6 +186,7 @@
     "wheelchairAccessibleRestroom": { "type": ["boolean", "null"] },
     "wheelchairAccessibleSeating": { "type": ["boolean", "null"] },
     "wheelchairAccessibleParking": { "type": ["boolean", "null"] },
+    "hasParking": { "type": ["boolean", "null"] },
     "restroom": { "type": ["boolean", "null"] },
     "servesBreakfast": { "type": ["boolean", "null"] },
     "servesLunch": { "type": ["boolean", "null"] },

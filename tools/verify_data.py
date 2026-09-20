@@ -118,7 +118,7 @@ def main():
     assert manifest["sha256"] == digest, "manifest sha256 does not match restaurants.json — regenerate the manifest"
     assert isinstance(manifest["datasetVersion"], int) and manifest["datasetVersion"] > 0
     assert manifest["schemaVersion"] == 1
-    assert manifest["minimumAppVersion"] == 1
+    assert isinstance(manifest["minimumAppVersion"], int) and manifest["minimumAppVersion"] >= 1
     assert manifest["datasetUrl"] == "https://raw.githubusercontent.com/Mikelee8810/RMP-Finder/main/data/restaurants.json"
     assert manifest["programPolicy"]["rmpDiscountPercent"] == 10
 

@@ -5,7 +5,7 @@
   "recordCount": 241,
   "sha256": "3abdc93727e112f1f6280bbeda68d394383ca62aed2d77b0b97d727f17666c0b",
   "datasetUrl": "https://raw.githubusercontent.com/Mikelee8810/RMP-Finder/main/data/restaurants.json",
-  "minimumAppVersion": 10206,
+  "minimumAppVersion": 10207,
   "sourceRevision": null,
   "programPolicy": {
     "rmpDiscountPercent": 10,
