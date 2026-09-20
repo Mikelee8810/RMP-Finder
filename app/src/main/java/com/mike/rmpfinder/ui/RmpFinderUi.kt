@@ -1416,7 +1416,7 @@ private fun RestaurantDetail(
         restaurant.dineIn, restaurant.restroom,
         restaurant.servesBreakfast, restaurant.servesLunch, restaurant.servesDinner,
         restaurant.wheelchairAccessibleEntrance, restaurant.wheelchairAccessibleRestroom,
-        restaurant.wheelchairAccessibleSeating, restaurant.wheelchairAccessibleParking,
+        restaurant.wheelchairAccessibleSeating, restaurant.wheelchairAccessibleParking, restaurant.hasParking,
     ).any { it != null }
     WarmGround(underStatusBar = true) {
         LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(bottom = 40.dp)) {

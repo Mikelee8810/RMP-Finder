@@ -81,6 +81,7 @@ data class RmpRestaurant(
     val wheelchairAccessibleRestroom: Boolean? = null,
     val wheelchairAccessibleSeating: Boolean? = null,
     val wheelchairAccessibleParking: Boolean? = null,
+    val hasParking: Boolean? = null,
     val restroom: Boolean? = null,
     val servesBreakfast: Boolean? = null,
     val servesLunch: Boolean? = null,

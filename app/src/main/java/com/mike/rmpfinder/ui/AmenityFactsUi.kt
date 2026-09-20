@@ -1,7 +1,5 @@
 package com.mike.rmpfinder.ui
 
-import androidx.annotation.DrawableRes
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,6 +8,15 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.Accessible
+import androidx.compose.material.icons.filled.BreakfastDining
+import androidx.compose.material.icons.filled.DinnerDining
+import androidx.compose.material.icons.filled.LocalParking
+import androidx.compose.material.icons.filled.LunchDining
+import androidx.compose.material.icons.filled.Restaurant
+import androidx.compose.material.icons.filled.Wc
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -18,12 +25,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.mike.rmpfinder.R
 import com.mike.rmpfinder.data.RmpRestaurant
 
 internal enum class AmenityStatus(val label: String, val marker: String) {
@@ -40,30 +47,31 @@ internal fun amenityStatus(value: Boolean?): AmenityStatus = when (value) {
 
 private data class AmenityFact(
     val label: String,
-    @DrawableRes val iconRes: Int,
+    val icon: ImageVector,
     val value: Boolean?,
 )
 
 @Composable
 internal fun AmenityFactsContent(restaurant: RmpRestaurant) {
     val top = listOf(
-        AmenityFact("Dine-in", R.drawable.amenity_dine_in, restaurant.dineIn),
-        AmenityFact("Restroom", R.drawable.amenity_restroom, restaurant.restroom),
+        AmenityFact("Dine-in", Icons.Filled.Restaurant, restaurant.dineIn),
+        AmenityFact("Restroom", Icons.Filled.Wc, restaurant.restroom),
+        AmenityFact("Parking", Icons.Filled.LocalParking, restaurant.hasParking),
     )
     val meals = listOf(
-        AmenityFact("Breakfast", R.drawable.amenity_breakfast, restaurant.servesBreakfast),
-        AmenityFact("Lunch", R.drawable.amenity_lunch, restaurant.servesLunch),
-        AmenityFact("Dinner", R.drawable.amenity_dinner, restaurant.servesDinner),
+        AmenityFact("Breakfast", Icons.Filled.BreakfastDining, restaurant.servesBreakfast),
+        AmenityFact("Lunch", Icons.Filled.LunchDining, restaurant.servesLunch),
+        AmenityFact("Dinner", Icons.Filled.DinnerDining, restaurant.servesDinner),
     )
     val access = listOf(
-        AmenityFact("Entrance", R.drawable.amenity_accessible_entrance, restaurant.wheelchairAccessibleEntrance),
-        AmenityFact("Restroom", R.drawable.amenity_accessible_restroom, restaurant.wheelchairAccessibleRestroom),
-        AmenityFact("Seating", R.drawable.amenity_accessible_seating, restaurant.wheelchairAccessibleSeating),
-        AmenityFact("Parking", R.drawable.amenity_accessible_parking, restaurant.wheelchairAccessibleParking),
+        AmenityFact("Accessible entrance", Icons.AutoMirrored.Filled.Accessible, restaurant.wheelchairAccessibleEntrance),
+        AmenityFact("Accessible restroom", Icons.AutoMirrored.Filled.Accessible, restaurant.wheelchairAccessibleRestroom),
+        AmenityFact("Accessible seating", Icons.AutoMirrored.Filled.Accessible, restaurant.wheelchairAccessibleSeating),
+        AmenityFact("Accessible parking", Icons.AutoMirrored.Filled.Accessible, restaurant.wheelchairAccessibleParking),
     )
 
-    Column(verticalArrangement = Arrangement.spacedBy(14.dp)) {
-        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+    Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             top.forEach { fact -> AmenityTile(fact, Modifier.weight(1f)) }
         }
 
@@ -74,7 +82,7 @@ internal fun AmenityFactsContent(restaurant: RmpRestaurant) {
 
         AmenitySectionTitle("Wheelchair access")
         access.chunked(2).forEach { pair ->
-            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 pair.forEach { fact -> AmenityTile(fact, Modifier.weight(1f)) }
             }
         }
@@ -94,30 +102,47 @@ private fun AmenitySectionTitle(text: String) {
 @Composable
 private fun AmenityTile(fact: AmenityFact, modifier: Modifier = Modifier) {
     val status = amenityStatus(fact.value)
+    val known = status != AmenityStatus.UNKNOWN
+    val iconTint = if (known) {
+        MaterialTheme.colorScheme.onSurface
+    } else {
+        MaterialTheme.colorScheme.onSurface.copy(alpha = 0.32f)
+    }
+    val labelColor = if (known) {
+        MaterialTheme.colorScheme.onSurface
+    } else {
+        MaterialTheme.colorScheme.onSurface.copy(alpha = 0.45f)
+    }
+    val description = if (known) "${fact.label}: ${status.label}" else "${fact.label}: not reported"
+
     Surface(
         modifier = modifier,
-        shape = RoundedCornerShape(18.dp),
-        color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.46f),
+        shape = RoundedCornerShape(16.dp),
+        color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = if (known) 0.46f else 0.28f),
     ) {
         Column(
-            modifier = Modifier.padding(horizontal = 10.dp, vertical = 12.dp),
+            modifier = Modifier
+                .padding(horizontal = 8.dp, vertical = 9.dp)
+                .semantics(mergeDescendants = true) { contentDescription = description },
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(7.dp),
+            verticalArrangement = Arrangement.spacedBy(5.dp),
         ) {
-            Image(
-                painter = painterResource(fact.iconRes),
+            Icon(
+                imageVector = fact.icon,
                 contentDescription = null,
-                contentScale = ContentScale.Fit,
-                modifier = Modifier.size(26.dp),
+                tint = iconTint,
+                modifier = Modifier.size(20.dp),
             )
             Text(
                 text = fact.label,
                 style = MaterialTheme.typography.labelMedium,
-                color = MaterialTheme.colorScheme.onSurface,
+                color = labelColor,
                 textAlign = TextAlign.Center,
                 maxLines = 2,
             )
-            AmenityStatusPill(status)
+            if (known) {
+                AmenityStatusPill(status)
+            }
         }
     }
 }

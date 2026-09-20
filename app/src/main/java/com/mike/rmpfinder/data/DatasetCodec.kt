@@ -26,7 +26,7 @@ object DatasetCodec {
     private val businessStatuses = setOf("open", "likely_open", "temporarily_closed", "likely_closed", "closed", "moved", "rebranded", "conflicting", "unknown")
     private val hoursStatuses = setOf("verified", "usable", "stale", "partial", "conflicting", "unknown")
     private val conflictFlags = setOf("name_mismatch", "address_mismatch", "moved", "rebranded", "hours_conflict", "status_conflict", "phone_conflict")
-    private val restaurantKeys = setOf("rmpKey", "officialName", "currentName", "aliases", "officialAddress", "currentAddress", "borough", "zip", "coordinates", "phone", "website", "menuUrl", "imageUrl", "imageAttribution", "businessStatus", "hoursStatus", "hours", "googlePlaceId", "rating", "ratingCount", "priceLevel", "takeout", "dineIn", "wheelchairAccessibleEntrance", "wheelchairAccessibleRestroom", "wheelchairAccessibleSeating", "wheelchairAccessibleParking", "restroom", "servesBreakfast", "servesLunch", "servesDinner", "reviews", "googleCheckedAt", "rmpVerifiedAt", "businessCheckedAt", "conflictFlags", "sources")
+    private val restaurantKeys = setOf("rmpKey", "officialName", "currentName", "aliases", "officialAddress", "currentAddress", "borough", "zip", "coordinates", "phone", "website", "menuUrl", "imageUrl", "imageAttribution", "businessStatus", "hoursStatus", "hours", "googlePlaceId", "rating", "ratingCount", "priceLevel", "takeout", "dineIn", "wheelchairAccessibleEntrance", "wheelchairAccessibleRestroom", "wheelchairAccessibleSeating", "wheelchairAccessibleParking", "hasParking", "restroom", "servesBreakfast", "servesLunch", "servesDinner", "reviews", "googleCheckedAt", "rmpVerifiedAt", "businessCheckedAt", "conflictFlags", "sources")
     private val requiredRestaurantKeys = setOf("rmpKey", "officialName", "officialAddress", "borough", "zip", "coordinates", "rmpVerifiedAt", "businessStatus", "hoursStatus")
 
     fun parseDataset(bytes: ByteArray): List<RmpRestaurant> {
@@ -155,6 +155,7 @@ object DatasetCodec {
         val wheelchairAccessibleRestroom = obj.nullableBoolean("wheelchairAccessibleRestroom")
         val wheelchairAccessibleSeating = obj.nullableBoolean("wheelchairAccessibleSeating")
         val wheelchairAccessibleParking = obj.nullableBoolean("wheelchairAccessibleParking")
+        val hasParking = obj.nullableBoolean("hasParking")
         val restroom = obj.nullableBoolean("restroom")
         val servesBreakfast = obj.nullableBoolean("servesBreakfast")
         val servesLunch = obj.nullableBoolean("servesLunch")
@@ -170,7 +171,7 @@ object DatasetCodec {
             latitude, longitude, phone, website, menuUrl, imageUrl, businessStatus, hoursStatus, hours,
             googlePlaceId, rating, ratingCount, priceLevel, takeout, dineIn,
             wheelchairAccessibleEntrance, wheelchairAccessibleRestroom, wheelchairAccessibleSeating,
-            wheelchairAccessibleParking, restroom, servesBreakfast, servesLunch, servesDinner,
+            wheelchairAccessibleParking, hasParking, restroom, servesBreakfast, servesLunch, servesDinner,
             reviews, googleCheckedAt,
             rmpVerifiedAt, businessCheckedAt, flags, sources,
         )

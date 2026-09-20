@@ -71,7 +71,7 @@ PLACES_SEARCH = "https://places.googleapis.com/v1/places:searchText"
 DETAIL_FIELDS = ",".join([
     "id", "displayName", "formattedAddress", "location", "businessStatus",
     "regularOpeningHours", "websiteUri", "priceLevel", "takeout", "dineIn",
-    "accessibilityOptions", "restroom", "servesBreakfast", "servesLunch", "servesDinner",
+    "accessibilityOptions", "parkingOptions", "restroom", "servesBreakfast", "servesLunch", "servesDinner",
     "nationalPhoneNumber", "rating", "userRatingCount", "reviews", "googleMapsUri",
 ])
 SEARCH_FIELDS = ",".join(f"places.{f}" for f in DETAIL_FIELDS.split(","))
@@ -339,6 +339,15 @@ def notion_updates(place: dict, prior_status: str | None) -> dict:
     for field, column in accessibility_columns:
         if isinstance(accessibility.get(field), bool):
             props[column] = {"select": {"name": "Yes" if accessibility[field] else "No"}}
+
+    parking_options = place.get("parkingOptions") or {}
+    parking_fields = (
+        "freeParkingLot", "paidParkingLot", "freeStreetParking", "paidStreetParking",
+        "valetParking", "freeGarageParking", "paidGarageParking",
+    )
+    if any(isinstance(parking_options.get(f), bool) for f in parking_fields):
+        has_parking = any(parking_options.get(f) is True for f in parking_fields)
+        props["Parking"] = {"select": {"name": "Yes" if has_parking else "No"}}
 
     # Review text is deliberately NOT written to Notion. Notion is the human
     # editing workspace: every column there is something a person might sit
