@@ -1502,33 +1502,7 @@ private fun RestaurantDetail(
             if (hasServiceFacts) {
                 item {
                     DetailCard("At this location") {
-                        restaurant.dineIn?.let { Text("Dine-in: ${if (it) "Yes" else "No"}", style = MaterialTheme.typography.bodyMedium, color = RmpTokens.InkMuted) }
-                        restaurant.restroom?.let { Text("Restroom: ${if (it) "Yes" else "No"}", style = MaterialTheme.typography.bodyMedium, color = RmpTokens.InkMuted) }
-
-                        val meals = listOf(
-                            "Breakfast" to restaurant.servesBreakfast,
-                            "Lunch" to restaurant.servesLunch,
-                            "Dinner" to restaurant.servesDinner,
-                        ).filter { it.second != null }
-                        if (meals.isNotEmpty()) {
-                            Text(
-                                "Meals: " + meals.joinToString(" • ") { (name, value) -> "$name ${if (value == true) "Yes" else "No"}" },
-                                style = MaterialTheme.typography.bodyMedium, color = RmpTokens.InkMuted,
-                            )
-                        }
-
-                        val access = listOf(
-                            "Entrance" to restaurant.wheelchairAccessibleEntrance,
-                            "Restroom" to restaurant.wheelchairAccessibleRestroom,
-                            "Seating" to restaurant.wheelchairAccessibleSeating,
-                            "Parking" to restaurant.wheelchairAccessibleParking,
-                        ).filter { it.second != null }
-                        if (access.isNotEmpty()) {
-                            Text(
-                                "Wheelchair access: " + access.joinToString(" • ") { (name, value) -> "$name ${if (value == true) "Yes" else "No"}" },
-                                style = MaterialTheme.typography.bodyMedium, color = RmpTokens.InkMuted,
-                            )
-                        }
+                        AmenityFactsContent(restaurant)
                     }
                 }
             }
