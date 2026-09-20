@@ -1,0 +1,26 @@
+{
+  "bronx|dunkin donuts|2370 grand concourse road|10458": {
+    "servesDinner": false,
+    "reason": "Dunkin is a breakfast-and-coffee restaurant; Google's dinner classification is not useful to RMP users."
+  },
+  "bronx|dunkin donuts|4 east fordham road|10468": {
+    "servesDinner": false,
+    "reason": "Dunkin is a breakfast-and-coffee restaurant; Google's dinner classification is not useful to RMP users."
+  },
+  "brooklyn|checkers|1801 church avenue|11226": {
+    "servesBreakfast": true,
+    "reason": "Location-level review corrected Google's false breakfast flag."
+  },
+  "brooklyn|dunkin donuts|1052 flushing avenue|11237": {
+    "servesDinner": false,
+    "reason": "Dunkin is a breakfast-and-coffee restaurant; Google's dinner classification is not useful to RMP users."
+  },
+  "brooklyn|popeye's|1159 utica avenue|11203": {
+    "dineIn": true,
+    "reason": "Location-level review confirmed customer seating despite Google's false dine-in flag."
+  },
+  "queens|papa john's pizza|4919 30th avenue|11377": {
+    "dineIn": true,
+    "reason": "Location-level review confirmed customer seating despite Google's false dine-in flag."
+  }
+}

@@ -100,6 +100,7 @@ jobs:
         run: |
           python3 -m pip install --quiet --upgrade jsonschema pillow requests
           python3 tools/verify_data.py
+          python3 tools/audit_service_facts.py
           python3 tools/check_logo_assets.py
 
       - name: Refuse an app version older than the dataset requires
