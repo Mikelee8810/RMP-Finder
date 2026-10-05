@@ -41,7 +41,7 @@ def custom_mapping() -> dict[str, str]:
 
 
 def expected_mapping() -> dict[str, str]:
-    rows = json.loads(DATA.read_text())
+    rows = json.loads(DATA.read_text(encoding="utf-8"))
     standard = {path.name for path in STANDARD_ASSETS.glob("*.png")}
     custom = {path.name for path in CUSTOM_ASSETS.glob("*.png")}
     generated = custom_mapping()
@@ -50,7 +50,7 @@ def expected_mapping() -> dict[str, str]:
     # website URL; a new ordering or location URL must not make a known logo
     # disappear. Custom evidence still wins, then the curated mapping, then a
     # domain-derived mapping for genuinely new keys.
-    curated = json.loads(MAP.read_text()) if MAP.exists() else {}
+    curated = json.loads(MAP.read_text(encoding="utf-8")) if MAP.exists() else {}
     mapping: dict[str, str] = {}
     missing: list[str] = []
 

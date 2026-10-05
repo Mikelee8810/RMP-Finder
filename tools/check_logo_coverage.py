@@ -35,7 +35,7 @@ def load_map() -> dict[str, str]:
             obj[key] = value
         return obj
 
-    raw = json.loads(MAP.read_text(), object_pairs_hook=hook)
+    raw = json.loads(MAP.read_text(encoding="utf-8"), object_pairs_hook=hook)
     if duplicates:
         raise ValueError(f"duplicate map key(s): {', '.join(sorted(set(duplicates)))}")
     if not isinstance(raw, dict):
@@ -86,7 +86,7 @@ def verify_custom_evidence() -> set[str]:
 
 
 def main() -> int:
-    rows = json.loads(DATA.read_text())
+    rows = json.loads(DATA.read_text(encoding="utf-8"))
     if len(rows) != EXPECTED_RECORDS:
         raise ValueError(f"dataset has {len(rows)} records; expected {EXPECTED_RECORDS}")
     keys = [row["rmpKey"] for row in rows]

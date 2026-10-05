@@ -1902,7 +1902,7 @@
     "restroom": true,
     "servesBreakfast": true,
     "servesLunch": true,
-    "servesDinner": true,
+    "servesDinner": false,
     "reviews": [
       {
         "author": "Amanda Pacheco",
@@ -2070,7 +2070,7 @@
     "restroom": false,
     "servesBreakfast": true,
     "servesLunch": true,
-    "servesDinner": true,
+    "servesDinner": false,
     "reviews": [
       {
         "author": "Evi",
@@ -9404,7 +9404,7 @@
     "wheelchairAccessibleParking": false,
     "hasParking": true,
     "restroom": null,
-    "servesBreakfast": false,
+    "servesBreakfast": true,
     "servesLunch": true,
     "servesDinner": true,
     "reviews": [
@@ -10351,7 +10351,7 @@
     "restroom": true,
     "servesBreakfast": true,
     "servesLunch": true,
-    "servesDinner": true,
+    "servesDinner": false,
     "reviews": [
       {
         "author": "Hakeem Banks",
@@ -19260,7 +19260,7 @@
     "ratingCount": 107,
     "priceLevel": 1,
     "takeout": true,
-    "dineIn": false,
+    "dineIn": true,
     "wheelchairAccessibleEntrance": true,
     "wheelchairAccessibleRestroom": true,
     "wheelchairAccessibleSeating": true,
@@ -35753,7 +35753,7 @@
     "ratingCount": 254,
     "priceLevel": null,
     "takeout": true,
-    "dineIn": false,
+    "dineIn": true,
     "wheelchairAccessibleEntrance": null,
     "wheelchairAccessibleRestroom": null,
     "wheelchairAccessibleSeating": false,
