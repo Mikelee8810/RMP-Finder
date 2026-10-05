@@ -17,6 +17,7 @@ class RmpFinderApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         UpdateScheduler.schedule(this)
+        com.mike.rmpfinder.update.WidgetRefreshScheduler.schedule(this)
         appScope.launch {
             repository.ensureBundledData()
             if (repository.shouldRunAppStartCheck()) repository.checkForUpdates()

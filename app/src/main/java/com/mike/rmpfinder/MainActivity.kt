@@ -100,10 +100,13 @@ class MainActivity : ComponentActivity() {
         val coarse = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
         if (!fine && !coarse) return
         locationGranted = true
+        val client = LocationServices.getFusedLocationProviderClient(this)
+        client.lastLocation.addOnSuccessListener { location ->
+            location?.let { viewModel.setUserLocation(it.latitude, it.longitude) }
+        }
         val priority = if (fine) Priority.PRIORITY_HIGH_ACCURACY else Priority.PRIORITY_BALANCED_POWER_ACCURACY
         val token = CancellationTokenSource()
-        LocationServices.getFusedLocationProviderClient(this)
-            .getCurrentLocation(priority, token.token)
+        client.getCurrentLocation(priority, token.token)
             .addOnSuccessListener { location ->
                 location?.let { viewModel.setUserLocation(it.latitude, it.longitude) }
             }

@@ -46,7 +46,7 @@ USABLE_HOURS_FLOOR = 180
 
 
 def load(path):
-    with path.open() as handle:
+    with path.open(encoding="utf-8") as handle:
         return json.load(handle)
 
 

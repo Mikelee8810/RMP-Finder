@@ -37,6 +37,7 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
@@ -366,7 +367,7 @@ private val QuickCuisines = listOf(
 
 /** The warm ground every screen sits on: apricot at the top fading to cream. */
 @Composable
-private fun WarmGround(modifier: Modifier = Modifier, underStatusBar: Boolean = false, content: @Composable () -> Unit) {
+private fun WarmGround(modifier: Modifier = Modifier, underStatusBar: Boolean = false, content: @Composable BoxScope.() -> Unit) {
     Box(modifier.fillMaxSize().background(Brush.verticalGradient(listOf(RmpTokens.GroundTop, RmpTokens.Ground, RmpTokens.Ground)))) {
         Box(if (underStatusBar) Modifier.fillMaxSize() else Modifier.fillMaxSize().statusBarsPadding()) { content() }
     }
@@ -420,14 +421,45 @@ private fun HomeScreen(
                     )
                     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                         Box(Modifier.weight(1f)) { SearchField(value = filters.query, onValueChange = viewModel::setQuery, onSearch = { viewModel.rememberSearch(filters.query) }) }
+                        val activeFilterCount = listOfNotNull(
+                            filters.borough,
+                            filters.category,
+                            filters.minRating?.let { "rating" },
+                            if (filters.openOnly) "open" else null,
+                            if (filters.favoritesOnly) "fav" else null,
+                            if (filters.priceLevels.isNotEmpty()) "price" else null,
+                        ).size
+
                         Surface(
                             onClick = { showBoroughs = !showBoroughs },
                             shape = CircleShape,
-                            color = if (showBoroughs || filters.borough != null) RmpTokens.Ink else RmpTokens.Accent,
+                            color = if (showBoroughs || filters.borough != null || activeFilterCount > 0) RmpTokens.Ink else RmpTokens.Accent,
                             shadowElevation = 6.dp,
                             modifier = Modifier.size(50.dp),
                         ) {
-                            Box(contentAlignment = Alignment.Center) { Icon(Icons.Rounded.Tune, contentDescription = "Filters", tint = Color.White) }
+                            Box(contentAlignment = Alignment.Center) {
+                                Icon(Icons.Rounded.Tune, contentDescription = "Filters", tint = Color.White)
+                                if (activeFilterCount > 0) {
+                                    Box(
+                                        modifier = Modifier
+                                            .align(Alignment.TopEnd)
+                                            .padding(top = 7.dp, end = 7.dp)
+                                            .size(17.dp)
+                                            .clip(CircleShape)
+                                            .background(RmpTokens.Butter),
+                                        contentAlignment = Alignment.Center,
+                                    ) {
+                                        Text(
+                                            activeFilterCount.toString(),
+                                            style = MaterialTheme.typography.labelSmall.copy(
+                                                fontSize = 10.sp,
+                                                fontWeight = FontWeight.Bold,
+                                                color = RmpTokens.ButterInk,
+                                            ),
+                                        )
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -625,9 +657,13 @@ private fun OfflineBanner(modifier: Modifier = Modifier) {
 /** Every saved place, closest first, as its own tab. */
 @Composable
 private fun SavedScreen(state: RmpUiState, viewModel: MainViewModel, onRestaurant: (RmpRestaurant) -> Unit, modifier: Modifier = Modifier) {
-    val saved = remember(state.allRestaurants, state.favoriteKeys, state.distances) {
+    val saved = remember(state.allRestaurants, state.favoriteKeys, state.distances, state.now) {
         state.allRestaurants.filter { it.rmpKey in state.favoriteKeys }
-            .sortedWith(compareBy<RmpRestaurant> { state.distances[it.rmpKey] ?: Double.MAX_VALUE }.thenBy { it.displayName.lowercase() })
+            .sortedWith(
+                compareByDescending<RmpRestaurant> { OpenNow.isOpen(it, state.now) }
+                    .thenBy { state.distances[it.rmpKey] ?: Double.MAX_VALUE }
+                    .thenBy { it.displayName.lowercase() }
+            )
     }
     val online = isOnline()
     WarmGround(modifier) {
@@ -1070,6 +1106,26 @@ private fun MapScreen(
                     )
                 }
             }
+            if (state.origin != null && !mapLoadFailed) {
+                Surface(
+                    onClick = {
+                        jumpLabel = null
+                        jumpTarget = LatLng(state.origin.latitude, state.origin.longitude) to 13.5
+                    },
+                    shape = CircleShape,
+                    color = RmpTokens.Card,
+                    contentColor = RmpTokens.Ink,
+                    shadowElevation = 8.dp,
+                    modifier = Modifier
+                        .align(Alignment.BottomEnd)
+                        .padding(end = 16.dp, bottom = if (selectedMapRestaurant != null) 96.dp else 24.dp)
+                        .size(46.dp),
+                ) {
+                    Box(contentAlignment = Alignment.Center) {
+                        Icon(Icons.Rounded.NearMe, contentDescription = "Recenter on my location", tint = RmpTokens.Accent, modifier = Modifier.size(22.dp))
+                    }
+                }
+            }
         }
     }
 }
@@ -1240,6 +1296,15 @@ private fun RmpMap(
                     addStringProperty("iconId", restaurant.rmpKey)
                 }
             }
+            val existingStyle = map.style
+            val existingSource = existingStyle?.getSource("rmp-restaurants") as? GeoJsonSource
+            if (existingStyle != null && existingStyle.isFullyLoaded && existingSource != null) {
+                // Style already active: hot-swap GeoJSON features directly with ZERO flicker!
+                markerBitmaps.forEach { (iconId, bitmap) -> existingStyle.addImage(iconId, bitmap) }
+                existingSource.setGeoJson(FeatureCollection.fromFeatures(features))
+                return@getMapAsync
+            }
+
             val options = GeoJsonOptions().withCluster(true).withClusterRadius(48).withClusterMaxZoom(14)
             map.setStyle(styleUrl) { style ->
                 mapLoadResolved = true
@@ -1376,7 +1441,7 @@ private fun RestaurantDetail(
         restaurant.wheelchairAccessibleSeating, restaurant.wheelchairAccessibleParking, restaurant.hasParking,
     ).any { it != null }
     WarmGround(underStatusBar = true) {
-        LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(bottom = 40.dp)) {
+        LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(bottom = 100.dp)) {
             item {
                 // Hero: the storefront photo when we have one (brand colour block if
                 // not), with the info card riding up over it.
@@ -1553,6 +1618,52 @@ private fun RestaurantDetail(
                 tint = if (favorite) RmpTokens.Accent else RmpTokens.Ink,
                 onClick = onFavorite,
             )
+        }
+
+        // Sticky bottom action bar
+        Surface(
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .fillMaxWidth()
+                .navigationBarsPadding()
+                .padding(horizontal = 16.dp, vertical = 10.dp),
+            shape = RoundedCornerShape(26.dp),
+            color = RmpTokens.Dock,
+            contentColor = Color.White,
+            shadowElevation = 14.dp,
+            border = BorderStroke(1.dp, Color.White.copy(alpha = 0.16f)),
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 10.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(10.dp),
+            ) {
+                Button(
+                    onClick = { openDirections(context, restaurant, whereItIs, "transit") },
+                    shape = RoundedCornerShape(20.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = RmpTokens.Accent, contentColor = Color.White),
+                    modifier = Modifier.weight(1f).height(44.dp),
+                ) {
+                    Icon(Icons.Rounded.Directions, contentDescription = null, modifier = Modifier.size(18.dp))
+                    Spacer(Modifier.width(6.dp))
+                    Text("Directions", style = MaterialTheme.typography.labelLarge)
+                }
+
+                restaurant.phone?.let { phone ->
+                    Button(
+                        onClick = { openIntent(context, Intent(Intent.ACTION_DIAL, Uri.parse("tel:$phone"))) },
+                        shape = RoundedCornerShape(20.dp),
+                        colors = ButtonDefaults.buttonColors(containerColor = RmpTokens.PaperDeep, contentColor = RmpTokens.Ink),
+                        modifier = Modifier.height(44.dp),
+                    ) {
+                        Icon(Icons.Rounded.Call, contentDescription = null, modifier = Modifier.size(18.dp))
+                        Spacer(Modifier.width(6.dp))
+                        Text("Call", style = MaterialTheme.typography.labelLarge)
+                    }
+                }
+            }
         }
     }
 }
@@ -2362,6 +2473,7 @@ private fun openIntent(context: Context, intent: Intent) {
 private fun startActivitySafely(context: Context, intent: Intent): Boolean = try {
     context.startActivity(intent)
     true
-} catch (_: ActivityNotFoundException) {
+} catch (_: Exception) {
     false
 }
+
