@@ -238,6 +238,9 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.draw.shadow
 import com.mike.rmpfinder.SortOption
+import com.mike.rmpfinder.TransitMode
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.combinedClickable
 
 private enum class MainTab { HOME, MAP, SAVED, INFO }
 
@@ -273,6 +276,7 @@ fun RmpFinderRoot(
             restaurant = selected,
             favorite = selected.rmpKey in state.favoriteKeys,
             distanceMiles = state.distances[selected.rmpKey],
+            transitMode = state.preferredTransit,
             now = state.now,
             reviews = reviews[selected.rmpKey] ?: if (viewModel.reviewsConfigured) ReviewsState.Loading else ReviewsState.Unavailable,
             userNote = state.savedNotes[selected.rmpKey].orEmpty(),
@@ -620,6 +624,21 @@ private fun HomeScreen(
                                 FilterChipPill(selected = filters.wheelchairOnly, label = "Wheelchair accessible", onClick = viewModel::toggleWheelchairOnly)
                             }
 
+                            // Preferred Transit
+                            Text("Preferred Transit", style = MaterialTheme.typography.labelMedium, color = RmpTokens.InkMuted)
+                            Row(
+                                Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()),
+                                horizontalArrangement = Arrangement.spacedBy(6.dp),
+                            ) {
+                                TransitMode.entries.forEach { mode ->
+                                    FilterChipPill(
+                                        selected = state.preferredTransit == mode,
+                                        label = "${mode.iconPrefix} ${mode.label}",
+                                        onClick = { viewModel.setPreferredTransit(mode) },
+                                    )
+                                }
+                            }
+
                             // Ratings & Price
                             if (hasRatings) {
                                 Text("Rating & Price", style = MaterialTheme.typography.labelMedium, color = RmpTokens.InkMuted)
@@ -688,7 +707,16 @@ private fun HomeScreen(
             } else {
                 items(state.visibleRestaurants, key = { it.rmpKey }) { restaurant ->
                     Box(Modifier.animateItem().padding(horizontal = 22.dp, vertical = 5.dp)) {
-                        StoreRow(restaurant, state.distances[restaurant.rmpKey], restaurant.rmpKey in state.favoriteKeys, state.now, open, onFavorite = { viewModel.toggleFavorite(restaurant) }, rating = state.ratings[restaurant.rmpKey])
+                        StoreRow(
+                            restaurant = restaurant,
+                            distanceMiles = state.distances[restaurant.rmpKey],
+                            favorite = restaurant.rmpKey in state.favoriteKeys,
+                            now = state.now,
+                            onClick = open,
+                            onFavorite = { viewModel.toggleFavorite(restaurant) },
+                            rating = state.ratings[restaurant.rmpKey],
+                            transitMode = state.preferredTransit,
+                        )
                     }
                 }
             }
@@ -845,7 +873,16 @@ private fun SavedScreen(state: RmpUiState, viewModel: MainViewModel, onRestauran
             } else {
                 items(saved, key = { it.rmpKey }) { restaurant ->
                     Box(Modifier.animateItem().padding(horizontal = 22.dp, vertical = 5.dp)) {
-                        StoreRow(restaurant, state.distances[restaurant.rmpKey], true, state.now, onRestaurant, onFavorite = { viewModel.toggleFavorite(restaurant) }, rating = state.ratings[restaurant.rmpKey])
+                        StoreRow(
+                            restaurant = restaurant,
+                            distanceMiles = state.distances[restaurant.rmpKey],
+                            favorite = true,
+                            now = state.now,
+                            onClick = onRestaurant,
+                            onFavorite = { viewModel.toggleFavorite(restaurant) },
+                            rating = state.ratings[restaurant.rmpKey],
+                            transitMode = state.preferredTransit,
+                        )
                     }
                 }
             }
@@ -1045,7 +1082,16 @@ private fun StoreTile(modifier: Modifier, restaurant: RmpRestaurant, distanceMil
 
 /** List card: round logo, name, the facts that decide a visit, and a save heart. */
 @Composable
-private fun StoreRow(restaurant: RmpRestaurant, distanceMiles: Double?, favorite: Boolean, now: Instant, onClick: (RmpRestaurant) -> Unit, onFavorite: () -> Unit, rating: Rating? = null) {
+private fun StoreRow(
+    restaurant: RmpRestaurant,
+    distanceMiles: Double?,
+    favorite: Boolean,
+    now: Instant,
+    onClick: (RmpRestaurant) -> Unit,
+    onFavorite: () -> Unit,
+    rating: Rating? = null,
+    transitMode: TransitMode = TransitMode.WALKING,
+) {
     val context = LocalContext.current
     val logo = remember(restaurant.rmpKey) { RestaurantLogos.forRestaurant(context, restaurant) }
     val availability = availabilityOf(restaurant, now)
@@ -1069,7 +1115,7 @@ private fun StoreRow(restaurant: RmpRestaurant, distanceMiles: Double?, favorite
                     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                         if (distanceMiles != null) {
                             Text(formatMiles(distanceMiles), style = MaterialTheme.typography.labelMedium, color = RmpTokens.Ink)
-                            Text("(${formatTravelEstimate(distanceMiles)})", style = MaterialTheme.typography.bodySmall, color = RmpTokens.InkMuted)
+                            Text("(${formatTravelEstimate(distanceMiles, transitMode)})", style = MaterialTheme.typography.bodySmall, color = RmpTokens.InkMuted)
                             Dot()
                         }
                         Text(restaurant.cuisineLabel, style = MaterialTheme.typography.bodySmall, color = RmpTokens.InkMuted, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f, fill = false))
@@ -1576,15 +1622,13 @@ private fun RmpMap(
 // Detail
 // ---------------------------------------------------------------------------
 
-// ---------------------------------------------------------------------------
-// Detail
-// ---------------------------------------------------------------------------
-
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun RestaurantDetail(
     restaurant: RmpRestaurant,
     favorite: Boolean,
     distanceMiles: Double?,
+    transitMode: TransitMode = TransitMode.WALKING,
     now: Instant,
     reviews: ReviewsState,
     userNote: String = "",
@@ -1638,6 +1682,13 @@ private fun RestaurantDetail(
     }
 
     if (showNavChooser) {
+        val hasCitymapper = remember(context) {
+            context.packageManager.getLaunchIntentForPackage("com.citymapper.app.global") != null
+        }
+        val hasWaze = remember(context) {
+            context.packageManager.getLaunchIntentForPackage("com.waze") != null
+        }
+
         AlertDialog(
             onDismissRequest = { showNavChooser = false },
             title = { Text("Get directions with") },
@@ -1654,26 +1705,30 @@ private fun RestaurantDetail(
                             Text("Google Maps", style = MaterialTheme.typography.titleSmall)
                         }
                     }
-                    Surface(
-                        onClick = { showNavChooser = false; openDirectionsWithApp(context, restaurant, whereItIs, "com.citymapper.app.global") },
-                        shape = RoundedCornerShape(14.dp),
-                        color = RmpTokens.Card,
-                        modifier = Modifier.fillMaxWidth(),
-                    ) {
-                        Row(Modifier.padding(14.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                            Icon(Icons.Rounded.Directions, contentDescription = null, tint = RmpTokens.Accent)
-                            Text("Citymapper", style = MaterialTheme.typography.titleSmall)
+                    if (hasCitymapper) {
+                        Surface(
+                            onClick = { showNavChooser = false; openDirectionsWithApp(context, restaurant, whereItIs, "com.citymapper.app.global") },
+                            shape = RoundedCornerShape(14.dp),
+                            color = RmpTokens.Card,
+                            modifier = Modifier.fillMaxWidth(),
+                        ) {
+                            Row(Modifier.padding(14.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                                Icon(Icons.Rounded.Directions, contentDescription = null, tint = RmpTokens.Accent)
+                                Text("Citymapper", style = MaterialTheme.typography.titleSmall)
+                            }
                         }
                     }
-                    Surface(
-                        onClick = { showNavChooser = false; openDirectionsWithApp(context, restaurant, whereItIs, "com.waze") },
-                        shape = RoundedCornerShape(14.dp),
-                        color = RmpTokens.Card,
-                        modifier = Modifier.fillMaxWidth(),
-                    ) {
-                        Row(Modifier.padding(14.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                            Icon(Icons.Rounded.NearMe, contentDescription = null, tint = RmpTokens.Accent)
-                            Text("Waze", style = MaterialTheme.typography.titleSmall)
+                    if (hasWaze) {
+                        Surface(
+                            onClick = { showNavChooser = false; openDirectionsWithApp(context, restaurant, whereItIs, "com.waze") },
+                            shape = RoundedCornerShape(14.dp),
+                            color = RmpTokens.Card,
+                            modifier = Modifier.fillMaxWidth(),
+                        ) {
+                            Row(Modifier.padding(14.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                                Icon(Icons.Rounded.NearMe, contentDescription = null, tint = RmpTokens.Accent)
+                                Text("Waze", style = MaterialTheme.typography.titleSmall)
+                            }
                         }
                     }
                 }
@@ -1730,7 +1785,7 @@ private fun RestaurantDetail(
                                         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                                             if (distanceMiles != null) {
                                                 Text(formatMiles(distanceMiles), style = MaterialTheme.typography.bodyMedium, color = RmpTokens.InkMuted)
-                                                Text("(${formatTravelEstimate(distanceMiles)})", style = MaterialTheme.typography.bodySmall, color = RmpTokens.InkMuted)
+                                                Text("(${formatTravelEstimate(distanceMiles, transitMode)})", style = MaterialTheme.typography.bodySmall, color = RmpTokens.InkMuted)
                                                 Dot()
                                             }
                                             Text(restaurant.cuisineLabel, style = MaterialTheme.typography.bodyMedium, color = RmpTokens.InkMuted, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f, fill = false))
@@ -1746,10 +1801,13 @@ private fun RestaurantDetail(
                                     }
                                 }
                                 blurb?.let { Text(it, style = MaterialTheme.typography.bodyMedium, color = RmpTokens.InkMuted) }
-                                // The address, right up top: it is the first thing you need.
+                                // The address, right up top: tap for navigation options, long press to copy.
                                 Row(
                                     Modifier.fillMaxWidth().clip(RoundedCornerShape(14.dp)).background(RmpTokens.Paper)
-                                        .clickable { openUrl(context, mapsSearchUrl(restaurant, whereItIs)) }.padding(horizontal = 12.dp, vertical = 10.dp),
+                                        .combinedClickable(
+                                            onClick = { showNavChooser = true },
+                                            onLongClick = { copyAddressToClipboard(context, restaurant, whereItIs) }
+                                        ).padding(horizontal = 12.dp, vertical = 10.dp),
                                     verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp),
                                 ) {
                                     Icon(Icons.Rounded.LocationOn, contentDescription = null, tint = RmpTokens.Accent, modifier = Modifier.size(20.dp))
@@ -1778,42 +1836,44 @@ private fun RestaurantDetail(
                 }
             }
 
-            // Private personal notes card
-            item {
-                DetailCard("My Private Note") {
-                    if (editingNote) {
-                        OutlinedTextField(
-                            value = noteText,
-                            onValueChange = { noteText = it },
-                            placeholder = { Text("Add private notes e.g. favorite order, discount note...") },
-                            modifier = Modifier.fillMaxWidth(),
-                        )
-                        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
-                            TextButton(onClick = { editingNote = false; noteText = userNote }) { Text("Cancel") }
-                            Spacer(Modifier.width(8.dp))
-                            Button(
-                                onClick = {
-                                    editingNote = false
-                                    onSaveNote(noteText)
-                                },
-                                colors = ButtonDefaults.buttonColors(containerColor = RmpTokens.Accent)
-                            ) {
-                                Text("Save Note")
-                            }
-                        }
-                    } else {
-                        Row(
-                            Modifier.fillMaxWidth().clickable { editingNote = true },
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(10.dp),
-                        ) {
-                            Text(
-                                if (userNote.isNotBlank()) userNote else "Tap here to add a private note about this place...",
-                                style = MaterialTheme.typography.bodyMedium,
-                                color = if (userNote.isNotBlank()) RmpTokens.Ink else RmpTokens.InkMuted,
-                                modifier = Modifier.weight(1f),
+            // Private personal notes card: only shown when saved/favorited
+            if (favorite) {
+                item {
+                    DetailCard("My Private Note") {
+                        if (editingNote) {
+                            OutlinedTextField(
+                                value = noteText,
+                                onValueChange = { noteText = it },
+                                placeholder = { Text("Add private notes e.g. favorite order, discount note...") },
+                                modifier = Modifier.fillMaxWidth(),
                             )
-                            Icon(Icons.Rounded.Edit, contentDescription = "Edit note", tint = RmpTokens.Accent, modifier = Modifier.size(18.dp))
+                            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
+                                TextButton(onClick = { editingNote = false; noteText = userNote }) { Text("Cancel") }
+                                Spacer(Modifier.width(8.dp))
+                                Button(
+                                    onClick = {
+                                        editingNote = false
+                                        onSaveNote(noteText)
+                                    },
+                                    colors = ButtonDefaults.buttonColors(containerColor = RmpTokens.Accent)
+                                ) {
+                                    Text("Save Note")
+                                }
+                            }
+                        } else {
+                            Row(
+                                Modifier.fillMaxWidth().clickable { editingNote = true },
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(10.dp),
+                            ) {
+                                Text(
+                                    if (userNote.isNotBlank()) userNote else "Tap here to add a private note about this place...",
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    color = if (userNote.isNotBlank()) RmpTokens.Ink else RmpTokens.InkMuted,
+                                    modifier = Modifier.weight(1f),
+                                )
+                                Icon(Icons.Rounded.Edit, contentDescription = "Edit note", tint = RmpTokens.Accent, modifier = Modifier.size(18.dp))
+                            }
                         }
                     }
                 }
@@ -1885,16 +1945,6 @@ private fun RestaurantDetail(
                     }
                 }
             }
-            item {
-                DetailCard("Location") {
-                    // Where the business is today. The official RMP address stays in
-                    // the dataset for the record but is not what you navigate to.
-                    Text(whereItIs.display(), style = MaterialTheme.typography.bodyMedium, color = RmpTokens.InkMuted)
-                    ContactRow(Icons.Rounded.ContentCopy, "Copy address") { copyAddressToClipboard(context, restaurant, whereItIs) }
-                    ContactRow(Icons.Rounded.Share, "Share restaurant") { shareRestaurantListing(context, restaurant, whereItIs) }
-                    ContactRow(Icons.Rounded.Map, "Open in Google Maps") { openUrl(context, mapsSearchUrl(restaurant, whereItIs)) }
-                }
-            }
             run {
                 item {
                     // Kept named "Actions": AppAcceptanceTest asserts on this exact
@@ -1962,6 +2012,13 @@ private fun RestaurantDetail(
                         Spacer(Modifier.width(6.dp))
                         Text("Call", style = MaterialTheme.typography.labelLarge)
                     }
+                }
+
+                IconButton(
+                    onClick = { shareRestaurantListing(context, restaurant, whereItIs) },
+                    modifier = Modifier.size(44.dp).background(RmpTokens.PaperDeep, RoundedCornerShape(20.dp)),
+                ) {
+                    Icon(Icons.Rounded.Share, contentDescription = "Share", tint = RmpTokens.Ink, modifier = Modifier.size(18.dp))
                 }
             }
         }
@@ -2740,18 +2797,31 @@ private fun formatClock(value: String): String {
 
 private fun formatMiles(miles: Double): String = if (miles < 10) "%.1f mi".format(miles) else "%.0f mi".format(miles)
 
-internal fun formatTravelEstimate(miles: Double): String = when {
-    miles < 0.8 -> {
+internal fun formatTravelEstimate(miles: Double, mode: TransitMode = TransitMode.WALKING): String = when (mode) {
+    TransitMode.WALKING -> {
+        // ~3 mph (20 mins per mile)
         val mins = (miles * 20).roundToInt().coerceAtLeast(1)
-        "🚶 $mins min walk"
+        "🚶 $mins min"
     }
-    miles < 1.5 -> {
-        val mins = (miles * 18).roundToInt()
-        "🚶 $mins min walk"
+    TransitMode.BIKING -> {
+        // ~12 mph (5 mins per mile)
+        val mins = (miles * 5).roundToInt().coerceAtLeast(1)
+        "🚲 $mins min"
     }
-    else -> {
-        val mins = (miles * 3.5).roundToInt().coerceAtLeast(3)
-        "🚗 $mins min drive"
+    TransitMode.SCOOTER -> {
+        // ~15 mph (4 mins per mile)
+        val mins = (miles * 4).roundToInt().coerceAtLeast(1)
+        "🛴 $mins min"
+    }
+    TransitMode.TRANSIT -> {
+        // City subway/bus baseline: 5 min wait/walk + ~4.5 min per mile
+        val mins = (5 + miles * 4.5).roundToInt().coerceAtLeast(5)
+        "🚇 $mins min"
+    }
+    TransitMode.DRIVING -> {
+        // ~25 mph city drive (2.5 - 3.5 mins per mile + 2 min park/traffic)
+        val mins = (2 + miles * 3.5).roundToInt().coerceAtLeast(2)
+        "🚗 $mins min"
     }
 }
 

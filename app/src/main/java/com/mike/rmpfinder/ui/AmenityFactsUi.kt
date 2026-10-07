@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -53,115 +54,69 @@ private data class AmenityFact(
 
 @Composable
 internal fun AmenityFactsContent(restaurant: RmpRestaurant) {
-    val top = listOf(
+    val facts = listOf(
         AmenityFact("Dine-in", Icons.Filled.Restaurant, restaurant.dineIn),
-        AmenityFact("Restroom", Icons.Filled.Wc, restaurant.restroom),
-        AmenityFact("Parking", Icons.Filled.LocalParking, restaurant.hasParking),
-    )
-    val meals = listOf(
+        AmenityFact("Takeout", Icons.Filled.Restaurant, restaurant.takeout),
         AmenityFact("Breakfast", Icons.Filled.BreakfastDining, restaurant.servesBreakfast),
         AmenityFact("Lunch", Icons.Filled.LunchDining, restaurant.servesLunch),
         AmenityFact("Dinner", Icons.Filled.DinnerDining, restaurant.servesDinner),
-    )
-    val access = listOf(
-        AmenityFact("Accessible entrance", Icons.AutoMirrored.Filled.Accessible, restaurant.wheelchairAccessibleEntrance),
-        AmenityFact("Accessible restroom", Icons.AutoMirrored.Filled.Accessible, restaurant.wheelchairAccessibleRestroom),
-        AmenityFact("Accessible seating", Icons.AutoMirrored.Filled.Accessible, restaurant.wheelchairAccessibleSeating),
-        AmenityFact("Accessible parking", Icons.AutoMirrored.Filled.Accessible, restaurant.wheelchairAccessibleParking),
-    )
+        AmenityFact("Entrance", Icons.AutoMirrored.Filled.Accessible, restaurant.wheelchairAccessibleEntrance),
+        AmenityFact("Accessible WC", Icons.AutoMirrored.Filled.Accessible, restaurant.wheelchairAccessibleRestroom),
+        AmenityFact("Accessible seats", Icons.AutoMirrored.Filled.Accessible, restaurant.wheelchairAccessibleSeating),
+        AmenityFact("Restroom", Icons.Filled.Wc, restaurant.restroom),
+        AmenityFact("Parking", Icons.Filled.LocalParking, restaurant.hasParking),
+    ).filter { it.value != null } // Only show confirmed facts to save screen real estate
 
-    Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            top.forEach { fact -> AmenityTile(fact, Modifier.weight(1f)) }
-        }
+    if (facts.isEmpty()) return
 
-        AmenitySectionTitle("Meals")
-        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            meals.forEach { fact -> AmenityTile(fact, Modifier.weight(1f)) }
-        }
-
-        AmenitySectionTitle("Wheelchair access")
-        access.chunked(2).forEach { pair ->
+    // Display as clean, compact chips in two-per-row or wrapped lines
+    Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+        facts.chunked(2).forEach { rowFacts ->
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                pair.forEach { fact -> AmenityTile(fact, Modifier.weight(1f)) }
+                rowFacts.forEach { fact ->
+                    CompactAmenityChip(fact, Modifier.weight(1f))
+                }
+                if (rowFacts.size == 1) {
+                    Spacer(Modifier.weight(1f))
+                }
             }
         }
     }
 }
 
 @Composable
-private fun AmenitySectionTitle(text: String) {
-    Text(
-        text = text,
-        style = MaterialTheme.typography.titleSmall,
-        fontWeight = FontWeight.SemiBold,
-        color = MaterialTheme.colorScheme.onSurface,
-    )
-}
-
-@Composable
-private fun AmenityTile(fact: AmenityFact, modifier: Modifier = Modifier) {
-    val status = amenityStatus(fact.value)
-    val known = status != AmenityStatus.UNKNOWN
-    val iconTint = if (known) {
-        MaterialTheme.colorScheme.onSurface
-    } else {
-        MaterialTheme.colorScheme.onSurface.copy(alpha = 0.32f)
-    }
-    val labelColor = if (known) {
-        MaterialTheme.colorScheme.onSurface
-    } else {
-        MaterialTheme.colorScheme.onSurface.copy(alpha = 0.45f)
-    }
-    val description = if (known) "${fact.label}: ${status.label}" else "${fact.label}: not reported"
+private fun CompactAmenityChip(fact: AmenityFact, modifier: Modifier = Modifier) {
+    val isYes = fact.value == true
+    val bg = if (isYes) Color(0xFFE7F4EA) else Color(0xFFF1F1EF)
+    val textAndIcon = if (isYes) Color(0xFF1B6E32) else Color(0xFF6E6E6A)
+    val symbol = if (isYes) "✓" else "×"
 
     Surface(
         modifier = modifier,
-        shape = RoundedCornerShape(16.dp),
-        color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = if (known) 0.46f else 0.28f),
+        shape = RoundedCornerShape(10.dp),
+        color = bg,
+        contentColor = textAndIcon,
     ) {
-        Column(
-            modifier = Modifier
-                .padding(horizontal = 8.dp, vertical = 9.dp)
-                .semantics(mergeDescendants = true) { contentDescription = description },
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(5.dp),
+        Row(
+            modifier = Modifier.padding(horizontal = 10.dp, vertical = 7.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(6.dp),
         ) {
-            Icon(
-                imageVector = fact.icon,
-                contentDescription = null,
-                tint = iconTint,
-                modifier = Modifier.size(20.dp),
+            Icon(fact.icon, contentDescription = null, modifier = Modifier.size(16.dp), tint = textAndIcon)
+            Text(
+                fact.label,
+                style = MaterialTheme.typography.bodySmall,
+                fontWeight = FontWeight.Medium,
+                color = textAndIcon,
+                modifier = Modifier.weight(1f),
+                maxLines = 1,
             )
             Text(
-                text = fact.label,
-                style = MaterialTheme.typography.labelMedium,
-                color = labelColor,
-                textAlign = TextAlign.Center,
-                maxLines = 2,
+                symbol,
+                style = MaterialTheme.typography.labelSmall,
+                fontWeight = FontWeight.Bold,
+                color = textAndIcon,
             )
-            if (known) {
-                AmenityStatusPill(status)
-            }
         }
     }
-}
-
-@Composable
-private fun AmenityStatusPill(status: AmenityStatus) {
-    val (background, foreground) = when (status) {
-        AmenityStatus.YES -> Color(0xFFE7F4EA) to Color(0xFF257A3E)
-        AmenityStatus.NO -> Color(0xFFF0F0EE) to Color(0xFF666762)
-        AmenityStatus.UNKNOWN -> Color(0xFFF0F0EE) to Color(0xFF666762)
-    }
-    Text(
-        text = "${status.marker} ${status.label}",
-        style = MaterialTheme.typography.labelSmall,
-        fontWeight = FontWeight.SemiBold,
-        color = foreground,
-        modifier = Modifier
-            .clip(RoundedCornerShape(50))
-            .background(background)
-            .padding(horizontal = 8.dp, vertical = 4.dp),
-    )
 }

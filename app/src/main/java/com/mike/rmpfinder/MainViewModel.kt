@@ -34,6 +34,14 @@ data class GeoPoint(val latitude: Double, val longitude: Double, val source: Str
 
 enum class SortOption { DISTANCE, RATING, REVIEWS, ALPHABETICAL }
 
+enum class TransitMode(val label: String, val iconPrefix: String) {
+    WALKING("Walking", "🚶"),
+    BIKING("Biking", "🚲"),
+    SCOOTER("Scooter", "🛴"),
+    TRANSIT("Transit", "🚇"),
+    DRIVING("Car", "🚗"),
+}
+
 data class BrowseFilters(
     val query: String = "",
     val borough: String? = null,
@@ -72,6 +80,8 @@ data class RmpUiState(
     val recentlyViewedKeys: List<String> = emptyList(),
     /** Private saved notes by restaurant key. */
     val savedNotes: Map<String, String> = emptyMap(),
+    /** Preferred transit mode for travel time estimation throughout the app. */
+    val preferredTransit: TransitMode = TransitMode.WALKING,
 )
 
 private data class BaseData(
@@ -92,6 +102,7 @@ private data class UserState(
     val recentSearches: List<String>,
     val recentlyViewed: List<String>,
     val savedNotes: Map<String, String>,
+    val preferredTransit: TransitMode,
 )
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
@@ -141,8 +152,15 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }.getOrDefault(emptyMap())
     )
 
-    private val userState = combine(recentSearches, recentlyViewed, savedNotesState) { recents, viewed, notes ->
-        UserState(recents, viewed, notes)
+    private val preferredTransitState = MutableStateFlow(
+        runCatching {
+            val savedName = prefs.getString(PREF_TRANSIT_MODE, null)
+            TransitMode.entries.firstOrNull { it.name == savedName } ?: TransitMode.WALKING
+        }.getOrDefault(TransitMode.WALKING)
+    )
+
+    private val userState = combine(recentSearches, recentlyViewed, savedNotesState, preferredTransitState) { recents, viewed, notes, transit ->
+        UserState(recents, viewed, notes, transit)
     }
 
     private val baseData = combine(repository.restaurants, repository.favorites, repository.metadata) { restaurants, favorites, metadata ->
@@ -181,6 +199,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             recentSearches = user.recentSearches,
             recentlyViewedKeys = user.recentlyViewed,
             savedNotes = user.savedNotes,
+            preferredTransit = user.preferredTransit,
             allRestaurants = base.restaurants,
             visibleRestaurants = visible,
             favoriteKeys = base.favorites,
@@ -222,6 +241,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         savedNotesState.value = updated
         val serialized = updated.entries.joinToString("\n") { "${it.key}=${it.value.replace("\n", " ")}" }
         prefs.edit().putString(PREF_SAVED_NOTES, serialized).apply()
+    }
+
+    fun setPreferredTransit(mode: TransitMode) {
+        preferredTransitState.value = mode
+        prefs.edit().putString(PREF_TRANSIT_MODE, mode.name).apply()
     }
 
     fun pickRandomOpenRestaurant(): RmpRestaurant? {
@@ -342,6 +366,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         private const val MAX_RECENTS = 6
         private const val PREF_RECENTLY_VIEWED = "recently_viewed"
         private const val PREF_SAVED_NOTES = "saved_notes"
+        private const val PREF_TRANSIT_MODE = "preferred_transit_mode"
         private const val PREF_UPDATE_DISMISSED = "update_dismissed_version"
         val BOROUGHS = listOf("Bronx", "Brooklyn", "Manhattan", "Queens", "Staten Island", "Westchester")
         internal val BOROUGH_ORDER = BOROUGHS.withIndex().associate { it.value to it.index }
