@@ -34,12 +34,12 @@ data class GeoPoint(val latitude: Double, val longitude: Double, val source: Str
 
 enum class SortOption { DISTANCE, RATING, REVIEWS, ALPHABETICAL }
 
-enum class TransitMode(val label: String, val iconPrefix: String) {
-    WALKING("Walking", "🚶"),
-    BIKING("Biking", "🚲"),
-    SCOOTER("Scooter", "🛴"),
-    TRANSIT("Transit", "🚇"),
-    DRIVING("Car", "🚗"),
+enum class TransitMode(val label: String, val iconPrefix: String, val travelModeQuery: String, val actionVerb: String) {
+    WALKING("Walking", "🚶", "walking", "Walk"),
+    BIKING("Biking", "🚲", "bicycling", "Bike"),
+    SCOOTER("Scooter", "🛴", "bicycling", "Scooter"),
+    TRANSIT("Transit", "🚇", "transit", "Transit"),
+    DRIVING("Car", "🚗", "driving", "Drive"),
 }
 
 data class BrowseFilters(
@@ -82,6 +82,8 @@ data class RmpUiState(
     val savedNotes: Map<String, String> = emptyMap(),
     /** Preferred transit mode for travel time estimation throughout the app. */
     val preferredTransit: TransitMode = TransitMode.WALKING,
+    /** Preferred map app package name (null means ask every time). */
+    val preferredMapApp: String? = null,
 )
 
 private data class BaseData(
@@ -103,6 +105,7 @@ private data class UserState(
     val recentlyViewed: List<String>,
     val savedNotes: Map<String, String>,
     val preferredTransit: TransitMode,
+    val preferredMapApp: String?,
 )
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
@@ -159,8 +162,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }.getOrDefault(TransitMode.WALKING)
     )
 
-    private val userState = combine(recentSearches, recentlyViewed, savedNotesState, preferredTransitState) { recents, viewed, notes, transit ->
-        UserState(recents, viewed, notes, transit)
+    private val preferredMapAppState = MutableStateFlow(
+        prefs.getString(PREF_MAP_APP, null)
+    )
+
+    private val userState = combine(recentSearches, recentlyViewed, savedNotesState, preferredTransitState, preferredMapAppState) { recents, viewed, notes, transit, mapApp ->
+        UserState(recents, viewed, notes, transit, mapApp)
     }
 
     private val baseData = combine(repository.restaurants, repository.favorites, repository.metadata) { restaurants, favorites, metadata ->
@@ -200,6 +207,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             recentlyViewedKeys = user.recentlyViewed,
             savedNotes = user.savedNotes,
             preferredTransit = user.preferredTransit,
+            preferredMapApp = user.preferredMapApp,
             allRestaurants = base.restaurants,
             visibleRestaurants = visible,
             favoriteKeys = base.favorites,
@@ -246,6 +254,15 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun setPreferredTransit(mode: TransitMode) {
         preferredTransitState.value = mode
         prefs.edit().putString(PREF_TRANSIT_MODE, mode.name).apply()
+    }
+
+    fun setPreferredMapApp(appPackage: String?) {
+        preferredMapAppState.value = appPackage
+        if (appPackage == null) {
+            prefs.edit().remove(PREF_MAP_APP).apply()
+        } else {
+            prefs.edit().putString(PREF_MAP_APP, appPackage).apply()
+        }
     }
 
     fun pickRandomOpenRestaurant(): RmpRestaurant? {
@@ -367,6 +384,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         private const val PREF_RECENTLY_VIEWED = "recently_viewed"
         private const val PREF_SAVED_NOTES = "saved_notes"
         private const val PREF_TRANSIT_MODE = "preferred_transit_mode"
+        private const val PREF_MAP_APP = "preferred_map_app"
         private const val PREF_UPDATE_DISMISSED = "update_dismissed_version"
         val BOROUGHS = listOf("Bronx", "Brooklyn", "Manhattan", "Queens", "Staten Island", "Westchester")
         internal val BOROUGH_ORDER = BOROUGHS.withIndex().associate { it.value to it.index }
