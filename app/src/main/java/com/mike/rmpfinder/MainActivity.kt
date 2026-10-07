@@ -50,16 +50,26 @@ class MainActivity : ComponentActivity() {
 
     /** Restaurant a widget row asked for; changes again if the app is already open. */
     private var openKey by mutableStateOf<String?>(null)
+    private var initialTab by mutableStateOf<String?>(null)
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
+        handleIntent(intent)
+    }
+
+    private fun handleIntent(intent: Intent?) {
+        if (intent == null) return
         intent.getStringExtra(EXTRA_RMP_KEY)?.let { openKey = it }
+        when (intent.getStringExtra("action_shortcut")) {
+            "open_now" -> viewModel.toggleOpenOnly()
+            "saved" -> initialTab = "saved"
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        openKey = intent.getStringExtra(EXTRA_RMP_KEY)
+        handleIntent(intent)
         MapLibre.getInstance(this)
         mapView = MapView(this)
         mapView.onCreate(savedInstanceState)
@@ -70,6 +80,7 @@ class MainActivity : ComponentActivity() {
                 RmpFinderRoot(
                     viewModel = viewModel,
                     initialKey = openKey,
+                    initialTab = initialTab,
                     mapView = mapView,
                     darkMode = darkMode,
                     onToggleDarkMode = {

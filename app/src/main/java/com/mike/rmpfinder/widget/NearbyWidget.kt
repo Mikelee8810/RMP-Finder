@@ -172,10 +172,6 @@ class NearbyWidget : GlanceAppWidget() {
                             style = TextStyle(color = ColorProvider(CreamMuted), fontSize = 10.sp, fontWeight = FontWeight.Bold),
                         )
                     }
-                    Spacer(GlanceModifier.width(6.dp))
-                    Box(GlanceModifier.background(Butter).cornerRadius(10.dp).padding(horizontal = 8.dp, vertical = 2.dp)) {
-                        Text("10% OFF", style = TextStyle(color = ColorProvider(ButterInk), fontSize = 10.sp, fontWeight = FontWeight.Bold))
-                    }
                 }
 
                 if (spots.isEmpty()) {

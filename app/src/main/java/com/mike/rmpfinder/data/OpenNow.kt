@@ -27,6 +27,14 @@ object OpenNow {
         else -> "Closed now"
     }
 
+    fun isOpen24Hours(restaurant: RmpRestaurant, instant: Instant = Instant.now()): Boolean {
+        if (!isOpen(restaurant, instant)) return false
+        val hours = restaurant.hours ?: return false
+        val now = instant.atZone(ZoneId.of(hours.timezone))
+        val periods = hours.periods(now.dayOfWeek)
+        return periods.size == 1 && periods.single().open == "00:00" && periods.single().close == "24:00"
+    }
+
     private fun minutes(value: String): Int {
         val parts = value.split(':')
         return parts[0].toInt() * 60 + parts[1].toInt()

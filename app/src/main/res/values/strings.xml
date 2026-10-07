@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="widget_description">The closest places open right now with 10% off meals.</string>
+    <string name="widget_description">The closest places open near you right now.</string>
+    <string name="shortcut_open_near_me_short">Open now</string>
+    <string name="shortcut_open_near_me_long">Open near me right now</string>
+    <string name="shortcut_saved_short">Saved</string>
+    <string name="shortcut_saved_long">Saved favorite places</string>
 </resources>

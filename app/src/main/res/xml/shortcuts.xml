@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:shortcutId="open_now"
+        android:enabled="true"
+        android:icon="@mipmap/ic_launcher"
+        android:shortcutShortLabel="@string/shortcut_open_near_me_short"
+        android:shortcutLongLabel="@string/shortcut_open_near_me_long">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="com.mike.rmpfinder"
+            android:targetClass="com.mike.rmpfinder.MainActivity">
+            <extra android:name="action_shortcut" android:value="open_now" />
+        </intent>
+    </shortcut>
+    <shortcut
+        android:shortcutId="saved"
+        android:enabled="true"
+        android:icon="@mipmap/ic_launcher"
+        android:shortcutShortLabel="@string/shortcut_saved_short"
+        android:shortcutLongLabel="@string/shortcut_saved_long">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="com.mike.rmpfinder"
+            android:targetClass="com.mike.rmpfinder.MainActivity">
+            <extra android:name="action_shortcut" android:value="saved" />
+        </intent>
+    </shortcut>
+</shortcuts>

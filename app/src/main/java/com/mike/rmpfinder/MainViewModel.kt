@@ -17,6 +17,7 @@ import com.mike.rmpfinder.reviews.ReviewsState
 import com.mike.rmpfinder.reviews.Rating
 import com.mike.rmpfinder.data.RmpAddress
 import java.time.Instant
+import java.time.ZoneId
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -31,13 +32,21 @@ import kotlinx.coroutines.withContext
 
 data class GeoPoint(val latitude: Double, val longitude: Double, val source: String)
 
+enum class SortOption { DISTANCE, RATING, REVIEWS, ALPHABETICAL }
+
 data class BrowseFilters(
     val query: String = "",
     val borough: String? = null,
     val category: String? = null,
     val openOnly: Boolean = false,
+    val open24HoursOnly: Boolean = false,
     val favoritesOnly: Boolean = false,
     val attentionOnly: Boolean = false,
+    val maxDistanceMiles: Double? = null,
+    val dineInOnly: Boolean = false,
+    val takeoutOnly: Boolean = false,
+    val wheelchairOnly: Boolean = false,
+    val sortOption: SortOption = SortOption.DISTANCE,
     /** Google rating floor, e.g. 4.0 or 4.5. */
     val minRating: Double? = null,
     /** Google price levels 1..4 to keep; empty means any. */
@@ -59,6 +68,10 @@ data class RmpUiState(
     val ratings: Map<String, Rating> = emptyMap(),
     /** The last few things typed into search, newest first. */
     val recentSearches: List<String> = emptyList(),
+    /** Recently viewed restaurant keys, newest first. */
+    val recentlyViewedKeys: List<String> = emptyList(),
+    /** Private saved notes by restaurant key. */
+    val savedNotes: Map<String, String> = emptyMap(),
 )
 
 private data class BaseData(
@@ -73,6 +86,12 @@ private data class Selection(
     val refreshing: Boolean,
     val refreshMessage: String?,
     val appUpdateState: AppUpdateState,
+)
+
+private data class UserState(
+    val recentSearches: List<String>,
+    val recentlyViewed: List<String>,
+    val savedNotes: Map<String, String>,
 )
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
@@ -108,6 +127,24 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    private val recentlyViewed = MutableStateFlow(
+        prefs.getString(PREF_RECENTLY_VIEWED, "").orEmpty().split('\n').filter { it.isNotBlank() }
+    )
+    private val savedNotesState = MutableStateFlow<Map<String, String>>(
+        runCatching {
+            val raw = prefs.getString(PREF_SAVED_NOTES, "").orEmpty()
+            if (raw.isBlank()) emptyMap()
+            else raw.split('\n').filter { it.contains("=") }.associate {
+                val idx = it.indexOf('=')
+                it.substring(0, idx) to it.substring(idx + 1)
+            }
+        }.getOrDefault(emptyMap())
+    )
+
+    private val userState = combine(recentSearches, recentlyViewed, savedNotesState) { recents, viewed, notes ->
+        UserState(recents, viewed, notes)
+    }
+
     private val baseData = combine(repository.restaurants, repository.favorites, repository.metadata) { restaurants, favorites, metadata ->
         BaseData(restaurants, favorites, metadata)
     }
@@ -135,11 +172,15 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
      */
     private val ratings = repository.restaurants.map(CachedReviews::ratings)
 
-    val uiState: StateFlow<RmpUiState> = combine(baseData, selection, clock, ratings, recentSearches) { base, selection, now, ratings, recents ->
+    val uiState: StateFlow<RmpUiState> = combine(
+        baseData, selection, clock, ratings, userState
+    ) { base, selection, now, ratings, user ->
         val (visible, distances) = filterRestaurants(base.restaurants, base.favorites, selection.filters, selection.origin, now, ratings)
         RmpUiState(
             ratings = ratings,
-            recentSearches = recents,
+            recentSearches = user.recentSearches,
+            recentlyViewedKeys = user.recentlyViewed,
+            savedNotes = user.savedNotes,
             allRestaurants = base.restaurants,
             visibleRestaurants = visible,
             favoriteKeys = base.favorites,
@@ -158,11 +199,36 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun setBorough(value: String?) = filters.update { copy(borough = if (borough == value) null else value) }
     fun setCategory(value: String?) = filters.update { copy(category = if (category == value) null else value) }
     fun toggleOpenOnly() = filters.update { copy(openOnly = !openOnly) }
+    fun toggleOpen24HoursOnly() = filters.update { copy(open24HoursOnly = !open24HoursOnly) }
     fun toggleFavoritesOnly() = filters.update { copy(favoritesOnly = !favoritesOnly) }
     fun toggleAttentionOnly() = filters.update { copy(attentionOnly = !attentionOnly) }
+    fun setMaxDistance(miles: Double?) = filters.update { copy(maxDistanceMiles = if (maxDistanceMiles == miles) null else miles) }
+    fun toggleDineInOnly() = filters.update { copy(dineInOnly = !dineInOnly) }
+    fun toggleTakeoutOnly() = filters.update { copy(takeoutOnly = !takeoutOnly) }
+    fun toggleWheelchairOnly() = filters.update { copy(wheelchairOnly = !wheelchairOnly) }
+    fun setSortOption(option: SortOption) = filters.update { copy(sortOption = option) }
     fun setMinRating(value: Double?) = filters.update { copy(minRating = if (minRating == value) null else value) }
     fun togglePriceLevel(level: Int) = filters.update { copy(priceLevels = if (level in priceLevels) priceLevels - level else priceLevels + level) }
     fun clearFilters() { filters.value = BrowseFilters() }
+
+    fun recordRecentlyViewed(rmpKey: String) {
+        val next = (listOf(rmpKey) + recentlyViewed.value.filterNot { it == rmpKey }).take(10)
+        recentlyViewed.value = next
+        prefs.edit().putString(PREF_RECENTLY_VIEWED, next.joinToString("\n")).apply()
+    }
+
+    fun setSavedNote(rmpKey: String, note: String) {
+        val updated = if (note.isBlank()) savedNotesState.value - rmpKey else savedNotesState.value + (rmpKey to note.trim())
+        savedNotesState.value = updated
+        val serialized = updated.entries.joinToString("\n") { "${it.key}=${it.value.replace("\n", " ")}" }
+        prefs.edit().putString(PREF_SAVED_NOTES, serialized).apply()
+    }
+
+    fun pickRandomOpenRestaurant(): RmpRestaurant? {
+        val list = uiState.value.visibleRestaurants.filter { OpenNow.isOpen(it, uiState.value.now) }
+            .ifEmpty { uiState.value.visibleRestaurants }
+        return list.randomOrNull()
+    }
 
     /** Remember what was searched so it can be tapped again next time. */
     fun rememberSearch(raw: String) {
@@ -274,6 +340,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     companion object {
         private const val PREF_RECENTS = "recent_searches"
         private const val MAX_RECENTS = 6
+        private const val PREF_RECENTLY_VIEWED = "recently_viewed"
+        private const val PREF_SAVED_NOTES = "saved_notes"
         private const val PREF_UPDATE_DISMISSED = "update_dismissed_version"
         val BOROUGHS = listOf("Bronx", "Brooklyn", "Manhattan", "Queens", "Staten Island", "Westchester")
         internal val BOROUGH_ORDER = BOROUGHS.withIndex().associate { it.value to it.index }
@@ -299,16 +367,36 @@ internal fun filterRestaurants(
         .filter { filters.borough == null || it.borough == filters.borough }
         .filter { filters.category == null || filters.category in it.cuisineCategories }
         .filter { !filters.openOnly || OpenNow.isOpen(it, now) }
+        .filter { !filters.open24HoursOnly || OpenNow.isOpen24Hours(it, now) }
         .filter { !filters.favoritesOnly || it.rmpKey in favorites }
         .filter { !filters.attentionOnly || it.needsAttention }
+        .filter {
+            if (filters.maxDistanceMiles == null || origin == null) true
+            else (distances[it.rmpKey] ?: Double.MAX_VALUE) <= filters.maxDistanceMiles
+        }
+        .filter { !filters.dineInOnly || it.dineIn == true }
+        .filter { !filters.takeoutOnly || it.takeout == true }
+        .filter { !filters.wheelchairOnly || it.wheelchairAccessibleEntrance == true }
         .filter { filters.minRating == null || (ratings[it.rmpKey]?.rating ?: 0.0) >= filters.minRating }
         .filter { filters.priceLevels.isEmpty() || ratings[it.rmpKey]?.priceLevel in filters.priceLevels }
         .sortedWith(
-            if (origin != null) {
-                compareBy<RmpRestaurant> { distances[it.rmpKey] ?: Double.MAX_VALUE }.thenBy { it.displayName.lowercase() }
-            } else {
-                compareBy<RmpRestaurant> { MainViewModel.BOROUGH_ORDER[it.borough] ?: 99 }.thenBy { it.displayName.lowercase() }
-            },
+            when (filters.sortOption) {
+                SortOption.RATING -> compareByDescending<RmpRestaurant> { ratings[it.rmpKey]?.rating ?: 0.0 }
+                    .thenByDescending { ratings[it.rmpKey]?.ratingCount ?: 0 }
+                    .thenBy { distances[it.rmpKey] ?: Double.MAX_VALUE }
+                SortOption.REVIEWS -> compareByDescending<RmpRestaurant> { ratings[it.rmpKey]?.ratingCount ?: 0 }
+                    .thenByDescending { ratings[it.rmpKey]?.rating ?: 0.0 }
+                    .thenBy { distances[it.rmpKey] ?: Double.MAX_VALUE }
+                SortOption.ALPHABETICAL -> compareBy<RmpRestaurant> { it.displayName.lowercase() }
+                    .thenBy { distances[it.rmpKey] ?: Double.MAX_VALUE }
+                SortOption.DISTANCE -> {
+                    if (origin != null) {
+                        compareBy<RmpRestaurant> { distances[it.rmpKey] ?: Double.MAX_VALUE }.thenBy { it.displayName.lowercase() }
+                    } else {
+                        compareBy<RmpRestaurant> { MainViewModel.BOROUGH_ORDER[it.borough] ?: 99 }.thenBy { it.displayName.lowercase() }
+                    }
+                }
+            }
         )
         .toList()
     return visible to distances
@@ -331,4 +419,7 @@ private fun restaurantSearchText(restaurant: RmpRestaurant): String = buildList 
     add(restaurant.borough)
     add(restaurant.zip)
     addAll(restaurant.cuisineCategories)
+    // Common food item synonyms to match what hungry users search for
+    addAll(listOf("wings", "tacos", "taco", "fries", "burgers", "burger", "coffee", "halal", "gyro", "breakfast", "sandwich", "pizza", "fried chicken"))
 }.joinToString(" ").lowercase()
+
