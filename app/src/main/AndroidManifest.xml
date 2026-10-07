@@ -15,8 +15,21 @@
     -->
     <queries>
         <package android:name="com.google.android.apps.maps" />
+        <package android:name="com.citymapper.app.release" />
         <package android:name="com.citymapper.app.global" />
+        <package android:name="com.thetransitapp.droid" />
+        <package android:name="com.thetransitapp.corp" />
+        <package android:name="com.tranzmate" />
         <package android:name="com.waze" />
+        <package android:name="app.organicmaps" />
+        <package android:name="net.osmand" />
+        <package android:name="net.osmand.plus" />
+        <package android:name="com.here.app.maps" />
+        <package android:name="com.mapquest.android.ace" />
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="geo" />
+        </intent>
         <intent>
             <action android:name="android.intent.action.VIEW" />
             <data android:scheme="https" />

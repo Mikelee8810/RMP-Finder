@@ -54,6 +54,7 @@ data class BrowseFilters(
     val dineInOnly: Boolean = false,
     val takeoutOnly: Boolean = false,
     val wheelchairOnly: Boolean = false,
+    val servesBreakfastOnly: Boolean = false,
     val sortOption: SortOption = SortOption.DISTANCE,
     /** Google rating floor, e.g. 4.0 or 4.5. */
     val minRating: Double? = null,
@@ -233,6 +234,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun toggleDineInOnly() = filters.update { copy(dineInOnly = !dineInOnly) }
     fun toggleTakeoutOnly() = filters.update { copy(takeoutOnly = !takeoutOnly) }
     fun toggleWheelchairOnly() = filters.update { copy(wheelchairOnly = !wheelchairOnly) }
+    fun toggleServesBreakfastOnly() = filters.update { copy(servesBreakfastOnly = !servesBreakfastOnly) }
     fun setSortOption(option: SortOption) = filters.update { copy(sortOption = option) }
     fun setMinRating(value: Double?) = filters.update { copy(minRating = if (minRating == value) null else value) }
     fun togglePriceLevel(level: Int) = filters.update { copy(priceLevels = if (level in priceLevels) priceLevels - level else priceLevels + level) }
@@ -420,6 +422,7 @@ internal fun filterRestaurants(
         .filter { !filters.dineInOnly || it.dineIn == true }
         .filter { !filters.takeoutOnly || it.takeout == true }
         .filter { !filters.wheelchairOnly || it.wheelchairAccessibleEntrance == true }
+        .filter { !filters.servesBreakfastOnly || it.servesBreakfast == true }
         .filter { filters.minRating == null || (ratings[it.rmpKey]?.rating ?: 0.0) >= filters.minRating }
         .filter { filters.priceLevels.isEmpty() || ratings[it.rmpKey]?.priceLevel in filters.priceLevels }
         .sortedWith(

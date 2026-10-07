@@ -8,6 +8,8 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.content.pm.ResolveInfo
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas as AndroidCanvas
@@ -526,6 +528,7 @@ private fun HomeScreen(
                             if (filters.dineInOnly) "dine" else null,
                             if (filters.takeoutOnly) "takeout" else null,
                             if (filters.wheelchairOnly) "wheel" else null,
+                            if (filters.servesBreakfastOnly) "bfast" else null,
                             if (filters.priceLevels.isNotEmpty()) "price" else null,
                         ).size
 
@@ -612,7 +615,7 @@ private fun HomeScreen(
                                 horizontalArrangement = Arrangement.spacedBy(6.dp),
                             ) {
                                 FilterChipPill(selected = filters.maxDistanceMiles == null, label = "Any Distance", onClick = { viewModel.setMaxDistance(null) })
-                                FilterChipPill(selected = filters.maxDistanceMiles == 1.0, label = "< 1 mi (Walk)", onClick = { viewModel.setMaxDistance(1.0) })
+                                FilterChipPill(selected = filters.maxDistanceMiles == 1.0, label = "< 1 mi (${state.preferredTransit.actionVerb})", onClick = { viewModel.setMaxDistance(1.0) })
                                 FilterChipPill(selected = filters.maxDistanceMiles == 3.0, label = "< 3 mi", onClick = { viewModel.setMaxDistance(3.0) })
                                 FilterChipPill(selected = filters.maxDistanceMiles == 5.0, label = "< 5 mi", onClick = { viewModel.setMaxDistance(5.0) })
                             }
@@ -639,6 +642,7 @@ private fun HomeScreen(
                                 FilterChipPill(selected = filters.dineInOnly, label = "Dine-in", onClick = viewModel::toggleDineInOnly)
                                 FilterChipPill(selected = filters.takeoutOnly, label = "Takeout", onClick = viewModel::toggleTakeoutOnly)
                                 FilterChipPill(selected = filters.wheelchairOnly, label = "Wheelchair accessible", onClick = viewModel::toggleWheelchairOnly)
+                                FilterChipPill(selected = filters.servesBreakfastOnly, label = "Serves breakfast", onClick = viewModel::toggleServesBreakfastOnly)
                             }
 
                             // Preferred Transit
@@ -1710,64 +1714,27 @@ private fun RestaurantDetail(
     }
 
     if (showNavChooser) {
-        val hasCitymapper = remember(context) {
-            context.packageManager.getLaunchIntentForPackage(CITYMAPPER_PACKAGE) != null
-        }
-        val hasWaze = remember(context) {
-            context.packageManager.getLaunchIntentForPackage(WAZE_PACKAGE) != null
-        }
+        val installedNavApps = remember(context) { detectInstalledNavApps(context) }
 
         AlertDialog(
             onDismissRequest = { showNavChooser = false },
             title = { Text("Get directions with") },
             text = {
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Surface(
-                        onClick = {
-                            if (rememberMapChoice) onSetPreferredMapApp(GOOGLE_MAPS_PACKAGE)
-                            showNavChooser = false
-                            openDirectionsWithApp(context, restaurant, whereItIs, GOOGLE_MAPS_PACKAGE, transitMode)
-                        },
-                        shape = RoundedCornerShape(14.dp),
-                        color = RmpTokens.Card,
-                        modifier = Modifier.fillMaxWidth(),
-                    ) {
-                        Row(Modifier.padding(14.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                            Icon(Icons.Rounded.Map, contentDescription = null, tint = RmpTokens.Accent)
-                            Text("Google Maps", style = MaterialTheme.typography.titleSmall)
-                        }
-                    }
-                    if (hasCitymapper) {
+                    installedNavApps.forEach { app ->
                         Surface(
                             onClick = {
-                                if (rememberMapChoice) onSetPreferredMapApp(CITYMAPPER_PACKAGE)
+                                if (rememberMapChoice) onSetPreferredMapApp(app.packageName)
                                 showNavChooser = false
-                                openDirectionsWithApp(context, restaurant, whereItIs, CITYMAPPER_PACKAGE, transitMode)
+                                openDirectionsWithApp(context, restaurant, whereItIs, app.packageName, transitMode)
                             },
                             shape = RoundedCornerShape(14.dp),
                             color = RmpTokens.Card,
                             modifier = Modifier.fillMaxWidth(),
                         ) {
                             Row(Modifier.padding(14.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                                Icon(Icons.Rounded.Directions, contentDescription = null, tint = RmpTokens.Accent)
-                                Text("Citymapper", style = MaterialTheme.typography.titleSmall)
-                            }
-                        }
-                    }
-                    if (hasWaze) {
-                        Surface(
-                            onClick = {
-                                if (rememberMapChoice) onSetPreferredMapApp(WAZE_PACKAGE)
-                                showNavChooser = false
-                                openDirectionsWithApp(context, restaurant, whereItIs, WAZE_PACKAGE, transitMode)
-                            },
-                            shape = RoundedCornerShape(14.dp),
-                            color = RmpTokens.Card,
-                            modifier = Modifier.fillMaxWidth(),
-                        ) {
-                            Row(Modifier.padding(14.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                                Icon(Icons.Rounded.NearMe, contentDescription = null, tint = RmpTokens.Accent)
-                                Text("Waze", style = MaterialTheme.typography.titleSmall)
+                                Icon(app.icon, contentDescription = null, tint = RmpTokens.Accent)
+                                Text(app.label, style = MaterialTheme.typography.titleSmall)
                             }
                         }
                     }
@@ -2244,8 +2211,7 @@ private fun InfoScreen(
 ) {
     val context = LocalContext.current
     val updatedAt = state.metadata[RmpRepository.KEY_GENERATED_AT]?.take(10)
-    val hasCitymapper = remember(context) { context.packageManager.getLaunchIntentForPackage(CITYMAPPER_PACKAGE) != null }
-    val hasWaze = remember(context) { context.packageManager.getLaunchIntentForPackage(WAZE_PACKAGE) != null }
+    val installedNavApps = remember(context) { detectInstalledNavApps(context) }
 
     WarmGround(modifier) { LazyColumn(
         Modifier.fillMaxSize(),
@@ -2272,13 +2238,29 @@ private fun InfoScreen(
 
                 Hairline(Modifier.padding(vertical = 4.dp))
 
-                Text("Default navigation app", style = MaterialTheme.typography.titleSmall)
+                Row(
+                    Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                ) {
+                    Text("Default navigation app", style = MaterialTheme.typography.titleSmall)
+                    if (state.preferredMapApp != null) {
+                        Text(
+                            "Reset",
+                            style = MaterialTheme.typography.labelMedium,
+                            color = RmpTokens.Accent,
+                            modifier = Modifier
+                                .clip(RoundedCornerShape(6.dp))
+                                .clickable { onSetPreferredMapApp(null) }
+                                .padding(horizontal = 6.dp, vertical = 2.dp),
+                        )
+                    }
+                }
                 Text(
-                    when (state.preferredMapApp) {
-                        GOOGLE_MAPS_PACKAGE -> "Currently set to Google Maps."
-                        CITYMAPPER_PACKAGE -> "Currently set to Citymapper."
-                        WAZE_PACKAGE -> "Currently set to Waze."
-                        else -> "Currently asks every time."
+                    if (state.preferredMapApp == null) {
+                        "Currently asks every time."
+                    } else {
+                        "Currently set to ${getNavAppLabel(state.preferredMapApp)}."
                     },
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -2292,23 +2274,11 @@ private fun InfoScreen(
                         label = "Always Ask",
                         onClick = { onSetPreferredMapApp(null) },
                     )
-                    FilterChipPill(
-                        selected = state.preferredMapApp == GOOGLE_MAPS_PACKAGE,
-                        label = "Google Maps",
-                        onClick = { onSetPreferredMapApp(GOOGLE_MAPS_PACKAGE) },
-                    )
-                    if (hasCitymapper) {
+                    installedNavApps.forEach { app ->
                         FilterChipPill(
-                            selected = state.preferredMapApp == CITYMAPPER_PACKAGE,
-                            label = "Citymapper",
-                            onClick = { onSetPreferredMapApp(CITYMAPPER_PACKAGE) },
-                        )
-                    }
-                    if (hasWaze) {
-                        FilterChipPill(
-                            selected = state.preferredMapApp == WAZE_PACKAGE,
-                            label = "Waze",
-                            onClick = { onSetPreferredMapApp(WAZE_PACKAGE) },
+                            selected = state.preferredMapApp == app.packageName,
+                            label = app.label,
+                            onClick = { onSetPreferredMapApp(app.packageName) },
                         )
                     }
                 }
@@ -2988,23 +2958,111 @@ private fun shareRestaurantListing(context: Context, restaurant: RmpRestaurant, 
     context.startActivity(shareIntent)
 }
 
+// ---------------------------------------------------------------------------
+// Navigation & Transit App Dispatch
+// ---------------------------------------------------------------------------
+
+internal data class NavAppInfo(
+    val packageName: String,
+    val label: String,
+    val icon: ImageVector,
+)
+
 private const val GOOGLE_MAPS_PACKAGE = "com.google.android.apps.maps"
-private const val CITYMAPPER_PACKAGE = "com.citymapper.app.global"
-private const val WAZE_PACKAGE = "com.waze"
+
+internal fun detectInstalledNavApps(context: Context): List<NavAppInfo> {
+    val pm = context.packageManager
+    val result = mutableListOf<NavAppInfo>()
+    val seenPackages = mutableSetOf<String>()
+
+    // Priority curated transit and navigation apps
+    val curated = listOf(
+        NavAppInfo("com.google.android.apps.maps", "Google Maps", Icons.Rounded.Map),
+        NavAppInfo("com.citymapper.app.release", "Citymapper", Icons.Rounded.Directions),
+        NavAppInfo("com.citymapper.app.global", "Citymapper", Icons.Rounded.Directions),
+        NavAppInfo("com.thetransitapp.droid", "Transit", Icons.Rounded.DirectionsSubway),
+        NavAppInfo("com.thetransitapp.corp", "Transit", Icons.Rounded.DirectionsSubway),
+        NavAppInfo("com.tranzmate", "Moovit", Icons.Rounded.DirectionsSubway),
+        NavAppInfo("com.waze", "Waze", Icons.Rounded.NearMe),
+        NavAppInfo("app.organicmaps", "Organic Maps", Icons.Rounded.Map),
+        NavAppInfo("net.osmand", "OsmAnd", Icons.Rounded.Map),
+        NavAppInfo("net.osmand.plus", "OsmAnd+", Icons.Rounded.Map),
+        NavAppInfo("com.here.app.maps", "HERE WeGo", Icons.Rounded.Map),
+        NavAppInfo("com.mapquest.android.ace", "MapQuest", Icons.Rounded.Map),
+    )
+
+    for (app in curated) {
+        if (app.packageName == GOOGLE_MAPS_PACKAGE || pm.getLaunchIntentForPackage(app.packageName) != null) {
+            if (seenPackages.add(app.packageName)) {
+                result.add(app)
+            }
+        }
+    }
+
+    // Dynamic discovery of any other geo-handling navigation apps installed
+    try {
+        val geoIntent = Intent(Intent.ACTION_VIEW, Uri.parse("geo:40.7128,-74.0060?q=restaurant"))
+        val resolveInfos: List<ResolveInfo> = pm.queryIntentActivities(geoIntent, PackageManager.MATCH_DEFAULT_ONLY)
+        for (i in 0 until resolveInfos.size) {
+            val info = resolveInfos[i]
+            val pkg = info.activityInfo.packageName
+            if (pkg !in seenPackages && pm.getLaunchIntentForPackage(pkg) != null) {
+                val appLabel = info.loadLabel(pm).toString().takeIf { it.isNotBlank() } ?: pkg
+                seenPackages.add(pkg)
+                result.add(NavAppInfo(pkg, appLabel, Icons.Rounded.Map))
+            }
+        }
+    } catch (_: Exception) {}
+
+    return result
+}
+
+internal fun getNavAppLabel(packageName: String?): String = when (packageName) {
+    "com.google.android.apps.maps" -> "Google Maps"
+    "com.citymapper.app.release", "com.citymapper.app.global" -> "Citymapper"
+    "com.thetransitapp.droid", "com.thetransitapp.corp" -> "Transit"
+    "com.tranzmate" -> "Moovit"
+    "com.waze" -> "Waze"
+    "app.organicmaps" -> "Organic Maps"
+    "net.osmand", "net.osmand.plus" -> "OsmAnd"
+    "com.here.app.maps" -> "HERE WeGo"
+    "com.mapquest.android.ace" -> "MapQuest"
+    null -> "Always Ask"
+    else -> packageName
+}
 
 private fun openDirectionsWithApp(context: Context, restaurant: RmpRestaurant, address: RmpAddress, appPackage: String?, transitMode: TransitMode = TransitMode.TRANSIT) {
     val travelMode = transitMode.travelModeQuery
+    val encodedName = URLEncoder.encode(restaurant.displayName, StandardCharsets.UTF_8.toString())
+    val encodedAddress = URLEncoder.encode(address.display(), StandardCharsets.UTF_8.toString())
+    val lat = restaurant.latitude
+    val lon = restaurant.longitude
+
     when (appPackage) {
-        CITYMAPPER_PACKAGE -> {
-            val encodedQuery = URLEncoder.encode("${restaurant.displayName} ${address.display()}", StandardCharsets.UTF_8.toString())
-            val uri = Uri.parse("citymapper://directions?endaddress=$encodedQuery")
-            val intent = Intent(Intent.ACTION_VIEW, uri).setPackage(CITYMAPPER_PACKAGE)
+        "com.citymapper.app.release", "com.citymapper.app.global" -> {
+            val uri = Uri.parse("citymapper://directions?endname=$encodedName&endaddress=$encodedAddress&endcoord=$lat,$lon")
+            val intent = Intent(Intent.ACTION_VIEW, uri).apply {
+                if (appPackage != null) setPackage(appPackage)
+            }
             if (startActivitySafely(context, intent)) return
         }
-        WAZE_PACKAGE -> {
-            val encodedQuery = URLEncoder.encode(address.display(), StandardCharsets.UTF_8.toString())
-            val uri = Uri.parse("waze://?q=$encodedQuery&navigate=yes")
-            val intent = Intent(Intent.ACTION_VIEW, uri).setPackage(WAZE_PACKAGE)
+        "com.thetransitapp.droid", "com.thetransitapp.corp" -> {
+            val transitUri = Uri.parse("transit://directions?to=$lat,$lon")
+            val intent = Intent(Intent.ACTION_VIEW, transitUri).apply {
+                if (appPackage != null) setPackage(appPackage)
+            }
+            if (startActivitySafely(context, intent)) return
+        }
+        "com.tranzmate" -> {
+            val moovitUri = Uri.parse("moovit://directions?dest_lat=$lat&dest_lon=$lon&dest_name=$encodedName")
+            val intent = Intent(Intent.ACTION_VIEW, moovitUri).apply {
+                setPackage("com.tranzmate")
+            }
+            if (startActivitySafely(context, intent)) return
+        }
+        "com.waze" -> {
+            val wazeUri = Uri.parse("waze://?ll=$lat,$lon&navigate=yes")
+            val intent = Intent(Intent.ACTION_VIEW, wazeUri).setPackage("com.waze")
             if (startActivitySafely(context, intent)) return
         }
         GOOGLE_MAPS_PACKAGE -> {
@@ -3014,13 +3072,19 @@ private fun openDirectionsWithApp(context: Context, restaurant: RmpRestaurant, a
         }
         else -> {
             if (appPackage != null) {
+                // Try geo URI with target package first
+                val geoUri = Uri.parse("geo:$lat,$lon?q=$lat,$lon($encodedName)")
+                val geoIntent = Intent(Intent.ACTION_VIEW, geoUri).setPackage(appPackage)
+                if (startActivitySafely(context, geoIntent)) return
+
+                // Secondary try: web directions URL with target package
                 val uri = Uri.parse(CachedReviews.mapsDirectionsUrl(restaurant, address, travelMode))
                 val intent = Intent(Intent.ACTION_VIEW, uri).setPackage(appPackage)
                 if (startActivitySafely(context, intent)) return
             }
         }
     }
-    // Fallback: general view intent chooser or Google Maps directions URL
+    // Fallback: Google Maps directions URL or browser search
     val fallbackUri = Uri.parse(CachedReviews.mapsDirectionsUrl(restaurant, address, travelMode))
     val generalIntent = Intent(Intent.ACTION_VIEW, fallbackUri)
     if (!startActivitySafely(context, generalIntent)) {

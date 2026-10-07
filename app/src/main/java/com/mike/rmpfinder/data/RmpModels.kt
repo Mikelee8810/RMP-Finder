@@ -129,7 +129,7 @@ data class RmpRestaurant(
         add("Dominican", "caridad", "el valle", "nuevo valle", "mofongo", "el capri", "el nuevo capri", "lebron restaurant", "andy's restaurant", "nomas restaurant", "caribe restaurant")
         add("Peruvian", "rosa's steakhouse")
         add("Puerto Rican", "k & p lounge")
-        add("Breakfast & Diner", "ihop", "diner", "breakfast", "8 bit bites", "8-bit bites", "bites on valentine", "lebron restaurant", "peter's grill")
+        add("Breakfast & Diner", "ihop", "diner", "breakfast", "8 bit bites", "8-bit bites", "bites on valentine", "lebron restaurant", "peter's grill", "dunkin", "mcdonald", "burger king")
         add("Korean Fusion", "memphis seoul")
         add("Soul Food", "a daughter and two sons", "love & soul food", "k & p lounge")
         add("American", "a daughter and two sons", "love & soul food", "8 bit bites", "8-bit bites", "more than fries", "sapoara restaurant", "peter's grill", "k & p lounge")
