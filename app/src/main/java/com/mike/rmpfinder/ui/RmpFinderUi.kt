@@ -109,14 +109,21 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mike.rmpfinder.BuildConfig
+import com.mike.rmpfinder.GeoPoint
 import com.mike.rmpfinder.MainViewModel
 import com.mike.rmpfinder.RmpUiState
 import com.mike.rmpfinder.data.OpenNow
 import com.mike.rmpfinder.data.RmpAddress
 import com.mike.rmpfinder.data.RmpRepository
 import com.mike.rmpfinder.data.RmpRestaurant
+import com.mike.rmpfinder.data.RouteEta
+import com.mike.rmpfinder.data.RouteEtaResolver
 import com.mike.rmpfinder.data.TimePeriod
 import com.mike.rmpfinder.data.WeeklyHours
+import androidx.compose.material.icons.automirrored.rounded.DirectionsBike
+import androidx.compose.material.icons.automirrored.rounded.DirectionsWalk
+import androidx.compose.material.icons.automirrored.rounded.MenuBook
+import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import com.mike.rmpfinder.update.AppUpdateChecker
 import com.mike.rmpfinder.update.AppUpdateState
 import com.mike.rmpfinder.reviews.CachedReviews
@@ -284,6 +291,7 @@ fun RmpFinderRoot(
             restaurant = selected,
             favorite = selected.rmpKey in state.favoriteKeys,
             distanceMiles = state.distances[selected.rmpKey],
+            origin = state.origin,
             transitMode = state.preferredTransit,
             preferredMapApp = state.preferredMapApp,
             onSetPreferredMapApp = viewModel::setPreferredMapApp,
@@ -712,10 +720,10 @@ private fun HomeScreen(
                 SectionHeader(
                     title = when {
                         filters.query.isNotBlank() -> "Results"
-                        filters.category != null -> filters.category!!
+                        filters.category != null -> filters.category
                         filters.favoritesOnly -> "Saved"
                         filters.openOnly -> "Open now"
-                        filters.borough != null -> filters.borough!!
+                        filters.borough != null -> filters.borough
                         else -> "All restaurants"
                     },
                     trailing = if (filtersActive) "Reset" else "${state.visibleRestaurants.size} places",
@@ -1649,6 +1657,7 @@ private fun RestaurantDetail(
     restaurant: RmpRestaurant,
     favorite: Boolean,
     distanceMiles: Double?,
+    origin: GeoPoint? = null,
     transitMode: TransitMode = TransitMode.WALKING,
     preferredMapApp: String? = null,
     onSetPreferredMapApp: (String?) -> Unit = {},
@@ -1670,10 +1679,26 @@ private fun RestaurantDetail(
     var rememberMapChoice by remember { mutableStateOf(false) }
     var editingNote by remember { mutableStateOf(false) }
     var noteText by remember(userNote) { mutableStateOf(userNote) }
+    var selectedTransitMode by remember(transitMode) { mutableStateOf(transitMode) }
+    var liveRouteEta by remember(restaurant.rmpKey, origin, selectedTransitMode) { mutableStateOf<RouteEta?>(null) }
+
+    LaunchedEffect(restaurant.rmpKey, origin, selectedTransitMode) {
+        if (origin != null) {
+            liveRouteEta = RouteEtaResolver.resolveEta(
+                originLat = origin.latitude,
+                originLon = origin.longitude,
+                destLat = restaurant.latitude,
+                destLon = restaurant.longitude,
+                mode = selectedTransitMode,
+            )
+        } else {
+            liveRouteEta = null
+        }
+    }
 
     fun triggerDirections() {
         if (preferredMapApp != null) {
-            openDirectionsWithApp(context, restaurant, whereItIs, preferredMapApp, transitMode)
+            openDirectionsWithApp(context, restaurant, whereItIs, preferredMapApp, selectedTransitMode)
         } else {
             showNavChooser = true
         }
@@ -1726,7 +1751,7 @@ private fun RestaurantDetail(
                             onClick = {
                                 if (rememberMapChoice) onSetPreferredMapApp(app.packageName)
                                 showNavChooser = false
-                                openDirectionsWithApp(context, restaurant, whereItIs, app.packageName, transitMode)
+                                openDirectionsWithApp(context, restaurant, whereItIs, app.packageName, selectedTransitMode)
                             },
                             shape = RoundedCornerShape(14.dp),
                             color = RmpTokens.Card,
@@ -1803,9 +1828,12 @@ private fun RestaurantDetail(
                                     Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
                                         Text(restaurant.displayName, style = MaterialTheme.typography.headlineSmall, maxLines = 2, overflow = TextOverflow.Ellipsis)
                                         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                                            if (distanceMiles != null) {
-                                                Text(formatMiles(distanceMiles), style = MaterialTheme.typography.bodyMedium, color = RmpTokens.InkMuted)
-                                                Text("(${formatTravelEstimate(distanceMiles, transitMode)})", style = MaterialTheme.typography.bodySmall, color = RmpTokens.InkMuted)
+                                            val activeEta = liveRouteEta
+                                            val displayMiles = activeEta?.distanceMiles ?: distanceMiles
+                                            if (displayMiles != null) {
+                                                Text(formatMiles(displayMiles), style = MaterialTheme.typography.bodyMedium, color = RmpTokens.InkMuted)
+                                                val etaLabel = activeEta?.formatted(selectedTransitMode) ?: formatTravelEstimate(displayMiles, selectedTransitMode)
+                                                Text("($etaLabel)", style = MaterialTheme.typography.bodySmall, color = if (activeEta?.isLiveStreetRoute == true) RmpTokens.Accent else RmpTokens.InkMuted)
                                                 Dot()
                                             }
                                             Text(restaurant.cuisineLabel, style = MaterialTheme.typography.bodyMedium, color = RmpTokens.InkMuted, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f, fill = false))
@@ -1841,6 +1869,24 @@ private fun RestaurantDetail(
                                     if (availability != null) Tag(availability.long, availability.tone)
                                     if (restaurant.hoursStatus == "conflicting") Tag("Conflicting hours", Tone.WARN)
                                 }
+                                Row(
+                                    Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()),
+                                    horizontalArrangement = Arrangement.spacedBy(6.dp),
+                                ) {
+                                    listOf(
+                                        TransitMode.WALKING,
+                                        TransitMode.BIKING,
+                                        TransitMode.SCOOTER,
+                                        TransitMode.TRANSIT,
+                                        TransitMode.DRIVING,
+                                    ).forEach { mode ->
+                                        FilterChipPill(
+                                            selected = selectedTransitMode == mode,
+                                            label = "${mode.iconPrefix} ${mode.label}",
+                                            onClick = { selectedTransitMode = mode },
+                                        )
+                                    }
+                                }
                                 Hairline(Modifier.padding(vertical = 4.dp))
                                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                                     QuickAction(
@@ -1850,9 +1896,9 @@ private fun RestaurantDetail(
                                         primary = true,
                                     ) { triggerDirections() }
 
-                                    val transitActionIcon = when (transitMode) {
-                                        TransitMode.WALKING -> Icons.Rounded.DirectionsWalk
-                                        TransitMode.BIKING -> Icons.Rounded.DirectionsBike
+                                    val transitActionIcon = when (selectedTransitMode) {
+                                        TransitMode.WALKING -> Icons.AutoMirrored.Rounded.DirectionsWalk
+                                        TransitMode.BIKING -> Icons.AutoMirrored.Rounded.DirectionsBike
                                         TransitMode.SCOOTER -> Icons.Rounded.ElectricScooter
                                         TransitMode.TRANSIT -> Icons.Rounded.DirectionsSubway
                                         TransitMode.DRIVING -> Icons.Rounded.DirectionsCar
@@ -1860,18 +1906,18 @@ private fun RestaurantDetail(
                                     QuickAction(
                                         Modifier.weight(1f),
                                         transitActionIcon,
-                                        transitMode.actionVerb,
+                                        selectedTransitMode.actionVerb,
                                     ) {
                                         if (preferredMapApp != null) {
-                                            openDirectionsWithApp(context, restaurant, whereItIs, preferredMapApp, transitMode)
+                                            openDirectionsWithApp(context, restaurant, whereItIs, preferredMapApp, selectedTransitMode)
                                         } else {
-                                            openDirections(context, restaurant, whereItIs, transitMode.travelModeQuery)
+                                            openDirections(context, restaurant, whereItIs, selectedTransitMode.travelModeQuery)
                                         }
                                     }
 
                                     restaurant.phone?.let { QuickAction(Modifier.weight(1f), Icons.Rounded.Call, "Call") { showCallConfirm = true } }
                                     (restaurant.menuUrl ?: restaurant.website)?.let { url ->
-                                        QuickAction(Modifier.weight(1f), if (restaurant.menuUrl != null) Icons.Rounded.MenuBook else Icons.Rounded.Language, if (restaurant.menuUrl != null) "Menu" else "Site") { openUrl(context, url) }
+                                        QuickAction(Modifier.weight(1f), if (restaurant.menuUrl != null) Icons.AutoMirrored.Rounded.MenuBook else Icons.Rounded.Language, if (restaurant.menuUrl != null) "Menu" else "Site") { openUrl(context, url) }
                                     }
                                 }
                             }
@@ -2910,32 +2956,17 @@ private fun formatClock(value: String): String {
 
 private fun formatMiles(miles: Double): String = if (miles < 10) "%.1f mi".format(miles) else "%.0f mi".format(miles)
 
-internal fun formatTravelEstimate(miles: Double, mode: TransitMode = TransitMode.WALKING): String = when (mode) {
-    TransitMode.WALKING -> {
-        // ~3 mph (20 mins per mile)
-        val mins = (miles * 20).roundToInt().coerceAtLeast(1)
-        "🚶 $mins min"
+internal fun formatTravelEstimate(miles: Double, mode: TransitMode = TransitMode.WALKING): String {
+    val streetFactor = if (mode == TransitMode.DRIVING) 1.35 else 1.30
+    val estimatedStreetMiles = miles * streetFactor
+    val mins = when (mode) {
+        TransitMode.WALKING -> (estimatedStreetMiles * 22.0).roundToInt().coerceAtLeast(1)
+        TransitMode.BIKING -> (estimatedStreetMiles * 6.0).roundToInt().coerceAtLeast(1)
+        TransitMode.SCOOTER -> (estimatedStreetMiles * 5.0).roundToInt().coerceAtLeast(1)
+        TransitMode.TRANSIT -> (7.0 + miles * 6.0).roundToInt().coerceAtLeast(5)
+        TransitMode.DRIVING -> (4.0 + estimatedStreetMiles * 5.0).roundToInt().coerceAtLeast(3)
     }
-    TransitMode.BIKING -> {
-        // ~12 mph (5 mins per mile)
-        val mins = (miles * 5).roundToInt().coerceAtLeast(1)
-        "🚲 $mins min"
-    }
-    TransitMode.SCOOTER -> {
-        // ~15 mph (4 mins per mile)
-        val mins = (miles * 4).roundToInt().coerceAtLeast(1)
-        "🛴 $mins min"
-    }
-    TransitMode.TRANSIT -> {
-        // City subway/bus baseline: 5 min wait/walk + ~4.5 min per mile
-        val mins = (5 + miles * 4.5).roundToInt().coerceAtLeast(5)
-        "🚇 $mins min"
-    }
-    TransitMode.DRIVING -> {
-        // ~25 mph city drive (2.5 - 3.5 mins per mile + 2 min park/traffic)
-        val mins = (2 + miles * 3.5).roundToInt().coerceAtLeast(2)
-        "🚗 $mins min"
-    }
+    return "${mode.iconPrefix} $mins min"
 }
 
 private fun copyAddressToClipboard(context: Context, restaurant: RmpRestaurant, address: RmpAddress) {
