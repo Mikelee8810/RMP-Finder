@@ -1,9 +1,9 @@
 {
-  "datasetVersion": 35,
+  "datasetVersion": 36,
   "schemaVersion": 1,
-  "generatedAt": "2026-11-06T11:45:08-05:00",
+  "generatedAt": "2026-11-17T13:33:10-05:00",
   "recordCount": 240,
-  "sha256": "6f853418e3cb9d2f0a7ddbe939852ca0a251a38ede84a9a8454df9e4caf9f8ae",
+  "sha256": "bf49ba05aec804ff78a8ac0361287d155578b2be60ddd71eec4c0d2dda5f9b1a",
   "datasetUrl": "https://raw.githubusercontent.com/Mikelee8810/RMP-Finder/main/data/restaurants.json",
   "minimumAppVersion": 10208,
   "sourceRevision": null,
